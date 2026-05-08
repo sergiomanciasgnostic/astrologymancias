@@ -15503,8 +15503,61 @@ window._LOCO_TRANSITO = {
   desc: 'Tu edad marca un umbral. Las decenas son los grandes momentos de reinicio — no de vacío, sino de potencial puro antes de que tome nueva forma. Este año eres el Loco: el que está en el borde, con todo lo que fue y nada de lo que será todavía definido. Tu energía este año no cabe en los moldes anteriores. Lo que viene no puede ser predicho porque todavía no tiene forma. La única manera de cruzar este umbral es con la fe del que da el siguiente paso aunque el camino no sea visible todavía.'
 };
 
+// ══════════════════════════════════════════════════════════════════
+// ARCANOS MAYORES EN TRÁNSITO (1-9)
+// Aparecen cuando ambos dígitos de la edad son iguales (11, 22, 33, 44, 55, 66, 77, 88, 99)
+// Son independientes del mazo del Arcano del Año — pueden tener otra imagen y otro texto
+// ══════════════════════════════════════════════════════════════════
+window._ARCANOS_MAYOR_TRANSITO = {
+  1: {
+    nombre: 'El Mago',
+    img: 'https://static.wixstatic.com/media/0bac9e_48ea61d9f6e54d119fcc7c0002d23c08~mv2.jpg',
+    desc: 'La energía del Mago aparece en tu tránsito porque tienes en tus manos todos los elementos: solo falta la voluntad de usarlos. Este no es un momento para dudar de lo que puedes hacer — es un momento para actuar con intención y precisión. El Mago no espera que las circunstancias sean perfectas: crea las condiciones con lo que tiene. Tu energía de tránsito es de iniciación y poder personal. Pregúntate qué estás postergando que ya tienes la capacidad de comenzar.'
+  },
+  2: {
+    nombre: 'La Sacerdotisa',
+    img: 'https://static.wixstatic.com/media/0bac9e_4e057271bd8349e094f0e02351e9ffe8~mv2.jpg',
+    desc: 'La Sacerdotisa aparece en tu tránsito invitándote a confiar en lo que no se puede explicar. Hay algo que sabes sin saber cómo lo sabes — y este es el momento de escucharlo. La energía de este arcano no favorece la acción inmediata sino la observación, la espera consciente y el acceso a tu mundo interior. Lo que buscas afuera ya está adentro. Esta etapa te pide silencio, introspección y la valentía de confiar en tu propia intuición antes que en la opinión del entorno.'
+  },
+  3: {
+    nombre: 'La Emperatriz',
+    img: 'https://static.wixstatic.com/media/0bac9e_fff47c9cd5724e69989e9f07b300ceb7~mv2.jpg',
+    desc: 'La Emperatriz aparece en tu tránsito trayendo abundancia, creatividad y una energía de gestación poderosa. Algo en tu vida está floreciendo — o tiene el potencial de hacerlo si le das las condiciones adecuadas. Este arcano favorece todo lo que nutre: los proyectos creativos, los vínculos afectivos, el cuerpo, la belleza y la conexión con la naturaleza. Es un momento de fertilidad en el sentido más amplio: lo que siembres ahora con amor y cuidado tiene posibilidades reales de crecer.'
+  },
+  4: {
+    nombre: 'El Emperador',
+    img: 'https://static.wixstatic.com/media/0bac9e_fa557ad3981d403baaf117687d41a7f3~mv2.jpg',
+    desc: 'El Emperador aparece en tu tránsito recordándote que el orden y la estructura no son obstáculos para la vida — son su sostén. Esta etapa te pide que tomes las riendas con más claridad: en tus proyectos, en tus compromisos, en la manera en que ejerces autoridad sobre tu propia vida. No se trata de controlar lo que no puedes controlar, sino de hacerte cargo de lo que sí es tuyo. El Emperador maduro no domina por miedo: lidera porque ha aprendido a respetarse a sí mismo.'
+  },
+  5: {
+    nombre: 'El Hierofante',
+    img: 'https://static.wixstatic.com/media/0bac9e_0fce1c1f00ca4d3db2ca246b5f1d50c5~mv2.jpg',
+    desc: 'El Hierofante aparece en tu tránsito señalando un período de aprendizaje, transmisión y conexión con algo que te trasciende. Puede llegar a ti a través de un maestro, una tradición, una comunidad o un proceso de estudio profundo. También puede invitarte a ser tú quien transmita: lo que has aprendido tiene valor para otros. Esta energía favorece los compromisos formales, las estructuras que dan marco a la búsqueda espiritual y la construcción de puentes entre el saber antiguo y el presente.'
+  },
+  6: {
+    nombre: 'Los Enamorados',
+    img: 'https://static.wixstatic.com/media/0bac9e_390394ca77f34c58bb701726c4c77e7d~mv2.jpg',
+    desc: 'Los Enamorados aparecen en tu tránsito señalando un momento de elección real. No es solo un arcano del amor romántico — es el arcano de la decisión que viene del corazón, de elegir con autenticidad lo que realmente quieres en lugar de lo que se espera de ti. Puede manifestarse como una encrucijada en el amor, en el trabajo o en tu identidad más profunda. La pregunta de fondo es siempre la misma: ¿qué eliges cuando eliges libremente? La respuesta honesta a esa pregunta es el regalo de este tránsito.'
+  },
+  7: {
+    nombre: 'El Carro',
+    img: 'https://static.wixstatic.com/media/0bac9e_1e44fc10de964daaba07c0ba9ef74bea~mv2.jpg',
+    desc: 'El Carro aparece en tu tránsito con una energía de avance decidido y dominio de las fuerzas en tensión. Hay dos impulsos en ti que pueden llevarte lejos si aprendes a dirigirlos juntos en lugar de dejar que se contradigan. Este arcano no habla de velocidad sino de dirección: saber adónde vas y no desviarte. La victoria que promete El Carro no llega sin esfuerzo — llega cuando integras voluntad, disciplina y claridad de propósito. Ahora tienes el impulso: úsalo con intención.'
+  },
+  8: {
+    nombre: 'La Fuerza',
+    img: 'https://static.wixstatic.com/media/0bac9e_fc2d650893e94755aefee5fef46190b1~mv2.jpg',
+    desc: 'La Fuerza aparece en tu tránsito recordándote que el poder más real no viene de la imposición sino de la integración. No se trata de dominar lo que temes sino de entenderlo, domesticarlo, hacerlo tuyo. Este arcano habla de una fuerza interior que muchas veces no reconocemos en nosotros mismos porque no ruge — fluye. Hay algo en ti que tiene más resistencia y más capacidad de lo que crees. Este tránsito te invita a probarlo: a sostenerte ante lo que antes te hacía retroceder.'
+  },
+  9: {
+    nombre: 'El Ermitaño',
+    img: 'https://static.wixstatic.com/media/0bac9e_9e261167f37c4bad80e2f94a01acd99c~mv2.jpg',
+    desc: 'El Ermitaño aparece en tu tránsito invitándote a hacer un alto y encender tu propia linterna. No todo puede resolverse en movimiento — hay respuestas que solo llegan en el silencio deliberado. Esta etapa favorece el retiro intencional, la reflexión profunda y la búsqueda de sabiduría que no puede venir del afuera. No es un momento de aislamiento forzado sino de soledad elegida al servicio de la claridad. Lo que encuentres en ese espacio interior puede iluminar no solo tu propio camino sino el de quienes te rodean.'
+  }
+};
 
-// ── RUNAS — Runa Personal y Runa Anual ───────────────────────────────────
+
+// ── RUNAS — Runa Personal | Runa Anual | Runa de Nacimiento ──────────────────────
 // Calculado igual que numerología: por fecha de nacimiento
 // Runa Personal: suma total de la fecha, reducir a 1-24
 // Runa Anual: suma de día + mes + año actual, reducir a 1-24
