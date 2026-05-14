@@ -1,6 +1,3 @@
-// mensajes_astrologicos.js
-// Archivo externo de mensajes — NO modificar estructura, solo textos d: y g:
-
 // ════════════════════════════════════════════════════
 // INTERPRETACIONES
 // ════════════════════════════════════════════════════
