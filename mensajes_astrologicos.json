@@ -21065,3 +21065,351 @@ window._RUNAS = {
     desc_anio: 'Tu runa del año de nacimiento es Othala, hablando de una generación marcada por la relación con el linaje y la herencia colectiva. Tu año de llegada vibraba con la frecuencia de la tierra y la continuidad. Los de tu generación tienen una conciencia especial de la deuda con el pasado y la responsabilidad hacia el futuro, y una tendencia a buscar sus raíces con una profundidad que las generaciones más jóvenes a veces no comprenden.'
   }
 };
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DATOS CROMANCIA + CHAKRAS — para agregar al archivo mensajes_astrologicos.js
+// ═══════════════════════════════════════════════════════════════════════════
+// Copiar este bloque completo al final del archivo mensajes_astrologicos.js
+// y también copiar el bloque window._ correspondiente al JSON si aplica.
+//
+// En el HTML, eliminar los bloques var CROMANCIA_DATA, var CK y var CKB_DATA
+// que están hardcodeados, y cambiar las referencias internas según se indica
+// al final de este archivo.
+// ═══════════════════════════════════════════════════════════════════════════
+
+
+// ──────────────────────────────────────────────────────────────
+// 1. CROMANCIA — interpretaciones de color
+//    (reemplaza: var CROMANCIA_DATA = { ... }; en el HTML)
+// ──────────────────────────────────────────────────────────────
+window._CROMANCIA_DATA = {
+  rojo: {
+    energia: "El rojo arde en vos hoy. Es la fuerza de Marte en su expresión más directa: voluntad, impulso, presencia física intensa. Algo en vos necesita actuar, avanzar, ocupar espacio sin pedir permiso. Esta energía no es violencia — es vida en su forma más primitiva y honesta. El rojo es la sangre que corre, el fuego que transforma, la chispa que enciende lo que estaba dormido. Cuando este color te llama, tu cuerpo y tu alma están alineados en una sola dirección: hacia adelante.",
+    necesidad: "Tu alma pide movimiento real. No planificación, no análisis — acción concreta y corporal. Necesitás sentirte viva/o a través del cuerpo, de la decisión tomada, del riesgo elegido con conciencia. Hay una energía reprimida que pide salida: puede ser una conversación postergada, un proyecto que empezás hoy, una decisión que ya tomaste internamente pero aún no ejecutaste. Tu necesidad profunda es la de existir plenamente, sin miedo a tomar espacio en el mundo.",
+    sombra: "Estás evitando una confrontación necesaria. El rojo que te atrae hoy puede ser la señal de algo que reprimís: una rabia legítima que no te permitiste sentir, un deseo que juzgás como excesivo, una verdad que aún no te animás a decir. La sombra del rojo no es la agresión descontrolada — es la energía que negamos porque nos enseñaron que ocupar espacio es peligroso o egoísta. Lo que ardés hoy, si no lo canalizás conscientemente, puede aparecer como irritabilidad, impaciencia o conflictos inesperados.",
+    sombra_rechazada: "Rechazar el rojo hoy sugiere que estás evitando tu propia fuerza. Hay un impulso, una afirmación o una confrontación que sentís como amenazante — para los demás o para la imagen que tenés de vos misma/o. Quizás asociás la intensidad con el peligro, o la fuerza con el daño. Lo que repelés en el rojo es exactamente lo que más necesitás integrar: el derecho a existir con toda tu energía, a querer, a decidir, a ocupar el lugar que te corresponde sin pedir disculpas.",
+    planeta: "Planeta: Marte · Chakra: Raíz (Muladhara) — Centro de supervivencia, instinto, vitalidad física y arraigo en la tierra. Cuando Marte activa tu campo energético, el sistema nervioso se prepara para la acción. Es el chakra que conecta tu energía con el mundo material, con tus recursos básicos, con tu sentido de seguridad y pertenencia. La salud de tu raíz determina cuánto te permitís estar completamente presente en tu cuerpo y en tu vida.",
+    consejo: "No huyas de tu propio fuego. Lo que ardés hoy no es destructivo — es necesario y sagrado. La diferencia entre el fuego que ilumina y el que consume está en la conciencia con que lo usás. Permití que esa energía se exprese en acción concreta, no en reacción automática. Elegí una cosa — una sola — que hayas postergado por miedo, y hacela hoy. El coraje no es la ausencia de miedo: es el movimiento que das a pesar de él. El fuego que llevás adentro ya sabe el camino."
+  },
+  naranja: {
+    energia: "El naranja que te convoca hoy es la energía del Sol en movimiento combinado con Venus en su aspecto más gozoso. Es la frecuencia de la alegría que busca fluir, de la creatividad que quiere cuerpo y forma. Hay una parte tuya hambrienta de goce genuino, de conexión real, de vitalidad emocional sin filtros ni justificaciones. El naranja es el color del amanecer y del atardecer — los momentos de transición donde la luz se hace más cálida, más humana, más cercana. Tu ser creativo está despierto y reclama expresión.",
+    necesidad: "Tu alma pide placer sin culpa y conexión sin agenda. Necesitás darte permiso de disfrutar, de jugar, de crear sin necesitar que sea útil o productivo. Hay una dimensión tuya que lleva demasiado tiempo en modo funcional — resolviendo, produciendo, adaptándose — y hoy pide simplemente existir desde el gozo. La vida tiene sabores que solo se perciben cuando uno para. Tu necesidad más profunda hoy es la de sentirte viva/o de una manera que no requiera justificación.",
+    sombra: "Hay una tristeza o una aridez emocional que estás disfrazando de actividad o de búsqueda constante de estímulo. El naranja puede ser la búsqueda compulsiva de conexión para no sentir la soledad que espera debajo. También puede señalar una creatividad bloqueada que se expresa como frustración, envidia de la vida de otros, o una sensación difusa de que algo falta. La sombra del naranja es el placer que se vuelve escapismo, la alegría forzada que tapa el dolor real.",
+    sombra_rechazada: "Rechazar el naranja hoy habla de una alegría que te cuesta aceptar — quizás la tuya, quizás la ajena. Algo en vos desconfía del gozo, lo ve frívolo, superficial o incluso peligroso. Puede haber una creencia arraigada de que no merecés disfrutar sin haber trabajado lo suficiente, o que la felicidad es una trampa. O quizás estás en un momento de duelo real y el naranja te resulta demasiado brillante para lo que sentís por dentro.",
+    planeta: "Planeta: Sol (energía solar secundaria) / Venus · Chakra: Sacro (Svadhisthana) — Centro de creatividad, sensualidad, placer y flujo emocional. Este chakra gobierna nuestra capacidad de sentir, de movernos con la vida, de aceptar el cambio como parte del ritmo natural. Cuando está activo, hay fluidez, apertura y gozo. Cuando está bloqueado, aparece la rigidez emocional, el miedo al placer y la dificultad para dejar ir.",
+    consejo: "Hoy no es día de seriedad excesiva ni de productividad como forma de demostrar tu valor. Encontrá al menos un momento donde existas sin producir ni justificar. Puede ser pequeño: música que te mueva, una conversación real, algo hecho con las manos. La alegría no te resta — te recarga. Y lo que creás desde el gozo tiene una calidad diferente a lo que hacés desde la obligación. Dale permiso hoy a la parte de vos que sabe cómo disfrutar sin pedir disculpas."
+  },
+  amarillo: {
+    energia: "El amarillo vibrante que te atrae hoy es la energía de Mercurio y del Sol en su aspecto más luminoso: claridad mental, comunicación, poder de síntesis y entendimiento profundo. Tu mente está particularmente activa, receptiva y necesita expresarse. Este es el color del intelecto despierto, de la intuición que se vuelve concepto, de la idea que finalmente encuentra palabras. El amarillo es también el color de los nervios y de la red que conecta — hoy estás especialmente sensible a la información, a los mensajes, a las conexiones entre ideas que antes parecían separadas.",
+    necesidad: "Tu alma pide claridad y expresión genuina. Hay algo que querés entender, nombrar, articular con precisión. Necesitás organizar lo que pensás — quizás escribir, hablar con alguien de confianza que realmente escuche, o simplemente darle forma verbal a lo que llevas tiempo sintiendo sin poder decirlo. También puede ser que necesités recibir información importante — leer, estudiar, aprender algo nuevo que abra una perspectiva que no tenías. La necesidad de hoy es la del entendimiento como forma de liberación.",
+    sombra: "Estás usando la mente para evitar el corazón. El exceso de análisis, de explicaciones, de palabras puede ser una forma sofisticada de no sentir lo que está esperando debajo. La sombra del amarillo es la sobreexplicación que protege de la vulnerabilidad, la racionalización que justifica lo que en realidad es miedo o herida. También puede aparecer como ansiedad mental, pensamientos en loop, o la sensación de que cuanto más pensás menos llegás a algún lugar. La claridad que buscás hoy quizás no sea conceptual sino emocional.",
+    sombra_rechazada: "Rechazar el amarillo hoy sugiere que hay algo que no querés ver con demasiada claridad. Una verdad incómoda que preferís dejar borrosa porque nombrarla implicaría tener que actuar en consecuencia. O quizás hay un exceso de información y análisis en tu vida que te agotó y hoy necesitás silencio más que palabras. El rechazo al amarillo puede también hablar de una desconfianza hacia el pensamiento propio — una voz interna que dice que lo que pensás no tiene valor.",
+    planeta: "Planeta: Mercurio / Sol · Chakra: Plexo Solar (Manipura) — Centro de voluntad, autoconfianza, identidad y poder personal. También conecta con el Chakra de Garganta (Vishuddha) — la expresión auténtica de lo que pensás y sentís. Mercurio rige los procesos mentales, la comunicación y los vínculos. Cuando está activo y en equilibrio, hay claridad, fluidez verbal y capacidad de conectar ideas con facilidad. Cuando está en tensión, aparece la confusión, el pensamiento obsesivo o la dificultad para decir lo que realmente se piensa.",
+    consejo: "La luz que buscás está dentro tuyo — no en otra explicación, otro libro, otra opinión. En vez de buscar respuestas afuera, sentate en silencio y preguntate qué sabés — que ya sabés — pero todavía no te animás a admitir plenamente. Escribí sin censura durante diez minutos: no para que quede bien, sino para descubrir lo que ya está formado en vos. La mente es una herramienta poderosa. Usada con conciencia, puede iluminar lo que el corazón ya sabe y aún no se animó a decir en voz alta."
+  },
+  verde: {
+    energia: "El verde que te llama hoy es la energía de Venus en su aspecto terrenal más profundo: amor que sana, equilibrio que se busca, abundancia que fluye desde la conexión real. Hay una necesidad de armonía que tu sistema entero está procesando — no como estética, sino como necesidad vital. El verde es el color de todo lo que crece, de lo que tiene raíz y sabe hacia dónde ir. Es también la frecuencia del corazón cuando está abierto: generoso, receptivo, capaz de dar y de recibir sin calcular.",
+    necesidad: "Tu alma pide amor en su forma más genuina — no necesariamente romántico. Pide ternura, cuidado real, conexión sin máscaras. Necesitás sentirte parte de algo vivo, perteneciente a algo que te contiene, querida/o sin condiciones ni expectativas. Puede ser la necesidad de reconectar con la naturaleza, con tu cuerpo, con alguien con quien podés ser completamente vos misma/o. También puede ser la necesidad de darte a vos misma/o el amor y el cuidado que das tan fácilmente a los demás.",
+    sombra: "Estás descuidando tu propio corazón mientras cuidas el de todos los demás. Hay una generosidad que viene del miedo a no ser suficiente o a no ser amada/o, no del amor genuino. O bien hay una situación que requiere perdón — hacia alguien que te lastimó, o hacia vos misma/o por algo que todavía no te perdonaste. La sombra del verde puede aparecer como dependencia emocional, celos, o una necesidad de aprobación que nunca termina de llenarse porque viene del lugar equivocado.",
+    sombra_rechazada: "Rechazar el verde hoy puede hablar de un miedo al amor o a la vulnerabilidad que implica abrirse genuinamente. Hay una abertura emocional que sentís como riesgo — y quizás lo fue en el pasado, con razones reales. O puede ser que estés tan en modo supervivencia o producción que el verde te parece un lujo que no podés darte ahora. Lo que repelés es exactamente la medicina: el permiso de recibir, de ser cuidada/o, de no tener que estar siempre fuerte.",
+    planeta: "Planeta: Venus · Chakra: Corazón (Anahata) — Centro de amor incondicional, compasión, sanación y conexión profunda. El corazón es el puente entre el mundo físico y el espiritual en la tradición de los chakras. Cuando está abierto, hay flujo, generosidad y paz interior. Cuando está cerrado o herido, aparece el aislamiento, la dureza como protección, o la dependencia emocional como forma de buscar lo que uno no puede darse a sí mismo.",
+    consejo: "No hay sanación sin contacto real — con otros, con la naturaleza, con vos misma/o. Permití que algo te llegue hoy sin controlarlo ni analizarlo: una conversación donde escuchés de verdad, un momento en el que el sol te dé en la cara, una expresión de afecto que no necesitás merecer ni devolver de inmediato. El amor no es un recurso escaso que se agota — cuanto más fluye, más se regenera. Hoy practicá recibir con la misma apertura con la que sabés dar."
+  },
+  azul: {
+    energia: "El azul profundo que te atrae hoy es la energía de Neptuno y Júpiter en su frecuencia más elevada: verdad interior, espiritualidad que no necesita adornos, intuición que supera la lógica. Tu alma está en un momento de contemplación activa, de búsqueda de sentido más allá de lo inmediato. El azul es el color del cielo y del mar — los dos grandes espejos que la humanidad ha mirado siempre cuando necesita perspectiva. Hoy algo en vos mira hacia adentro y hacia arriba al mismo tiempo, buscando una comprensión que las palabras ordinarias no alcanzan.",
+    necesidad: "Tu alma pide silencio real y profundidad auténtica. Necesitás alejarte del ruido externo — de las opiniones, de las noticias, de las demandas — y escuchar algo que solo se oye en calma. Hay una voz interna — intuición, guía interior, sabiduría acumulada — que espera tu atención y que lleva tiempo hablando en susurros que no has podido escuchar. La necesidad de hoy no es de información sino de contemplación: de estar con lo que es, sin querer cambiarlo ni entenderlo todo.",
+    sombra: "Estás usando la espiritualidad, la calma o la elevación como forma de desconectarte del mundo real y de sus demandas. El azul puede ser evasión disfrazada de profundidad — la meditación que evita la conversación difícil, la búsqueda espiritual que posterga la decisión concreta, la elevación que sirve para no ensuciarse las manos con la vida. La sombra del azul también puede aparecer como una tristeza difusa, una melancolía que se instala cuando uno lleva demasiado tiempo en un estado de desconexión de lo mundano.",
+    sombra_rechazada: "Rechazar el azul hoy puede revelar una dificultad profunda para confiar — en el proceso de la vida, en algo más grande que la voluntad individual, en el misterio como parte necesaria de la existencia. Hay una fe — no religiosa necesariamente, sino básica, existencial — que todavía no encontrás o que perdiste. El rechazo al azul puede hablar también de un miedo al silencio: de lo que podrías encontrar si te quedás en calma el tiempo suficiente para escuchar lo que ya sabés.",
+    planeta: "Planeta: Neptuno / Júpiter · Chakra: Garganta (Vishuddha) y Tercer Ojo (Ajna) — Expresión auténtica de la verdad interior, intuición activa, visión espiritual y acceso a una percepción que supera los cinco sentidos. Neptuno disuelve los límites del ego para permitir la conexión con algo más grande. Júpiter expande la visión y abre la comprensión. Juntos, crean las condiciones para la revelación — esos momentos en que algo se hace claro de una manera que no puede ser completamente explicada.",
+    consejo: "La verdad que buscás hoy no está en la mente ni en ninguna explicación exterior. Escuchá más que pensá. Observá más que analizá. Dejate sorprender por lo que ya está presente. La respuesta que necesitás — sobre tu camino, sobre una relación, sobre quién sos — ya está en vos, esperando el espacio de quietud necesario para hacerse audible. Hoy un solo acto de silencio genuino vale más que mil palabras. Confiá en lo que sentís aunque no puedas explicarlo."
+  },
+  violeta: {
+    energia: "El violeta que te atrae hoy es la energía de Saturno y Plutón en su aspecto más transformador y sagrado: la frecuencia de la metamorfosis, del misterio que no puede ser reducido, de la muerte simbólica que precede a todo renacimiento real. Algo en vos está atravesando un proceso profundo — quizás invisible desde afuera, quizás silencioso, pero absolutamente real. El violeta es el color de los umbrales: de los momentos en que uno cruza de un estado de ser a otro y ya no puede volver al anterior. Estás en uno de esos momentos.",
+    necesidad: "Tu alma pide transformación real, no cosmética. No un cambio de hábitos superficial sino una revisión profunda de algo que ya cumplió su ciclo. Hay algo — un patrón, una creencia, una relación con vos misma/o o con alguien más — que tu sistema sabe que debe soltar, aunque la mente todavía no quiera reconocerlo completamente. La necesidad de hoy es la de bajar a las raíces, de mirar lo que hay debajo de la superficie, de hacer el trabajo que transforma en vez del que solo mantiene.",
+    sombra: "Estás romantizando el sufrimiento o la oscuridad como formas de profundidad. El violeta como compulsión puede hablar de una relación no resuelta con el dolor — usarlo como identidad, como barrera, o como forma de no tener que ser ordinariamente feliz. También puede señalar una fascinación con el poder o el misterio que esconde un miedo al amor simple, a lo cotidiano, a la alegría sin drama. La transformación que buscás puede estar más cerca y más simple de lo que querés creer.",
+    sombra_rechazada: "Rechazar el violeta hoy puede ser una resistencia activa a la transformación que ya está ocurriendo de todas formas. Hay algo que cambia en vos — en tu forma de ver, de relacionarte, de entenderte — y una parte de vos prefiere ignorarlo porque cambiar significa soltar algo conocido, aunque ese algo ya no te sirva. El rechazo al violeta también puede hablar de un miedo a la profundidad propia, a lo que podrías encontrar si te mirarás sin los filtros habituales.",
+    planeta: "Planeta: Plutón / Saturno · Chakra: Corona (Sahasrara) — Conexión con lo divino, trascendencia, conciencia expandida que supera la identidad individual. También activa el Chakra Raíz en su aspecto más ancestral: los patrones heredados, los mandatos familiares, lo que viene de más atrás que tu propia historia. Plutón rige las transformaciones inevitables, las crisis que abren paso a algo nuevo, la muerte y el renacimiento en todos sus niveles. Saturno pone la estructura y la seriedad necesaria para que la transformación sea real y duradera.",
+    consejo: "Confiá en el proceso de lo que no entendés todavía. La oscuridad que sentís hoy no es el final — es el útero de algo que todavía no tiene forma visible. Lo que muere en vos hace espacio exacto para lo que debe nacer. No intentes acelerar la metamorfosis ni volver atrás: ninguna de las dos cosas es posible en este punto. Lo que se te pide hoy es la confianza radical en el proceso, en tu propia capacidad de renacer, y en que lo que perdés en esta transición tenía que soltarse para que puedas ser lo que realmente sos."
+  },
+  blanco: {
+    energia: "El blanco que te atrae hoy es la energía de la Luna y de Neptuno en su aspecto más puro y liminal: la frecuencia de los comienzos, de la pureza de intención que precede a toda acción significativa. Tu sistema energético está pidiendo un reset genuino — no un cambio de decoración sino un regreso a lo esencial, a lo que queda cuando se quitan todas las capas que no son realmente tuyas. El blanco contiene todos los colores y al mismo tiempo no es ninguno en particular: es el espacio de posibilidad pura, anterior a toda elección.",
+    necesidad: "Tu alma pide pureza y simpleza radical. Estás sobrecargada/o de capas acumuladas — opiniones ajenas internalizadas como propias, roles que cumplís sin haberlos elegido conscientemente, expectativas de otros que llevas como si fueran tuyas. Necesitás volver a lo más esencial de quién sos cuando no hay nada que demostrar, nadie que impresionar, ningún resultado que producir. La necesidad de hoy es la del espacio vacío como forma de libertad, no como carencia.",
+    sombra: "Estás borrando o negando partes de vos misma/o en un intento de parecer más pura/o, más aceptable, más espiritual o más correcta/o. El blanco como compulsión puede ser una forma de huir de la complejidad real de quien sos — de tus contradicciones, tus deseos, tu sombra — eligiendo una versión simplificada que sea más fácil de presentar. La pureza que no integra la sombra no es pureza: es negación. Lo que no reconocés en vos misma/o no desaparece — se vuelve inconsciente y más difícil de manejar.",
+    sombra_rechazada: "Rechazar el blanco puede hablar de una dificultad real para comenzar de nuevo — un apego profundo a lo que fue, a una identidad que ya no encaja pero que da miedo soltar porque todavía es conocida. O puede ser un miedo a quedar vacía/o sin las estructuras habituales, sin los roles y las certezas que organizan el sentido de quien uno es. El rechazo también puede señalar que estás en un momento de tanta intensidad que la simpleza del blanco te resulta inalcanzable o incluso ofensiva.",
+    planeta: "Planeta: Luna / Neptuno · Chakra: Corona (Sahasrara) — Pureza espiritual, claridad de propósito, conexión con el origen y con lo que está más allá de la personalidad individual. La Luna rige los ciclos, la memoria emocional, el inconsciente y la capacidad de soltar y renovar. Neptuno disuelve lo que ya no es necesario y abre el canal a la inspiración más sutil. Juntos, crean la condición para el verdadero comienzo: el que nace del vaciamiento genuino, no del olvido.",
+    consejo: "No necesitás ser perfecta/o, estar lista/o ni haber resuelto todo lo anterior para empezar de nuevo. La pureza que buscás no es la ausencia de sombra — es la presencia honesta y plena ante todo lo que realmente sos: lo luminoso y lo oscuro, lo logrado y lo pendiente, lo que te enorgullece y lo que todavía te cuesta mirar. El espacio en blanco no está vacío — está lleno de posibilidad. Hoy permití que algo nuevo entre, sin saber todavía exactamente qué forma va a tomar."
+  },
+  negro: {
+    energia: "El negro que te atrae hoy es la energía de Saturno y Plutón en su forma más concentrada y esencial: la profundidad de lo que aún no ha tomado forma, la gestación en la oscuridad, el poder silencioso de lo que madura sin necesitar ser visto. El negro no es ausencia — es plenitud de una naturaleza diferente. Es el color del espacio entre las estrellas, del suelo fértil donde germina lo que todavía no existe, del silencio que precede a la palabra que cambia todo. Algo en vos está en proceso de formación, profundo y real, que todavía no está listo para mostrarse.",
+    necesidad: "Tu alma pide recogimiento genuino — no aislamiento, no huida, sino la retirada voluntaria del que sabe que necesita silencio para escuchar. Necesitás entrar hacia adentro, procesar en profundidad sin interferencias, dejar que algo madure en vos sin la presión de tener que explicarlo, mostrarlo o producir resultados visibles. Hay una sabiduría que solo emerge en la quietud, un entendimiento que no puede ser apresurado. Tu necesidad hoy es la del útero: oscuro, silencioso, protegido, lleno de vida que aún no tiene nombre.",
+    sombra: "Estás usando la introspección, el silencio o la reserva como escudo defensivo. Hay algo que evitás mostrar — quizás una necesidad de ayuda que sentís como debilidad, una emoción vulnerable que expondrías si alguien te viera de verdad, una verdad que requeriría ser vista y acompañada por otros. La sombra del negro puede aparecer como aislamiento que se disfraza de profundidad, como una soledad elegida que en realidad es miedo al rechazo o a la intimidad real.",
+    sombra_rechazada: "Rechazar el negro hoy puede hablar de un miedo a la profundidad propia, a la soledad interior, o a lo que podrías encontrar si te quedaras en silencio y quietud el tiempo suficiente. También puede señalar una relación difícil con la oscuridad en cualquiera de sus formas: el inconsciente, los aspectos no integrados de tu personalidad, los duelos no completados, los miedos que prefieren la distracción a ser mirados. Lo que huís en el negro es también lo que más tiene para enseñarte.",
+    planeta: "Planeta: Saturno / Plutón · Chakra: Raíz (Muladhara) en su aspecto más profundo y ancestral — la conexión con la tierra, con los ancestros, con el inconsciente colectivo, con todo lo que viene de antes de vos y que vive en vos sin que lo hayas elegido conscientemente. También activa el Chakra Corona en su aspecto más oscuro: la conciencia que trasciende al yo y puede contener el misterio sin necesitar resolverlo.",
+    consejo: "Lo que germina en la oscuridad no necesita que lo apresures, que lo ilumines prematuramente ni que lo expliques antes de que esté listo. Tu proceso interno — cualquiera que sea — es tan real y tan valioso como cualquier acción visible. Confiá en lo que todavía no podés ver. Dale al silencio el espacio que merece. Y si hay algo que llevas evitando mirar, considerá que la oscuridad no lo hará desaparecer: solo lo contendrá hasta que estés lista/o para encontrarlo con más recursos de los que tenías antes."
+  },
+  dorado: {
+    energia: "El dorado que te atrae hoy es la energía del Sol en su máxima y más plena expresión: dignidad que no necesita ser demostrada, autoconfianza que nace del conocimiento propio, éxito consciente que viene de la alineación con el propósito, liderazgo que emerge del ser y no de la necesidad de control. Algo en vos está listo para brillar — no para los demás, no como performance — sino porque es su momento natural. El dorado es el color del metal que sobrevivió el fuego y se purificó. Lo que brillas hoy viene de haber pasado por algo.",
+    necesidad: "Tu alma pide reconocimiento genuino — pero no el de los demás. El tuyo propio. Necesitás honrar lo que has construido, lo que has atravesado, lo que sos en la actualidad. Hay una grandeza — real, ganada, legítima — que minimizás por hábito, por modestia mal entendida, o por el miedo inconsciente a destacar. La necesidad de hoy es la de pararte frente a vos misma/o y decir: esto que soy tiene valor. Lo que he hecho importa. El lugar que ocupo en el mundo es mío por derecho.",
+    sombra: "Hay una arrogancia o una búsqueda compulsiva de validación que se disfraza de autoconfianza — la necesidad de que otros confirmen tu valor porque internamente aún no te lo creés del todo. O lo opuesto: una grandeza real que reprimís sistemáticamente por miedo a las envidias ajenas, por no querer destacar, por no sentirte merecedora/or de ese lugar. La sombra del dorado puede aparecer como narcisismo defensivo, como la necesidad de dominar para compensar la inseguridad, o como el sacrificio de la propia luz para hacer cómodos a los demás.",
+    sombra_rechazada: "Rechazar el dorado hoy puede revelar una relación complicada y no resuelta con el éxito, el poder o el brillo personal. Algo en vos siente que no merece ocupar ese lugar luminoso — quizás porque en el pasado cuando brillaste hubo consecuencias difíciles, o porque un mensaje temprano te dijo que sobresalir es peligroso o desleal. El rechazo al dorado también puede hablar de una desidentificación con el éxito como valor, una resistencia a cierta concepción del poder que aún no has podido resignificar desde tus propios valores.",
+    planeta: "Planeta: Sol · Chakra: Plexo Solar (Manipura) en su expresión más elevada — voluntad consciente, identidad solar, propósito que se alinea con el bien mayor. El Sol representa el núcleo del ser, aquello que permanece constante debajo de todos los roles y las adaptaciones. Cuando el Plexo Solar está activo y en equilibrio, hay presencia, iniciativa, confianza genuina en los propios recursos y capacidad de actuar desde el centro en vez de desde la periferia del miedo.",
+    consejo: "La luz que sos no es vanidad — es servicio. Cuando brillás desde tu verdad más auténtica, le das permiso implícito a otros de hacer lo mismo. Apagar tu luz para que otros se sientan cómodos no es humildad — es una forma de desleal con lo que viniste a ser y a hacer. Hoy reconocé algo que lograste, algo que sos, algo que te costó y que sin embargo alcanzaste. No para presumirlo — sino para honrarlo con la seriedad y el amor que merece. Eso es la dignidad solar."
+  },
+  plateado: {
+    energia: "El plateado que te atrae hoy es la energía lunar en su aspecto más refinado, sutil y misterioso: intuición que supera la lógica, ciclos que tienen su propia sabiduría, reflexión que revela más que la acción directa. Tu mundo interior está particularmente activo — sueños más vívidos, presentimientos que no terminás de ignorar, sincronías que parecen mensajes, una sensación difusa pero persistente de que algo está por cambiar o de que ya cambió sin que te hayas dado cuenta todavía.",
+    necesidad: "Tu alma pide tiempo para escuchar su propia luna interna — ese ritmo íntimo que tiene ciclos propios y que no siempre coincide con el calendario exterior. Necesitás tiempo para sentir sin racionalizar inmediatamente, para dejar que la intuición hable antes que la mente *****ítica intervenga con sus interpretaciones. Hay mensajes llegando desde tu mundo interior — desde los sueños, desde las emociones que aparecen sin razón aparente, desde las sensaciones corporales — que merecen tu atención antes de ser descartados.",
+    sombra: "Estás oscilando entre estados de ánimo sin ancla, sin hilo conductor que te permita entender el patrón de lo que sentís. La energía lunar sin raíz puede volverse inestabilidad emocional, reactividad, o una sensación de ser arrastrada/o por las emociones en vez de habitarlas conscientemente. También puede aparecer como una espiritualidad escapista: usar la intuición, los sueños o el mundo interior como forma de evitar compromisos concretos y decisiones que requieren presencia en lo mundano.",
+    sombra_rechazada: "Rechazar el plateado hoy puede hablar de una desconexión de tu mundo interior, de tus ritmos naturales, de la parte de vos que no siempre tiene explicación racional pero que es absolutamente real. Puede haber un exceso de racionalismo que descarta lo que no puede ser probado, una desconfianza hacia la intuición como fuente válida de conocimiento. O quizás llevas tanto tiempo en modo acción y producción que el mundo interior te resulta ahora casi extraño, como un territorio al que ya no sabés cómo acceder.",
+    planeta: "Planeta: Luna · Chakra: Tercer Ojo (Ajna) — Intuición activa, percepción sutil, acceso a la memoria emocional profunda y a la sabiduría que va más allá del pensamiento lineal. También activa el Chakra Sacro (Svadhisthana) en su aspecto más fluido y receptivo. La Luna rige los ciclos, las mareas internas, el inconsciente personal y la capacidad de conectar con los ritmos más profundos de la vida — los que no responden al reloj sino a algo más antiguo.",
+    consejo: "No todo lo que sentís necesita ser comprendido para ser válido. No toda percepción necesita ser demostrada para merecer atención. Hoy confiá en lo que percibís aunque no puedas explicarlo con palabras precisas o argumentos sólidos. Tu intuición es un instrumento afinado a lo largo de años de experiencia — usalo con la misma seriedad con que usarías cualquier otra herramienta de conocimiento. Escuchá los sueños de esta noche. Prestá atención a las primeras impresiones. Tomá nota de lo que aparece sin que lo invites."
+  }
+};
+
+
+// ──────────────────────────────────────────────────────────────
+// 2. CHAKRAS — cuestionario energético (7 chakras, preguntas,
+//    openText y closedText)
+//    (reemplaza: var CK = [ ... ]; dentro del IIFE del módulo Chakras)
+// ──────────────────────────────────────────────────────────────
+window._CK_CHAKRAS = [
+    {
+      idx: 0, key: 'sahasrara', name: 'Sahasrara', sanskrit: 'Corona · सहस्रार',
+      color: '#b400ff', rgb: '180,0,255', svgIdx: 0,
+      symbol: '☽', element: 'Conciencia pura',
+      img: 'https://static.wixstatic.com/media/0bac9e_6648ca6b0c1244308f83222affff6713~mv2.png',
+      questions: [
+        {
+          text: '¿Sientes conexión con algo más grande que tú (universo, espiritualidad, propósito)?',
+          opts: ['Sí, constantemente', 'A veces lo percibo', 'Rara vez', 'No lo siento']
+        },
+        {
+          text: '¿Confías en que la vida tiene un sentido aunque no lo comprendas todo?',
+          opts: ['Completamente', 'La mayoría del tiempo', 'Me cuesta confiar', 'No confío en eso']
+        },
+        {
+          text: '¿Experimentas momentos de paz profunda sin causa aparente?',
+          opts: ['Con frecuencia', 'Ocasionalmente', 'Casi nunca', 'Nunca']
+        }
+      ],
+      openText: 'Tu chakra corona irradia en plenitud. Hay en ti una apertura espiritual genuina: percibes la interconexión de todo, confías en el fluir de la vida y experimentas momentos de paz que trascienden las circunstancias. Esta apertura te protege, te orienta y te conecta con tu propósito más elevado. Cuídala con silencio, gratitud y meditación regular.',
+      closedText: 'Tu chakra corona está bloqueado por los lazos mundanos — no el amor a las personas o el disfrute de la vida, sino el apego que convierte esas cosas en cadenas: la necesidad de control, el miedo a perder, la identidad construida sobre posesiones, roles o la opinión ajena. Meditar sobre qué es lo que realmente te ata revela qué parte de ti todavía cree que necesita aferrarse para existir. La liberación no es abandono — es soltar la ilusión de que sin eso no eres. Cuando te desprendes de lo que no eres, lo que sí eres se vuelve luminoso. Prácticas que te pueden ayudar: meditación en silencio aunque sea 5 minutos al día, contacto con la naturaleza, reducir el ruido mental y digital, práctica de desapego consciente (regalar algo con amor, simplificar el entorno), y el arte contemplativo. La energía cósmica no puede fluir hacia donde no hay espacio.',
+      tags: ['Meditación', 'Silencio', 'Naturaleza', 'Conciencia plena']
+    },
+    {
+      idx: 1, key: 'ajna', name: 'Ajna', sanskrit: '3er Ojo · आज्ञा',
+      color: '#5b6fff', rgb: '91,111,255', svgIdx: 1,
+      symbol: '✦', element: 'Luz',
+      img: 'https://static.wixstatic.com/media/0bac9e_a001612b9f5a43e08d7322c5bf19eace~mv2.png',
+      questions: [
+        {
+          text: '¿Confías en tu intuición cuando tomas decisiones importantes?',
+          opts: ['Siempre la escucho', 'A menudo la sigo', 'La dudo mucho', 'No creo en la intuición']
+        },
+        {
+          text: '¿Tienes claridad sobre tu camino y propósito de vida?',
+          opts: ['Sí, bastante clara', 'Algo de claridad', 'Estoy confundido/a', 'Sin ninguna claridad']
+        },
+        {
+          text: '¿Eres capaz de distinguir la realidad de tus miedos o ilusiones?',
+          opts: ['Sí, con facilidad', 'En general sí', 'Me cuesta discernir', 'No, me confundo mucho']
+        }
+      ],
+      openText: 'Tu tercer ojo está activo y lúcido. Tienes acceso a una percepción sutil que te permite leer situaciones más allá de lo evidente, confiar en tu intuición y mantener claridad incluso en la incertidumbre. Este chakra bien abierto te da discernimiento y creatividad visionaria. Alimenta esta capacidad con práctica de visualización, sueños conscientes y tiempo para la reflexión profunda.',
+      closedText: 'Tu tercer ojo está velado por la ilusión de la separación — la creencia de que tú estás aquí y el resto del mundo está allá, de que lo que le pasa a los demás no te incumbe, de que eres una isla. Esta percepción fragmentada genera confusión, porque intentas leer la realidad desde una parte cuando la comprensión verdadera requiere verla entera. El trabajo de este chakra es expandir la mente: reconocer que todo está interconectado, que cada elemento de la vida — las personas, las situaciones, hasta los obstáculos — forma parte de un mismo tejido. Prácticas recomendadas: llevar un diario de sueños, practicar visualizaciones guiadas, meditación contemplativa, reducir el consumo de alcohol y azúcar, aromaterapia de lavanda, y dedicar tiempo al silencio interior antes de dormir. Cuando abres la mente a la unidad, el discernimiento llega solo.',
+      tags: ['Intuición', 'Visualización', 'Diario de sueños', 'Meditación guiada']
+    },
+    {
+      idx: 2, key: 'vishuddha', name: 'Vishuddha', sanskrit: 'Garganta · विशुद्ध',
+      color: '#00c8ff', rgb: '0,200,255', svgIdx: 2,
+      symbol: '◎', element: 'Éter',
+      img: 'https://static.wixstatic.com/media/0bac9e_373c4c600f554eb0bd0c27d456f26859~mv2.png',
+      questions: [
+        {
+          text: '¿Expresas lo que piensas y sientes sin miedo al juicio de los demás?',
+          opts: ['Sí, con confianza', 'Generalmente sí', 'Me cuesta expresarme', 'Raramente lo hago']
+        },
+        {
+          text: '¿Escuchas activamente a los demás sin interrumpir ni juzgar?',
+          opts: ['Sí, habitualmente', 'A veces lo logro', 'Me cuesta escuchar', 'Casi nunca']
+        },
+        {
+          text: '¿Puedes decir "no" con firmeza cuando algo no va con tus valores?',
+          opts: ['Sin dificultad', 'Con algo de esfuerzo', 'Me cuesta mucho', 'No puedo decir que no']
+        }
+      ],
+      openText: 'Tu chakra de la garganta fluye con autenticidad. Hablas desde tu verdad, escuchas con presencia y sabes poner límites claros. Tu comunicación tiene el poder de generar conexión genuina y de manifestar ideas en el mundo real. Continúa nutriendo este chakra cantando, escribiendo, leyendo en voz alta, y manteniéndote fiel a tu palabra en lo cotidiano.',
+      closedText: 'Tu chakra de la garganta está bloqueado por las mentiras que te dices a ti mismo/a — no las grandes mentiras conscientes, sino esas narrativas sutiles con las que te convences de que eres menos, de que no puedes, de que así es tu naturaleza y no puede cambiar. No puedes hablar tu verdad al mundo si primero no te la dices a ti mismo/a. El trabajo aquí es la aceptación radical: ver quién eres realmente, con tus sombras y tus luces, sin adornar ni disminuir. Cuando te aceptas tal como eres, la expresión fluye sola. Prácticas que ayudan: cantar aunque sea en la ducha, escribir sin censura en un diario privado, practicar yoga de voz, usar cristales como la turquesa o la aguamarina, y hablar con alguien de confianza sobre lo que has callado durante demasiado tiempo. Tu voz auténtica es un don — el mundo la necesita.',
+      tags: ['Expresión auténtica', 'Canto', 'Escritura libre', 'Límites sanos']
+    },
+    {
+      idx: 3, key: 'anahata', name: 'Anahata', sanskrit: 'Corazón · अनाहत',
+      color: '#3cff6e', rgb: '60,255,110', svgIdx: 3,
+      symbol: '♡', element: 'Aire',
+      img: 'https://static.wixstatic.com/media/0bac9e_40fc6e9871cd473da0f17529f7b85cd1~mv2.png',
+      questions: [
+        {
+          text: '¿Sientes amor y compasión hacia ti mismo/a con facilidad?',
+          opts: ['Sí, me trato bien', 'La mayoría del tiempo', 'Me cuesta quererme', 'Raramente lo hago']
+        },
+        {
+          text: '¿Puedes perdonar a quienes te han herido sin cargar rencor?',
+          opts: ['Sí, proceso y suelto', 'Con tiempo lo logro', 'Me cuesta perdonar', 'No puedo perdonar']
+        },
+        {
+          text: '¿Te sientes capaz de amar y recibir amor sin miedo a perderlo?',
+          opts: ['Sí, con apertura', 'Con algunas reservas', 'Con mucho miedo', 'Me cierro por miedo']
+        }
+      ],
+      openText: 'Tu chakra del corazón late con generosidad y apertura. Amas con libertad, te permites recibir, procesas el dolor sin convertirlo en resentimiento y ofreces compasión genuina, incluida hacia ti mismo/a. Este centro expandido es el puente entre el mundo terrenal y el espiritual en ti. Mantenlo vivo con contacto físico consciente, naturaleza, gratitud y actos de servicio desinteresado.',
+      closedText: 'Tu chakra del corazón está procesando dolor, y el dolor no resuelto es lo que lo mantiene cerrado. El corazón no se cierra por debilidad — se cierra como protección frente a heridas que alguna vez fueron demasiado grandes. Pero quedarse dentro de esa protección tiene un costo: también bloquea el amor, la alegría y la conexión. El camino de apertura pasa por permitir que el dolor salga — no por revivir cada herida, sino por dejar de retenerlo. Llorar si hay que llorar. Hablar si hay que hablar. Soltar lo que ya cumplió su ciclo. Prácticas recomendadas: meditación de amor compasivo (Metta), trabajo con un terapeuta o constelaciones familiares, contacto con animales o niños, yoga suave, cristales como la rodonita o el cuarzo rosa, y escribir cartas de perdón que no necesitas enviar. El corazón que ha sanado ama con más profundidad que el que nunca fue roto.',
+      tags: ['Amor propio', 'Perdón', 'Compasión', 'Apertura emocional']
+    },
+    {
+      idx: 4, key: 'manipura', name: 'Manipura', sanskrit: 'Plexo Solar · मणिपूर',
+      color: '#ffe600', rgb: '255,230,0', svgIdx: 4,
+      symbol: '◈', element: 'Fuego',
+      img: 'https://static.wixstatic.com/media/0bac9e_73f9d14234a046b5b186b54706aabcf4~mv2.png',
+      questions: [
+        {
+          text: '¿Confías en tu capacidad para lograr tus metas y proyectos?',
+          opts: ['Sí, mucho', 'Bastante confiado/a', 'Tengo muchas dudas', 'No confío en mí']
+        },
+        {
+          text: '¿Te resulta fácil tomar decisiones y asumir su responsabilidad?',
+          opts: ['Sí, decido con claridad', 'En general sí', 'Me paralizo decidiendo', 'Evito decidir']
+        },
+        {
+          text: '¿Tienes buena digestión y sientes vitalidad física en el día a día?',
+          opts: ['Sí, me siento bien', 'Generalmente bien', 'Con ciertos problemas', 'No, me siento débil']
+        }
+      ],
+      openText: 'Tu plexo solar arde con fuerza sana. Tienes voluntad, dirección y la confianza necesaria para materializar lo que te propones. Tu energía personal es un recurso que usas con intención, no con ansiedad. Para sostenerlo: ejercicio físico regular, exposición solar moderada, alimentos amarillos como limón o jengibre, y celebrar cada meta cumplida por pequeña que sea.',
+      closedText: 'Tu plexo solar está bloqueado por la vergüenza — esa emoción que hace que quieras esconder partes de ti mismo/a, que te juzgas con dureza o que sientes que has fallado demasiado para merecer confianza. La vergüenza no se cura con el olvido sino con la aceptación: mirar sin desviar la vista aquellas partes de tu historia de las que no te enorgulleces, y reconocerlas como parte real de tu camino. No negarlas. No justificarlas. Solo integrarlas. Cuando dejas de gastar energía en ocultar lo que fue, esa misma energía se convierte en fuerza genuina. Prácticas que ayudan: ejercicio que te haga sudar (especialmente movimientos de core), danza o expresión corporal libre, cristales como el citrino o el ámbar, y empezar proyectos pequeños que termines para reconstruir la confianza desde la acción concreta.',
+      tags: ['Voluntad', 'Autoconfianza', 'Ejercicio', 'Decisión']
+    },
+    {
+      idx: 5, key: 'svadhisthana', name: 'Svadhisthana', sanskrit: 'Sacro · स्वाधिष्ठान',
+      color: '#ff8c00', rgb: '255,140,0', svgIdx: 5,
+      symbol: '◑', element: 'Agua',
+      img: 'https://static.wixstatic.com/media/0bac9e_89a4807cf40c4c6a991820cbf82ea166~mv2.png',
+      questions: [
+        {
+          text: '¿Disfrutas de los placeres de la vida (comida, arte, sensaciones) sin culpa?',
+          opts: ['Sí, plenamente', 'La mayoría del tiempo', 'Con cierta culpa', 'Con mucha culpa']
+        },
+        {
+          text: '¿Fluyes con los cambios o te resistes a ellos?',
+          opts: ['Fluyo con facilidad', 'Me adapto bien', 'Me cuesta adaptarme', 'Me bloqueo ante cambios']
+        },
+        {
+          text: '¿Tienes espacio en tu vida para la creatividad y el juego?',
+          opts: ['Sí, es parte de mi vida', 'Cuando puedo', 'Casi nunca', 'No tengo espacio para eso']
+        }
+      ],
+      openText: 'Tu chakra sacro fluye con vitalidad creativa y sensorial. Disfrutas de los placeres de la vida con sana libertad, tu creatividad encuentra expresión natural y te adaptas a los cambios sin aferrarte a lo que fue. Esta fluidez es un don: cuídala con contacto con el agua, danza, arte sin juicio y relaciones que nutran tu alegría.',
+      closedText: 'Tu chakra sacro está cargando el peso de la culpa, y eso bloquea su fluir natural. La culpa acumulada — ya sea por decisiones pasadas, por haber lastimado a alguien o por no haber sido quien querías ser — actúa como un tapón en tu energía creativa y sensorial. El trabajo aquí no es ignorar lo que ocurrió, sino mirarlo con honestidad y luego soltarlo: lo pasado ya no puede cambiarse, pero sí puede integrarse. Perdonarte no es excusarte — es reconocer que aquella persona que actuó así lo hizo desde donde estaba en ese momento, y que hoy eres diferente. Prácticas recomendadas: baños de inmersión o contacto con el mar y ríos, danza libre sin público, escritura creativa, terapia de movimiento, cristales como la cornalina o el ópalo de fuego, y permitirte actividades que haces solo porque te dan alegría. Si quieres hacer una diferencia en el mundo, primero tienes que hacerte las paces contigo mismo/a.',
+      tags: ['Creatividad', 'Placer sano', 'Fluidez', 'Movimiento']
+    },
+    {
+      idx: 6, key: 'muladhara', name: 'Muladhara', sanskrit: 'Raíz · मूलाधार',
+      color: '#ff3c3c', rgb: '255,60,60', svgIdx: 6,
+      symbol: '⬡', element: 'Tierra',
+      img: 'https://static.wixstatic.com/media/0bac9e_ab13e2a3143147d88391a749d04cdd18~mv2.png',
+      questions: [
+        {
+          text: '¿Te sientes seguro/a y estable en tu vida cotidiana (hogar, trabajo, finanzas)?',
+          opts: ['Sí, muy estable', 'Bastante estable', 'Con algo de inestabilidad', 'Muy inseguro/a']
+        },
+        {
+          text: '¿Te sientes conectado/a con tu cuerpo y presente en el momento actual?',
+          opts: ['Sí, estoy muy presente', 'En general sí', 'Me desconecto con frecuencia', 'Casi siempre ausente']
+        },
+        {
+          text: '¿Tus necesidades básicas (alimentación, sueño, refugio) están cubiertas y las cuidas?',
+          opts: ['Sí, las atiendo bien', 'La mayoría del tiempo', 'A veces las descuido', 'Las descuido bastante']
+        }
+      ],
+      openText: 'Tu chakra raíz está firme y enraizado. Hay en ti una base sólida desde la cual vivir, crear y relacionarte: sentido de pertenencia, estabilidad material suficiente, presencia en tu cuerpo y confianza en que tus necesidades están cubiertas. Mantén este anclaje con contacto con la tierra (caminar descalzo/a), alimentación nutritiva, rutinas estables y ejercicio físico.',
+      closedText: 'Tu chakra raíz pide tierra firme, y el primer paso es mirar de frente aquello que te genera miedo. El miedo no es el enemigo — es una señal que indica dónde necesitas crecer. Permitir que los miedos se muestren con nitidez, sin huir de ellos, es el acto de valentía que este chakra necesita para abrirse. Mientras los evites, seguirán debilitando tu base. Cuando los enfrentas, los transformas en fuerza. Prácticas que ayudan: caminar descalzo/a sobre tierra o pasto (earthing), yoga de pie con posturas como tadasana, alimentación con raíces (remolacha, zanahoria, papa), cristales como la obsidiana o el jaspe rojo, y establecer una rutina diaria simple y cumplidera. La seguridad no viene de que el mundo sea predecible — viene de saber que tú puedes con lo que venga.',
+      tags: ['Enraizamiento', 'Seguridad', 'Earthing', 'Rutinas']
+    }
+  ];
+
+
+// ──────────────────────────────────────────────────────────────
+// 3. CHAKRA POR FECHA DE NACIMIENTO — colores, cristales,
+//    prácticas y textos por chakra (CKB_DATA)
+//    (reemplaza: var CKB_DATA = { ... }; dentro del mismo IIFE)
+// ──────────────────────────────────────────────────────────────
+window._CKB_DATA = {
+    0: { // Sahasrara - Corona
+      color_vestir:{
+        nombres:['Blanco','Violeta','Dorado'],
+        hexes:['#f4f4f4','#b400ff','#e8c700'],
+        texto:'El blanco y el violeta profundo son los colores del chakra corona. Vestirte con blanco puro amplifica la recepción de energía cósmica, mientras que el violeta eleva tu vibración espiritual. El dorado activa la conexión con la conciencia superior.'
+      },
+      color_poner:'Coloca una tela o prenda de violeta o blanco sobre la coronilla, o usa diademas, turbantes o accesorios de cabeza en estos tonos. También puedes poner una amatista directamente sobre el vértice de la cabeza durante meditaciones acostado/a.',
+      cristal:{nombre:'Amatista o Cuarzo transparente',texto:'La amatista purifica la energía mental y abre el canal espiritual. El cuarzo transparente amplifica cualquier intención espiritual. Coloca uno sobre la coronilla al meditar o llévalo como colgante largo que llegue al esternón.'},
+      practica:'Medita en silencio 7 minutos diarios mirando hacia arriba o al cielo. Practica el yoga Savasana al amanecer. Repite internamente: "Soy parte de todo lo que existe". Reduce el ruido digital 1 hora antes de dormir.'
+    },
+    1: { // Ajna - Tercer Ojo
+      color_vestir:{
+        nombres:['Índigo','Azul noche','Plateado'],
+        hexes:['#4b0082','#1a1a6e','#c0c0c0'],
+        texto:'El índigo y el azul nocturno activan el tercer ojo y agudizan la percepción intuitiva. Vestirte con estos tonos en actividades mentales o espirituales refuerza tu claridad interior. El plateado conecta con la energía lunar y la intuición femenina.'
+      },
+      color_poner:'Lleva una gema o punto de color índigo en el centro de la frente (entre las cejas) durante tus meditaciones. Una bufanda o pañuelo índigo alrededor de la cabeza mientras estudias o lees también activa este chakra.',
+      cristal:{nombre:'Lapislázuli o Sodalita',texto:'El lapislázuli ha sido piedra de sabiduría y clarividencia por milenios. La sodalita calma la mente racional para dejar fluir la intuición. Aplica en la frente durante meditaciones o llévalo como pendiente o colgante que repose en el pecho.'},
+      practica:'Lleva un diario de sueños: escribe todo lo que recuerdes al despertar. Practica la visualización guiada 10 minutos antes de dormir. Contempla la llama de una vela con ojos semicerrados. Reduce el consumo de alcohol y azúcar, que nublan la percepción sutil.'
+    },
+    2: { // Vishuddha - Garganta
+      color_vestir:{
+        nombres:['Turquesa','Azul cielo','Celeste'],
+        hexes:['#00c8c8','#87ceeb','#00c8ff'],
+        texto:'El turquesa y el azul celeste liberan la expresión y la comunicación auténtica. Lleva estas tonalidades en el cuello y los hombros, las zonas energéticamente conectadas al chakra garganta. Son especialmente poderosos en situaciones donde necesitas hablar tu verdad.'
+      },
+      color_poner:'Usa pañuelos, cuellos, collares o accesorios turquesa o azul claro directamente sobre la zona de la garganta y el cuello. Un colgante de turquesa o aguamarina que repose sobre la clavícula activa este centro todo el día.',
+      cristal:{nombre:'Turquesa o Aguamarina',texto:'La turquesa es la piedra de la comunicación honesta por excelencia. La aguamarina suaviza el nudo de la garganta emocional y facilita expresar lo que se ha guardado por miedo. Llévala como collar o colócala sobre la garganta en meditación.'},
+      practica:'Canta cada mañana, aunque sea en la ducha — 5 minutos activan el chakra. Escribe sin censura en un diario privado antes de dormir. Lee en voz alta 10 minutos al día. Practica decir "no" en una situación pequeña esta semana.'
+    },
+    3: { // Anahata - Corazón
+      color_vestir:{
+        nombres:['Verde esmeralda','Rosa','Verde menta'],
+        hexes:['#3cff6e','#ff9eb5','#98ffa0'],
+        texto:'El verde esmeralda y el rosa son los colores del amor incondicional y la sanación del corazón. El verde activa la expansión y la conexión con la naturaleza. El rosa suaviza las defensas emocionales y atrae ternura. Úsalos cuando necesites sanar o dar amor.'
+      },
+      color_poner:'Lleva una piedra o tela verde o rosa directamente sobre el pecho, a la altura del corazón. Usa colgantes que reposen en el centro del esternón. Una prenda interior verde o rosa que toque la piel sobre el corazón trabaja sutilmente durante todo el día.',
+      cristal:{nombre:'Cuarzo rosa o Rodonita',texto:'El cuarzo rosa es el maestro del amor propio y la apertura emocional. La rodonita trabaja con el dolor antiguo del corazón y lo transforma en compasión. Coloca el cristal sobre el esternón mientras meditas o duerme bajo tu almohada.'},
+      practica:'Practica la meditación Metta (amor compasivo): visualiza a alguien que amas, luego a ti mismo/a, luego a alguien con quien tienes conflicto, enviando luz verde del corazón. Abraza un árbol si puedes. Escribe una carta de gratitud a alguien importante, la envíes o no.'
+    },
+    4: { // Manipura - Plexo Solar
+      color_vestir:{
+        nombres:['Amarillo sol','Dorado','Naranja cálido'],
+        hexes:['#ffe600','#e8c700','#ff8c00'],
+        texto:'El amarillo brillante y el dorado irradian poder personal, confianza y voluntad. Vestirte con estos colores antes de situaciones donde necesitas decisión, liderazgo o seguridad activa el fuego del plexo solar. El naranja cálido suma creatividad a la acción.'
+      },
+      color_poner:'Lleva una tela amarilla o dorada a la altura del ombligo y el estómago. Usa cinturones, fajas o accesorios dorados en la zona abdominal. Una piedra de citrino colocada entre el ombligo y el esternón durante meditaciones de 5 minutos activa el plexo.',
+      cristal:{nombre:'Citrino o Ojo de tigre',texto:'El citrino es la piedra de la manifestación y la confianza personal. El ojo de tigre da coraje, determinación y equilibrio entre lo espiritual y lo material. Llévalo en el bolsillo del pantalón o como pulsera en la mano dominante.'},
+      practica:'Haz ejercicio físico que active el core (plancha, yoga, pilates) 15 minutos. Expón el abdomen al sol de la mañana por 5-10 minutos. Establece una meta pequeña hoy y cúmplela. Repite: "Mi voluntad es mi fuerza". Come alimentos amarillos como limón, jengibre y maíz.'
+    },
+    5: { // Svadhisthana - Sacro
+      color_vestir:{
+        nombres:['Naranja','Coral','Terracota'],
+        hexes:['#ff8c00','#ff6040','#c15a3a'],
+        texto:'El naranja vibrante y el coral activan la creatividad, la sensualidad y el gozo de vivir. Estas tonalidades cálidas invitan al flujo, al placer y a la expresión creativa libre. Úsalos cuando necesites desbloquear tu energía creativa o reconectarte con tu cuerpo.'
+      },
+      color_poner:'Usa ropa interior o prendas base en naranja o terracota que contacten directamente con la zona sacra (entre el ombligo y la cadera). Lleva una piedra de cornalina en el bolsillo a la altura de la cadera, o colócala sobre el bajo vientre durante meditaciones.',
+      cristal:{nombre:'Cornalina o Ópalo de fuego',texto:'La cornalina es la piedra de la vitalidad creativa y la pasión de vivir. Elimina la inercia y desbloquea el flujo emocional estancado. El ópalo de fuego amplifica la alegría y la espontaneidad. Llévala en el bolsillo de la cadera o usa en pulsera.'},
+      practica:'Baila solo/a en casa 10 minutos con música que te mueva. Date un baño largo o visita el mar o un río. Dedica tiempo a algo creativo: dibujar, cocinar, cantar, modelar arcilla. Permítete un placer pequeño sin culpa hoy. Practica movimientos de cadera suaves como el yoga kundalini.'
+    },
+    6: { // Muladhara - Raíz
+      color_vestir:{
+        nombres:['Rojo','Marrón tierra','Negro'],
+        hexes:['#ff3c3c','#7b4b2a','#2a2a2a'],
+        texto:'El rojo intenso activa la energía de supervivencia, la vitalidad física y el arraigo. El marrón tierra conecta directamente con la energía del suelo y la estabilidad. El negro protege y da sensación de seguridad y anclaje en momentos de incertidumbre.'
+      },
+      color_poner:'Usa calcetines o medias rojas o de colores tierra que cubran los pies — la conexión con la tierra comienza ahí. Lleva una prenda roja o marrón en la zona del periné y caderas bajas. Una piedra de obsidiana o jaspe rojo en el bolsillo del pantalón, a la altura del muslo, trabaja todo el día.',
+      cristal:{nombre:'Obsidiana negra o Jaspe rojo',texto:'La obsidiana negra es un escudo energético y un espejo que refleja lo que hay que sanar. El jaspe rojo inyecta vitalidad, coraje y la energía de la tierra directamente en tu campo. Llévala en los bolsillos bajos del pantalón o colócala entre los pies al meditar sentado/a.'},
+      practica:'Camina descalzo/a sobre tierra, pasto o arena 10 minutos (earthing). Come alimentos de raíz: remolacha, zanahoria, papa, jengibre. Establece una rutina simple y cúmplela tres días seguidos. Practica tadasana (postura de árbol) 5 minutos. Repite: "Estoy a salvo. Tengo todo lo que necesito."'
+    }
+  };
