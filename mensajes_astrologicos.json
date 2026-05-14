@@ -21552,54 +21552,90 @@ window._CKB_DATA = {
   };
 
 // ══════════════════════════════════════════════════════════════
-// TEXTOS DE SÍNTESIS DE PERSONALIDAD
-// Agregar al archivo mensajes_astrologicos.js
-// Variables: window._SINT_SOL, window._SINT_LUNA, window._SINT_ASC
-// Cada texto está pensado como párrafo de síntesis fluido,
-// combinable con los de Luna y Ascendente en una lectura completa.
+// TEXTOS DE SÍNTESIS DE PERSONALIDAD — v2
+// Pegar al final de mensajes_astrologicos.js (reemplaza la versión anterior)
+// Los tres párrafos (Sol, Luna, Asc) se muestran juntos como
+// síntesis fluida en "Tu Personalidad" y en Carta Natal.
+// Tuteo formal, sin prefijos identificadores de signo.
 // ══════════════════════════════════════════════════════════════
 
 window._SINT_SOL = {
-  aries:        "Tu esencia es impulso puro: venís al mundo a iniciar, a encender, a mover lo que estaba quieto. Hay en vos una energía que no sabe esperar porque siente que el momento es siempre ahora. Esa urgencia es tu mayor don y también tu mayor desafío.",
-  tauro:        "Tu esencia es presencia: construís lento, pero lo que construís dura. Tenés una relación profunda con lo concreto —el cuerpo, la tierra, la belleza tangible— y una voluntad que no cede cuando algo realmente importa.",
-  geminis:      "Tu esencia es movimiento mental: captás conexiones donde otros ven fragmentos, y tu mente necesita estímulo constante para sentirse viva. La curiosidad no es un rasgo tuyo, es tu forma de estar en el mundo.",
-  cancer:       "Tu esencia es memoria viva: sentís todo con una profundidad que el mundo no siempre comprende, y llevás dentro un archivo de emociones, vínculos y lugares que te forman en cada decisión. Proteger y ser protegido es tu lenguaje más honesto.",
-  leo:          "Tu esencia es luz consciente: tenés una necesidad genuina de ser visto y de brillar, no por vanidad sino porque sentís que tenés algo real para dar. Cuando encontrás tu escenario, todo lo que sos se vuelve generoso.",
-  virgo:        "Tu esencia es discernimiento: ves los detalles que otros pasan por alto y tenés una necesidad profunda de que las cosas funcionen bien, de que el caos tenga orden. Tu perfeccionismo no es rigidez, es amor expresado en forma de cuidado.",
-  libra:        "Tu esencia es equilibrio en movimiento: buscás la armonía no como algo estático sino como algo que se negocia constantemente. Tenés una inteligencia relacional que lee el espacio entre las personas y sabe cómo acercarse sin invadir.",
-  escorpio:     "Tu esencia es profundidad sin fondo: no te conformás con la superficie de nada —las personas, las ideas, las situaciones— y esa necesidad de ir al núcleo es lo que te hace transformador. Lo que tocás, lo transformás.",
-  sagitario:    "Tu esencia es búsqueda permanente: necesitás horizontes, preguntas sin respuesta fácil y libertad para moverte hacia donde apunta tu curiosidad más profunda. La vida sin significado te resulta insoportable.",
-  capricornio:  "Tu esencia es construcción paciente: tenés una relación seria con el tiempo —sabés que lo importante se logra con constancia— y una ambición que no es codicia sino la necesidad de dejar algo sólido después de vos.",
-  acuario:      "Tu esencia es visión de futuro: pensás diferente y lo sabés, y esa diferencia no es un defecto sino la fuente de todo lo que tenés para aportar. Tu mente conecta lo que parece inconexo y anticipa lo que otros aún no ven.",
-  piscis:       "Tu esencia es permeabilidad: absorbés el mundo de una manera que los demás no experimentan, sentís los estados emocionales del entorno como si fueran propios y tenés acceso a capas de realidad que escapan a lo racional. Esa sensibilidad es tu brújula más verdadera."
+  aries:
+    "Hay en ti una energía que no sabe esperar porque siente que el momento es siempre ahora. Llegas al mundo con el impulso de iniciar, de encender lo que estaba quieto, de abrir caminos antes de que estén trazados. Esa urgencia es tu mayor don —y también el territorio donde más tienes que aprender a soltar el control.",
+  tauro:
+    "Construyes lento, pero lo que construyes dura. Tienes una relación profunda con lo concreto —el cuerpo, la tierra, la belleza que se puede tocar— y una voluntad que no cede cuando algo realmente importa. Tu presencia tiene peso, y eso es algo que pocas personas logran.",
+  geminis:
+    "Tu mente capta conexiones donde otros ven fragmentos, y necesita estímulo constante para sentirse viva. La curiosidad no es un rasgo que tienes —es tu forma de estar en el mundo. Eso te da una versatilidad que desarma, aunque a veces te cuesta saber cuál de todas tus versiones es la más tuya.",
+  cancer:
+    "Sientes todo con una profundidad que el mundo no siempre comprende, y llevas dentro un archivo de emociones, vínculos y lugares que te forman en cada decisión. La memoria emocional es tu mapa. A través de ella sabes quién eres, dónde perteneces y qué merece ser protegido.",
+  leo:
+    "Tienes una necesidad genuina de ser visto y de brillar, no por vanidad sino porque sientes que tienes algo real para dar. Cuando encuentras tu escenario, todo lo que eres se vuelve generoso. El desafío no es brillar —eso lo haces de manera natural— sino aprender a hacerlo sin necesitar la validación de los demás.",
+  virgo:
+    "Ves los detalles que otros pasan por alto y tienes una necesidad profunda de que las cosas funcionen bien, de que el caos tenga orden. Tu perfeccionismo no es rigidez —es amor expresado en forma de cuidado. El reto está en aprender a dirigir esa mirada también hacia ti, con la misma compasión que aplicas a los demás.",
+  libra:
+    "Buscas la armonía no como algo estático sino como algo que se negocia constantemente. Tienes una inteligencia relacional que lee el espacio entre las personas y sabe cómo acercarse sin invadir. Esa capacidad de equilibrio es tu herramienta más poderosa, aunque a veces el miedo al conflicto te lleva a posponer lo que necesita ser dicho.",
+  escorpio:
+    "No te conformas con la superficie de nada —las personas, las ideas, las situaciones— y esa necesidad de ir al núcleo es lo que te hace transformador. Lo que tocas cambia, y tú también cambias con ello. Aprender a confiar en ese proceso, sin intentar controlarlo todo, es el trabajo más profundo de tu vida.",
+  sagitario:
+    "Necesitas horizontes, preguntas sin respuesta fácil y libertad para moverte hacia donde apunta tu curiosidad más profunda. La vida sin significado te resulta insoportable. Esa búsqueda constante te lleva lejos —en distancia, en ideas, en experiencias— y en ese camino encuentras lo que realmente eres.",
+  capricornio:
+    "Tienes una relación seria con el tiempo: sabes que lo importante se logra con constancia y que los atajos suelen costar más de lo que ahorran. Hay en ti una ambición que no es codicia sino la necesidad de construir algo sólido, algo que tenga sentido mucho después de que hayas pasado.",
+  acuario:
+    "Piensas diferente y lo sabes, y esa diferencia no es un defecto sino la fuente de todo lo que tienes para aportar. Tu mente conecta lo que parece inconexo y anticipa lo que otros aún no ven. El desafío está en no quedarte tan afuera del mundo que termines hablando solo —porque lo que ves necesita ser escuchado.",
+  piscis:
+    "Absorbes el mundo de una manera que los demás no experimentan: sientes los estados emocionales del entorno como si fueran propios y tienes acceso a capas de realidad que escapan a lo racional. Esa sensibilidad es tu brújula más verdadera, aunque a veces también es la razón por la que te pierdes a ti mismo entre los demás."
 };
 
 window._SINT_LUNA = {
-  aries:        "Por dentro, tu mundo emocional es inmediato y sin filtro: sentís fuerte, reaccionás rápido y necesitás que lo que sentís tenga salida. La quietud emocional te pesa; el movimiento, aunque sea inquieto, te alivia.",
-  tauro:        "Por dentro, necesitás estabilidad para funcionar: tus emociones se asientan lento pero son profundas, y una vez que algo o alguien forma parte de tu mundo interior, lo cuidás con una fidelidad que no se negocia fácilmente.",
-  geminis:      "Por dentro, tu mundo emocional funciona a través de las palabras: necesitás hablar lo que sentís, nombrarlo, darle forma intelectual. Sin esa traducción, las emociones te generan ansiedad en lugar de orientación.",
-  cancer:       "Por dentro, sos puro sentimiento: tu intuición es casi sobrenatural y tu memoria emocional guarda todo con una fidelidad impresionante. Necesitás vínculos donde puedas ser vulnerable sin que eso te cueste caro.",
-  leo:          "Por dentro, necesitás sentirte especial para quienes amás: tus emociones son dramáticas en el mejor sentido —intensas, generosas, expresivas— y cuando te sentís reconocido, tu mundo interior se convierte en un lugar muy cálido.",
-  virgo:        "Por dentro, procesás lo que sentís con análisis: antes de permitirte una emoción completa, tu mente ya la está examinando. Eso te da claridad pero a veces te distancia de la experiencia directa de sentir.",
-  libra:        "Por dentro, necesitás paz relacional para estar bien: el conflicto no resuelto te pesa de una manera que los demás no siempre entienden, y tu mundo emocional florece en contextos de conexión genuina y armonía sostenida.",
-  escorpio:     "Por dentro, tus emociones son un territorio sin zona intermedia: sentís todo con una intensidad que puede ser abrumadora, y tenés una capacidad para la lealtad —y para el dolor— que pocos alcanzan esa profundidad.",
-  sagitario:    "Por dentro, tus emociones necesitan espacio y sentido: no tolerás bien la sensación de estar atrapado emocionalmente, y tu mundo interior se expande cuando hay libertad, aprendizaje y algo en qué creer.",
-  capricornio:  "Por dentro, guardás más de lo que mostrás: tus emociones son reales y profundas pero las administrás con cuidado, y necesitás tiempo y confianza antes de permitir que alguien entre a tu mundo interior.",
-  acuario:      "Por dentro, tus emociones pasan por el filtro de la razón: sentís de una manera que no siempre se parece a lo que el mundo espera de vos, y necesitás vínculos que respeten tu necesidad de espacio e independencia emocional.",
-  piscis:       "Por dentro, tus emociones no tienen bordes claros: absorbés los estados de quienes te rodean, soñás despierto con facilidad y necesitás momentos de retiro para saber qué es tuyo y qué pertenece al mundo que te rodea."
+  aries:
+    "Por dentro, el mundo emocional funciona de manera inmediata y sin filtro: sientes fuerte, reaccionas rápido y necesitas que lo que sientes tenga salida. La quietud emocional pesa; el movimiento, aunque sea inquieto, alivia. Aprender a hacer pausa antes de reaccionar es una de las claves de tu equilibrio interior.",
+  tauro:
+    "Por dentro, la estabilidad es la condición para funcionar: las emociones se asientan lento pero son profundas, y una vez que algo o alguien forma parte de tu mundo interior, lo cuidas con una fidelidad que no se negocia fácilmente. El cambio emocional brusco desestabiliza, y eso es una señal —no una debilidad.",
+  geminis:
+    "Por dentro, el mundo emocional funciona a través de las palabras: necesitas hablar lo que sientes, nombrarlo, darle forma intelectual. Sin esa traducción, las emociones generan ansiedad en lugar de orientación. Compartir lo que piensas es la manera más honesta que tienes de conectar con los demás.",
+  cancer:
+    "Por dentro, la intuición es casi sobrenatural y la memoria emocional guarda todo con una fidelidad impresionante. Necesitas vínculos donde puedas ser vulnerable sin que eso te cueste caro. Cuando te sientes seguro, tu mundo interior se convierte en un lugar de una profundidad extraordinaria.",
+  leo:
+    "Por dentro, la necesidad de sentirte especial para quienes amas es genuina y profunda. Las emociones son intensas, generosas, expresivas —y cuando te sientes reconocido, todo lo interior se convierte en un lugar muy cálido. El dolor más difícil suele llegar cuando esa reciprocidad no aparece.",
+  virgo:
+    "Por dentro, procesas lo que sientes con análisis: antes de permitirte una emoción completa, la mente ya la está examinando. Eso da claridad pero a veces aleja de la experiencia directa de sentir. El aprendizaje emocional más importante está en aprender a estar con lo que se siente, antes de entenderlo.",
+  libra:
+    "Por dentro, la paz relacional es la condición para estar bien: el conflicto no resuelto pesa de una manera que los demás no siempre entienden, y el mundo emocional florece en contextos de conexión genuina y armonía sostenida. El reto es aprender a defender lo que necesitas sin sentir que rompes algo.",
+  escorpio:
+    "Por dentro, las emociones no tienen zona intermedia: sientes todo con una intensidad que puede ser abrumadora, y hay una capacidad para la lealtad —y para el dolor— que pocos alcanzan esa profundidad. Aprender a soltar lo que ya cumplió su ciclo es el trabajo emocional más liberador que puedes hacer.",
+  sagitario:
+    "Por dentro, las emociones necesitan espacio y sentido: la sensación de estar atrapado emocionalmente no se tolera bien, y el mundo interior se expande cuando hay libertad, aprendizaje y algo en qué creer. La vulnerabilidad es real aunque cueste mostrarla —y admitirla es un acto de valentía propio.",
+  capricornio:
+    "Por dentro, guardas más de lo que muestras: las emociones son reales y profundas pero las administras con cuidado, y necesitas tiempo y confianza antes de permitir que alguien entre a tu mundo interior. Cuando esa confianza existe, eres de los vínculos más sólidos y serios que alguien puede tener.",
+  acuario:
+    "Por dentro, las emociones pasan por el filtro de la razón: sientes de una manera que no siempre se parece a lo que el mundo espera, y necesitas vínculos que respeten la independencia emocional. La soledad no asusta —lo que sí puede costar es admitir que la conexión también importa.",
+  piscis:
+    "Por dentro, las emociones no tienen bordes claros: absorbes los estados de quienes te rodean, sueñas despierto con facilidad y necesitas momentos de retiro para saber qué es tuyo y qué pertenece al mundo exterior. Ese espacio de silencio no es escape —es donde te encuentras a ti mismo."
 };
 
 window._SINT_ASC = {
-  aries:        "Hacia afuera, el mundo te ve como alguien directo y decidido: proyectás energía, iniciativa y una presencia que dice 'ya voy' antes de que abras la boca. Esa imagen puede abrirte puertas, aunque a veces llega antes que tu intención real.",
-  tauro:        "Hacia afuera, el mundo te ve como alguien confiable y sereno: proyectás una calma que tranquiliza, una presencia sólida que hace que la gente sienta que puede apoyarse en vos. Esa imagen es real, aunque a veces subestiman tu profundidad.",
-  geminis:      "Hacia afuera, el mundo te ve como alguien ágil y sociable: proyectás curiosidad, humor y una facilidad para conectar que hace que los demás se sientan cómodos rápidamente. Esa liviandad aparente esconde mucho más de lo que mostrás.",
-  cancer:       "Hacia afuera, el mundo te ve como alguien cercano y cálido: proyectás sensibilidad y cuidado, y la gente suele sentir que puede acercarse a vos sin miedo. Esa imagen te conecta profundamente con los demás, aunque también atrae a quienes necesitan más de lo que podés dar.",
-  leo:          "Hacia afuera, el mundo te ve como alguien magnético y presente: proyectás una energía que ocupa el espacio de manera natural, y la gente suele notarte antes de que hagas algo especial para llamar la atención.",
-  virgo:        "Hacia afuera, el mundo te ve como alguien competente y organizado: proyectás atención al detalle y una seriedad que genera confianza. A veces esa imagen hace que te encarguen más de lo que corresponde, porque parecés siempre capaz de manejar todo.",
-  libra:        "Hacia afuera, el mundo te ve como alguien agradable y equilibrado: proyectás elegancia relacional, una facilidad para hacer sentir bien a los demás y una presencia que suaviza los ambientes. Esa imagen es genuina, aunque a veces cuesta que te tomen en serio cuando imponés límites.",
-  escorpio:     "Hacia afuera, el mundo te ve como alguien intenso y difícil de descifrar: proyectás una profundidad que atrae y a la vez genera cierta cautela. La gente siente que hay mucho más detrás de lo que mostrás, y en general tienen razón.",
-  sagitario:    "Hacia afuera, el mundo te ve como alguien libre y expansivo: proyectás entusiasmo, apertura y una energía que invita a moverse, a explorar, a pensar en grande. Esa imagen inspira a los demás aunque a veces genera expectativas de disponibilidad que no siempre podés sostener.",
-  capricornio:  "Hacia afuera, el mundo te ve como alguien serio y capaz: proyectás responsabilidad y una madurez que hace que confíen en vos incluso antes de conocerte bien. Esa imagen te abre puertas, aunque puede hacer que la gente olvide que también necesitás apoyo.",
-  acuario:      "Hacia afuera, el mundo te ve como alguien original e impredecible: proyectás una energía que no encaja fácilmente en ninguna categoría, y eso genera fascinación en algunos e incomodidad en otros. Tu presencia siempre deja huella.",
-  piscis:       "Hacia afuera, el mundo te ve como alguien suave y difícil de definir: proyectás una energía fluida que se adapta al contexto, y la gente suele sentir que sos fácil de estar, aunque rara vez llegan a conocerte del todo."
+  aries:
+    "Hacia afuera, proyectas energía, iniciativa y una presencia que dice «ya voy» antes de que abras la boca. El mundo te ve como alguien directo y decidido, y esa imagen puede abrirte puertas antes incluso de que demuestres lo que sabes. El desafío es que a veces llega antes que tu intención real.",
+  tauro:
+    "Hacia afuera, proyectas una calma que tranquiliza y una presencia sólida que hace que la gente sienta que puede apoyarse en ti. El mundo te ve como alguien confiable y sereno, y esa imagen es real, aunque a veces subestiman la profundidad que hay detrás de esa superficie tranquila.",
+  geminis:
+    "Hacia afuera, proyectas curiosidad, humor y una facilidad para conectar que hace que los demás se sientan cómodos rápidamente. El mundo te ve como alguien ágil y sociable, y esa liviandad aparente esconde mucho más de lo que sueles mostrar en el primer encuentro.",
+  cancer:
+    "Hacia afuera, proyectas sensibilidad y cuidado, y la gente suele sentir que puede acercarse sin miedo. El mundo te ve como alguien cercano y cálido, y esa imagen te conecta profundamente con los demás —aunque también atrae a quienes necesitan más de lo que puedes dar.",
+  leo:
+    "Hacia afuera, proyectas una energía que ocupa el espacio de manera natural, y la gente suele notarte antes de que hagas algo especial para llamar la atención. El mundo te ve como alguien magnético y presente, y esa presencia no es actuada —es simplemente cómo llegas a los lugares.",
+  virgo:
+    "Hacia afuera, proyectas atención al detalle y una seriedad que genera confianza. El mundo te ve como alguien competente y organizado, y esa imagen hace que te encarguen más de lo que corresponde —porque pareces siempre capaz de manejar todo. Aprender a pedir ayuda también es parte del camino.",
+  libra:
+    "Hacia afuera, proyectas elegancia relacional y una facilidad para hacer sentir bien a los demás. El mundo te ve como alguien agradable y equilibrado, y esa imagen es genuina —aunque a veces cuesta que te tomen en serio cuando impones límites, porque nadie espera que alguien tan amable diga que no.",
+  escorpio:
+    "Hacia afuera, proyectas una profundidad que atrae y a la vez genera cierta cautela. El mundo te ve como alguien intenso y difícil de descifrar, y la gente siente que hay mucho más detrás de lo que muestras. En general tienen razón —y esa misteriosidad es parte de tu presencia, no un defecto.",
+  sagitario:
+    "Hacia afuera, proyectas entusiasmo, apertura y una energía que invita a moverse y a pensar en grande. El mundo te ve como alguien libre y expansivo, y esa imagen inspira a los demás —aunque a veces genera expectativas de disponibilidad que no siempre puedes sostener.",
+  capricornio:
+    "Hacia afuera, proyectas responsabilidad y una madurez que hace que confíen en ti incluso antes de conocerte bien. El mundo te ve como alguien serio y capaz, y esa imagen te abre puertas —aunque puede hacer que la gente olvide que también necesitas apoyo, no solo que piden el tuyo.",
+  acuario:
+    "Hacia afuera, proyectas una energía que no encaja fácilmente en ninguna categoría, y eso genera fascinación en algunos e incomodidad en otros. El mundo te ve como alguien original e impredecible, y tu presencia siempre deja huella —aunque no siempre del modo que esperabas.",
+  piscis:
+    "Hacia afuera, proyectas una energía fluida que se adapta al contexto, y la gente suele sentir que eres fácil de estar. El mundo te ve como alguien suave y difícil de definir, y aunque esa presencia conecta profundamente, rara vez llegan a conocerte del todo —porque hay capas que solo tú puedes ver."
 };
