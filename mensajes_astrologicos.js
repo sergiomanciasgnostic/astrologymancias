@@ -19619,10 +19619,7 @@ window._SIGNOS_ETAPAS = {
       },
     },
   },
-  },
-    },
-  },
-cancer:{
+cancer: {
     M: {
       nino: {
         'Bebé': 'El bebé Cáncer llega al mundo con una sensibilidad extraordinaria y una necesidad de contacto que sus padres pronto aprenden a honrar. Desde los primeros días exige presencia cálida y constante: no le basta que sus necesidades físicas estén cubiertas, necesita que la persona que lo sostiene también esté emocionalmente presente. Llora con intensidad cuando siente vacío o extrañeza, y se calma de manera casi instantánea cuando el cuerpo y la voz de su figura de apego están cerca. Tiene una memoria emocional activa desde muy temprano: reconoce tonos, olores y ritmos cardíacos con una precisión que sorprende.',
@@ -19754,7 +19751,7 @@ cancer:{
       },
     },
 },
-virgo:{
+virgo: {
   M: {
       nino: {
         'Bebé': 'El bebé Virgo observa antes de actuar. Desde los primeros días parece estar procesando el entorno con una atención inusual para su edad: sigue los movimientos, registra los sonidos y responde con más precisión que expresividad. Se calma mejor con rutinas claras y consistentes que con la improvisación. Le molestan los ambientes caóticos o los estímulos sensoriales excesivos. Sus padres pronto descubren que este bebé tiene preferencias muy concretas y que honrarlas reduce considerablemente su incomodidad.',
