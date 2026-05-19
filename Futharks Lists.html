@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lista de Futharks — Sergiomancias Gnostic</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500&family=Noto+Serif:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: #7a5f2a;
+    --red: #8b1a1a;
+    --bg: #000000;
+    --bg2: #0d0d0d;
+    --bg3: #111111;
+    --text: #e0d5c0;
+    --text-dim: #8a7f6a;
+    --border: #2a2318;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Fondo rúnico decorativo */
+  body::before {
+    content: 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    font-size: 80px;
+    color: rgba(201, 168, 76, 0.03);
+    word-break: break-all;
+    line-height: 1.2;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  .site-header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .site-header::after {
+    content: '';
+    display: block;
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 20px auto 0;
+  }
+
+  .site-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(24px, 5vw, 42px);
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-shadow: 0 0 40px rgba(201, 168, 76, 0.3);
+    margin-bottom: 10px;
+  }
+
+  .site-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    color: var(--text-dim);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+  }
+
+  /* VISTA: LISTA DE FUTHARKS */
+  #view-list { display: block; }
+  #view-futhark { display: none; }
+  #view-rune { display: none; }
+
+  .futharks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 50px 0;
+  }
+
+  .futhark-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--gold-dim);
+    padding: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .futhark-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .futhark-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(201,168,76,0.1);
+  }
+
+  .futhark-card:hover::before { opacity: 1; }
+
+  .futhark-card-name {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .futhark-card-count {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  .futhark-card-preview {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  .futhark-card-arrow {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: var(--gold-dim);
+    font-size: 20px;
+    transition: transform 0.3s, color 0.3s;
+  }
+
+  .futhark-card:hover .futhark-card-arrow {
+    transform: translateX(5px);
+    color: var(--gold);
+  }
+
+  /* VISTA: RUNAS DE UN FUTHARK */
+  .view-header {
+    padding: 30px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+
+  .btn-back {
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    padding: 8px 20px;
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .btn-back:hover {
+    background: var(--gold);
+    color: var(--bg);
+    border-color: var(--gold);
+  }
+
+  .view-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(18px, 3vw, 28px);
+    color: var(--gold);
+  }
+
+  .view-count {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    margin-left: auto;
+  }
+
+  .futhark-info-btns {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-info {
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    padding: 8px 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .btn-info:hover, .btn-info.active {
+    background: var(--gold);
+    color: var(--bg);
+    border-color: var(--gold);
+  }
+
+  .futhark-info-panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--gold-dim);
+    padding: 20px 24px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text);
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .futhark-info-panel.visible { display: block; }
+
+  .runes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    padding-bottom: 60px;
+  }
+
+  .rune-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 20px 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    position: relative;
+  }
+
+  .rune-card:hover {
+    border-color: var(--gold);
+    background: var(--bg3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201,168,76,0.1);
+  }
+
+  .rune-img-container {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .rune-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: invert(1);
+  }
+
+  .rune-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-style: italic;
+    text-align: center;
+    padding: 5px;
+  }
+
+  .rune-card-name {
+    font-family: 'Noto Serif', serif;
+    font-size: 14px;
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  /* VISTA: DETALLE DE RUNA */
+  .rune-detail {
+    padding: 20px 0 60px;
+  }
+
+  .rune-detail-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .rune-detail-img {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 30px;
+    background: var(--bg2);
+    border: 1px solid var(--gold-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .rune-detail-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: invert(1);
+  }
+
+  .rune-detail-img-placeholder {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-style: italic;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .rune-detail-name {
+    font-family: 'Noto Serif', serif;
+    font-size: clamp(22px, 4vw, 36px);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 8px;
+    text-shadow: 0 0 30px rgba(201,168,76,0.2);
+  }
+
+  .rune-detail-futhark {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .rune-detail-divider {
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 40px;
+  }
+
+  .rune-detail-desc {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text);
+    font-weight: 300;
+  }
+
+  /* Animaciones */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in { animation: fadeIn 0.4s ease forwards; }
+
+  .btn-close {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    z-index: 100;
+    line-height: 1;
+  }
+
+  .btn-close:hover {
+    background: var(--gold);
+    color: var(--bg);
+    border-color: var(--gold);
+  }
+    font-size: 11px;
+    color: var(--red);
+    margin-top: 4px;
+    font-style: italic;
+    display: none;
+  }
+
+  /* =============================================
+     RESPONSIVE MÓVIL
+  ============================================= */
+  @media (max-width: 768px) {
+
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    .container {
+      padding: 0 10px;
+      width: 100%;
+    }
+
+    .site-header {
+      padding: 15px 15px 10px;
+    }
+
+    .site-header::after {
+      margin: 10px auto 0;
+    }
+
+    .site-title {
+      font-size: 22px;
+      letter-spacing: 2px;
+    }
+
+    .futharks-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 12px 0;
+    }
+
+    .futhark-card {
+      padding: 12px;
+    }
+
+    .futhark-card-name {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .futhark-card-count {
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .futhark-card-preview {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .view-header {
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 15px 0;
+      margin-bottom: 20px;
+    }
+
+    .view-title {
+      font-size: 16px;
+      width: 100%;
+      order: 2;
+    }
+
+    .btn-back {
+      order: 1;
+      font-size: 11px;
+      padding: 6px 14px;
+    }
+
+    .view-count {
+      order: 3;
+      margin-left: 0;
+      font-size: 11px;
+    }
+
+    .futhark-info-btns {
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-info {
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .runes-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .rune-card {
+      padding: 12px 8px;
+    }
+
+    .rune-img-container {
+      width: 60px;
+      height: 60px;
+    }
+
+    .rune-card-name {
+      font-size: 12px;
+    }
+
+    .rune-detail-img {
+      width: 110px;
+      height: 110px;
+    }
+
+    .rune-detail-name {
+      font-size: 22px;
+    }
+
+    .rune-detail-desc {
+      font-size: 14px;
+    }
+
+    .btn-close {
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      font-size: 15px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<button class="btn-close" onclick="closeLightbox()" title="Cerrar">✕</button>
+
+<div class="site-header">
+  <div class="container">
+    <h1 class="site-title">Lista de Futharks</h1>
+    <img src="https://static.wixstatic.com/media/0bac9e_19934d62be5d497c9443813d4e163a81~mv2.png" alt="Sergiomancias Gnostic" style="height:80px; margin-top:20px;">
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- VISTA 1: Lista de Futharks -->
+  <div id="view-list">
+    <div class="futharks-grid" id="futharks-grid"></div>
+  </div>
+
+  <!-- VISTA 2: Runas de un Futhark -->
+  <div id="view-futhark">
+    <div class="view-header">
+      <button class="btn-back" onclick="goToList()">← Volver</button>
+      <h2 class="view-title" id="futhark-title"></h2>
+      <span class="view-count" id="futhark-count"></span>
+    </div>
+    <div class="futhark-info-btns">
+      <button class="btn-info" id="btn-historia" onclick="togglePanel('historia')">Historia del Futhark</button>
+      <button class="btn-info" id="btn-uso" onclick="togglePanel('uso')">Uso en Bindrunes</button>
+    </div>
+    <div class="futhark-info-panel" id="panel-historia"></div>
+    <div class="futhark-info-panel" id="panel-uso"></div>
+    <div class="runes-grid" id="runes-grid"></div>
+  </div>
+
+  <!-- VISTA 3: Detalle de una runa -->
+  <div id="view-rune">
+    <div class="view-header">
+      <button class="btn-back" onclick="goToFuthark()">← Volver</button>
+      <h2 class="view-title" id="rune-breadcrumb"></h2>
+    </div>
+    <div class="rune-detail">
+      <div class="rune-detail-inner fade-in">
+        <div class="rune-detail-img" id="rune-detail-img"></div>
+        <h2 class="rune-detail-name" id="rune-detail-name"></h2>
+        <p class="rune-detail-futhark" id="rune-detail-futhark"></p>
+        <div class="rune-detail-divider"></div>
+        <p class="rune-detail-desc" id="rune-detail-desc"></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function closeLightbox() {
+  window.parent.postMessage("cerrar", "*");
+}
+
+// =============================================
+// DATOS — Inserta la URL de imagen en "img"
+// =============================================
+const futharks = [
+  {
+    id: "antiguo",
+    name: "Futhark Antiguo",
+    count: 24,
+    historia: "El Futhark Antiguo es el sistema rúnico más antiguo conocido, con registros que datan del siglo II d.C. Su nombre proviene de sus seis primeras runas: Fehu, Uruz, Thurisaz, Ansuz, Raidho y Kaunaz. Fue utilizado por los pueblos germánicos a lo largo de toda Europa del Norte y Escandinavia durante más de quinientos años, aproximadamente hasta el siglo VIII d.C. Sus inscripciones más tempranas aparecen en objetos personales como fíbulas, armas y amuletos, lo que indica que desde sus orígenes fue un sistema tanto funcional como mágico. Los runoílogos creen que el Futhark Antiguo derivó del alfabeto itálico del norte, aunque su uso rúnico siempre tuvo una dimensión sagrada que lo distingue de cualquier simple sistema de escritura. Fue el sistema preferido de los völvur, videntes y magos germánicos para sus trabajos de seiðr y galdr. Con la llegada del Futhark Joven en Escandinavia y el Futhorc en las islas británicas, el Futhark Antiguo fue quedando en desuso como escritura cotidiana, pero su poder mágico nunca fue olvidado.",
+    uso: "El Futhark Antiguo es el sistema más completo y versátil para la creación de Bindrunes. Sus 24 runas cubren prácticamente todos los aspectos de la experiencia humana: desde la riqueza material hasta la muerte, desde la protección hasta la transformación profunda. Es el sistema recomendado para quienes se inician en las Bindrunes, ya que ofrece el mayor rango de posibilidades. Sus runas se combinan con fluidez natural entre sí, ya que fueron diseñadas dentro de un mismo sistema coherente. Ideal para Bindrunes de manifestación, protección, sanación, amor, prosperidad, trabajo con sombra y conexión con los Nueve Mundos. Si tienes dudas sobre qué Futhark usar, el Antiguo siempre es la respuesta.",
+    runes: [
+      { name: "Fehu", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Runic_letter_fehu.svg/250px-Runic_letter_fehu.svg.png", desc: "Runa de la riqueza, el ganado y la abundancia primordial. Representa los bienes móviles, la prosperidad que circula y el poder del flujo material. Es la energía que se mueve, se comparte y se multiplica. En una Bindrune, Fehu atrae la abundancia, el éxito económico y la vitalidad creadora." },
+      { name: "Uruz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Runic_letter_uruz.svg/330px-Runic_letter_uruz.svg.png", desc: "Runa del uro salvaje, la fuerza bruta y la salud indomable. Representa la potencia primitiva, la resistencia y la vitalidad del ser. Es la energía que no se doblega. En una Bindrune, Uruz refuerza la fuerza física, la curación profunda y la voluntad inquebrantable." },
+      { name: "Thurisaz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Runic_letter_thurisaz.svg/250px-Runic_letter_thurisaz.svg.png", desc: "Runa del gigante, la espina y el martillo de Thor. Representa la fuerza destructora que limpia y protege. Es una energía peligrosa si no se maneja con intención. En una Bindrune, Thurisaz rompe obstáculos, repele energías hostiles y actúa como escudo agresivo." },
+      { name: "Ansuz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Runic_letter_ansuz.svg/250px-Runic_letter_ansuz.svg.png", desc: "Runa de Odín, la palabra divina y la sabiduría revelada. Representa la comunicación sagrada, la inspiración y los mensajes del más allá. En una Bindrune, Ansuz potencia la elocuencia, la conexión con lo divino, el conocimiento y la recepción de señales." },
+      { name: "Raidho", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Runic_letter_raido.svg/250px-Runic_letter_raido.svg.png", desc: "Runa del viaje, el camino y el ritmo cósmico. Representa el movimiento con propósito, la justicia en el tránsito y el orden del universo. En una Bindrune, Raidho facilita los viajes, alinea las acciones con el flujo natural y trae orden a lo caótico." },
+      { name: "Kaunaz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Runic_letter_kauna.svg/250px-Runic_letter_kauna.svg.png", desc: "Runa de la antorcha, el conocimiento y la llama interior. Representa la luz en la oscuridad, la creatividad ardiente y el fuego del saber. En una Bindrune, Kaunaz ilumina lo oculto, enciende la pasión y aporta claridad en momentos de confusión." },
+      { name: "Gebo", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Runic_letter_gebo.svg/250px-Runic_letter_gebo.svg.png", desc: "Runa del don, el intercambio y la unión sagrada. Representa el equilibrio entre dar y recibir, los pactos y las alianzas. En una Bindrune, Gebo sella acuerdos, armoniza relaciones y establece el equilibrio entre dos fuerzas o personas." },
+      { name: "Wunjo", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Runic_letter_wunjo.svg/330px-Runic_letter_wunjo.svg.png", desc: "Runa de la alegría, la armonía y el bienestar. Representa la felicidad que surge del equilibrio y la comunidad. En una Bindrune, Wunjo atrae la dicha genuina, la paz interior y el sentido de pertenencia y satisfacción." },
+      { name: "Hagalaz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Runic_letter_haglaz.svg/330px-Runic_letter_haglaz.svg.png", desc: "Runa del granizo, la disrupción y la transformación forzada. Representa las fuerzas caóticas que destruyen para dar paso a algo nuevo. En una Bindrune, Hagalaz rompe patrones estancados y abre el camino a la renovación, aunque con sacudida incluida." },
+      { name: "Nauthiz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Runic_letter_naudiz.svg/250px-Runic_letter_naudiz.svg.png", desc: "Runa de la necesidad, la restricción y la fricción que forja. Representa la resistencia que nos hace crecer y la chispa que nace del conflicto. En una Bindrune, Nauthiz genera la presión necesaria para el cambio y refuerza la determinación ante la adversidad." },
+      { name: "Isa", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Runic_letter_isaz.svg/40px-Runic_letter_isaz.svg.png", desc: "Runa del hielo, la quietud y la detención. Representa la pausa necesaria, el estancamiento o la concentración de energía. En una Bindrune, Isa congela situaciones, detiene procesos indeseados y permite la introspección profunda." },
+      { name: "Jera", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Runic_letter_jeran.svg/330px-Runic_letter_jeran.svg.png", desc: "Runa del año, la cosecha y los ciclos naturales. Representa la recompensa justa del trabajo paciente y el flujo de las estaciones. En una Bindrune, Jera trae resultados merecidos, activa ciclos de abundancia y refuerza la paciencia estratégica." },
+      { name: "Eihwaz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Runic_letter_iwaz.svg/330px-Runic_letter_iwaz.svg.png", desc: "Runa del tejo, el árbol de la vida y la muerte, y el eje entre mundos. Representa la resistencia espiritual, la iniciación y el tránsito entre planos. En una Bindrune, Eihwaz conecta con los mundos ocultos, protege en travesías espirituales y fortalece la resistencia ante lo inevitable." },
+      { name: "Pertho", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Runic_letter_pertho.svg/250px-Runic_letter_pertho.svg.png", desc: "Runa del destino, el misterio y lo oculto. Representa lo que aún no se conoce, el juego del azar y las fuerzas que actúan desde la sombra. En una Bindrune, Pertho accede a lo oculto, trabaja con la sincronicidad y revela lo que permanece velado." },
+      { name: "Algiz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Runic_letter_algiz.svg/330px-Runic_letter_algiz.svg.png", desc: "Runa del alce, la protección y el vínculo con lo sagrado. Representa el escudo divino y la conexión con fuerzas superiores de guarda. En una Bindrune, Algiz es la protección más pura del sistema, escuda al portador y eleva su vibración espiritual." },
+      { name: "Sowilo", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Runic_letter_sowilo.svg/250px-Runic_letter_sowilo.svg.png", desc: "Runa del sol, la victoria y la fuerza vital. Representa la energía solar en su plenitud: éxito, salud y claridad. En una Bindrune, Sowilo aporta poder triunfante, vitalidad luminosa y la capacidad de superar cualquier obstáculo." },
+      { name: "Tiwaz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Runic_letter_tiwaz.svg/330px-Runic_letter_tiwaz.svg.png", desc: "Runa de Tyr, la justicia y el sacrificio honorable. Representa la victoria ganada con valentía y la ley justa. En una Bindrune, Tiwaz aporta rectitud en conflictos, apoya en batallas legales o espirituales y refuerza la integridad del portador." },
+      { name: "Berkana", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Runic_letter_berkanan.svg/250px-Runic_letter_berkanan.svg.png", desc: "Runa del abedul, el nacimiento y el crecimiento. Representa la feminidad creadora, la maternidad y los nuevos comienzos. En una Bindrune, Berkana nutre lo que nace, protege en gestaciones de todo tipo y favorece la regeneración." },
+      { name: "Ehwaz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Runic_letter_ehwaz.svg/330px-Runic_letter_ehwaz.svg.png", desc: "Runa del caballo, la asociación y el movimiento armónico. Representa la cooperación entre dos fuerzas distintas que avanzan juntas. En una Bindrune, Ehwaz fortalece vínculos, facilita cambios de estado y armoniza dualidades complementarias." },
+      { name: "Mannaz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Runic_letter_mannaz.svg/330px-Runic_letter_mannaz.svg.png", desc: "Runa del ser humano, la conciencia y el potencial del hombre. Representa la mente, la memoria y la condición humana en su totalidad. En una Bindrune, Mannaz potencia la inteligencia, la memoria, el autoconocimiento y las relaciones humanas." },
+      { name: "Laguz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Runic_letter_laukaz.svg/250px-Runic_letter_laukaz.svg.png", desc: "Runa del agua, el inconsciente y el flujo de la vida. Representa la intuición, lo emocional y las corrientes invisibles del ser. En una Bindrune, Laguz activa la intuición profunda, trabaja el mundo emocional y favorece el flujo de lo estancado." },
+      { name: "Inguz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Runic_letter_ingwaz.svg/330px-Runic_letter_ingwaz.svg.png", desc: "Runa del dios Ing, la semilla y el potencial latente. Representa la energía contenida lista para explotar, la fertilidad y la completitud de un ciclo. En una Bindrune, Inguz activa potenciales dormidos, sella procesos de gestación y libera energía acumulada." },
+      { name: "Othila", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Runic_letter_othalan.svg/500px-Runic_letter_othalan.svg.png", desc: "Runa del hogar, la herencia y el linaje. Representa lo que heredamos de nuestra sangre, nuestro territorio y nuestra tradición. En una Bindrune, Othila conecta con los ancestros, protege el hogar y trabaja con la memoria genética y espiritual del linaje." },
+      { name: "Dagaz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Runic_letter_dagaz.svg/330px-Runic_letter_dagaz.svg.png", desc: "Runa del alba, el umbral y la transformación luminosa. Representa el momento de cambio entre dos estados, el amanecer de una nueva conciencia. En una Bindrune, Dagaz sella transformaciones profundas, abre portales de cambio y activa la iluminación repentina." }
+     ]
+  },
+  {
+    id: "joven",
+    name: "Futhark Joven / Escandinavo",
+    count: 16,
+    historia: "El Futhark Joven, también conocido como Futhark Escandinavo o Younger Futhark, surgió aproximadamente en el siglo VIII d.C. como una evolución simplificada del Futhark Antiguo. Paradójicamente, en lugar de expandirse, se redujo de 24 a 16 runas, lo que significa que cada runa del sistema joven cargaba con más significados y sonidos que su predecesora. Fue el sistema dominante en Escandinavia durante la Era Vikinga, entre los siglos VIII y XII d.C., y es el que aparece en la gran mayoría de las piedras rúnicas erigidas en ese período. Se estima que existen más de tres mil piedras rúnicas en Escandinavia, la mayoría inscritas con el Futhark Joven. Se subdivide en dos variantes principales: el Futhark de rama larga, usado en Dinamarca, y el de rama corta, usado en Suecia y Noruega. Con la llegada del cristianismo comenzó a declinar como sistema de escritura, aunque se mantuvo en uso popular en zonas rurales de Escandinavia hasta bien entrada la Edad Media.",
+    uso: "El Futhark Joven, al tener menos runas con mayor densidad de significado, produce Bindrunes de gran concentración energética. Cada runa que se incluye en la combinación porta múltiples capas de sentido, lo que lo hace especialmente potente para trabajos donde se busca una intención muy concentrada en pocas runas. Es el sistema más conectado con la energía vikinga en su expresión más directa: guerrera, viajera y natural. Ideal para Bindrunes de ciclos naturales, prosperidad cíclica, conexión con los ritmos de la tierra y las estaciones, coraje en el camino y trabajo con la energía de los ancestros escandinavos. Sus runas funcionan con especial fuerza en contextos de acción, movimiento y manifestación rápida.",
+    runes: [
+      { name: "Fé", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Runic_letter_fehu.svg/250px-Runic_letter_fehu.svg.png", desc: "Equivalente escandinavo de Fehu. Representa la riqueza, el ganado y la prosperidad en movimiento. En una Bindrune del Futhark Joven, Fé atrae la abundancia y activa el flujo de recursos hacia el portador." },
+      { name: "Úr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Runic_letter_uruz.svg/330px-Runic_letter_uruz.svg.png", desc: "Equivalente escandinavo de Uruz. Representa la lluvia, la esencia primordial y la fuerza vital. En una Bindrune, Úr aporta vitalidad profunda y la capacidad de renovarse desde las raíces." },
+      { name: "Þurs | Dhurs", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Runic_letter_thurisaz.svg/250px-Runic_letter_thurisaz.svg.png", desc: "Equivalente escandinavo de Thurisaz. Representa los gigantes del hielo y la tormenta. En una Bindrune, Þurs rompe barreras con fuerza brutal y actúa como escudo agresivo ante amenazas externas." },
+      { name: "Óss", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Short-twig_Oss.svg/500px-Short-twig_Oss.svg.png", desc: "Equivalente escandinavo de Ansuz. Representa la boca de los dioses y la palabra sagrada. En una Bindrune, Óss potencia la comunicación, la poesía y la conexión con la sabiduría divina." },
+      { name: "Reið | Reidh", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Runic_letter_raido.svg/250px-Runic_letter_raido.svg.png", desc: "Equivalente escandinavo de Raidho. Representa el viaje en caballo, el movimiento y el rito. En una Bindrune, Reið facilita el avance en el camino elegido y alinea la acción con el ritmo del cosmos." },
+      { name: "Kaun", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Long-branch_Kaun.svg/250px-Long-branch_Kaun.svg.png", desc: "Equivalente escandinavo de Kaunaz. Representa la úlcera, pero también la llama que purifica. En una Bindrune, Kaun quema lo que no sirve y abre espacio para la renovación." },
+      { name: "Hagall", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Runic_letter_ior.svg/250px-Runic_letter_ior.svg.png", desc: "Equivalente escandinavo de Hagalaz. Representa el granizo y la tormenta inevitable. En una Bindrune, Hagall introduce el caos necesario para romper estructuras caducas y forzar la evolución." },
+      { name: "Nauðr | Naudhr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Runic_letter_naudiz.svg/250px-Runic_letter_naudiz.svg.png", desc: "Equivalente escandinavo de Nauthiz. Representa la necesidad y el fuego de fricción. En una Bindrune, Nauðr genera la tensión necesaria que produce el cambio y templa el carácter." },
+      { name: "Íss | Ís", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Runic_letter_isaz.svg/40px-Runic_letter_isaz.svg.png", desc: "Equivalente escandinavo de Isa. Representa el hielo estático y la quietud del invierno. En una Bindrune, Íss paraliza lo que debe detenerse y favorece la concentración interna." },
+      { name: "Ár", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Runic_letter_ar.svg/330px-Runic_letter_ar.svg.png", desc: "Runa de la cosecha, el año fértil y la prosperidad cíclica. Representa el fruto del trabajo bien hecho y la recompensa que llega en el momento justo. En una Bindrune, Ár activa los ciclos de abundancia y acelera la manifestación de lo sembrado con esfuerzo." },
+      { name: "Sól", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Runic_letter_sigel.svg/250px-Runic_letter_sigel.svg.png", desc: "Equivalente escandinavo de Sowilo. Representa el sol y su poder regenerador. En una Bindrune, Sól aporta victoria luminosa, salud y la capacidad de brillar ante la adversidad." },
+      { name: "Týr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Runic_letter_tiwaz.svg/330px-Runic_letter_tiwaz.svg.png", desc: "Equivalente escandinavo de Tiwaz. Representa al dios Tyr y la justicia. En una Bindrune, Týr refuerza la victoria en disputas, la honra y el coraje ante lo difícil." },
+      { name: "Bjarkan", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Runic_letter_berkanan.svg/250px-Runic_letter_berkanan.svg.png", desc: "Equivalente escandinavo de Berkana. Representa el abedul y el renacimiento. En una Bindrune, Björk nutre nuevos comienzos, protege lo que está naciendo y activa la regeneración." },
+      { name: "Maðr | Madhr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Runic_letter_algiz.svg/330px-Runic_letter_algiz.svg.png", desc: "Equivalente escandinavo de Mannaz. Representa al ser humano y su capacidad de razonar. En una Bindrune, Maðr potencia el intelecto, la memoria y las relaciones entre personas." },
+      { name: "Lǫgr | Lögr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Runic_letter_laukaz.svg/250px-Runic_letter_laukaz.svg.png", desc: "Equivalente escandinavo de Laguz. Representa el agua y el mar. En una Bindrune, Lǫgr activa la intuición, el inconsciente y el flujo emocional hacia donde debe ir." },
+      { name: "Ýr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Runic_letter_calc.svg/330px-Runic_letter_calc.svg.png", desc: "Equivalente escandinavo del tejo. Representa la muerte y el renacimiento, el arco y la flecha. En una Bindrune, Ýr marca el fin de un ciclo y abre el umbral hacia lo que viene." }
+    ]
+  },
+  {
+    id: "anglosajón",
+    name: "Futhorc Anglosajón",
+    count: 34,
+    historia: "El Futhorc Anglosajón es la adaptación del Futhark Antiguo desarrollada en las islas británicas a partir del siglo V d.C., cuando los pueblos anglosajones llevaron las runas a Inglaterra. A diferencia del Futhark Joven que se simplificó, el Futhorc se expandió considerablemente, llegando a contar con hasta 34 runas en sus versiones más completas, incorporando sonidos propios del anglosajón que no existían en el germánico continental. Sus inscripciones más famosas incluyen el poema rúnico anglosajón, el cofre de Franks y la cruz de Ruthwell, que demuestran una profunda integración entre la tradición rúnica pagana y la influencia cristiana que llegó con la evangelización de las islas. El Futhorc convivió con el latín durante siglos, absorbiendo influencias celtas e irlandesas que le dieron una dimensión espiritual única, más vinculada con el mundo de los espíritus, los umbrales y los ancestros que cualquier otro sistema rúnico. Fue cayendo en desuso hacia el siglo XI d.C. con la conquista normanda.",
+    uso: "El Futhorc es el sistema rúnico más rico en runas de umbral y tránsito. Sus runas adicionales respecto al Futhark Antiguo se especializan en aspectos que los otros sistemas no cubren con tanta profundidad: la muerte honorable, el más allá, los espíritus ancestrales, los ciclos de la naturaleza y los cruces entre mundos. Es el sistema ideal para Bindrunes de trabajo con ancestros, rituales de paso, conexión con el mundo de los muertos, protección en transiciones vitales y trabajo con las fuerzas de la naturaleza en su aspecto más misterioso. Sus runas como Calc, Calc doble, Ear, Cweorth y Gar no tienen equivalente en otros sistemas y aportan dimensiones únicas a cualquier Bindrune que las incorpore.",
+    runes: [
+      { name: "Feoh", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Runic_letter_fehu.svg/250px-Runic_letter_fehu.svg.png", desc: "Equivalente anglosajón de Fehu. Runa de la riqueza y el ganado. En una Bindrune, Feoh activa el flujo de prosperidad material y la circulación de bienes." },
+      { name: "Ur", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Runic_letter_uruz.svg/330px-Runic_letter_uruz.svg.png", desc: "Equivalente anglosajón de Uruz. Runa del uro y la fuerza salvaje. En una Bindrune, Ur aporta resistencia física y vitalidad indomable." },
+      { name: "Thorn", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Runic_letter_thurisaz.svg/250px-Runic_letter_thurisaz.svg.png", desc: "Equivalente anglosajón de Thurisaz. Runa de la espina y el gigante. En una Bindrune, Thorn rompe barreras y actúa como escudo protector agresivo." },
+      { name: "Ós", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Runic_letter_os.svg/250px-Runic_letter_os.svg.png", desc: "Equivalente anglosajón de Ansuz. Runa de la boca y de los dioses, la comunicación divina y la inspiración poética. Representa la sabiduría que desciende de lo alto y la voz que canaliza lo divino. En una Bindrune, Ós potencia la palabra, la elocuencia y la inspiración sagrada, la creatividad sagrada y la conexión con las fuerzas superiores." },
+      { name: "Rad", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Runic_letter_raido.svg/250px-Runic_letter_raido.svg.png", desc: "Equivalente anglosajón de Raidho. Runa del viaje y el camino. En una Bindrune, Rad facilita el movimiento con propósito y el avance ordenado." },
+      { name: "Cen", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Runic_letter_cen.svg/250px-Runic_letter_cen.svg.png", desc: "Equivalente anglosajón de Kaunaz. Runa de la antorcha y el conocimiento. En una Bindrune, Cen ilumina lo oscuro y enciende la creatividad." },
+      { name: "Gyfu", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Runic_letter_gebo.svg/250px-Runic_letter_gebo.svg.png", desc: "Equivalente anglosajón de Gebo. Runa del don y el intercambio. En una Bindrune, Gyfu sella alianzas, equilibra intercambios y fortalece vínculos." },
+      { name: "Wynn", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Runic_letter_wunjo.svg/250px-Runic_letter_wunjo.svg.png", desc: "Equivalente anglosajón de Wunjo. Runa de la alegría y la armonía. En una Bindrune, Wynn atrae el bienestar, la dicha y la sensación de plenitud." },
+      { name: "Hægl", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Runic_letter_haglaz_variant.svg/330px-Runic_letter_haglaz_variant.svg.png", desc: "Equivalente anglosajón de Hagalaz. Runa del granizo y la disrupción. En una Bindrune, Hægl rompe lo estancado con fuerza transformadora." },
+      { name: "Nyd", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Runic_letter_naudiz.svg/250px-Runic_letter_naudiz.svg.png", desc: "Equivalente anglosajón de Nauthiz. Runa de la necesidad y la resistencia. En una Bindrune, Nyd genera la tensión que produce el crecimiento." },
+      { name: "Is", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Runic_letter_isaz.svg/40px-Runic_letter_isaz.svg.png", desc: "Equivalente anglosajón de Isa. Runa del hielo y la quietud. En una Bindrune, Is detiene lo que debe pausarse y concentra la energía hacia adentro." },
+      { name: "Ger", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Runic_letter_ger.svg/250px-Runic_letter_ger.svg.png", desc: "Equivalente anglosajón de Jera. Runa de la cosecha y los ciclos. En una Bindrune, Ger activa la recompensa del esfuerzo y el ritmo natural de los procesos." },
+      { name: "Eoh", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Runic_letter_iwaz.svg/330px-Runic_letter_iwaz.svg.png", desc: "Equivalente anglosajón de Eihwaz. Runa del tejo y el eje entre mundos. En una Bindrune, Eoh conecta planos, protege en travesías espirituales y aporta resistencia profunda." },
+      { name: "Peorð | Peorth", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Runic_letter_pertho.svg/250px-Runic_letter_pertho.svg.png", desc: "Equivalente anglosajón de Pertho. Runa del misterio y el azar. En una Bindrune, Peorth accede a lo oculto y trabaja con las fuerzas del destino." },
+      { name: "Eolh", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Runic_letter_algiz.svg/330px-Runic_letter_algiz.svg.png", desc: "Equivalente anglosajón de Algiz. Runa del alce y la protección. En una Bindrune, Eolh actúa como escudo divino y eleva la vibración espiritual." },
+      { name: "Sigel", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Runic_letter_sigel.svg/250px-Runic_letter_sigel.svg.png", desc: "Equivalente anglosajón de Sowilo. Runa del sol y la victoria. En una Bindrune, Sigel aporta poder solar, triunfo y vitalidad." },
+      { name: "Tir", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Runic_letter_tiwaz.svg/330px-Runic_letter_tiwaz.svg.png", desc: "Equivalente anglosajón de Tiwaz. Runa de Tyr y la justicia. En una Bindrune, Tir refuerza la valentía, la rectitud y la victoria en conflictos." },
+      { name: "Beorc", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Runic_letter_berkanan.svg/250px-Runic_letter_berkanan.svg.png", desc: "Equivalente anglosajón de Berkana. Runa del abedul y el nacimiento. En una Bindrune, Beorc nutre nuevos comienzos y protege lo que está gestando." },
+      { name: "Eh", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Runic_letter_ehwaz.svg/330px-Runic_letter_ehwaz.svg.png", desc: "Equivalente anglosajón de Ehwaz. Runa del caballo y la asociación. En una Bindrune, Eh fortalece vínculos y armoniza dos fuerzas que trabajan juntas." },
+      { name: "Mann", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Runic_letter_mannaz.svg/330px-Runic_letter_mannaz.svg.png", desc: "Equivalente anglosajón de Mannaz. Runa del hombre y la conciencia. En una Bindrune, Mann potencia la mente, la memoria y las relaciones humanas." },
+      { name: "Lagu", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Runic_letter_laukaz.svg/250px-Runic_letter_laukaz.svg.png", desc: "Equivalente anglosajón de Laguz. Runa del agua y la intuición. En una Bindrune, Lagu activa el flujo emocional y la percepción intuitiva." },
+      { name: "Ing", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Runic_letter_ingwaz_variant.svg/330px-Runic_letter_ingwaz_variant.svg.png", desc: "Equivalente anglosajón de Inguz. Runa de la semilla y el potencial. En una Bindrune, Ing activa lo que estaba dormido y sella ciclos de gestación." },
+      { name: "Œthel | Éðel", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Runic_letter_othalan.svg/500px-Runic_letter_othalan.svg.png", desc: "Equivalente anglosajón de Othila. Runa del hogar y el linaje. En una Bindrune, Œthel conecta con los ancestros y protege el territorio sagrado." },
+      { name: "Dæg", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Runic_letter_dagaz.svg/330px-Runic_letter_dagaz.svg.png", desc: "Equivalente anglosajón de Dagaz. Runa del alba y la transformación. En una Bindrune, Dæg sella cambios profundos y abre la puerta a una nueva conciencia." },
+      { name: "Ac", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Runic_letter_ac.svg/250px-Runic_letter_ac.svg.png", desc: "Runa del roble, árbol sagrado de fuerza y longevidad. Representa la resistencia que viene de tener raíces profundas. En una Bindrune, Ac aporta fortaleza duradera, estabilidad y conexión con la sabiduría ancestral." },
+      { name: "Æsc", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/%C3%86sc.png/330px-%C3%86sc.png", desc: "Runa del fresno, el Yggdrasil, el árbol del mundo. Representa el eje cósmico que conecta todos los reinos. En una Bindrune, Æsc abre la visión cósmica, conecta los planos y expande la conciencia más allá de lo ordinario." },
+      { name: "Ýr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Runic_letter_yr.svg/330px-Runic_letter_yr.svg.png", desc: "Runa del arco de tejo y la precisión. Representa la destreza, el foco y la habilidad. En una Bindrune, Ýr aporta precisión en la intención, destreza en la ejecución y la capacidad de alcanzar el objetivo exacto." },
+      { name: "Ior", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Runic_letter_ior.svg/250px-Runic_letter_ior.svg.png", desc: "Runa de la serpiente de agua y los seres del umbral. Representa a los que viven entre dos mundos. En una Bindrune, Ior trabaja la ambigüedad, los estados de transición y el habitar en los bordes entre lo visible y lo invisible." },
+      { name: "Ear", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Runic_letter_ear.svg/500px-Runic_letter_ear.svg.png", desc: "Runa de la tierra, la tumba y el fin del ciclo. Representa la muerte como retorno a la madre tierra. En una Bindrune, Ear trabaja el fin de ciclos, la aceptación de lo inevitable y el cierre honorable de lo que debe terminar." },
+      { name: "Calc", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Runic_letter_calc.svg/330px-Runic_letter_calc.svg.png", desc: "Runa del cáliz, la copa y el recipiente sagrado. Representa la receptividad, lo femenino que contiene y lo que recibe el don divino. En una Bindrune, Calc abre la capacidad de recibir, activa lo receptivo del ser y trabaja con lo sagrado femenino." },
+{ name: "Calc | Doble Calc", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Runic_letter_calc_doubled.svg/250px-Runic_letter_calc_doubled.svg.png", desc: "Runa del cáliz invertido y su forma doble, símbolo de la receptividad llevada a su máxima expresión. Mientras Calc representa el recipiente que recibe, la forma doble amplifica esa capacidad hacia los dos planos: lo que se recibe desde arriba y lo que se ofrece hacia abajo. En una Bindrune, Calc Doble trabaja la apertura total al flujo divino y el equilibrio entre recibir y devolver al cosmos." },
+      { name: "Gar", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Runic_letter_gar.svg/250px-Runic_letter_gar.svg.png", desc: "Runa de la lanza de Odín, Gungnir. Representa el poder supremo y el sacrificio que abre el conocimiento. En una Bindrune, Gar concentra todo el poder del sistema rúnico en un solo punto y actúa como sello final de una obra mágica compleja." },
+      { name: "Cweorth", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Runic_letter_cweord.svg/500px-Runic_letter_cweord.svg.png", desc: "Runa del fuego ritual, la pira y la purificación extrema. Representa el fuego que transforma desde las raíces. En una Bindrune, Cweorth quema lo que ya no tiene redención, purifica completamente y prepara el terreno para un renacimiento total." },
+      { name: "Stan", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Runic_letter_stan.svg/330px-Runic_letter_stan.svg.png", desc: "Runa de la piedra, lo inamovible y lo eterno. Representa la solidez, la permanencia y la resistencia al tiempo. En una Bindrune, Stan sella lo que debe permanecer, otorga solidez a la intención y actúa como ancla en el plano físico." }
+    ]
+  },
+  {
+    id: "armano",
+    name: "Futhark Armano",
+    count: 18,
+    historia: "El Futhark Armano es un sistema rúnico moderno desarrollado a finales del siglo XIX y principios del XX por el ocultista austriaco Guido von List, quien afirmaba haberlo recibido en una visión durante un período de ceguera temporal tras una operación de cataratas en 1902. Von List lo llamó el sistema original de los Armanos, una supuesta casta sacerdotal aria, y lo presentó como la fuente primordial de la que derivaron todos los demás Futharks. Aunque desde el punto de vista académico no tiene base histórica verificable como sistema antiguo, su influencia en la tradición esotérica germánica y rúnica del siglo XX fue enorme. Sus 18 runas están directamente vinculadas con las 18 estrofas del Hávamál, el poema de Odín, donde el dios describe los poderes que obtuvo al colgarse del Yggdrasil. Esta conexión directa con el poema sagrado le otorga una profundidad simbólica y espiritual que trasciende su origen moderno.",
+    uso: "El Futhark Armano es el sistema más orientado al trabajo espiritual elevado y la conexión con lo divino en su aspecto cósmico. Sus 18 runas, vinculadas a las canciones de poder de Odín, son especialmente potentes para Bindrunes de iniciación, trabajo con el yo superior, entrega espiritual consciente y alineación con el flujo del universo. No es un sistema recomendado para principiantes, ya que cada runa porta una carga de poder considerable. Es ideal para Bindrunes de gran envergadura espiritual, sellos de poder personal, trabajo con la voluntad divina y momentos de transformación iniciática profunda. La runa Gibor, su última y más poderosa, actúa como sello cósmico capaz de amplificar cualquier Bindrune en la que participe.",
+    runes: [
+      { name: "Fa", img: "https://static.wixstatic.com/media/0bac9e_21e88525ba6f4e0aa011e8f7f86f0593~mv2.png", desc: "Runa del fuego primordial y la generación. Representa la chispa creadora que da inicio a todo proceso. En una Bindrune, Fa enciende nuevos comienzos y activa la energía generatriz." },
+      { name: "Ur", img: "https://static.wixstatic.com/media/0bac9e_09890deed5614ef9bda3e4b42b6693d0~mv2.png", desc: "Runa del origen eterno y lo primordial. Representa el principio sin forma del que emana todo. En una Bindrune, Ur conecta con el origen y aporta una energía pura y sin condicionamientos." },
+      { name: "Thurs", img: "https://static.wixstatic.com/media/0bac9e_900e066c2098433d8b75cec543778057~mv2.png", desc: "Runa del trueno y la protección activa. Representa la fuerza que golpea antes de ser golpeado. En una Bindrune, Thorn actúa como escudo activo y rompe lo que se opone al avance." },
+      { name: "Os", img: "https://static.wixstatic.com/media/0bac9e_79b9c32ff5ae4beb82e8cda0e499b564~mv2.png", desc: "Runa de la boca divina y el Logos sagrado. Representa la palabra como acto de creación. En una Bindrune, Os da poder a las palabras, los juramentos y las intenciones declaradas en voz alta." },
+      { name: "Rit", img: "https://static.wixstatic.com/media/0bac9e_bcab9e5c1709486aa5c8adae2d1e7e43~mv2.png", desc: "Runa del rito, el orden cósmico y el derecho sagrado. Representa la ley que rige el universo. En una Bindrune, Rit alinea la acción con el orden universal y protege los actos rituales." },
+      { name: "Ka", img: "https://static.wixstatic.com/media/0bac9e_c11e4f2aa72d4aabb86eb11531207e9a~mv2.png", desc: "Runa de la capacidad, el arte y el poder creativo. Representa la habilidad del artesano y el mago. En una Bindrune, Ka potencia las habilidades propias y activa el poder creativo en su forma más elevada." },
+      { name: "Hagal | Hag", img: "https://static.wixstatic.com/media/0bac9e_1c01cbe99c35478cbcc81d25b2c573a3~mv2.png", desc: "Runa de la totalidad del cosmos, la madre de todas las runas. Representa el orden oculto dentro del caos aparente. En una Bindrune, Hagal contiene el poder completo del sistema y actúa como runa madre que amplifica todo lo que la acompaña." },
+      { name: "Nauth | Not", img: "https://static.wixstatic.com/media/0bac9e_e15197aecb2146d792a5976ed01cb613~mv2.png", desc: "Runa de la necesidad y la compasión. Representa el sufrimiento que enseña y la empatía que sana. En una Bindrune, Noth trabaja la comprensión profunda, la superación del dolor y la compasión activa." },
+      { name: "Is", img: "https://static.wixstatic.com/media/0bac9e_a20a015f02be44e4a69566abb0fbbb8f~mv2.png", desc: "Runa del yo, la voluntad y la identidad. Representa el pilar del ser, el eje sobre el que todo gira. En una Bindrune, Is refuerza la identidad del portador, consolida la voluntad y aporta firmeza interior." },
+      { name: "Ar", img: "https://static.wixstatic.com/media/0bac9e_69ff4380ad5f4ea9a27f8a8aed19de2b~mv2.png", desc: "Runa del sol, el honor y la nobleza de espíritu. Representa la luz que guía y la dignidad que no se negocia. En una Bindrune, Ar aporta rectitud de carácter, claridad de propósito y el poder del honor activo." },
+      { name: "Sig | Sol", img: "https://static.wixstatic.com/media/0bac9e_4a78976327fb4b799e118e298c923899~mv2.png", desc: "Runa del sol omnipresente y la victoria total. Representa la luz que no puede ser oscurecida. En una Bindrune, Sol actúa como el poder máximo de la victoria y la iluminación en cualquier ámbito." },
+      { name: "Tyr", img: "https://static.wixstatic.com/media/0bac9e_c18cf4a449854c29a79dd3e08316209d~mv2.png", desc: "Runa del dios de la justicia y el sacrificio honorable. Representa la voluntad de perder algo por el bien mayor. En una Bindrune, Tyr refuerza la integridad, apoya en luchas justas y sella compromisos sagrados." },
+      { name: "Bar", img: "https://static.wixstatic.com/media/0bac9e_7235029a55064892b9a285f565bc472b~mv2.png", desc: "Runa del nacimiento, el oso y la regeneración. Representa el retorno de la vida tras el invierno. En una Bindrune, Bar activa el renacimiento, protege los nuevos comienzos y nutre lo que está germinando." },
+      { name: "Laf", img: "https://static.wixstatic.com/media/0bac9e_c8fa206800944d389335dad8d8df7299~mv2.png", desc: "Runa de la ley primordial, el agua y el flujo vital. Representa las leyes que sostienen el cosmos y el agua que todo lo conecta. En una Bindrune, Laf activa la comprensión de las leyes universales y el flujo armonioso de la vida." },
+      { name: "Man", img: "https://static.wixstatic.com/media/0bac9e_845038dbacd2433b885115e0ae79bc84~mv2.png", desc: "Runa del ser humano completo, el microcosmos. Representa al hombre como reflejo del universo. En una Bindrune, Man activa el potencial humano en su totalidad y refuerza la conexión entre el ser y el cosmos." },
+      { name: "Yr", img: "https://static.wixstatic.com/media/0bac9e_017cda370b23404282301f9c0fd767a3~mv2.png", desc: "Runa del error, la ilusión y lo que debe ser superado. Representa las limitaciones que deben trascenderse. En una Bindrune, Yr trabaja la disolución de ilusiones, la superación de errores y la claridad que surge tras la confusión." },
+      { name: "Eh", img: "https://static.wixstatic.com/media/0bac9e_8f7b2110839e47ffb3105d7b0ea9cc1a~mv2.png", desc: "Runa del matrimonio cósmico, la unión de opuestos. Representa la alianza perfecta entre dos fuerzas complementarias. En una Bindrune, Eh sella uniones profundas, armoniza dualidades y activa la sinergia entre lo masculino y lo femenino." },
+      { name: "Gibor", img: "https://static.wixstatic.com/media/0bac9e_8867695d43f341778d084a1bb63ff888~mv2.png", desc: "Runa de la totalidad cósmica y la entrega sagrada. Representa el don supremo que se ofrece al universo y la gracia que regresa multiplicada. En una Bindrune, Gibor sella la intención con la fuerza del cosmos entero, actúa como runa de cierre para obras de gran escala y refuerza la conexión entre la voluntad humana y el flujo divino." }
+    ]
+  },
+  {
+    id: "medieval",
+    name: "Futhark Medieval",
+    count: 20,
+    historia: "El Futhark Medieval, también conocido como runas medievales o runas góticas, representa la evolución de las runas durante los siglos XII al XV d.C. en Escandinavia y el norte de Europa. A diferencia de los sistemas anteriores que tendían a simplificarse o especializarse, el Futhark Medieval absorbió influencias del alfabeto latino y de las tradiciones rúnicas previas, desarrollando un sistema híbrido capaz de representar con mayor precisión los sonidos de los idiomas nórdicos tardíos. Fue ampliamente utilizado en Suecia y Gotland especialmente, donde coexistió con el alfabeto latino durante siglos. Sus inscripciones aparecen en iglesias, objetos cotidianos, calendarios rúnicos y documentos oficiales. Es notable que en algunas zonas rurales de Suecia, como Dalarna, las runas medievales continuaron siendo utilizadas hasta bien entrado el siglo XX, convirtiéndose en el sistema rúnico con mayor continuidad de uso en la historia. Esta longevidad le otorga una conexión única con la vida cotidiana y la espiritualidad popular de siglos de tradición.",
+    uso: "El Futhark Medieval es el sistema de la síntesis y la integración. Al haber absorbido elementos de múltiples tradiciones a lo largo de siglos, sus runas portan una capacidad única de unir fuerzas aparentemente opuestas. Es el sistema más indicado para Bindrunes que buscan resolver conflictos energéticos, integrar aspectos contradictorios de una situación o persona, o trabajar con la complejidad de procesos que abarcan largo tiempo. Sus runas funcionan especialmente bien en Bindrunes de reconciliación, transformación gradual, trabajo con el karma acumulado y conexión entre lo antiguo y lo nuevo. La runa Kruzi, exclusiva de este sistema en el mazo de las Raíces Sagradas, actúa como el gran sintetizador capaz de cruzar planos y tradiciones en una sola intención.",
+    runes: [
+  { name: "Fé", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/RUNIC_LETTER_FEHU_FEOH_FE_F.svg/330px-RUNIC_LETTER_FEHU_FEOH_FE_F.svg.png", desc: "Runa del ganado y la riqueza en movimiento. Representa la prosperidad que circula entre manos, el valor que fluye y sostiene la vida comunitaria. En una Bindrune medieval, Fé atrae la abundancia material y activa el flujo de recursos hacia el portador." },
+{ name: "Úr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/RUNIC_LETTER_URUZ_UR_U.svg/330px-RUNIC_LETTER_URUZ_UR_U.svg.png", desc: "Runa de la llovizna fría y el viento penetrante. Representa las fuerzas naturales que moldean y purifican, la energía primordial que viene del norte. En una Bindrune medieval, Úr purifica lo estancado y renueva desde las raíces con la fuerza de los elementos." },
+{ name: "Þurs | Dhurs", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/RUNIC_LETTER_THURISAZ_THURS_THORN.svg/330px-RUNIC_LETTER_THURISAZ_THURS_THORN.svg.png", desc: "Runa del gigante y el troll, las fuerzas caóticas de los reinos salvajes. Representa el poder bruto que destruye sin distinción. En una Bindrune medieval, Þurs rompe barreras con fuerza descomunal y actúa como escudo agresivo ante amenazas externas." },
+{ name: "Óss", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/RUNIC_LETTER_O.svg/330px-RUNIC_LETTER_O.svg.png", desc: "Runa de los Æsir, los dioses del Asgard. Representa la comunicación divina, la sabiduría que desciende de los dioses y la palabra que crea realidad. En una Bindrune medieval, Óss conecta con las fuerzas superiores y potencia la elocuencia y la inspiración sagrada." },
+{ name: "Reið | Reidh", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/RUNIC_LETTER_RAIDO_RAD_REID_R.svg/330px-RUNIC_LETTER_RAIDO_RAD_REID_R.svg.png", desc: "Runa del montar y el viaje a caballo. Representa el movimiento con propósito, el tránsito ordenado y el ritmo del camino. En una Bindrune medieval, Reið facilita los viajes, alinea la acción con el flujo natural y trae orden al movimiento." },
+{ name: "Kaun", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/RUNIC_LETTER_KAUN_K.svg/330px-RUNIC_LETTER_KAUN_K.svg.png", desc: "Runa de la úlcera y el fuego que quema desde dentro. Representa tanto la enfermedad como la llama purificadora que elimina lo que no sirve. En una Bindrune medieval, Kaun quema lo podrido, purifica con fuego interior y abre espacio para la renovación." },
+{ name: "Hagall", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/RUNIC_LETTER_LONG-BRANCH-HAGALL_H.svg/330px-RUNIC_LETTER_LONG-BRANCH-HAGALL_H.svg.png", desc: "Runa del granizo, la tormenta repentina e inevitable. Representa las fuerzas del caos que caen sin aviso y transforman el paisaje. En una Bindrune medieval, Hagal rompe estructuras caducas con fuerza transformadora y fuerza la evolución." },
+{ name: "Nauð | Naudh", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/RUNIC_LETTER_SHORT-TWIG-NAUD_N.svg/330px-RUNIC_LETTER_SHORT-TWIG-NAUD_N.svg.png", desc: "Runa de la necesidad y la carencia que forja el carácter. Representa la restricción que enseña y la fricción que produce el crecimiento. En una Bindrune medieval, Nauð genera la presión necesaria para el cambio y templa la voluntad ante la adversidad." },
+{ name: "Is", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/RUNIC_LETTER_ISAZ_IS_ISS_I.svg/330px-RUNIC_LETTER_ISAZ_IS_ISS_I.svg.png", desc: "Runa del hielo y la quietud absoluta. Representa la detención, la pausa necesaria y la concentración de energía hacia adentro. En una Bindrune medieval, Is paraliza lo que debe detenerse y favorece la introspección y la preservación." },
+{ name: "Ár", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/RUNIC_LETTER_SHORT-TWIG-AR_A.svg/330px-RUNIC_LETTER_SHORT-TWIG-AR_A.svg.png", desc: "Runa del año y la cosecha abundante. Representa el ciclo completo que culmina en fruto, la recompensa que llega tras el tiempo de espera y el trabajo bien hecho. En una Bindrune medieval, Ár activa los ciclos de prosperidad, atrae resultados concretos y refuerza la paciencia estratégica de quien siembra para cosechar." },
+{ name: "Sol", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/RUNIC_LETTER_SIGEL_LONG-BRANCH-SOL_S.svg/330px-RUNIC_LETTER_SIGEL_LONG-BRANCH-SOL_S.svg.png", desc: "Runa del sol y su poder regenerador sobre la tierra. Representa la luz victoriosa, la vida que persiste y el calor que da fuerza. En una Bindrune medieval, Sol aporta victoria luminosa, vitalidad renovada y la capacidad de brillar ante cualquier adversidad." },
+{ name: "Týr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/RUNIC_LETTER_TIWAZ_TIR_TYR_T.svg/330px-RUNIC_LETTER_TIWAZ_TIR_TYR_T.svg.png", desc: "Runa del dios Týr, la justicia y el sacrificio honorable. Representa la valentía de defender lo justo aunque cueste algo. En una Bindrune medieval, Týr refuerza la rectitud en conflictos, apoya en batallas justas y sella compromisos sagrados." },
+{ name: "Bjarkan", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/RUNIC_LETTER_BERKANAN_BEORC_BJARKAN_B.svg/330px-RUNIC_LETTER_BERKANAN_BEORC_BJARKAN_B.svg.png", desc: "Runa del abedul, árbol del renacimiento y la primavera. Representa el retorno de la vida tras el frío, la feminidad creadora y los nuevos comienzos. En una Bindrune medieval, Bjarkan nutre lo que está naciendo, protege las gestaciones y favorece la regeneración." },
+{ name: "Maðer | Madher", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/RUNIC_LETTER_LONG-BRANCH-MADR_M.svg/330px-RUNIC_LETTER_LONG-BRANCH-MADR_M.svg.png", desc: "Runa del hombre y la condición humana en su totalidad. Representa la conciencia, la memoria y el potencial del ser humano dentro de la comunidad. En una Bindrune medieval, Maðer potencia el intelecto, las relaciones humanas y el autoconocimiento." },
+{ name: "Lǫgur | Lögur", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/RUNIC_LETTER_LAUKAZ_LAGU_LOGR_L.svg/330px-RUNIC_LETTER_LAUKAZ_LAGU_LOGR_L.svg.png", desc: "Runa del agua y el flujo vital. Representa la intuición, lo emocional y las corrientes invisibles que conectan todo. En una Bindrune medieval, Lǫgur activa la intuición profunda, trabaja el mundo emocional y favorece el flujo de lo estancado." },
+{ name: "Ýr", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/RUNIC_LETTER_LONG-BRANCH-YR.svg/330px-RUNIC_LETTER_LONG-BRANCH-YR.svg.png", desc: "Runa del tejo, árbol de la muerte y el renacimiento eterno. Representa el fin de un ciclo y la apertura hacia lo que viene. En una Bindrune medieval, Ýr marca el cierre honorable de lo que debe terminar y abre el umbral hacia una nueva etapa." },
+{ name: "Plastur", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/RUNIC_LETTER_OPEN-P.svg/330px-RUNIC_LETTER_OPEN-P.svg.png", desc: "Runa del yeso y la consolidación. Representa lo que sella, endurece y da forma permanente a lo que antes era fluido. En una Bindrune medieval, Plastur solidifica intenciones, sella procesos en curso y otorga permanencia a lo que debe perdurar." },
+{ name: "Hárdsól", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/RUNIC_LETTER_X.svg/330px-RUNIC_LETTER_X.svg.png", desc: "Runa del sol duro, la luz en su aspecto más intenso e implacable. Representa la claridad que no admite sombras, la verdad que quema lo falso. En una Bindrune medieval, Hárdsól expone lo oculto, disuelve ilusiones y aporta una fuerza solar de máxima intensidad." },
+{ name: "Stunginn Nauð/Naudh", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/RUNIC_LETTER_DOTTED-N.svg/330px-RUNIC_LETTER_DOTTED-N.svg.png", desc: "Runa de la necesidad picada, la carencia en su forma más aguda y penetrante. Representa la urgencia extrema, la crisis que no admite demora. En una Bindrune medieval, Stunginn Nauð activa la acción inmediata ante situaciones límite y fuerza una resolución rápida." },
+{ name: "Stunginn Lǫgur/Lögur", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/RUNIC_LETTER_DOTTED-L.svg/330px-RUNIC_LETTER_DOTTED-L.svg.png", desc: "Runa del agua picada, el flujo en su estado más activo y penetrante. Representa la intuición que se clava como una aguja, la percepción que atraviesa capas y llega al fondo. En una Bindrune medieval, Stunginn Lǫgur agudiza la percepción intuitiva y penetra en lo más profundo de cualquier situación." }
+    ]
+  },
+];
+
+// =============================================
+// ESTADO
+// =============================================
+let currentFuthark = null;
+let currentRune = null;
+
+function togglePanel(type) {
+  const panel = document.getElementById('panel-' + type);
+  const btn = document.getElementById('btn-' + type);
+  const isVisible = panel.classList.contains('visible');
+
+  // Cerrar ambos primero
+  document.getElementById('panel-historia').classList.remove('visible');
+  document.getElementById('panel-uso').classList.remove('visible');
+  document.getElementById('btn-historia').classList.remove('active');
+  document.getElementById('btn-uso').classList.remove('active');
+
+  if (!isVisible) {
+    panel.classList.add('visible');
+    btn.classList.add('active');
+  }
+}
+
+
+// =============================================
+function renderList() {
+  const grid = document.getElementById('futharks-grid');
+  grid.innerHTML = '';
+  futharks.forEach(f => {
+    const preview = f.runes.slice(0, 6).map(r => r.name).join(', ') + '...';
+    const card = document.createElement('div');
+    card.className = 'futhark-card';
+    card.innerHTML = `
+      <div class="futhark-card-name">${f.name}</div>
+      <div class="futhark-card-count">${f.count} runas</div>
+      <div class="futhark-card-preview">${preview}</div>
+      <span class="futhark-card-arrow">→</span>
+    `;
+    card.onclick = () => goToFuthark(f.id);
+    grid.appendChild(card);
+  });
+}
+
+// =============================================
+// RENDER: Runas de un Futhark
+// =============================================
+function goToFuthark(id) {
+  if (id) currentFuthark = futharks.find(f => f.id === id);
+  document.getElementById('view-list').style.display = 'none';
+  document.getElementById('view-futhark').style.display = 'block';
+  document.getElementById('view-rune').style.display = 'none';
+
+  document.getElementById('futhark-title').textContent = currentFuthark.name;
+  document.getElementById('futhark-count').textContent = currentFuthark.count + ' runas';
+
+  // Nombre dinámico del botón según si es Futhorc o Futhark
+  const esFuthorc = currentFuthark.id === 'anglosajón';
+  document.getElementById('btn-historia').textContent = 'Historia del ' + (esFuthorc ? 'Futhorc' : 'Futhark');
+  document.getElementById('btn-uso').textContent = 'Uso de este ' + (esFuthorc ? 'Futhorc' : 'Futhark') + ' en Bindrunes';
+
+  // Rellenar paneles
+  document.getElementById('panel-historia').textContent = currentFuthark.historia || '';
+  document.getElementById('panel-uso').textContent = currentFuthark.uso || '';
+
+  // Ocultar paneles al cambiar de Futhark
+  document.getElementById('panel-historia').classList.remove('visible');
+  document.getElementById('panel-uso').classList.remove('visible');
+  document.getElementById('btn-historia').classList.remove('active');
+  document.getElementById('btn-uso').classList.remove('active');
+
+  const grid = document.getElementById('runes-grid');
+  grid.innerHTML = '';
+  currentFuthark.runes.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'rune-card';
+    card.innerHTML = `
+      <div class="rune-img-container">
+        ${r.img
+          ? `<img src="${r.img}" alt="${r.name}">`
+          : `<div class="rune-img-placeholder">Insertar imagen URL</div>`
+        }
+      </div>
+      <div class="rune-card-name">${r.name}</div>
+    `;
+    card.onclick = () => goToRune(r);
+    grid.appendChild(card);
+  });
+
+  window.scrollTo(0, 0);
+}
+
+// =============================================
+// RENDER: Detalle de runa
+// =============================================
+function goToRune(rune) {
+  currentRune = rune;
+  document.getElementById('view-list').style.display = 'none';
+  document.getElementById('view-futhark').style.display = 'none';
+  document.getElementById('view-rune').style.display = 'block';
+
+  document.getElementById('rune-breadcrumb').textContent = currentFuthark.name;
+  document.getElementById('rune-detail-name').textContent = rune.name;
+  document.getElementById('rune-detail-futhark').textContent = currentFuthark.name;
+  document.getElementById('rune-detail-desc').textContent = rune.desc;
+
+  const imgContainer = document.getElementById('rune-detail-img');
+  imgContainer.innerHTML = rune.img
+    ? `<img src="${rune.img}" alt="${rune.name}">`
+    : `<div class="rune-detail-img-placeholder">Insertar URL de imagen aquí</div>`;
+
+  window.scrollTo(0, 0);
+}
+
+// =============================================
+// NAVEGACIÓN HACIA ATRÁS
+// =============================================
+function goToList() {
+  document.getElementById('view-list').style.display = 'block';
+  document.getElementById('view-futhark').style.display = 'none';
+  document.getElementById('view-rune').style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+// =============================================
+// INICIO
+// =============================================
+renderList();
+</script>
+</body>
+</html>

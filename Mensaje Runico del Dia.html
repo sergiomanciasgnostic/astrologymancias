@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0805;
+    color: #e8d5a0;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+  }
+  .stars {
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(180,130,40,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(100,60,160,0.06) 0%, transparent 50%),
+      #0a0805;
+    z-index:0; pointer-events:none;
+  }
+  .stars::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 15% 20%, rgba(255,220,120,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 8%,  rgba(255,220,120,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 72% 15%, rgba(255,220,120,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 88% 35%, rgba(255,220,120,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 55%, rgba(255,220,120,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 60% 45%, rgba(255,220,120,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 75%, rgba(255,220,120,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 80%, rgba(255,220,120,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 90%, rgba(255,220,120,0.4) 0%, transparent 100%);
+  }
+  .page {
+    max-width: 680px; margin: 0 auto;
+    padding: 40px 28px 60px;
+    position: relative; z-index:1;
+  }
+  .site-name {
+    text-align: center;
+    font-size: 21px; letter-spacing: 6px; text-transform: uppercase;
+    color: rgba(200,160,60,0.45);
+    margin-bottom: 10px;
+    opacity:0; animation: fadeUp .7s ease forwards;
+  }
+  .date-badge {
+    display: block; text-align: center;
+    font-size: 22px; letter-spacing: 3px;
+    color: rgba(200,160,60,0.55);
+    border: 1px solid rgba(200,160,60,0.18);
+    padding: 5px 20px; border-radius: 20px;
+    width: fit-content; margin: 0 auto 32px;
+    opacity:0; animation: fadeUp .7s ease .1s forwards;
+  }
+  .divider {
+    display:flex; align-items:center; gap:12px;
+    margin-bottom: 36px;
+    opacity:0; animation: fadeUp .7s ease .15s forwards;
+  }
+  .divider-line { flex:1; height:1px; background: linear-gradient(90deg, transparent, rgba(200,160,60,0.35), transparent); }
+  .divider-glyph { color: rgba(200,160,60,0.45); font-size:16px; }
+
+  /* Círculo */
+  .rune-center {
+    text-align: center; margin-bottom: 28px;
+    opacity:0; animation: fadeUp .8s ease .2s forwards;
+  }
+  .rune-circle-outer {
+    width:180px; height:180px; border-radius:50%;
+    border:2px solid transparent;
+    display:flex; align-items:center; justify-content:center;
+    margin: 0 auto;
+    position:relative;
+    background: transparent;
+    animation: spinGlow 6s linear infinite;
+  }
+  .rune-circle-outer::before {
+    content:'';
+    position:absolute; inset:-2px;
+    border-radius:50%;
+    background: conic-gradient(
+      rgba(200,160,60,0) 0deg,
+      rgba(200,160,60,0.9) 60deg,
+      rgba(255,220,100,1) 90deg,
+      rgba(200,160,60,0.9) 120deg,
+      rgba(200,160,60,0) 180deg,
+      rgba(200,160,60,0) 360deg
+    );
+    animation: spinGlow 6s linear infinite;
+    border-radius:50%;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), white calc(100% - 3px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), white calc(100% - 3px));
+  }
+  .rune-circle-outer::after {
+    content:'';
+    position:absolute; inset:-10px;
+    border-radius:50%;
+    background: conic-gradient(
+      rgba(200,160,60,0) 0deg,
+      rgba(200,160,60,0.15) 60deg,
+      rgba(200,160,60,0.35) 90deg,
+      rgba(200,160,60,0.15) 120deg,
+      rgba(200,160,60,0) 180deg,
+      rgba(200,160,60,0) 360deg
+    );
+    animation: spinGlow 6s linear infinite;
+    filter: blur(8px);
+    border-radius:50%;
+  }
+  @keyframes spinGlow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .rune-circle-inner {
+    width:144px; height:144px; border-radius:50%;
+    border:1px solid rgba(200,160,60,0.2);
+    display:flex; align-items:center; justify-content:center;
+    background: radial-gradient(ellipse, rgba(200,160,60,0.07) 0%, transparent 70%);
+    position:relative; z-index:1;
+  }
+  .rune-symbol {
+    font-size:121px; line-height:1; color:#c8a03c;
+    text-shadow: 0 0 20px rgba(200,160,60,0.6), 0 0 60px rgba(200,160,60,0.2);
+    animation: none;
+    display:inline-block;
+  }
+  .rune-name-display {
+    font-family: Arial Black, Arial, sans-serif;
+    font-size: 22px; font-weight:900; letter-spacing:6px;
+    color:#c8a03c; text-transform:uppercase;
+    text-shadow: 0 0 30px rgba(200,160,60,0.25);
+    margin-top: 18px;
+  }
+
+  /* Caja del mensaje */
+  .msg-wrapper {
+    opacity:0; animation: fadeUp .8s ease .35s forwards;
+  }
+  .msg-label {
+    font-size:20px; letter-spacing:5px; text-transform:uppercase;
+    color:rgba(200,160,60,0.4); text-align:center;
+    margin-bottom: 20px;
+  }
+  .msg-box {
+    position:relative;
+    border:1px solid rgba(200,160,60,0.2);
+    background: rgba(200,160,60,0.04);
+    padding: 32px 28px;
+  }
+  .msg-box::before, .msg-box::after {
+    content:''; position:absolute;
+    width:18px; height:18px;
+    border-color:rgba(200,160,60,0.5); border-style:solid;
+  }
+  .msg-box::before { top:-1px; left:-1px; border-width:2px 0 0 2px; }
+  .msg-box::after  { bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+  .msg-text {
+    font-size:19px; line-height:1.8; color:#d4b060;
+    text-align:center; font-style:italic;
+    text-shadow: 0 0 25px rgba(200,160,60,0.15);
+  }
+  .msg-text::before { content:'\201C'; }
+  .msg-text::after  { content:'\201D'; }
+
+  .ornament {
+    display:flex; align-items:center; gap:10px;
+    margin: 28px 0;
+    opacity:0; animation: fadeUp .7s ease .28s forwards;
+  }
+  .ornament-line { flex:1; height:1px; background:linear-gradient(90deg, transparent, rgba(200,160,60,0.3), transparent); }
+  .ornament-sym { font-size:16px; color:rgba(200,160,60,0.4); }
+
+  .error-state {
+    text-align:center; padding:40px 20px;
+    color:rgba(200,160,60,0.4); font-size:14px; letter-spacing:2px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(14px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes rotateSlow {
+    from { transform:rotate(0deg); }
+    to   { transform:rotate(360deg); }
+  }
+  @keyframes runeRotate3D {
+    0%   { transform: rotateY(0deg);   text-shadow: 0 0 20px rgba(200,160,60,0.6), 0 0 60px rgba(200,160,60,0.2); }
+    25%  { transform: rotateY(90deg);  text-shadow: 0 0 5px  rgba(200,160,60,0.2); }
+    50%  { transform: rotateY(180deg); text-shadow: 0 0 20px rgba(200,160,60,0.6), 0 0 60px rgba(200,160,60,0.2); }
+    75%  { transform: rotateY(270deg); text-shadow: 0 0 5px  rgba(200,160,60,0.2); }
+    100% { transform: rotateY(360deg); text-shadow: 0 0 20px rgba(200,160,60,0.6), 0 0 60px rgba(200,160,60,0.2); }
+  }
+  @keyframes glow {
+    0%,100% { text-shadow:0 0 20px rgba(200,160,60,0.6),0 0 60px rgba(200,160,60,0.2); }
+    50%      { text-shadow:0 0 30px rgba(200,160,60,0.9),0 0 80px rgba(200,160,60,0.4); }
+  }
+
+  /* ── Responsive móvil ─────────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .page {
+      padding: 28px 18px 48px;
+    }
+    .site-name {
+      font-size: 15px; letter-spacing: 4px;
+    }
+    .date-badge {
+      font-size: 15px; letter-spacing: 2px;
+      padding: 5px 14px;
+    }
+    .rune-circle-outer {
+      width: 150px; height: 150px;
+    }
+    .rune-circle-inner {
+      width: 118px; height: 118px;
+    }
+    .rune-symbol {
+      font-size: 90px;
+    }
+    .rune-name-display {
+      font-size: 17px; letter-spacing: 4px;
+    }
+    .msg-label {
+      font-size: 14px; letter-spacing: 3px;
+    }
+    .msg-text {
+      font-size: 16px; line-height: 1.7;
+    }
+    .msg-box {
+      padding: 24px 18px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .site-name { font-size: 13px; letter-spacing: 3px; }
+    .date-badge { font-size: 13px; }
+    .rune-circle-outer { width: 130px; height: 130px; }
+    .rune-circle-inner { width: 102px; height: 102px; }
+    .rune-symbol { font-size: 76px; }
+    .msg-text { font-size: 15px; }
+  }
+
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="page">
+  <div class="site-name">Runas Nórdicas</div>
+  <span class="date-badge" id="fecha-display">Consultando...</span>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-glyph">✦</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="rune-center" id="rune-center" style="display:none">
+    <div style="position:relative; width:180px; margin:0 auto;">
+      <div class="rune-circle-outer">
+        <div class="rune-circle-inner"></div>
+      </div>
+      <div class="rune-symbol" id="rune-sym" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">ᚠ</div>
+    </div>
+    <div class="rune-name-display" id="rune-nombre">FEHU</div>
+  </div>
+
+  <div class="ornament" id="ornament" style="display:none">
+    <div class="ornament-line"></div>
+    <div class="ornament-sym">✦</div>
+    <div class="ornament-line"></div>
+  </div>
+
+  <div class="msg-wrapper" id="msg-wrapper" style="display:none">
+    <div class="msg-label">✦ &nbsp; Mensaje Rúnico &nbsp; ✦</div>
+    <div class="msg-box">
+      <div class="msg-text" id="msg-text">...</div>
+    </div>
+  </div>
+
+  <div class="error-state" id="error-state" style="display:none">
+    Las runas no pudieron ser consultadas en este momento.<br>Intenta más tarde.
+  </div>
+</div>
+
+<script>
+// ── Calendario de runas ──────────────────────────────────────────────
+const CALENDARIO = [
+  {r:'Fehu',    d:29,m:6},{r:'Fehu',d:30,m:6},
+  {r:'Fehu',d:1,m:7},{r:'Fehu',d:2,m:7},{r:'Fehu',d:3,m:7},{r:'Fehu',d:4,m:7},{r:'Fehu',d:5,m:7},{r:'Fehu',d:6,m:7},{r:'Fehu',d:7,m:7},{r:'Fehu',d:8,m:7},{r:'Fehu',d:9,m:7},{r:'Fehu',d:10,m:7},{r:'Fehu',d:11,m:7},{r:'Fehu',d:12,m:7},{r:'Fehu',d:13,m:7},
+  {r:'Uruz',d:14,m:7},{r:'Uruz',d:15,m:7},{r:'Uruz',d:16,m:7},{r:'Uruz',d:17,m:7},{r:'Uruz',d:18,m:7},{r:'Uruz',d:19,m:7},{r:'Uruz',d:20,m:7},{r:'Uruz',d:21,m:7},{r:'Uruz',d:22,m:7},{r:'Uruz',d:23,m:7},{r:'Uruz',d:24,m:7},{r:'Uruz',d:25,m:7},{r:'Uruz',d:26,m:7},{r:'Uruz',d:27,m:7},{r:'Uruz',d:28,m:7},{r:'Uruz',d:29,m:7},
+  {r:'Thurisaz',d:30,m:7},{r:'Thurisaz',d:31,m:7},{r:'Thurisaz',d:1,m:8},{r:'Thurisaz',d:2,m:8},{r:'Thurisaz',d:3,m:8},{r:'Thurisaz',d:4,m:8},{r:'Thurisaz',d:5,m:8},{r:'Thurisaz',d:6,m:8},{r:'Thurisaz',d:7,m:8},{r:'Thurisaz',d:8,m:8},{r:'Thurisaz',d:9,m:8},{r:'Thurisaz',d:10,m:8},{r:'Thurisaz',d:11,m:8},{r:'Thurisaz',d:12,m:8},{r:'Thurisaz',d:13,m:8},
+  {r:'Ansuz',d:14,m:8},{r:'Ansuz',d:15,m:8},{r:'Ansuz',d:16,m:8},{r:'Ansuz',d:17,m:8},{r:'Ansuz',d:18,m:8},{r:'Ansuz',d:19,m:8},{r:'Ansuz',d:20,m:8},{r:'Ansuz',d:21,m:8},{r:'Ansuz',d:22,m:8},{r:'Ansuz',d:23,m:8},{r:'Ansuz',d:24,m:8},{r:'Ansuz',d:25,m:8},{r:'Ansuz',d:26,m:8},{r:'Ansuz',d:27,m:8},{r:'Ansuz',d:28,m:8},
+  {r:'Raidho',d:29,m:8},{r:'Raidho',d:30,m:8},{r:'Raidho',d:31,m:8},{r:'Raidho',d:1,m:9},{r:'Raidho',d:2,m:9},{r:'Raidho',d:3,m:9},{r:'Raidho',d:4,m:9},{r:'Raidho',d:5,m:9},{r:'Raidho',d:6,m:9},{r:'Raidho',d:7,m:9},{r:'Raidho',d:8,m:9},{r:'Raidho',d:9,m:9},{r:'Raidho',d:10,m:9},{r:'Raidho',d:11,m:9},{r:'Raidho',d:12,m:9},
+  {r:'Kaunaz',d:13,m:9},{r:'Kaunaz',d:14,m:9},{r:'Kaunaz',d:15,m:9},{r:'Kaunaz',d:16,m:9},{r:'Kaunaz',d:17,m:9},{r:'Kaunaz',d:18,m:9},{r:'Kaunaz',d:19,m:9},{r:'Kaunaz',d:20,m:9},{r:'Kaunaz',d:21,m:9},{r:'Kaunaz',d:22,m:9},{r:'Kaunaz',d:23,m:9},{r:'Kaunaz',d:24,m:9},{r:'Kaunaz',d:25,m:9},{r:'Kaunaz',d:26,m:9},{r:'Kaunaz',d:27,m:9},
+  {r:'Gebo',d:28,m:9},{r:'Gebo',d:29,m:9},{r:'Gebo',d:30,m:9},{r:'Gebo',d:1,m:10},{r:'Gebo',d:2,m:10},{r:'Gebo',d:3,m:10},{r:'Gebo',d:4,m:10},{r:'Gebo',d:5,m:10},{r:'Gebo',d:6,m:10},{r:'Gebo',d:7,m:10},{r:'Gebo',d:8,m:10},{r:'Gebo',d:9,m:10},{r:'Gebo',d:10,m:10},{r:'Gebo',d:11,m:10},{r:'Gebo',d:12,m:10},{r:'Gebo',d:13,m:10},
+  {r:'Wunjo',d:14,m:10},{r:'Wunjo',d:15,m:10},{r:'Wunjo',d:16,m:10},{r:'Wunjo',d:17,m:10},{r:'Wunjo',d:18,m:10},{r:'Wunjo',d:19,m:10},{r:'Wunjo',d:20,m:10},{r:'Wunjo',d:21,m:10},{r:'Wunjo',d:22,m:10},{r:'Wunjo',d:23,m:10},{r:'Wunjo',d:24,m:10},{r:'Wunjo',d:25,m:10},{r:'Wunjo',d:26,m:10},{r:'Wunjo',d:27,m:10},{r:'Wunjo',d:28,m:10},
+  {r:'Hagalaz',d:29,m:10},{r:'Hagalaz',d:30,m:10},{r:'Hagalaz',d:31,m:10},{r:'Hagalaz',d:1,m:11},{r:'Hagalaz',d:2,m:11},{r:'Hagalaz',d:3,m:11},{r:'Hagalaz',d:4,m:11},{r:'Hagalaz',d:5,m:11},{r:'Hagalaz',d:6,m:11},{r:'Hagalaz',d:7,m:11},{r:'Hagalaz',d:8,m:11},{r:'Hagalaz',d:9,m:11},{r:'Hagalaz',d:10,m:11},{r:'Hagalaz',d:11,m:11},{r:'Hagalaz',d:12,m:11},
+  {r:'Nauthiz',d:13,m:11},{r:'Nauthiz',d:14,m:11},{r:'Nauthiz',d:15,m:11},{r:'Nauthiz',d:16,m:11},{r:'Nauthiz',d:17,m:11},{r:'Nauthiz',d:18,m:11},{r:'Nauthiz',d:19,m:11},{r:'Nauthiz',d:20,m:11},{r:'Nauthiz',d:21,m:11},{r:'Nauthiz',d:22,m:11},{r:'Nauthiz',d:23,m:11},{r:'Nauthiz',d:24,m:11},{r:'Nauthiz',d:25,m:11},{r:'Nauthiz',d:26,m:11},{r:'Nauthiz',d:27,m:11},
+  {r:'Isa',d:28,m:11},{r:'Isa',d:29,m:11},{r:'Isa',d:30,m:11},{r:'Isa',d:1,m:12},{r:'Isa',d:2,m:12},{r:'Isa',d:3,m:12},{r:'Isa',d:4,m:12},{r:'Isa',d:5,m:12},{r:'Isa',d:6,m:12},{r:'Isa',d:7,m:12},{r:'Isa',d:8,m:12},{r:'Isa',d:9,m:12},{r:'Isa',d:10,m:12},{r:'Isa',d:11,m:12},{r:'Isa',d:12,m:12},{r:'Isa',d:13,m:12},
+  {r:'Jera',d:14,m:12},{r:'Jera',d:15,m:12},{r:'Jera',d:16,m:12},{r:'Jera',d:17,m:12},{r:'Jera',d:18,m:12},{r:'Jera',d:19,m:12},{r:'Jera',d:20,m:12},{r:'Jera',d:21,m:12},{r:'Jera',d:22,m:12},{r:'Jera',d:23,m:12},{r:'Jera',d:24,m:12},{r:'Jera',d:25,m:12},{r:'Jera',d:26,m:12},{r:'Jera',d:27,m:12},{r:'Jera',d:28,m:12},
+  {r:'Eihwaz',d:29,m:12},{r:'Eihwaz',d:30,m:12},{r:'Eihwaz',d:31,m:12},{r:'Eihwaz',d:1,m:1},{r:'Eihwaz',d:2,m:1},{r:'Eihwaz',d:3,m:1},{r:'Eihwaz',d:4,m:1},{r:'Eihwaz',d:5,m:1},{r:'Eihwaz',d:6,m:1},{r:'Eihwaz',d:7,m:1},{r:'Eihwaz',d:8,m:1},{r:'Eihwaz',d:9,m:1},{r:'Eihwaz',d:10,m:1},{r:'Eihwaz',d:11,m:1},{r:'Eihwaz',d:12,m:1},
+  {r:'Pertho',d:13,m:1},{r:'Pertho',d:14,m:1},{r:'Pertho',d:15,m:1},{r:'Pertho',d:16,m:1},{r:'Pertho',d:17,m:1},{r:'Pertho',d:18,m:1},{r:'Pertho',d:19,m:1},{r:'Pertho',d:20,m:1},{r:'Pertho',d:21,m:1},{r:'Pertho',d:22,m:1},{r:'Pertho',d:23,m:1},{r:'Pertho',d:24,m:1},{r:'Pertho',d:25,m:1},{r:'Pertho',d:26,m:1},{r:'Pertho',d:27,m:1},
+  {r:'Algiz',d:28,m:1},{r:'Algiz',d:29,m:1},{r:'Algiz',d:30,m:1},{r:'Algiz',d:31,m:1},{r:'Algiz',d:1,m:2},{r:'Algiz',d:2,m:2},{r:'Algiz',d:3,m:2},{r:'Algiz',d:4,m:2},{r:'Algiz',d:5,m:2},{r:'Algiz',d:6,m:2},{r:'Algiz',d:7,m:2},{r:'Algiz',d:8,m:2},{r:'Algiz',d:9,m:2},{r:'Algiz',d:10,m:2},{r:'Algiz',d:11,m:2},
+  {r:'Sowilo',d:12,m:2},{r:'Sowilo',d:13,m:2},{r:'Sowilo',d:14,m:2},{r:'Sowilo',d:15,m:2},{r:'Sowilo',d:16,m:2},{r:'Sowilo',d:17,m:2},{r:'Sowilo',d:18,m:2},{r:'Sowilo',d:19,m:2},{r:'Sowilo',d:20,m:2},{r:'Sowilo',d:21,m:2},{r:'Sowilo',d:22,m:2},{r:'Sowilo',d:23,m:2},{r:'Sowilo',d:24,m:2},{r:'Sowilo',d:25,m:2},{r:'Sowilo',d:26,m:2},{r:'Sowilo',d:27,m:2},
+  {r:'Tiwaz',d:28,m:2},{r:'Tiwaz',d:29,m:2},{r:'Tiwaz',d:1,m:3},{r:'Tiwaz',d:2,m:3},{r:'Tiwaz',d:3,m:3},{r:'Tiwaz',d:4,m:3},{r:'Tiwaz',d:5,m:3},{r:'Tiwaz',d:6,m:3},{r:'Tiwaz',d:7,m:3},{r:'Tiwaz',d:8,m:3},{r:'Tiwaz',d:9,m:3},{r:'Tiwaz',d:10,m:3},{r:'Tiwaz',d:11,m:3},{r:'Tiwaz',d:12,m:3},{r:'Tiwaz',d:13,m:3},{r:'Tiwaz',d:14,m:3},
+  {r:'Berkana',d:15,m:3},{r:'Berkana',d:16,m:3},{r:'Berkana',d:17,m:3},{r:'Berkana',d:18,m:3},{r:'Berkana',d:19,m:3},{r:'Berkana',d:20,m:3},{r:'Berkana',d:21,m:3},{r:'Berkana',d:22,m:3},{r:'Berkana',d:23,m:3},{r:'Berkana',d:24,m:3},{r:'Berkana',d:25,m:3},{r:'Berkana',d:26,m:3},{r:'Berkana',d:27,m:3},{r:'Berkana',d:28,m:3},{r:'Berkana',d:29,m:3},
+  {r:'Ehwaz',d:30,m:3},{r:'Ehwaz',d:31,m:3},{r:'Ehwaz',d:1,m:4},{r:'Ehwaz',d:2,m:4},{r:'Ehwaz',d:3,m:4},{r:'Ehwaz',d:4,m:4},{r:'Ehwaz',d:5,m:4},{r:'Ehwaz',d:6,m:4},{r:'Ehwaz',d:7,m:4},{r:'Ehwaz',d:8,m:4},{r:'Ehwaz',d:9,m:4},{r:'Ehwaz',d:10,m:4},{r:'Ehwaz',d:11,m:4},{r:'Ehwaz',d:12,m:4},{r:'Ehwaz',d:13,m:4},
+  {r:'Mannaz',d:14,m:4},{r:'Mannaz',d:15,m:4},{r:'Mannaz',d:16,m:4},{r:'Mannaz',d:17,m:4},{r:'Mannaz',d:18,m:4},{r:'Mannaz',d:19,m:4},{r:'Mannaz',d:20,m:4},{r:'Mannaz',d:21,m:4},{r:'Mannaz',d:22,m:4},{r:'Mannaz',d:23,m:4},{r:'Mannaz',d:24,m:4},{r:'Mannaz',d:25,m:4},{r:'Mannaz',d:26,m:4},{r:'Mannaz',d:27,m:4},{r:'Mannaz',d:28,m:4},{r:'Mannaz',d:29,m:4},
+  {r:'Laguz',d:30,m:4},{r:'Laguz',d:1,m:5},{r:'Laguz',d:2,m:5},{r:'Laguz',d:3,m:5},{r:'Laguz',d:4,m:5},{r:'Laguz',d:5,m:5},{r:'Laguz',d:6,m:5},{r:'Laguz',d:7,m:5},{r:'Laguz',d:8,m:5},{r:'Laguz',d:9,m:5},{r:'Laguz',d:10,m:5},{r:'Laguz',d:11,m:5},{r:'Laguz',d:12,m:5},{r:'Laguz',d:13,m:5},{r:'Laguz',d:14,m:5},
+  {r:'Inguz',d:15,m:5},{r:'Inguz',d:16,m:5},{r:'Inguz',d:17,m:5},{r:'Inguz',d:18,m:5},{r:'Inguz',d:19,m:5},{r:'Inguz',d:20,m:5},{r:'Inguz',d:21,m:5},{r:'Inguz',d:22,m:5},{r:'Inguz',d:23,m:5},{r:'Inguz',d:24,m:5},{r:'Inguz',d:25,m:5},{r:'Inguz',d:26,m:5},{r:'Inguz',d:27,m:5},{r:'Inguz',d:28,m:5},{r:'Inguz',d:29,m:5},
+  {r:'Othila',d:30,m:5},{r:'Othila',d:31,m:5},{r:'Othila',d:1,m:6},{r:'Othila',d:2,m:6},{r:'Othila',d:3,m:6},{r:'Othila',d:4,m:6},{r:'Othila',d:5,m:6},{r:'Othila',d:6,m:6},{r:'Othila',d:7,m:6},{r:'Othila',d:8,m:6},{r:'Othila',d:9,m:6},{r:'Othila',d:10,m:6},{r:'Othila',d:11,m:6},{r:'Othila',d:12,m:6},{r:'Othila',d:13,m:6},
+  {r:'Dagaz',d:14,m:6},{r:'Dagaz',d:15,m:6},{r:'Dagaz',d:16,m:6},{r:'Dagaz',d:17,m:6},{r:'Dagaz',d:18,m:6},{r:'Dagaz',d:19,m:6},{r:'Dagaz',d:20,m:6},{r:'Dagaz',d:21,m:6},{r:'Dagaz',d:22,m:6},{r:'Dagaz',d:23,m:6},{r:'Dagaz',d:24,m:6},{r:'Dagaz',d:25,m:6},{r:'Dagaz',d:26,m:6},{r:'Dagaz',d:27,m:6},{r:'Dagaz',d:28,m:6}
+];
+
+// ── Símbolo por runa ────────────────────────────────────────────────
+const SIMBOLOS = {
+  Fehu:'ᚠ', Uruz:'ᚢ', Thurisaz:'ᚦ', Ansuz:'ᚨ', Raidho:'ᚱ',
+  Kaunaz:'ᚲ', Gebo:'ᚷ', Wunjo:'ᚹ', Hagalaz:'ᚺ', Nauthiz:'ᚾ',
+  Isa:'ᛁ', Jera:'ᛃ', Eihwaz:'ᛇ', Pertho:'ᛈ', Algiz:'ᛉ',
+  Sowilo:'ᛊ', Tiwaz:'ᛏ', Berkana:'ᛒ', Ehwaz:'ᛖ', Mannaz:'ᛗ',
+  Laguz:'ᛚ', Inguz:'ᛜ', Othila:'ᛟ', Dagaz:'ᛞ'
+};
+
+// ── Mensajes por runa: 15 mensajes (uno por cada día del período) ───
+const MENSAJES = {
+  Fehu: [
+    "La abundancia que buscas ya está dentro de ti. Hoy, reconoce las riquezas invisibles que llevas: tu tiempo, tu amor, tu energía.",
+    "Fehu te recuerda que la prosperidad no es suerte, es intención. Actúa hoy con la certeza de que mereces recibir lo que das.",
+    "El flujo del dinero y los bienes sigue la energía que tú irradias. Hoy, eleva tu vibración y la riqueza encontrará su camino.",
+    "La runa del ganado te habla: lo que cuidas con atención crece. Dedica hoy tiempo a aquello que deseas ver prosperar.",
+    "Odín te susurra: no acumules por miedo. La verdadera riqueza circula, se comparte y vuelve multiplicada.",
+    "Hoy es un día favorable para tomar decisiones financieras o dar pasos concretos hacia tus metas materiales. Fehu ilumina tu camino.",
+    "La energía vital de Fehu te recarga. Siente cómo la fuerza de la vida fluye por ti y úsala para crear algo valioso hoy.",
+    "No confundas valor con precio. Hoy Fehu te invita a reconocer lo que realmente tiene valor en tu vida y protegerlo.",
+    "La prosperidad tiene raíces en la gratitud. Antes de pedir más, agradece profundamente lo que ya tienes. Fehu escucha.",
+    "Un nuevo ciclo de abundancia se abre para ti. Fehu marca el inicio; tú decides qué semillas plantarás en este terreno fértil.",
+    "Tu energía creativa es tu mayor riqueza. Hoy canalízala hacia proyectos que nutran tu alma y tu bolsillo a la vez.",
+    "Fehu te da fuerza para sostener lo que has construido. Hoy refuerza tus cimientos: cuida tus recursos con sabiduría.",
+    "La riqueza verdadera incluye salud, vínculos y propósito. Hoy Fehu te pide que honres todas las formas de abundancia en tu vida.",
+    "Cierra ciclos financieros pendientes. Fehu trae claridad para ordenar, soltar lo que no sirve y hacer espacio para lo nuevo.",
+    "El último día de Fehu es un umbral. Celebra lo que esta runa te trajo y prepárate con gratitud para la energía que viene."
+  ],
+  Uruz: [
+    "El uro salvaje despierta en ti. Siente esa fuerza primordial que no pide permiso para existir. Hoy, sé auténticamente poderoso.",
+    "Tu cuerpo es un templo de energía. Uruz te pide que lo honres hoy: muévete, respira profundo, siente tu vitalidad.",
+    "Los obstáculos de hoy son exactamente del tamaño que tu fuerza puede manejar. Uruz lo confirma: estás preparado.",
+    "La resistencia que enfrentas no es un castigo, es un entrenamiento. Uruz forja el carácter en el fuego de los desafíos.",
+    "Hoy tu instinto es más sabio que tu razón. Confía en esa voz animal que sabe, antes de pensar, qué camino tomar.",
+    "Uruz te da permiso para ocupar espacio. No te hagas pequeño. Tu presencia, plena y auténtica, es necesaria en el mundo.",
+    "La salud es el fundamento de todo. Hoy Uruz te invita a hacer una sola elección que nutra tu cuerpo y tu mente.",
+    "El poder de Uruz no es fuerza bruta, es voluntad inquebrantable. Hoy decide qué no vas a dejar de hacer, pase lo que pase.",
+    "Algo en ti está mutando. Uruz acompaña las transformaciones que duelen pero que te llevan a una versión más auténtica.",
+    "Hoy tienes más energía de la que crees. Uruz la amplifica. Úsala para dar ese paso que has estado postergando.",
+    "No temas a tu propia intensidad. Uruz celebra a quienes sienten fuerte, viven fuerte y aman fuerte. Eso eres tú.",
+    "El uro no se domestica; se respeta. Hoy respeta tu propia naturaleza: no te comprimas para encajar donde no perteneces.",
+    "Uruz trae vitalidad renovada. Si has estado agotado, hoy siente cómo la energía regresa a tus huesos y tu espíritu.",
+    "La fuerza física y la espiritual son la misma fuente. Hoy Uruz te conecta con esa raíz de poder que nadie puede quitarte.",
+    "El ciclo de Uruz cierra con una lección: fuiste más fuerte de lo que creías. Lleva esa certeza al próximo capítulo."
+  ],
+  Thurisaz: [
+    "La espina protege a la rosa. Hoy Thurisaz te recuerda que tus límites son sagrados. Defiéndelos sin disculparte.",
+    "Un desafío que evitabas pide ser enfrentado. Thurisaz te da el martillo de Thor: golpea directo, con precisión y valentía.",
+    "No toda tormenta viene a destruir. Algunas vienen a limpiar. Thurisaz te pregunta: ¿qué necesita ser barrido de tu vida?",
+    "La energía de Thurisaz es disruptiva por naturaleza. Hoy algo puede romperse para que algo mejor pueda construirse.",
+    "Cuidado con la impulsividad. Thurisaz advierte: la misma fuerza que destruye obstáculos puede herir si se usa sin conciencia.",
+    "Los gigantes de la mitología nórdica no eran villanos, eran fuerzas primordiales. Hoy abraza la fuerza de lo que temes.",
+    "Hoy Thurisaz activa tu capacidad de decir no. Un 'no' dicho con claridad es un acto de amor propio profundo.",
+    "Algo que parecía sólido puede tambalearse hoy. Thurisaz prepara el terreno para una reconstrucción más auténtica.",
+    "La prueba que enfrentas no es tu enemigo. Thurisaz lo revela: es el maestro más honesto que encontrarás en este camino.",
+    "El martillo de Thor también protege. Hoy visualiza esa protección sobre ti y sobre quienes amas. Estás resguardado.",
+    "Thurisaz te pide acción, no reflexión infinita. Ya sabes lo que hay que hacer. Hoy es el día de hacerlo.",
+    "Las transformaciones necesarias pocas veces son cómodas. Thurisaz te sostiene mientras lo viejo se cae.",
+    "Hay una conversación difícil pendiente. Thurisaz te da el coraje para tenerla con honestidad y sin crueldad.",
+    "La fuerza de esta runa cierra un ciclo de pruebas. Lo que sobrevivió es lo verdadero. Honra tu resistencia hoy.",
+    "Thurisaz despide su período con esta verdad: lo que te desafió te definió. Sales de aquí más tú que nunca."
+  ],
+  Ansuz: [
+    "Odín sacrificó un ojo por la sabiduría. Hoy Ansuz te pregunta: ¿qué estás dispuesto a soltar para ver con más claridad?",
+    "Las palabras que usas hoy tienen peso rúnico. Habla con intención, con verdad, con amor. Ansuz amplifica lo que dices.",
+    "Hay un mensaje para ti en la conversación más inesperada de hoy. Ansuz agudiza tus oídos para lo que importa.",
+    "La inspiración no llega cuando la buscas con urgencia. Ansuz te pide quietud, receptividad, espacio para escuchar.",
+    "Tu intuición es la voz de Odín hablándote. Hoy no la ignores, no la racionalices. Confía en ese primer impulso.",
+    "Un maestro puede aparecer de formas insospechadas: una conversación casual, un libro abierto al azar, un sueño.",
+    "Ansuz activa tu capacidad de comunicar lo que realmente sientes. Hoy encuentra las palabras que llevan tiempo dentro.",
+    "La sabiduría ancestral vive en tu sangre. Hoy Ansuz te conecta con esa herencia invisible que guía tus pasos.",
+    "Cuidado con las palabras ajenas que no te pertenecen. Ansuz te da discernimiento para separar la verdad del ruido.",
+    "Hoy es un día poderoso para escribir, hablar o crear. La runa de Odín potencia toda expresión auténtica.",
+    "Ansuz te recuerda: el silencio también comunica. A veces la respuesta más sabia es no responder todavía.",
+    "El conocimiento que buscas no está en el exterior. Ansuz señala hacia adentro: la respuesta ya está en ti.",
+    "Una revelación puede sorprenderte hoy. Ansuz prepara tu mente para recibir lo que necesita ser entendido.",
+    "La comunicación divina llega en múltiples idiomas. Hoy Ansuz afina tu percepción para descifrar los signos del día.",
+    "El período de Ansuz cierra con un regalo: comprendes algo que antes no podías articular. Lleva esa sabiduría contigo."
+  ],
+  Raidho: [
+    "El viaje más importante siempre comienza dentro. Raidho te pregunta hoy: ¿hacia dónde se dirige tu alma realmente?",
+    "Cada paso que das, aunque sea pequeño, es sagrado. Raidho celebra el movimiento con propósito. Sigue avanzando.",
+    "El camino correcto no siempre es el más fácil ni el más directo. Raidho confía en la ruta que te está siendo mostrada.",
+    "Hoy puede traer un viaje literal o metafórico. En ambos casos, Raidho te acompaña: el destino merece la travesía.",
+    "Las ruedas giran siguiendo un ritmo. Hoy sintonízate con el flujo natural de las cosas en lugar de forzar el paso.",
+    "Raidho te recuerda que el viaje ES el destino. No te pierdas el paisaje por llegar demasiado rápido a ningún lado.",
+    "Hay decisiones que requieren movimiento para clarificarse. Hoy Raidho te dice: da el paso y la respuesta llegará.",
+    "Los rituales de tu camino diario tienen poder. Raidho invita a hacer sagrado lo ordinario: el camino al trabajo, la rutina.",
+    "¿Estás yendo en la dirección que realmente elegiste? Raidho para el carro un momento para que recalibres tu brújula.",
+    "Un viaje o un cambio se aproxima. Raidho te asegura que estás listo, aunque no te sientas así. Confía en el camino.",
+    "El ritmo de la vida tiene sus propios tiempos. Hoy Raidho te pide que no corras cuando es momento de caminar.",
+    "Cada etapa del camino tiene su belleza. Hoy honra dónde estás, aunque aún no hayas llegado a donde quieres ir.",
+    "Raidho activa la energía del movimiento consciente. Hoy muévete con intención, ya sea en cuerpo, mente o espíritu.",
+    "Los finales de camino son también comienzos. Raidho celebra cada llegada como el inicio de una nueva partida.",
+    "El ciclo de Raidho cierra. Has recorrido un tramo importante. Descansa, mira cuán lejos has llegado y prepara el equipaje."
+  ],
+  Kaunaz: [
+    "La antorcha de Kaunaz enciende lo que estaba dormido en ti. Hoy algo creativo quiere nacer. Dale permiso de existir.",
+    "El conocimiento que no se comparte se apaga. Kaunaz te invita a enseñar, a transmitir, a iluminar a otro con lo que sabes.",
+    "Hay algo que comprendes hoy con una claridad nueva. Kaunaz abre los ojos del entendimiento. Confía en esa visión.",
+    "La creatividad no necesita condiciones perfectas. Kaunaz enciende su llama incluso en la oscuridad. Crea hoy, aunque sea poco.",
+    "Un problema que parecía sin solución puede verse diferente hoy. Kaunaz trae la perspectiva que faltaba.",
+    "El fuego de Kaunaz también purifica. Hoy quema lo que ya no te sirve: creencias viejas, miedos heredados, historias caducas.",
+    "Tu talento es una llama que el mundo necesita ver. Hoy Kaunaz te da el coraje para mostrarlo sin disculpas.",
+    "La intuición es una forma de conocimiento igual de válida que la razón. Hoy Kaunaz honra ambas en igual medida.",
+    "Hay una verdad que has estado evitando ver. Kaunaz ilumina precisamente eso. Mira sin miedo; la verdad libera.",
+    "El aprendizaje transforma. Hoy Kaunaz te empuja hacia algo nuevo que aprender, ya sea un libro, una conversación o una experiencia.",
+    "La llama de Kaunaz no consume; genera. Hoy siente cómo tu energía creativa se renueva en lugar de agotarse.",
+    "Lo que construyes con tus manos y tu mente es un acto sagrado. Kaunaz te recuerda que el trabajo bien hecho honra a los dioses.",
+    "Hoy es día de claridad mental. Kaunaz despeja la niebla y te permite ver con precisión lo que necesita atención.",
+    "Una idea que llevas tiempo gestando puede dar su primer paso hoy. Kaunaz dice: es tiempo. Comienza.",
+    "El período de Kaunaz cierra. La llama que encendiste dentro de ti, guárdala. Nadie puede apagar lo que ya ilumina desde adentro."
+  ],
+  Gebo: [
+    "Todo regalo auténtico crea un vínculo sagrado. Hoy Gebo te pregunta: ¿qué estás dando y qué estás recibiendo con el corazón abierto?",
+    "El intercambio honesto es la base de toda relación verdadera. Hoy Gebo ilumina los vínculos donde hay equilibrio y amor.",
+    "Dar sin esperar nada a cambio es un acto divino. Hoy practica la generosidad pura, la que nace del amor y no del miedo.",
+    "Recibir también es un arte. Hoy Gebo te invita a aceptar la ayuda, el amor o el regalo que alguien quiere darte.",
+    "Hay un intercambio pendiente que pide ser completado. Gebo trae equilibrio. Hoy es el momento de saldar esa deuda del corazón.",
+    "Los regalos más valiosos no se compran. Hoy Gebo señala tus dones invisibles: presencia, escucha, tiempo genuino.",
+    "Una relación puede profundizarse hoy a través de un acto sencillo de generosidad. Gebo bendice los pequeños gestos.",
+    "El equilibrio en el dar y recibir es la medicina de las relaciones. Hoy revisa: ¿estás dando demasiado o recibiendo muy poco?",
+    "Gebo te recuerda que el amor es un verbo. Hoy exprésalo en acciones concretas, no solo en palabras.",
+    "Un encuentro de hoy puede sentirse como un regalo del universo. Gebo marca los cruces de caminos que no son casualidad.",
+    "El sacrificio sagrado es diferente al martirio. Gebo te enseña a dar desde la plenitud, no desde el vacío.",
+    "Hoy agradece los dones que sueles ignorar. Gebo amplifica la gratitud y atrae más razones para seguir agradeciéndola.",
+    "Un regalo dado con amor cambia ambas partes. Hoy Gebo te invita a ser ese cambio para alguien que lo necesita.",
+    "Los lazos que honran a Gebo son los que duran. Hoy invierte en los vínculos que te nutren y te hacen más tú.",
+    "El período de Gebo cierra. Llevas contigo el aprendizaje de que dar y recibir son el mismo acto de amor en diferentes formas.",
+    "Gebo abre su ciclo con una pregunta sagrada: ¿qué tienes para ofrecer al mundo que solo tú puedes dar? Hoy empieza a responderla."
+  ],
+  Wunjo: [
+    "Wunjo anuncia: la alegría es tu estado natural, no un premio que debes ganarte. Hoy recuérdalo cada vez que sonrías.",
+    "Algo que sembrastes con esfuerzo está dando sus primeros frutos. Wunjo te pide que los celebres, no que ya busques más.",
+    "La armonía en tus relaciones es posible hoy. Wunjo suaviza las asperezas y recuerda que la paz también se elige.",
+    "Hoy puede ser un día de pequeñas alegrías que, sumadas, pesan más que las grandes. Presta atención a cada una.",
+    "Wunjo activa el sentido de pertenencia. Hoy busca a tu tribu, a los que te hacen sentir en casa simplemente siendo tú.",
+    "El éxito verdadero se siente liviano, no pesado. Wunjo te muestra que lo que fluye con alegría es lo que realmente te corresponde.",
+    "Hoy permite que te vaya bien sin culpa. Wunjo te recuerda que merecer la felicidad no es un lujo, es tu derecho.",
+    "La belleza de lo ordinario: Wunjo la ve en cada taza de café, en cada abrazo, en cada momento que elige el amor.",
+    "Tu felicidad no depende de condiciones externas. Wunjo la encuentra en el espacio entre el pensamiento y la reacción.",
+    "Hoy es un buen día para reír sin motivo, para bailar aunque no haya música, para existir con ligereza.",
+    "Wunjo trae noticias favorables. Mantente abierto a recibir algo que te alegre el corazón hoy.",
+    "La comunidad que te sostiene merece ser honrada. Hoy Wunjo te invita a decirles a los tuyos cuánto los valoras.",
+    "Cuando estás en paz contigo mismo, todo lo que te rodea se armoniza. Hoy Wunjo empieza por adentro.",
+    "Un logro que postergabas celebrar merece su momento. Wunjo insiste: el reconocimiento propio también importa.",
+    "El ciclo de Wunjo cierra con suavidad. Lleva su medicina contigo: la alegría no es un destino, es una forma de caminar."
+  ],
+  Hagalaz: [
+    "La granizada rompe lo que era frágil para revelar lo que es sólido. Hoy Hagalaz pregunta: ¿qué en ti es verdaderamente irrompible?",
+    "No toda interrupción es un error del universo. Hagalaz interrumpe lo que necesita ser interrumpido. Confía en el caos.",
+    "Lo que se está derrumbando hoy no es tu vida entera, es solo la parte que ya no te servía. Hagalaz distingue con precisión.",
+    "Las tormentas más violentas dejan el aire más limpio. Hoy Hagalaz trabaja en la limpieza de lo que ya no pertenece a tu camino.",
+    "Resiste el impulso de controlar lo incontrolable. Hagalaz te enseña la libertad que viene de soltar el timón por un momento.",
+    "En el ojo de la tormenta hay una quietud perfecta. Hoy Hagalaz te invita a encontrar ese centro de calma dentro del caos.",
+    "Lo inesperado puede ser exactamente lo que necesitabas. Hagalaz trabaja con la precisión de lo que parece accidental.",
+    "Hoy puede surgir algo disruptivo. No lo interpretes como fracaso. Hagalaz usa la ruptura como herramienta de renovación.",
+    "Las semillas necesitan ser enterradas en oscuridad antes de brotar. Hagalaz cuida lo que está gestando bajo la tormenta.",
+    "Tu capacidad de adaptarte es tu mayor fortaleza. Hagalaz la pone a prueba hoy con amor, aunque no lo parezca.",
+    "Algo tiene que morir para que algo nuevo pueda nacer. Hoy Hagalaz hace espacio. Deja ir lo que ya cumplió su ciclo.",
+    "La transformación forzada también es transformación. Hoy lo que cambia sin tu permiso también te lleva a donde debes ir.",
+    "Hagalaz trae limpiezas que duelen en el momento pero alivian en el largo plazo. Confía en el proceso aunque duela.",
+    "El final de la tormenta se acerca. Hagalaz ha hecho su trabajo. Empieza a vislumbrar lo que queda en pie: lo esencial.",
+    "El ciclo de Hagalaz cierra. Sobreviviste la granizada. Lo que ves ahora a tu alrededor es el paisaje después del caos: más claro, más verdadero."
+  ],
+  Nauthiz: [
+    "La necesidad que sientes hoy no es debilidad, es el fuego que enciende la voluntad. Nauthiz convierte la carencia en acción.",
+    "El palo que frota contra el palo crea fuego. Hoy Nauthiz usa la fricción de tus circunstancias para generar calor y luz.",
+    "Las limitaciones de hoy son el diseño de mañana. Nauthiz te enseña a crear dentro de los bordes, no a pesar de ellos.",
+    "Cuando el exterior no da lo que necesitas, miras adentro. Hoy Nauthiz te lleva a recursos internos que no sabías que tenías.",
+    "La paciencia no es resignación. Nauthiz la define como la fuerza activa de quien sabe que su momento llegará.",
+    "Hoy puede que debas hacer más con menos. Nauthiz es la maestra de la creatividad bajo presión. Confía en tu ingenio.",
+    "Una necesidad insatisfecha puede ser la brújula más honesta. Hoy Nauthiz pregunta: ¿qué es lo que realmente necesitas?",
+    "El esfuerzo de hoy, aunque no se vea recompensado inmediatamente, está construyendo algo sólido. Nauthiz lo garantiza.",
+    "No pidas que el camino sea más fácil. Pide tener la fuerza para recorrerlo. Nauthiz escucha esa oración y la responde.",
+    "La voluntad que se forja en la dificultad no se rompe en la comodidad. Hoy Nauthiz forja la tuya.",
+    "Hay una necesidad de otro que puedes cubrir hoy. Nauthiz también se expresa a través del servicio genuino.",
+    "El deseo que aún no se cumplió es una semilla de poder. Hoy Nauthiz te pide que no te rindas en el umbral.",
+    "Reconoce tus propias necesidades sin vergüenza. Nauthiz dice: nombrar lo que necesitas es el primer paso para recibirlo.",
+    "Las pruebas que atravesaste en este período te han forjado. Nauthiz lo confirma: eres más fuerte y más consciente.",
+    "El ciclo de Nauthiz cierra. Llevaste la antorcha encendida en los momentos más oscuros. Eso no tiene precio."
+  ],
+  Isa: [
+    "El hielo detiene el movimiento para que puedas ver con claridad lo que el ruido ocultaba. Hoy Isa te regala quietud.",
+    "No toda pausa es pérdida. Isa te muestra que en la inmovilidad hay sabiduría que el movimiento no puede enseñar.",
+    "Hoy el universo te pide que te detengas. No es un obstáculo, es una invitación a observar antes de actuar.",
+    "El hielo preserva. Isa protege lo valioso mientras el tiempo hace su trabajo. Confía en la espera de hoy.",
+    "La claridad llega en el silencio. Isa disuelve el ruido externo para que puedas escuchar la voz que importa.",
+    "Un período de consolidación interior es tan valioso como uno de acción exterior. Hoy Isa honra lo invisible.",
+    "No fuerces lo que está congelado. Isa te recuerda que hay cosas que solo el tiempo puede descongelar suavemente.",
+    "La soledad de hoy no es abandono, es un retiro sagrado. Isa cuida del espacio donde vas a encontrarte a ti mismo.",
+    "Hoy observa más y habla menos. Isa agudiza la percepción de quien tiene el coraje de quedarse quieto.",
+    "El invierno no es el fin del jardín, es su descanso necesario. Hoy Isa honra tu propio invierno interior.",
+    "Cuando todo se frena, lo esencial se vuelve evidente. Hoy Isa te muestra qué en tu vida es realmente importante.",
+    "La concentración que necesitas hoy viene de adentro. Isa calma el ruido mental para que puedas enfocarte en lo que importa.",
+    "Hay una respuesta que llegará cuando dejes de buscarla ansiosamente. Isa te enseña el arte de la espera activa.",
+    "El hielo de Isa va cediendo. Algo que estuvo detenido comenzará a moverse pronto. Prepárate con suavidad.",
+    "El ciclo de Isa cierra. Llevas la paz que encontraste en la quietud. Ese centro de calma es tuyo para siempre."
+  ],
+  Jera: [
+    "Jera te recuerda: no puedes cosechar lo que no sembraste, ni más rápido de lo que la naturaleza permite. Confía en el tiempo.",
+    "Cada ciclo completo es una victoria. Hoy Jera celebra los procesos que honraste aunque nadie los viera.",
+    "La rueda del año gira sin prisa y sin pausa. Hoy Jera te invita a sincronizarte con ese ritmo sabio y paciente.",
+    "Lo que plantaste con amor en ciclos anteriores está creciendo ahora, aunque aún no lo veas. Jera lo sabe.",
+    "Hoy puede traer el inicio de una cosecha que llevas tiempo esperando. Jera anuncia: el tiempo correcto ha llegado.",
+    "Los ciclos de la naturaleza no se negocian. Jera te enseña la humildad de quien sabe que no lo controla todo.",
+    "La paciencia de Jera no es pasiva: es la energía activa de quien cuida, riega y espera sin angustia.",
+    "Un año de trabajo merece reconocimiento. Hoy Jera te pide que celebres lo que has construido, aunque falte mucho.",
+    "Estás en el momento exacto del ciclo en que debes estar. Jera confirma: ni adelantado ni atrasado. En tu tiempo.",
+    "Las estaciones cambian sin que nadie les pida permiso. Hoy Jera te invita a fluir con el cambio que viene.",
+    "El esfuerzo sostenido en el tiempo tiene su recompensa. Jera es la runa de la justicia cósmica del trabajo honesto.",
+    "Algo que comenzaste hace meses llega hoy a un punto de madurez. Jera marca los hitos aunque parezcan ordinarios.",
+    "La sabiduría de los ciclos es que siempre hay una nueva primavera. Hoy Jera te recuerda que esto también pasará.",
+    "El solsticio de invierno llega con Jera: el punto de mayor oscuridad que anuncia el regreso de la luz. Confía.",
+    "El ciclo de Jera cierra en el corazón del invierno. Lleva la certeza de quien sabe que la cosecha siempre regresa."
+  ],
+  Eihwaz: [
+    "El tejo vive mil años porque sus raíces son tan profundas como sus ramas son altas. Hoy Eihwaz te pide que te arraigues.",
+    "Entre la vida y la muerte hay un espacio sagrado. Eihwaz te invita a habitarlo sin miedo: ahí vive la transformación real.",
+    "Lo que parece el fin es solo el umbral de algo diferente. Eihwaz acompaña los tránsitos que asustan pero liberan.",
+    "Tu perseverancia no es testarudez, es la sabiduría del árbol que se dobla en la tormenta pero no se rompe.",
+    "Eihwaz conecta los mundos. Hoy puedes recibir orientación de fuentes inesperadas: sueños, intuiciones, señales.",
+    "El axis mundi que eres tú conecta tu pasado y tu futuro en este momento presente. Hoy Eihwaz honra ese eje.",
+    "Las raíces ancestrales te sostienen aunque no las veas. Hoy Eihwaz te conecta con la fortaleza de quienes vinieron antes.",
+    "Lo que resiste el tiempo no es lo más duro, sino lo más flexible. Hoy Eihwaz te enseña la fuerza de la adaptación.",
+    "Estás en un punto de transición. Eihwaz te sostiene en el entre-medio, donde lo viejo ya se fue y lo nuevo aún no llega.",
+    "El tejo tóxico para los que no lo conocen, medicinal para quienes saben usarlo. Hoy Eihwaz pregunta: ¿qué en ti tiene ese doble poder?",
+    "La muerte de lo que ya no sirve es un acto de amor propio. Eihwaz te da el coraje para soltar con dignidad.",
+    "Hoy la perseverancia vale más que la inspiración. Eihwaz te respalda cuando sigues aunque no sientas ganas.",
+    "Tu historia de vida tiene raíces más profundas de lo que imaginas. Hoy Eihwaz te invita a honrar de dónde vienes.",
+    "El umbral entre años está cerca. Eihwaz lo guarda. Todo lo que cruzas ahora tiene el peso sagrado de los finales reales.",
+    "Eihwaz cierra el año viejo. Eres el árbol que atravesó la tormenta: más enraizado, más sabio, más vivo que nunca."
+  ],
+  Pertho: [
+    "El cubilete de los dados guarda el misterio del destino. Hoy Pertho te invita a soltar la necesidad de controlar el resultado.",
+    "Lo que está oculto saldrá a la luz en el momento exacto. Pertho guarda los secretos hasta que estés listo para verlos.",
+    "El azar no existe para Pertho. Lo que parece suerte es el patrón del tejido de tu vida haciéndose visible.",
+    "Hoy puede revelarse algo que estaba escondido. Pertho abre lo que estaba cerrado cuando el tiempo es el correcto.",
+    "Tu destino no está fijo. Pertho juega con la posibilidad: cada elección que haces lanza los dados de nuevo.",
+    "Hay algo que aún no sabes sobre esta situación. Pertho te pide paciencia antes de juzgar o decidir.",
+    "El misterio no es una amenaza, es una invitación a la curiosidad. Hoy Pertho te enseña a amar lo que aún no comprendes.",
+    "Las coincidencias de hoy son mensajes cifrados. Pertho agudiza tu capacidad de leer los signos que el universo te envía.",
+    "Lo que el destino tiene guardado para ti supera lo que tu mente podría imaginar. Pertho susurra: confía en la sorpresa.",
+    "Un secreto puede salir a la luz hoy. Pertho lo hace con la precisión de quien sabe que la verdad siempre encuentra su momento.",
+    "Suelta el guión de cómo deberían ser las cosas. Pertho trabaja mejor cuando le dejas espacio para sorprenderte.",
+    "Hoy los sueños pueden traer mensajes importantes. Pertho habla en el lenguaje del subconsciente. Escúchalo.",
+    "La suerte se inclina hacia quienes están presentes y abiertos. Hoy Pertho te pide que estés aquí, en este momento.",
+    "Lo que llevas tiempo esperando se mueve hoy, aunque aún no lo veas. Pertho lo confirma: algo está cambiando.",
+    "El ciclo de Pertho cierra. Llevas contigo el regalo de haber aprendido a vivir con el misterio sin que te paralice."
+  ],
+  Algiz: [
+    "El alce levanta sus astas y nada se atreve a acercarse. Hoy Algiz te pide que pongas en alto tu energía de protección.",
+    "Estás más protegido de lo que crees. Algiz rodea de luz tu camino de hoy. Avanza con confianza.",
+    "Tu instinto de protección es una forma de sabiduría divina. Hoy Algiz amplifica esa antena que detecta lo que no está bien.",
+    "Hay momentos en que alejarse no es cobardía, es inteligencia. Algiz hoy te da permiso de protegerte.",
+    "La conexión con lo sagrado es tu escudo más poderoso. Hoy Algiz te invita a renovar ese vínculo con tu fuente de luz.",
+    "Protege tu energía hoy. No todas las personas merecen acceso a tu espacio interior. Algiz cuida tus fronteras.",
+    "Tu intuición sobre cierta persona o situación merece ser escuchada. Algiz no lanza falsas alarmas.",
+    "La protección de Algiz también viene de los ancestros. Siente su presencia a tu alrededor, cuidándote en silencio.",
+    "Hoy rodea de luz a quien amas. Algiz expande su campo de protección a través de tu intención y tu amor.",
+    "Estar alerta no es vivir con miedo. Algiz te enseña la vigilancia consciente que viene de la presencia, no del terror.",
+    "Un ángel o guía puede hacerse sentir hoy de manera sutil. Algiz abre ese canal de comunicación sagrada.",
+    "Confía en la red invisible de apoyo que te sostiene. Algiz te recuerda que nunca estás solo en este camino.",
+    "Hoy es un buen día para hacer rituales de protección, limpiar tu espacio y renovar tus intenciones de luz.",
+    "La fuerza de Algiz no intimidó porque no necesitaba hacerlo. Hoy sé esa presencia que cuida sin necesitar demostrar nada.",
+    "El ciclo de Algiz cierra. Llevas contigo el escudo que construiste: tu conciencia, tu instinto y tu conexión con lo divino."
+  ],
+  Sowilo: [
+    "El sol rompe las nubes después de la tormenta más larga. Hoy Sowilo anuncia: la luz es tuya, merécela plenamente.",
+    "Tu victoria no fue suerte. Sowilo reconoce el trabajo interior que hiciste para llegar hasta aquí. Celebra.",
+    "Hoy tienes permiso de brillar sin disculparte. Sowilo celebra tu luz como un regalo al mundo, no como arrogancia.",
+    "El rayo de sol no pide permiso para iluminar. Hoy tú tampoco necesitas pedirlo para ser quien realmente eres.",
+    "La energía solar de Sowilo recarga tu vitalidad. Hoy siente cómo el entusiasmo regresa a tus proyectos y a tu vida.",
+    "El éxito de hoy es la cosecha de la fe que mantuviste en los momentos oscuros. Sowilo honra esa perseverancia.",
+    "Hoy puedes ver con claridad solar lo que antes estaba nublado. Sowilo ilumina decisiones y caminos con precisión.",
+    "El sol es generoso: da su luz a todos por igual. Hoy Sowilo te invita a ser igual de generoso con tu alegría.",
+    "Una victoria que merece ser celebrada llega hoy, o está muy cerca. Sowilo no trae triunfos a medias.",
+    "Tu propósito brilla más claro que nunca. Hoy Sowilo te conecta con esa certeza de saber para qué estás aquí.",
+    "La claridad que trae Sowilo no es solo mental, es una sensación en el cuerpo. Hoy nota ese momento de saber.",
+    "Hoy es un día poderoso para iniciar, para decidir, para mostrarte. Sowilo ilumina los nuevos comienzos con fuerza.",
+    "El sol también se pone, pero siempre vuelve. Sowilo te enseña que tus ciclos de luz siempre regresan más intensos.",
+    "Hay algo en tu vida que está floreciendo bajo la luz de Sowilo. Hoy ponle atención y nómbralo con gratitud.",
+    "El ciclo de Sowilo cierra. Llevas la luz solar dentro: esa certeza de que eres capaz, que mereces y que puedes."
+  ],
+  Tiwaz: [
+    "Tyr sacrificó su mano para que el mundo estuviera a salvo. Hoy Tiwaz pregunta: ¿qué estás dispuesto a sacrificar por lo que es correcto?",
+    "La justicia de Tiwaz no es venganza, es equilibrio. Hoy actúa desde ese lugar de ecuanimidad que honra a todos.",
+    "El guerrero de Tiwaz no lucha por gloria, lucha por principios. Hoy identifica cuáles son los tuyos y defiéndelos.",
+    "Hay una decisión difícil que ya conoces la respuesta correcta. Tiwaz te da el coraje para tomarla hoy.",
+    "El honor no se negocia. Hoy Tiwaz te invita a actuar de acuerdo a quien dices que eres, aunque nadie esté mirando.",
+    "La verdad dicha con valentía, aunque duela, es un acto de amor. Hoy Tiwaz te da esa valentía.",
+    "Luchar por algo más grande que uno mismo da un sentido que ningún éxito personal puede igualar. Tiwaz lo sabe.",
+    "La disciplina de Tiwaz no es rigidez, es la fuerza de quien se compromete y cumple. Hoy honra tus compromisos.",
+    "Una injusticia que has estado viendo merece tu voz. Tiwaz dice: el silencio también es una elección. Elige con conciencia.",
+    "El guerrero también sabe cuándo no luchar. Hoy Tiwaz te da discernimiento para saber cuándo conservar fuerzas.",
+    "Tu integridad es tu reputación más valiosa. Hoy Tiwaz te recuerda que lo que haces cuando nadie mira te define.",
+    "Una causa que merece tu energía te llama hoy. Tiwaz amplifica el poder de quien actúa desde la convicción.",
+    "La justicia cósmica siempre se equilibra. Hoy Tiwaz te pide que confíes en ese proceso aunque no lo veas aún.",
+    "El sacrificio de hoy tiene un propósito mayor que el momento presente. Tiwaz lo ve con claridad, aunque tú aún no.",
+    "El ciclo de Tiwaz cierra. Has luchado con honor. Llevas el escudo del guerrero que sabe que la verdad siempre prevalece."
+  ],
+  Berkana: [
+    "El abedul renace cada primavera sin importar cuán duro fue el invierno. Hoy Berkana anuncia: algo nuevo está naciendo en ti.",
+    "La madre que nutre sabe que el amor verdadero da espacio para crecer. Hoy Berkana te enseña ese amor sin control.",
+    "Un proyecto, relación o idea que está en sus primeras etapas necesita ternura, no presión. Berkana cuida los inicios.",
+    "Hoy es un día para sembrar. Berkana bendice los nuevos comienzos con su energía de fertilidad y crecimiento.",
+    "La regeneración que promete Berkana no siempre es visible. Pero bajo la tierra, las raíces nuevas ya están creciendo.",
+    "Cuídate hoy como lo harías con un ser querido. Berkana te recuerda que la compasión propia también es sagrada.",
+    "La primavera interior llega cuando decides comenzar de nuevo. Berkana acompaña cada nuevo inicio sin juzgar los anteriores.",
+    "Tu capacidad de dar vida a ideas y proyectos es un don. Hoy Berkana amplifica esa fuerza creadora que te habita.",
+    "Hay algo tierno y nuevo que necesita tu protección. Berkana te da la sensibilidad para reconocerlo y cuidarlo.",
+    "El perdón es también un renacimiento. Hoy Berkana te invita a soltar viejas heridas y darle espacio a algo más verde.",
+    "La feminidad sagrada de Berkana no tiene género: es la capacidad de nutrir que vive en todos. Hoy exprésala.",
+    "Hoy honra a las mujeres que te formaron, a las madres de tu linaje. Berkana conecta ese hilo invisible de amor.",
+    "Un ciclo de crecimiento personal llega a un punto de floración. Berkana celebra contigo este momento de plenitud.",
+    "La naturaleza siempre encuentra la forma de crecer, incluso en las grietas del asfalto. Hoy Berkana te da esa misma tenacidad.",
+    "El ciclo de Berkana cierra. Te vas más suave, más fértil, más capaz de dar vida a lo que realmente te importa."
+  ],
+  Ehwaz: [
+    "El caballo y su jinete son uno solo cuando hay confianza plena. Hoy Ehwaz pregunta: ¿en quién o en qué confías sin reservas?",
+    "El movimiento que se necesita hoy no es apresurado, es rítmico. Ehwaz te enseña el galope que no agota.",
+    "Una colaboración puede llevarte mucho más lejos de lo que llegarías solo. Hoy Ehwaz bendice las alianzas verdaderas.",
+    "El progreso viene de soltar el control excesivo. Ehwaz te invita a bailar con las circunstancias en lugar de luchar contra ellas.",
+    "Hay un camino que se abre hoy. Ehwaz te da el impulso para montarlo sin dudar demasiado.",
+    "La confianza en el proceso es más valiosa que la certeza del destino. Hoy Ehwaz te recuerda que el viaje forma al viajero.",
+    "El caballo sagrado de Odín atraviesa mundos. Hoy Ehwaz te da la capacidad de moverte entre dimensiones de tu vida.",
+    "Algo se mueve. Ehwaz confirma: el estancamiento que sentías está cediendo. Hoy el flujo regresa.",
+    "Una relación de trabajo, amistad o amor puede profundizarse hoy a través de la acción compartida.",
+    "La lealtad es la base de todo movimiento conjunto. Hoy Ehwaz honra a quienes han sido leales contigo.",
+    "Hoy es un buen día para emprender un viaje físico o simbólico. Ehwaz bendice los desplazamientos con propósito.",
+    "El ritmo correcto no es el más rápido. Ehwaz te pide que sincronices tu paso con el del universo, no con tu ansiedad.",
+    "Algo que llevas tiempo esperando se pone en movimiento. Ehwaz trae acción donde había espera.",
+    "La danza entre lo que puedes controlar y lo que no es el arte de la vida. Hoy Ehwaz te da gracia para ese baile.",
+    "El ciclo de Ehwaz cierra. Has aprendido que la confianza es la velocidad más alta que existe. Llévala contigo."
+  ],
+  Mannaz: [
+    "Ser humano es un privilegio y una responsabilidad. Hoy Mannaz te invita a habitarlo plenamente, con todo lo que implica.",
+    "El autoconocimiento es el viaje más largo y el más valioso. Hoy Mannaz te da una nueva pieza del rompecabezas de ti mismo.",
+    "Nadie está completo solo. Mannaz recuerda que la humanidad compartida es la fuente de toda fortaleza colectiva.",
+    "Lo que ves en otros, positivo o negativo, vive también en ti. Hoy Mannaz usa el espejo de las relaciones para enseñarte.",
+    "Tu mente es tu herramienta más poderosa. Hoy Mannaz te invita a usarla con conciencia, no con automatismo.",
+    "Hoy es un buen día para conectar con alguien que piensa diferente a ti. Mannaz se expande en el diálogo honesto.",
+    "La comunidad no se construye en los momentos buenos. Se forja en los difíciles. Hoy Mannaz honra a tu tribu.",
+    "Conocerte profundamente te hace más compasivo con los demás. Hoy Mannaz trabaja hacia adentro para irradiar hacia afuera.",
+    "Tus dones únicos son una contribución necesaria al tejido humano. Hoy Mannaz te pide que no los guardes.",
+    "La sabiduría colectiva supera siempre a la individual. Hoy Mannaz te invita a escuchar más y a hablar con más intención.",
+    "Lo que te hace humano, con tus contradicciones y tus luces, es exactamente lo que necesitas ser hoy.",
+    "Mannaz honra la mente que piensa con claridad y el corazón que siente sin miedo. Hoy integra ambos.",
+    "Hay una conversación que puede cambiar la perspectiva de alguien. Hoy Mannaz te da las palabras exactas.",
+    "Tu historia personal es parte de la historia colectiva. Hoy Mannaz te recuerda que lo que sanas en ti, lo sanas en todos.",
+    "El ciclo de Mannaz cierra. Te vas más consciente de quién eres en relación a los demás. Ese es el regalo más grande."
+  ],
+  Laguz: [
+    "Las aguas de Laguz saben encontrar su camino aunque no haya ninguno visible. Hoy confía en tu capacidad de fluir.",
+    "Tu intuición es un río subterráneo que siempre corre. Hoy Laguz sube esas aguas a la superficie. Escúchalas.",
+    "Las emociones que evitas se convierten en la corriente que más te arrastra. Hoy Laguz te invita a nadar con ellas.",
+    "La profundidad del océano es igual de real que su superficie. Hoy Laguz te invita a explorar lo que está debajo.",
+    "El agua no lucha contra los obstáculos, los rodea. Hoy Laguz te enseña la inteligencia de la flexibilidad.",
+    "Hoy puede surgir algo desde tu subconsciente: un sueño, una sensación, una intuición. Laguz lo trae a la luz.",
+    "Las mareas cambian sin preguntar. Hoy Laguz te recuerda que resistir el cambio emocional cuesta más que fluir con él.",
+    "Tu sensibilidad no es un defecto, es un superpoder. Laguz celebra la capacidad de sentir como una forma de conocer.",
+    "El agua que sostiene también puede ahogarte si te resistes a ella. Hoy Laguz te enseña a dejarte llevar con conciencia.",
+    "Hay algo en tu vida que necesita más fluidez y menos estructura. Laguz hoy afloja lo que estaba demasiado rígido.",
+    "La luna guía las mareas. Hoy Laguz te conecta con los ciclos lunares y la sabiduría de lo cíclico.",
+    "Una emoción que guardaste mucho tiempo quiere ser sentida. Laguz crea el espacio seguro para que la dejes fluir.",
+    "El agua siempre encuentra el nivel. Hoy Laguz equilibra lo que estaba en desequilibrio emocional.",
+    "Tu mundo interior es tan vasto como el océano. Hoy Laguz te da el coraje de zambullirte en él sin miedo.",
+    "El ciclo de Laguz cierra. Llevas la fluidez del agua: la capacidad de adaptarte, sentir y fluir hacia donde la vida te lleva."
+  ],
+  Inguz: [
+    "Toda semilla lleva dentro de sí el árbol completo. Hoy Inguz confirma: el potencial que sientes ya es real.",
+    "El período de gestación no es inactividad. Inguz trabaja en silencio, acumulando la energía para el gran salto.",
+    "Hoy no necesitas mostrar resultados. Inguz honra el proceso invisible que precede a todo lo que se manifiesta.",
+    "Algo en ti está madurando. Inguz protege ese proceso y te pide que no lo presiones antes de tiempo.",
+    "El dios Ing es el fertilizador de todo lo que está por nacer. Hoy siente esa energía de posibilidad vibrando en tu vida.",
+    "La energía que acumulas en los momentos de aparente quietud es el combustible de tus próximas acciones. Inguz lo sabe.",
+    "Confía en lo que estás construyendo aunque aún no sea visible para nadie más. Inguz ve el potencial completo.",
+    "Hoy puede ser el momento en que algo interno se consolida antes de manifestarse. Inguz marca ese instante.",
+    "La fertilidad de Inguz no solo es material: también da vida a ideas, relaciones y propósitos. ¿Qué fecundas hoy?",
+    "El tiempo que dedicas a prepararte no es tiempo perdido. Inguz lo contabiliza como inversión en lo que vendrá.",
+    "Hay una semilla que plantaste hace tiempo a punto de brotar. Inguz lo anuncia: pronto verás los primeros brotes.",
+    "El potencial sin acción es solo posibilidad. Hoy Inguz te da el impulso para hacer ese primer movimiento hacia tu sueño.",
+    "Lo que niegas en ti mismo es también parte de tu semilla. Inguz te invita a integrar todo tu potencial, incluso lo difícil.",
+    "El ciclo de gestación de Inguz se acerca a su fin. Lo que has estado preparando está casi listo para nacer.",
+    "Inguz cierra su período con una promesa: todo lo que preparaste con amor y paciencia encontrará su momento de florecer."
+  ],
+  Othila: [
+    "Las raíces no limitan al árbol, lo sostienen. Hoy Othila te invita a honrar de dónde vienes para saber a dónde vas.",
+    "La herencia que llevas no es solo material. Othila señala los dones espirituales y los traumas que también se heredan.",
+    "Hoy es un buen día para conectar con tu familia, tus ancestros o con lo que sientes como tu lugar en el mundo.",
+    "El hogar no siempre es un lugar físico. Othila te pregunta: ¿dónde o con quién te sientes verdaderamente en casa?",
+    "Lo que legamos importa tanto como lo que recibimos. Hoy Othila te pregunta qué quieres dejar como huella en el mundo.",
+    "La sabiduría de los ancestros vive en tu sangre. Hoy Othila te conecta con esa guía silenciosa que siempre estuvo ahí.",
+    "Un patrón familiar puede hacerse evidente hoy. Othila te da claridad para decidir qué continuar y qué transformar.",
+    "El patrimonio más valioso es el de los valores que te formaron. Hoy Othila te invita a honrar los que siguen siendo tuyos.",
+    "Hay algo de tu historia personal que merece ser rescatado, no negado. Othila integra el pasado en lugar de borrarlo.",
+    "La tierra de tus ancestros habla en tus genes. Hoy Othila despierta esa memoria corporal que guarda sabiduría milenaria.",
+    "Proteger lo que es tuyo, lo que pertenece a tu linaje, es un acto sagrado. Othila te da el instinto para reconocerlo.",
+    "La identidad no es una cárcel, es una raíz. Hoy Othila te muestra la diferencia entre pertenecer y estar atrapado.",
+    "Algo que viene de tu familia, tu cultura o tu historia puede ser exactamente lo que necesitas hoy. Othila lo trae.",
+    "El hogar que construyes hoy es el legado que dejas mañana. Othila te recuerda la sacralidad de lo cotidiano.",
+    "El ciclo de Othila cierra. Llevas contigo el mapa de tus raíces: no para quedarte en el pasado, sino para crecer desde él."
+  ],
+  Dagaz: [
+    "El amanecer de Dagaz rompe la oscuridad más larga. Hoy algo en ti despierta a una nueva comprensión. Ábrele la puerta.",
+    "Estás en el umbral entre lo que eras y lo que estás siendo. Dagaz marca ese instante mágico. No lo apresures, vívelo.",
+    "La transformación que promete Dagaz no pide que lo viejo muera, pide que se integre en algo más luminoso.",
+    "Hoy puede llegarte una revelación o una claridad repentina que cambia cómo ves una situación. Dagaz trabaja así.",
+    "El punto entre la noche y el día es el momento de mayor poder. Hoy Dagaz te conecta con esa energía liminal.",
+    "Algo que llevas tiempo intentando comprender puede clarificarse hoy con la luz repentina de Dagaz.",
+    "Los grandes cambios a veces ocurren en un instante de comprensión. Hoy Dagaz te prepara para ese momento.",
+    "La paradoja de Dagaz: el final y el comienzo son el mismo punto. Hoy celebra ambos sin separarlos.",
+    "Hay una transformación personal que ya está ocurriendo aunque no la veas aún. Dagaz ilumina lo que viene.",
+    "El día siempre regresa después de la noche más oscura. Hoy Dagaz te recuerda que tú también siempre renaces.",
+    "Una nueva perspectiva puede iluminar hoy un problema que parecía sin solución. Dagaz trae claridad desde ángulos inesperados.",
+    "El umbral sagrado que pisas hoy te cambia. Dagaz marca los puntos de no retorno como victorias, no como pérdidas.",
+    "Lo que eres hoy no tiene límites fijos. Dagaz celebra tu capacidad de reinventarte una y otra vez con cada amanecer.",
+    "El solsticio de verano se acerca con Dagaz: el punto de máxima luz. Hoy siente esa plenitud solar en tu propio ser.",
+    "Dagaz cierra el ciclo del año rúnico. Y como el amanecer que nunca termina de empezar, la rueda gira y todo vuelve a comenzar."
+  ]
+};
+
+// ── Buscar la runa según la fecha ───────────────────────────────────
+function getRunaParaFecha(dia, mes) {
+  return CALENDARIO.find(e => e.d === dia && e.m === mes);
+}
+
+// ── Posición dentro del bloque de esa runa (para elegir mensaje) ────
+function getPosicionEnBloque(dia, mes, nombreRuna) {
+  const bloque = CALENDARIO.filter(e => e.r === nombreRuna);
+  const idx = bloque.findIndex(e => e.d === dia && e.m === mes);
+  return idx; // 0-based
+}
+
+async function getFechaServidor() {
+  try {
+    const r = await fetch('https://worldtimeapi.org/api/ip');
+    const d = await r.json();
+    return new Date(d.datetime);
+  } catch {
+    return new Date();
+  }
+}
+
+function formatFecha(fecha) {
+  const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  return `${dias[fecha.getDay()]} ${fecha.getDate()} de ${meses[fecha.getMonth()]} de ${fecha.getFullYear()}`;
+}
+
+(async () => {
+  const fecha = await getFechaServidor();
+  document.getElementById('fecha-display').textContent = formatFecha(fecha);
+
+  const dia = fecha.getDate();
+  const mes = fecha.getMonth() + 1; // JS: 0-based
+
+  const entrada = getRunaParaFecha(dia, mes);
+
+  if (!entrada) {
+    document.getElementById('error-state').style.display = 'block';
+    return;
+  }
+
+  const nombre = entrada.r;
+  const simbolo = SIMBOLOS[nombre] || '?';
+  const posicion = getPosicionEnBloque(dia, mes, nombre);
+  const mensajes = MENSAJES[nombre] || [];
+  const mensaje = mensajes[posicion] || mensajes[0] || 'El oráculo guarda silencio hoy.';
+
+  document.getElementById('rune-sym').textContent = simbolo;
+  document.getElementById('rune-nombre').textContent = nombre.toUpperCase();
+  document.getElementById('msg-text').textContent = mensaje;
+
+  document.getElementById('rune-center').style.display = 'block';
+  document.getElementById('ornament').style.display = 'flex';
+  document.getElementById('msg-wrapper').style.display = 'block';
+})();
+</script>
+</body>
+</html>

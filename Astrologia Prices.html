@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Astrología – Sergiomancias Gnostic</title>
+  <style>
+    :root {
+      --gold: #FF6A00;
+      --dark: #442565;
+      --dark-card: #3a1f57;
+      --border: rgba(255,106,0,0.35);
+      --text: #ffffff;
+      --muted: #d4b8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--dark); color: var(--text);
+      font-family: Arial, sans-serif;
+      min-height: 100vh; display: flex;
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    .container { width: 100%; max-width: 520px; text-align: center; }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(8px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    h1 {
+      font-size: clamp(22px,5vw,38px); font-weight: bold;
+      color: var(--gold); letter-spacing:.05em;
+      margin-bottom: 16px; transition: all .3s;
+    }
+
+    #bloqueImagen {
+      position: relative; display: inline-block; margin-bottom: 20px;
+    }
+    #bloqueImagen.oculto { display: none !important; }
+    #imgPrincipal { display: block; width: 100%; height: auto; object-fit: contain; }
+
+    #btn2x1 {
+      display: none; position: absolute; bottom: 0; right: 0;
+      padding: 7px 14px; background: rgba(68,37,101,0.85);
+      border: 1px solid var(--gold); color: #ffffff;
+      font-family: Arial, sans-serif; font-size: 14px;
+      white-space: nowrap; cursor: pointer; transition: all .2s;
+    }
+    #btn2x1.visible { display: inline-block; }
+    #btn2x1:hover { background: var(--gold); color: var(--dark); }
+
+    #combinadasWrap {
+      display: none; align-items: flex-start;
+      justify-content: center; margin-bottom: 20px;
+    }
+    #combinadasWrap.visible { display: flex; animation: fadeUp .4s forwards; }
+    .comb-col { display:flex; flex-direction:column; align-items:center; gap:6px; flex:1; }
+    .comb-col img { width:100%; max-height:230px; object-fit:contain; }
+    .comb-nombre { font-size:17px; color:var(--muted); text-align:center; }
+    .comb-plus {
+      font-size:46px; color:var(--gold);
+      align-self:center; flex-shrink:0; width:46px; text-align:center;
+      margin-bottom: 40px;
+    }
+    .btn-cambiar-op {
+      margin-top:6px; padding:5px 10px; background:transparent;
+      border:1px solid var(--border); color:var(--muted);
+      font-family:Arial,sans-serif; font-size:13px; cursor:pointer; transition:all .2s;
+    }
+    .btn-cambiar-op:hover { border-color:var(--gold); color:var(--gold); }
+    @media(max-width:480px){
+      .comb-col img { max-height:150px; }
+      .comb-nombre  { font-size:13px; }
+      .comb-plus    { font-size:30px; width:30px; }
+    }
+
+    #zonaExtra { width:100%; margin-bottom:20px; flex-direction:column; gap:10px; display:none; }
+    #zonaExtra.visible { display:flex !important; animation:fadeUp .4s forwards; }
+    #carruselTexto { font-size:17px; color:var(--muted); text-align:center; line-height:1.5; display:none; }
+    #carruselTexto.visible { display:block; }
+    #carruselTexto strong { color:var(--gold); }
+    #carruselCaja {
+      background:var(--dark-card); border:1px solid var(--border);
+      padding:18px 14px; display:flex; flex-direction:column; gap:12px;
+    }
+    .diap-contador { font-size:13px; color:var(--muted); text-align:left; }
+    .diap-centro { display:flex; flex-direction:column; align-items:center; gap:8px; }
+    #diapImg {
+      width:clamp(140px,55%,220px); height:auto; object-fit:contain;
+      border:2px solid transparent; transition:border-color .2s;
+    }
+    #diapNombre { font-size:17px; color:var(--muted); text-align:center; }
+    .diap-flechas { display:flex; flex-direction:row; gap:10px; justify-content:center; }
+    .btn-flecha {
+      width:44px; height:44px; background:var(--dark); border:1px solid var(--border);
+      color:var(--muted); font-size:22px; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; transition:all .2s;
+    }
+    .btn-flecha:hover { border-color:var(--gold); color:var(--gold); }
+
+    .fila-btns { display:flex; gap:8px; }
+    #cancelar2x1 { display:none; }
+    #cancelar2x1.visible { display:flex; }
+    .btn-p {
+      flex:1; padding:9px 0; background:var(--dark); border:1px solid var(--border);
+      color:var(--muted); font-family:Arial,sans-serif;
+      font-size:17px; font-weight:bold; cursor:pointer; transition:all .2s;
+    }
+    .btn-p:hover { border-color:var(--gold); color:var(--text); }
+    .btn-p.cancelar { border-color:rgba(255,106,0,.25); }
+    .btn-p.cancelar:hover { border-color:var(--gold); color:var(--gold); }
+    .btn-p.quiero { border-color:var(--gold); color:var(--gold); }
+    .btn-p.quiero:hover { background:var(--gold); color:var(--dark); }
+
+    .divider { width:80%; height:1px; background:var(--border); margin:0 auto 16px; }
+    #subtitulo { font-size:clamp(15px,2.5vw,20px); color:var(--muted); margin-bottom:16px; }
+    select#duracion {
+      width:auto; max-width:100%; padding:8px 36px 8px 12px;
+      background:var(--dark-card); border:1px solid var(--border);
+      color:var(--text); font-family:Arial,sans-serif; font-size:clamp(13px,2vw,15px);
+      cursor:pointer; appearance:none; outline:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23FF6A00' d='M6 6L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 12px center;
+      margin-bottom:12px; display:block; margin-left:auto; margin-right:auto;
+    }
+    select#duracion:focus { border-color:var(--gold); }
+    select#duracion option { background:var(--dark-card); color:var(--text); }
+
+    #descuentoBox {
+      display:none; background:var(--dark-card); border:1px solid var(--border);
+      padding:20px; margin-bottom:16px; text-align:center;
+    }
+    #descuentoBox.visible { display:block; animation:fadeUp .4s forwards; }
+    .desc-pct { font-size:clamp(28px,6vw,48px); font-weight:bold; color:var(--gold); display:block; margin-bottom:4px; }
+    .desc-label { font-size:clamp(12px,2vw,15px); color:var(--muted); margin-bottom:12px; }
+    .desc-precio { font-size:clamp(16px,3vw,22px); font-weight:bold; color:#fff; }
+    .desc-precio .tachado { text-decoration:line-through; color:var(--muted); font-weight:normal; font-size:.8em; margin-right:8px; }
+
+    #tipoPagoBox {
+      display:none; background:var(--dark-card); border:1px solid var(--border);
+      padding:14px 16px; margin-bottom:16px;
+    }
+    #tipoPagoBox.visible { display:block; animation:fadeUp .4s forwards; }
+    .tpago-header { display:flex; align-items:center; justify-content:center; margin-bottom:8px; }
+    .tpago-label { font-size:17px; color:#fff; font-weight:bold; }
+    #miniDesc { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px; }
+    #miniDesc.oculto { display:none; }
+    .mini-label { font-size:14px; color:var(--muted); }
+    .mini-btns  { display:flex; gap:6px; }
+    .btn-mini {
+      width:36px; height:36px; background:var(--dark); border:1px solid var(--border);
+      color:var(--muted); font-size:18px; font-weight:bold; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; transition:all .2s;
+    }
+    .btn-mini.si:hover { border-color:#4CAF50; color:#4CAF50; }
+    .btn-mini.no:hover { border-color:#ee0055; color:#ee0055; }
+    .tpago-btns { display:flex; gap:8px; }
+    .btn-tipo {
+      flex:1; padding:10px 0; background:var(--dark); border:1px solid var(--border);
+      color:#fff; font-family:Arial,sans-serif; font-size:17px; font-weight:bold;
+      cursor:pointer; transition:all .2s;
+    }
+    .btn-tipo:hover { border-color:var(--gold); color:var(--gold); }
+    .btn-tipo.on { border-color:var(--gold); color:var(--gold); background:rgba(255,106,0,.08); }
+
+    /* ── Zona PayPal con botón "Cómo pagar" ── */
+    #paypalLogoWrap { display:none; justify-content:center; align-items:center; gap:12px; margin-bottom:10px; }
+    #paypalLogoWrap.visible { display:flex; }
+    #paypalLogoWrap img { height:44px; width:auto; max-width:140px; object-fit:contain; }
+    .btn-como-pagar { padding:5px 10px; background:transparent; border:1px solid var(--border); color:#fff; font-family:Arial,sans-serif; font-size:15px; font-weight:normal; cursor:pointer; transition:all .2s; white-space:nowrap; }
+    .btn-como-pagar:hover { border-color:var(--gold); color:var(--gold); }
+
+    #paypalNormal { display:none; flex-direction:column; align-items:center; margin-bottom:8px; }
+    #paypalNormal.visible { display:flex; }
+    #paypalNormal input[type="image"] { width:180px; cursor:pointer; }
+    #paypalDesc { display:none; justify-content:center; margin-bottom:8px; }
+    #paypalDesc.visible { display:flex; }
+    #paypalDesc input[type="image"] { width:180px; cursor:pointer; }
+    #paypalCambiarPagos { display:none; justify-content:center; margin-bottom:16px; }
+    #paypalCambiarPagos.visible { display:flex; animation:fadeUp .4s forwards; }
+    .btn-cambiar-pagos-pp {
+      padding:5px 10px; background:transparent; border:1px solid var(--border);
+      color:#fff; font-family:Arial,sans-serif; font-size:15px; font-weight:normal;
+      cursor:pointer; transition:all .2s; white-space:nowrap;
+    }
+    .btn-cambiar-pagos-pp:hover { border-color:var(--gold); color:var(--gold); }
+
+    #transferenciaBox { display:none; flex-direction:column; align-items:center; gap:10px; margin-bottom:16px; }
+    #transferenciaBox.visible { display:flex !important; animation:fadeUp .4s forwards; }
+    .transf-pc { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; }
+    .transf-mob { display:none; flex-direction:column; gap:8px; width:100%; }
+    .transf-mob-f1 { display:flex; align-items:center; gap:8px; width:100%; }
+    .transf-mob-f2 { display:flex; justify-content:center; min-height:54px; align-items:center; }
+    @media(max-width:480px){
+      .transf-pc  { display:none !important; }
+      .transf-mob { display:flex !important; }
+    }
+    .transf-titulo { font-size:17px; font-weight:bold; color:#fff; white-space:nowrap; flex-shrink:0; }
+    .transf-select {
+      flex:0 0 auto; width:150px; padding:8px 28px 8px 8px;
+      background:var(--dark-card); border:1px solid var(--border);
+      color:var(--text); font-family:Arial,sans-serif; font-size:clamp(13px,2vw,15px);
+      cursor:pointer; appearance:none; outline:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath fill='%23FF6A00' d='M4 5L0 0h8z'/%3E");
+      background-repeat:no-repeat; background-position:right 8px center;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    .transf-select:focus { border-color:var(--gold); }
+    .transf-select option,.transf-select optgroup { background:var(--dark-card); }
+    .transf-mob .transf-select { flex:1; width:auto; }
+    .transf-select.oculto { opacity:0; visibility:hidden; width:0; padding:0; margin:0; }
+    .tarjeta-logo {
+      display:none; height:36px; width:auto; max-width:120px;
+      object-fit:contain; border:1px solid var(--border);
+      padding:3px 6px; background:rgba(255,255,255,.06); flex-shrink:0;
+    }
+    .tarjeta-logo.visible { display:block; }
+    .acepta-bloque { display:none; flex-direction:column; align-items:center; gap:5px; flex-shrink:0; }
+    .acepta-bloque.visible { display:flex; animation:fadeUp .3s forwards; }
+    .acepta-txt { font-size:17px; color:#fff; text-align:center; }
+    .acepta-txt strong { color:var(--gold); }
+    .acepta-btns { display:flex; gap:5px; }
+    .btn-acepta {
+      padding:6px 18px; background:var(--dark); border:1px solid var(--border);
+      color:#fff; font-family:Arial,sans-serif; font-size:17px; font-weight:bold;
+      cursor:pointer; transition:all .2s; white-space:nowrap;
+    }
+    .btn-acepta:hover { border-color:var(--gold); color:var(--gold); }
+
+    #finalizarBox {
+      display:none; flex-direction:row;
+      align-items:center; gap:12px;
+      margin-bottom:16px; justify-content:center;
+    }
+    #finalizarBox.visible { display:flex; animation:fadeUp .4s forwards; }
+    .final-titulo { font-size:17px; color:#fff; font-weight:normal; white-space:nowrap; }
+    .final-btns { display:flex; flex-direction:column; gap:6px; }
+    .btn-continuar {
+      padding:5px 10px; background:transparent; border:1px solid var(--gold);
+      color:#fff; font-family:Arial,sans-serif; font-size:15px; font-weight:normal;
+      cursor:pointer; transition:all .3s; white-space:nowrap; display:inline-block; width:fit-content;
+    }
+    .btn-continuar:hover { background:var(--gold); color:var(--dark); }
+    .btn-cambiar-pagos {
+      padding:5px 10px; background:transparent; border:1px solid var(--border);
+      color:#fff; font-family:Arial,sans-serif; font-size:15px; font-weight:normal;
+      cursor:pointer; transition:all .2s; white-space:nowrap; display:inline-block; width:fit-content;
+    }
+    .btn-cambiar-pagos:hover { border-color:var(--gold); color:var(--gold); }
+
+    .note { font-size:clamp(11px,1.5vw,13px); color:var(--muted); margin-top:8px; font-style:italic; }
+
+    /* ══════════════════════════════════════
+       MODAL DE INSTRUCCIONES PAYPAL
+    ══════════════════════════════════════ */
+    #modalPaypal {
+      display: none;
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(30, 10, 50, 0.85);
+      align-items: center; justify-content: center;
+      padding: 20px;
+      animation: fadeIn .3s ease;
+    }
+    #modalPaypal.visible { display: flex; }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    .modal-inner {
+      width: 100%; max-width: 460px;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      position: relative;
+      animation: slideUp .3s ease;
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    /* Botón cerrar — arriba a la derecha */
+    .modal-cerrar {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); font-size: 16px;
+      width: 30px; height: 30px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .modal-cerrar:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Título del modal */
+    .modal-titulo {
+      text-align: center; padding: 18px 40px 0;
+      font-size: clamp(12px, 2.5vw, 15px);
+      font-weight: bold; color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* Pips */
+    .m-pasos {
+      display: flex; justify-content: center; gap: 6px;
+      padding: 12px 0 10px;
+    }
+    .m-pip {
+      height: 3px; width: 28px; background: rgba(255,106,0,0.2);
+      transition: background 0.4s, width 0.4s; cursor: pointer;
+    }
+    .m-pip.active { background: var(--gold); width: 44px; }
+
+    /* Tarjeta interna */
+    .modal-tarjeta {
+      background: var(--dark-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .modal-tarjeta::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .m-paso-num {
+      position: absolute; top: 12px; left: 16px;
+      font-size: 10px; font-weight: bold;
+      color: var(--gold); letter-spacing: 0.15em;
+      text-transform: uppercase; opacity: 0.7;
+    }
+    .m-slide { display: none; padding: 36px 20px 20px; animation: mEntrar .35s ease; }
+    .m-slide.active { display: block; }
+    .m-slide.volviendo { animation: mVolver .35s ease; }
+    @keyframes mEntrar { from { opacity:0; transform:translateX(16px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes mVolver { from { opacity:0; transform:translateX(-16px); } to { opacity:1; transform:translateX(0); } }
+    .m-texto {
+      font-size: 17px; line-height: 1.8; color: var(--text);
+      margin-bottom: 14px; text-align: center;
+    }
+    .m-texto p { margin-bottom: 8px; }
+    .m-texto p:last-child { margin-bottom: 0; }
+    .m-img {
+      display: block; max-width: 100%; width: 100%;
+      margin: 0 auto 14px; box-shadow: none;
+    }
+    .m-img:last-child { margin-bottom: 0; }
+
+    /* Navegación del modal */
+    .modal-nav {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; padding: 0;
+    }
+    .modal-nav-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-top: none; border-bottom: none;
+      color: var(--gold);
+      font-family: Arial, sans-serif;
+      font-size: 12px; font-weight: bold;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 13px 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .modal-nav-btn:first-child { border-left: none; border-right: none; }
+    .modal-nav-btn:last-child  { border-right: none; border-left: none; }
+    .modal-nav-btn::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--gold);
+      transform: translateY(100%);
+      transition: transform 0.3s ease; z-index: 0;
+    }
+    .modal-nav-btn.sig::before { transform: translateY(-100%); }
+    .modal-nav-btn:hover::before { transform: translateY(0); }
+    .modal-nav-btn:hover { color: var(--dark); }
+    .modal-nav-btn span { position: relative; z-index: 1; }
+    .modal-nav-btn:disabled { visibility: hidden; pointer-events: none; }
+
+    /* Botón cerrar al final (último paso) */
+    .modal-nav-cerrar {
+      display: none; width: 100%;
+      background: transparent; border: none;
+      border-top: 1px solid var(--border);
+      color: var(--gold); font-family: Arial, sans-serif;
+      font-size: 12px; font-weight: bold; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 13px;
+      cursor: pointer; transition: all .3s;
+      position: relative; overflow: hidden;
+    }
+    .modal-nav-cerrar::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--gold); transform: translateY(100%);
+      transition: transform .3s; z-index: 0;
+    }
+    .modal-nav-cerrar:hover::before { transform: translateY(0); }
+    .modal-nav-cerrar:hover { color: var(--dark); }
+    .modal-nav-cerrar span { position: relative; z-index: 1; }
+    .modal-nav-cerrar.visible { display: block; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1 id="titulo">Astrología</h1>
+
+  <div id="bloqueImagen">
+    <img id="imgPrincipal"
+      src="https://static.wixstatic.com/media/0bac9e_eaa3ed8c842143aca95b9d666cc52250~mv2.png"
+      alt="Astrología"/>
+    <button id="btn2x1" onclick="abrir2x1()">+ Añadir 2x1</button>
+  </div>
+
+  <div id="combinadasWrap">
+    <div class="comb-col">
+      <img src="https://static.wixstatic.com/media/0bac9e_eaa3ed8c842143aca95b9d666cc52250~mv2.png" alt="Astrología"/>
+      <div class="comb-nombre">Astrología</div>
+    </div>
+    <div class="comb-plus">+</div>
+    <div class="comb-col">
+      <img id="combExtraImg" src="" alt=""/>
+      <div class="comb-nombre" id="combExtraNombre"></div>
+      <button class="btn-cambiar-op" onclick="abrirCambioExtra()">Cambiar opción</button>
+    </div>
+  </div>
+
+  <div id="zonaExtra">
+    <div id="carruselTexto"></div>
+    <div id="carruselCaja">
+      <div class="diap-contador" id="diapContador">1/8</div>
+      <div class="diap-centro">
+        <img id="diapImg" src="" alt=""/>
+        <div id="diapNombre"></div>
+        <div class="diap-flechas">
+          <button class="btn-flecha" onclick="moverDiap(-1)">◄</button>
+          <button class="btn-flecha" onclick="moverDiap(1)">►</button>
+        </div>
+      </div>
+    </div>
+    <div id="cancelar2x1" class="fila-btns">
+      <button class="btn-p quiero" onclick="seleccionarDiap()">¡Quiero este!</button>
+      <button class="btn-p cancelar" onclick="cancelarExtra()">Cancelar 2x1</button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p id="subtitulo">Selecciona la duración de tu lectura</p>
+  <select id="duracion" onchange="onDuracion()">
+    <option value="">— Elige una opción —</option>
+    <option value="10">10 min. — USD 11.88</option>
+    <option value="20">20 min. — USD 18.88</option>
+    <option value="30">30 min. — USD 25.88</option>
+    <option value="40">40 min. — USD 32.88</option>
+    <option value="50">50 min. — USD 39.88</option>
+    <option value="60">60 min. — USD 46.88</option>
+  </select>
+
+  <div id="descuentoBox">
+    <span class="desc-pct" id="descPct"></span>
+    <div class="desc-label">de descuento en tu lectura</div>
+    <div class="desc-precio" id="descPrecio"></div>
+  </div>
+
+  <div id="tipoPagoBox">
+    <div class="tpago-header"><span class="tpago-label">Formatos de Pagos</span></div>
+    <div id="miniDesc">
+      <div class="mini-label">Descuento</div>
+      <div class="mini-btns">
+        <button class="btn-mini si" onclick="respDesc(true)">✓</button>
+        <button class="btn-mini no" onclick="respDesc(false)">✕</button>
+      </div>
+    </div>
+    <div class="tpago-btns">
+      <button class="btn-tipo" id="btnPaypal"        onclick="elegirPago('paypal')">PayPal</button>
+      <button class="btn-tipo" id="btnTransferencia" onclick="elegirPago('transferencia')">Transferencias</button>
+    </div>
+  </div>
+
+  <!-- Logo PayPal + botón Cómo pagar -->
+  <div id="paypalLogoWrap">
+    <img src="https://static.wixstatic.com/media/0bac9e_34107a296fbc45eba17d7333d3d16456~mv2.png" alt="PayPal"/>
+    <button class="btn-como-pagar" onclick="abrirModalPaypal()">Cómo pagar en PayPal</button>
+  </div>
+
+  <div id="paypalNormal">
+    <form method="post" action="https://www.paypal.com/cgi-bin/webscr" target="_blank">
+      <input type="hidden" name="cmd" value="_s-xclick"/>
+      <input type="hidden" name="hosted_button_id" id="btnIdNormal" value=""/>
+      <input type="hidden" name="currency_code" value="USD"/>
+      <input type="image"
+        src="https://www.paypalobjects.com/es_ES/i/btn/btn_buynow_LG.gif"
+        border="0" name="submit" alt="Comprar"
+        onclick="guardarLS('PayPal','')"/>
+    </form>
+  </div>
+  <div id="paypalDesc">
+    <form method="post" action="https://www.paypal.com/cgi-bin/webscr" target="_blank">
+      <input type="hidden" name="cmd" value="_s-xclick"/>
+      <input type="hidden" name="hosted_button_id" id="btnIdDesc" value=""/>
+      <input type="hidden" name="currency_code" value="USD"/>
+      <input type="image"
+        src="https://www.paypalobjects.com/es_ES/i/btn/btn_buynow_LG.gif"
+        border="0" name="submit" alt="Usar descuento"
+        onclick="guardarLS('PayPal','')"/>
+    </form>
+  </div>
+  <div id="paypalCambiarPagos">
+    <button class="btn-cambiar-pagos-pp" onclick="volverPagos()">Cambiar de Pagos</button>
+  </div>
+
+  <div id="transferenciaBox">
+    <div class="transf-pc">
+      <div class="transf-titulo">Transferencias</div>
+      <select class="transf-select" id="selPC" onchange="onTarjeta('PC')">
+        <option value="">— Elige —</option>
+        <optgroup label="Internacional">
+          <option value="Visa">Visa</option>
+          <option value="Mastercard">Mastercard</option>
+          <option value="American Express">American Express</option>
+          <option value="Maestro">Maestro</option>
+        </optgroup>
+        <optgroup label="América Latina">
+          <option value="Prex">Prex</option>
+          <option value="Mercado Pago">Mercado Pago</option>
+          <option value="OCA">OCA</option>
+          <option value="Cabal">Cabal</option>
+          <option value="Naranja">Naranja</option>
+          <option value="Lider">Lider</option>
+        </optgroup>
+      </select>
+      <img class="tarjeta-logo" id="logoPC" src="" alt=""/>
+      <div class="acepta-bloque" id="aceptaPC">
+        <div class="acepta-txt">¿Aceptas pagar con<br><strong id="nombrePC"></strong>?</div>
+        <div class="acepta-btns">
+          <button class="btn-acepta" onclick="respAcepta('si','PC')">Sí</button>
+          <button class="btn-acepta" onclick="respAcepta('no','PC')">No</button>
+        </div>
+      </div>
+    </div>
+    <div class="transf-mob">
+      <div class="transf-mob-f1">
+        <div class="transf-titulo">Transferencias</div>
+        <select class="transf-select" id="selMob" onchange="onTarjeta('Mob')" style="flex:1;width:auto;">
+          <option value="">— Elige —</option>
+          <optgroup label="Internacional">
+            <option value="Visa">Visa</option>
+            <option value="Mastercard">Mastercard</option>
+            <option value="American Express">American Express</option>
+            <option value="Maestro">Maestro</option>
+          </optgroup>
+          <optgroup label="América Latina">
+            <option value="Prex">Prex</option>
+            <option value="Mercado Pago">Mercado Pago</option>
+            <option value="OCA">OCA</option>
+            <option value="Cabal">Cabal</option>
+            <option value="Naranja">Naranja</option>
+            <option value="Lider">Lider</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="transf-mob-f2">
+        <img class="tarjeta-logo" id="logoMob" src="" alt=""/>
+        <div class="acepta-bloque" id="aceptaMob">
+          <div class="acepta-txt">¿Aceptas pagar con<br><strong id="nombreMob"></strong>?</div>
+          <div class="acepta-btns">
+            <button class="btn-acepta" onclick="respAcepta('si','Mob')">Sí</button>
+            <button class="btn-acepta" onclick="respAcepta('no','Mob')">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="finalizarBox">
+    <div class="final-titulo">Finalizar</div>
+    <div class="final-btns">
+      <button class="btn-cambiar-pagos" onclick="volverPagos()">Cambiar de Pagos</button>
+      <button class="btn-continuar"     onclick="ejecutarFinal()">Continuar →</button>
+    </div>
+  </div>
+
+  <p class="note" id="notaDesc" style="display:none">* El descuento es de uso único por visita.</p>
+
+</div>
+
+<!-- ══════════════════════════════════════
+     MODAL INSTRUCCIONES PAYPAL
+══════════════════════════════════════ -->
+<div id="modalPaypal">
+  <div class="modal-inner">
+
+    <div class="modal-titulo">Cómo pagar en PayPal</div>
+
+    <div class="m-pasos" id="mPasos"></div>
+
+    <div class="modal-tarjeta">
+      <div class="m-paso-num" id="mPasoNum">Paso 1 de 4</div>
+
+ <div class="m-slide active" id="mSlide-0">
+        <div class="m-texto">
+          <p>Al ingresar a Pagos de PayPal tienes dos opciones:<br>por cuenta de PayPal o por Pagos de Banco o Tarjeta.</p>
+          <p>Puedes ingresar a tu cuenta si deseas o das clic<br>en el botón que aparece en la parte inferior:</p>
+        </div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_e09594ba7530441eb1e0930fadc8fe21~mv2.png" alt="Pay with Bank or Card"/>
+      </div>
+
+      <div class="m-slide" id="mSlide-1">
+        <div class="m-texto"><p>Rellenas la información que te pide PayPal<br>y cuando aparezca este botón:</p></div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_8ebd8af50fa04f85ad5d15926b187c97~mv2.png" alt="Save info enable"/>
+        <div class="m-texto" style="margin:12px 0 8px;"><p>Deshabilítalo:</p></div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_03d7248adf98433983a1fb60a3f53d8c~mv2.png" alt="Save info disable"/>
+      </div>
+
+      <div class="m-slide" id="mSlide-2">
+        <div class="m-texto"><p>Y el paso de pagos:</p></div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_853b8374436340bbb7dfceda5d050a23~mv2.png" alt="Pay now as guest"/>
+      </div>
+
+      <div class="m-slide" id="mSlide-3">
+        <div class="m-texto">
+          <p>Cuando des clic en el botón de pagos<br>aparecerán los datos y para terminar<br>cliqueas este botón:</p>
+        </div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_2188d9d33956488e8e8f37ed382d0f2d~mv2.png" alt="Return to Merchant"/>
+        <div class="m-texto" style="margin-top:14px;">
+          <p>Y te redireccionará a un formulario<br>para conectarte conmigo.</p>
+        </div>
+      </div>
+
+    </div><!-- /modal-tarjeta -->
+
+    <div class="modal-nav">
+      <button class="modal-nav-btn" id="mBtnAnterior" onclick="mCambiar(-1)" disabled>
+        <span>◄ Anterior</span>
+      </button>
+      <button class="modal-nav-btn sig" id="mBtnSiguiente" onclick="mCambiar(1)">
+        <span>Siguiente ►</span>
+      </button>
+    </div>
+    <button class="modal-nav-cerrar" id="mBtnCerrar" onclick="cerrarModalPaypal()">
+      <span>Cerrar ✕</span>
+    </button>
+
+  </div>
+</div>
+
+<script>
+  /* ══ LÓGICA PRINCIPAL ASTROLOGÍA ══ */
+  const MANCIA     = 'Astrología';
+  const MANCIA_IMG = 'https://static.wixstatic.com/media/0bac9e_eaa3ed8c842143aca95b9d666cc52250~mv2.png';
+
+  const EXTRAS = [
+    { nombre: 'Tarot Egipcio', img: 'https://static.wixstatic.com/media/0bac9e_d1dbad65ea514d3ebd2fbd87aacf27c8~mv2.png' },
+    { nombre: 'Tarot de las Brujas', img: 'https://static.wixstatic.com/media/0bac9e_6b1af4a9ac8543ba8bc2ef3016cd4d31~mv2.png' },
+    { nombre: 'Tarot RDR', img: 'https://static.wixstatic.com/media/0bac9e_2925b199d90d41b783492996749ece65~mv2.png' },
+    { nombre: 'Tarot Rúnico', img: 'https://static.wixstatic.com/media/0bac9e_7aaafa16ed194a67b63bac5f96c8ded0~mv2.png' },
+    { nombre: 'Tarot de los Vampiros', img: 'https://static.wixstatic.com/media/0bac9e_a40249e4219b4b2795cb56a38bb7e36c~mv2.png' },
+    { nombre: 'Tarot Osho Zen', img: 'https://static.wixstatic.com/media/0bac9e_32b0f7869feb4b4e9892fbf3e7302af9~mv2.png' },
+    { nombre: 'Tarot Santa Muerte', img: 'https://static.wixstatic.com/media/0bac9e_cfbc9aee237740cdb255123fea5ac340~mv2.png' },
+    { nombre: 'Tarot Illuminati', img: 'https://static.wixstatic.com/media/0bac9e_03b1be765dac43caab26e8dbe21082a0~mv2.png' },
+    { nombre: 'Tarot Mundo Extraño', img: 'https://static.wixstatic.com/media/0bac9e_7fe0ccb93a404708822342dfb3d94836~mv2.png' },
+    { nombre: 'Tarot de los Hechiceros', img: 'https://static.wixstatic.com/media/0bac9e_2b59c7a3c4c8436aa60105f26be0af55~mv2.png' },
+    { nombre: 'Tarot Gato', img: 'https://static.wixstatic.com/media/0bac9e_8e0882ef26d5472ba5c769f775905487~mv2.png' },
+    { nombre: 'Tarot Negro', img: 'https://static.wixstatic.com/media/0bac9e_bba92e2b96b749c8abbdd5700af26328~mv2.png' },
+    { nombre: 'Lenormand Iluminarte', img: 'https://static.wixstatic.com/media/0bac9e_da6f98cd675a4bf1aaa57d38c9508239~mv2.png' },
+    { nombre: 'Lenormand Los Sueños Encantados', img: 'https://static.wixstatic.com/media/0bac9e_f983ac1dd62d4435b78bd6d79afea13b~mv2.png' },
+    { nombre: 'Arenas de la Eternidad', img: 'https://static.wixstatic.com/media/0bac9e_1bac3ae90e954c2d888e0aa083810449~mv2.png' },
+    { nombre: 'Oráculo KM.T', img: 'https://static.wixstatic.com/media/0bac9e_815630f617b24a1e98a5e97a6d0eef67~mv2.png' },
+    { nombre: 'Vidas Pasadas', img: 'https://static.wixstatic.com/media/0bac9e_273a1912ebe2420ba06f6c4fa79492b1~mv2.png' },
+    { nombre: 'Chakras', img: 'https://static.wixstatic.com/media/0bac9e_89bd0bb5dd9f42ab905b7c8ac4d8f0de~mv2.png' },
+    { nombre: 'Dados Astrológicos', img: 'https://static.wixstatic.com/media/0bac9e_120b58df8832460f8c6cd8cb318f869e~mv2.png' },
+    { nombre: 'Runas Nórdicas', img: 'https://static.wixstatic.com/media/0bac9e_8ac870aba9bb490386610703099f1469~mv2.png' },
+    { nombre: 'Fotomancia', img: 'https://static.wixstatic.com/media/0bac9e_4ca4cc1a4c84484f8931c8121ccefb90~mv2.png' },
+  ];
+
+  const LOGOS = {
+    'Visa':'https://static.wixstatic.com/media/0bac9e_988e4487f0a543019a09a61bbc3d3073~mv2.png',
+    'Mastercard':'https://static.wixstatic.com/media/0bac9e_95554542e97649ca8a2b94a1a55b41e6~mv2.png',
+    'American Express':'https://static.wixstatic.com/media/0bac9e_5cb7f0712e5f472494f65d82aeb878e0~mv2.png',
+    'Maestro':'https://static.wixstatic.com/media/0bac9e_f2f1bf2925de4fa7a0916166291892ae~mv2.png',
+    'Prex':'https://static.wixstatic.com/media/0bac9e_c2fefc3032b1412b94ce2015cd4953be~mv2.png',
+    'Mercado Pago':'https://static.wixstatic.com/media/0bac9e_26850efa98414f42afdefb949717a5da~mv2.png',
+    'OCA':'https://static.wixstatic.com/media/0bac9e_cac05cc26d87470499411e99a3a6860a~mv2.png',
+    'Cabal':'https://static.wixstatic.com/media/0bac9e_5b00b65aefeb4100ab26bcc1e7a0ac93~mv2.png',
+    'Naranja':'https://static.wixstatic.com/media/0bac9e_4e29bda615ed4d8ebc028cdd44ede5fe~mv2.png',
+    'Lider':'https://static.wixstatic.com/media/0bac9e_0cdf71c1aaad443198a6afe936dd24db~mv2.png',
+  };
+
+  const BTN_NORMAL = {10:'9788FXXK7NYXL',20:'XNDH3WRAK4VM6',30:'CNJBLMQ58NAGE',40:'CLE2GU2284G4G',50:'R7B3R48JMKTSN',60:'VF8APXXK7FQ2S'};
+  const BTN_DESC = {
+    10:{10:'V4AFWJTCJ23YW',20:'69R6M2VSR2ZDQ',30:'G3U7DXJNLXMRW'},
+    20:{10:'RKYGT58BF5SKC',20:'Z26GH288KGAJQ',30:'X98PXPYD2YXW6'},
+    30:{10:'LLG8K6YUMJ2M4',20:'VFQUZ8ZL4DH8N',30:'HED2DHYXMXK38'},
+    40:{10:'T8RN37ZJ3YPEU',20:'VW3736JFSU33A',30:'PFZANDM5MQU54'},
+    50:{10:'Z7667X9KKXXRG',20:'EU4MCG4DCA6AS',30:'ZPA7XQTCRHTTC'},
+    60:{10:'M7H48AQ424MVQ',20:'5PEXGVV8CAGGA',30:'9ZZAL3S9MWTA6'}
+  };
+  const PRECIOS = {10:11.88,20:18.88,30:25.88,40:32.88,50:39.88,60:46.88};
+  const PRECIOS_DESC = {
+    10:{10:10.69,20:9.50,30:8.32},   20:{10:16.99,20:15.10,30:13.22},
+    30:{10:23.29,20:20.70,30:18.12}, 40:{10:29.59,20:26.30,30:22.98},
+    50:{10:35.89,20:31.90,30:27.92}, 60:{10:42.19,20:37.50,30:32.82}
+  };
+
+  let duracion=0, descuento=0, descResuelto=false;
+  let extraObj=null, extraOk=false, subtOculto=false;
+  let diapIdx=0, tipoPago=null, tarjeta='', precioFinal=0;
+
+  const el  = id => document.getElementById(id);
+  const add = (id,c) => el(id).classList.add(c);
+  const rem = (id,c) => el(id).classList.remove(c);
+  const tog = (id,c,on) => el(id).classList.toggle(c,on);
+
+  function show(id) { el(id).style.display=''; add(id,'visible'); }
+  function hide(id) { rem(id,'visible'); el(id).style.display='none'; }
+
+  function buildDiap(esCambio) {
+    diapIdx=0;
+    el('carruselTexto').innerHTML = esCambio
+      ? '¿Por cuál <strong>prefieres cambiarlo?</strong>'
+      : '¿Deseas añadir algo de esto <strong>por el mismo precio?</strong>';
+    add('carruselTexto','visible');
+    add('cancelar2x1','visible');
+    renderDiap();
+  }
+  function renderDiap() {
+    const e=EXTRAS[diapIdx];
+    el('diapImg').src=e.img; el('diapImg').alt=e.nombre;
+    el('diapNombre').textContent=e.nombre;
+    el('diapContador').textContent=(diapIdx+1)+'/'+EXTRAS.length;
+  }
+  function moverDiap(dir) {
+    diapIdx=(diapIdx+dir+EXTRAS.length)%EXTRAS.length;
+    renderDiap();
+  }
+  function seleccionarDiap() {
+    extraObj=EXTRAS[diapIdx]; extraOk=true;
+    hide('zonaExtra'); rem('carruselTexto','visible');
+    el('titulo').textContent='Mancias Combinadas';
+    el('combExtraImg').src=extraObj.img; el('combExtraImg').alt=extraObj.nombre;
+    el('combExtraNombre').textContent=extraObj.nombre;
+    add('combinadasWrap','visible');
+    if (duracion && !tipoPago) show('tipoPagoBox');
+  }
+  function abrirCambioExtra() {
+    rem('combinadasWrap','visible');
+    el('titulo').textContent='Reemplazando Mancia';
+    show('zonaExtra'); buildDiap(true);
+  }
+  function cancelarExtra() {
+    hide('zonaExtra'); rem('carruselTexto','visible'); rem('combinadasWrap','visible');
+    el('bloqueImagen').classList.remove('oculto');
+    el('titulo').textContent=MANCIA;
+    extraObj=null; extraOk=false; add('btn2x1','visible');
+  }
+  function abrir2x1() {
+    el('bloqueImagen').classList.add('oculto');
+    el('titulo').textContent='Añadiendo Mancia Extra';
+    show('zonaExtra'); buildDiap(false);
+  }
+  function onDuracion() {
+    const val=parseInt(el('duracion').value);
+    if (!val) { duracion=0; return; }
+    const primero=(duracion===0);
+    duracion=val;
+    if (!subtOculto) { subtOculto=true; el('subtitulo').style.display='none'; }
+    el('btnIdNormal').value=BTN_NORMAL[val];
+    if (descuento>0) {
+      el('btnIdDesc').value=BTN_DESC[val][descuento];
+      const p=PRECIOS_DESC[val][descuento];
+      precioFinal = p;
+      el('descPct').textContent='-'+descuento+'%';
+      el('descPrecio').innerHTML=`<span class="tachado">USD ${PRECIOS[val].toFixed(2)}</span> USD ${p.toFixed(2)}`;
+    } else {
+      precioFinal = PRECIOS[val];
+    }
+    if (tipoPago) return;
+    if (primero) {
+      add('btn2x1','visible');
+      if (!el('zonaExtra').classList.contains('visible')) show('tipoPagoBox');
+    }
+  }
+  function respDesc(activar) {
+    add('miniDesc','oculto'); descResuelto=true;
+    if (activar && duracion) {
+      const opc=[10,20,30];
+      descuento=opc[Math.floor(Math.random()*opc.length)];
+      const p=PRECIOS_DESC[duracion][descuento];
+      precioFinal = p;
+      el('descPct').textContent='-'+descuento+'%';
+      el('descPrecio').innerHTML=`<span class="tachado">USD ${PRECIOS[duracion].toFixed(2)}</span> USD ${p.toFixed(2)}`;
+      show('descuentoBox');
+      el('btnIdDesc').value=BTN_DESC[duracion][descuento];
+      el('notaDesc').style.display='block';
+    } else { descuento=0; precioFinal = PRECIOS[duracion]; }
+  }
+  function elegirPago(tipo) {
+    tipoPago=tipo;
+    tog('btnPaypal','on',tipo==='paypal');
+    tog('btnTransferencia','on',tipo==='transferencia');
+    hide('tipoPagoBox'); hide('finalizarBox'); hide('paypalCambiarPagos');
+    if (tipo==='paypal') {
+      hide('transferenciaBox');
+      show('paypalLogoWrap');
+      if (descuento>0) { show('paypalDesc'); hide('paypalNormal'); }
+      else             { show('paypalNormal'); hide('paypalDesc'); }
+      show('paypalCambiarPagos');
+    } else {
+      hide('paypalLogoWrap'); hide('paypalNormal'); hide('paypalDesc');
+      resetTransf(); show('transferenciaBox');
+    }
+  }
+  function volverPagos() {
+    tipoPago=null; tarjeta='';
+    hide('paypalLogoWrap'); hide('paypalNormal'); hide('paypalDesc'); hide('paypalCambiarPagos');
+    hide('transferenciaBox'); hide('finalizarBox');
+    rem('btnPaypal','on'); rem('btnTransferencia','on');
+    resetTransf(); add('miniDesc','oculto'); show('tipoPagoBox');
+  }
+  function resetTransf() {
+    ['PC','Mob'].forEach(s=>{
+      const sel=el('sel'+s); if(sel) sel.value='';
+      sel.classList.remove('oculto');
+      rem('logo'+s,'visible'); rem('acepta'+s,'visible');
+    });
+    tarjeta=''; hide('finalizarBox');
+  }
+  function onTarjeta(s) {
+    const v=el('sel'+s).value;
+    if(!v){ rem('acepta'+s,'visible'); hide('finalizarBox'); el('sel'+s).classList.remove('oculto'); rem('logo'+s,'visible'); return; }
+    el('nombre'+s).textContent=v;
+    add('acepta'+s,'visible'); hide('finalizarBox');
+    el('sel'+s).classList.add('oculto');
+    const logo=el('logo'+s); logo.src=LOGOS[v]||''; logo.alt=v;
+    add('logo'+s,'visible');
+  }
+  function respAcepta(op,s) {
+    const t=el('sel'+s).value;
+    if (op==='si') {
+      tarjeta=t;
+      const logo=el('logo'+s); logo.src=LOGOS[t]||''; logo.alt=t;
+      add('logo'+s,'visible'); rem('acepta'+s,'visible');
+      show('finalizarBox');
+    } else {
+      rem('acepta'+s,'visible'); hide('finalizarBox'); tarjeta='';
+      el('sel'+s).classList.remove('oculto');
+      rem('logo'+s,'visible');
+    }
+  }
+  function guardarLS(tp,tj) {
+    try {
+      localStorage.setItem('mancia',    MANCIA);
+      localStorage.setItem('manchaImg', MANCIA_IMG);
+      localStorage.setItem('minutos',   duracion);
+      localStorage.setItem('descuento', descuento);
+      localStorage.setItem('precioFinal', precioFinal.toFixed(2));
+      localStorage.setItem('extra',     extraObj?extraObj.nombre:'');
+      localStorage.setItem('extraImg',  extraObj?extraObj.img:'');
+      localStorage.setItem('tipoPago',  tp);
+      localStorage.setItem('tarjeta',   tj);
+    } catch(e){}
+  }
+  function ejecutarFinal() {
+    guardarLS('Transferencia', tarjeta);
+    window.open('https://sergiomanciasgnostic.wixsite.com/sergiomanciasgnostic/postpago#postpago', '_blank');
+  }
+
+  /* ══ LÓGICA MODAL PAYPAL ══ */
+  const M_TOTAL = 4;
+  let mActual = 0, mVolviendo = false;
+
+  // Crear pips del modal
+  const mPasosEl = document.getElementById('mPasos');
+  for (let i = 0; i < M_TOTAL; i++) {
+    const p = document.createElement('div');
+    p.className = 'm-pip' + (i === 0 ? ' active' : '');
+    p.onclick = () => mIrA(i);
+    mPasosEl.appendChild(p);
+  }
+
+  function abrirModalPaypal() {
+    mActual = 0; mVolviendo = false;
+    mActualizar();
+    document.getElementById('modalPaypal').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+  function cerrarModalPaypal() {
+    document.getElementById('modalPaypal').classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+  // Cerrar al hacer clic en el fondo
+  document.getElementById('modalPaypal').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModalPaypal();
+  });
+
+  function mActualizar() {
+    document.querySelectorAll('.m-slide').forEach((s, i) => {
+      s.classList.remove('active', 'volviendo');
+      if (i === mActual) { s.classList.add('active'); if (mVolviendo) s.classList.add('volviendo'); }
+    });
+    document.querySelectorAll('.m-pip').forEach((p, i) => p.classList.toggle('active', i === mActual));
+    document.getElementById('mPasoNum').textContent = `Paso ${mActual + 1} de ${M_TOTAL}`;
+    document.getElementById('mBtnAnterior').disabled = mActual === 0;
+    document.getElementById('mBtnSiguiente').disabled = mActual === M_TOTAL - 1;
+    // Mostrar botón cerrar solo en el último paso
+    const btnCerrar = document.getElementById('mBtnCerrar');
+    btnCerrar.classList.toggle('visible', mActual === M_TOTAL - 1);
+  }
+  function mCambiar(dir) {
+    mVolviendo = dir < 0;
+    mActual = Math.max(0, Math.min(M_TOTAL - 1, mActual + dir));
+    mActualizar();
+  }
+  function mIrA(i) {
+    mVolviendo = i < mActual;
+    mActual = i;
+    mActualizar();
+  }
+</script>
+</body>
+</html>
