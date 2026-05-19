@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pago Confirmado – Sergiomancias Gnostic</title>
+  <style>
+    :root {
+      --gold: #FF6A00;
+      --gold-light: #ff8c3a;
+      --dark: #442565;
+      --dark-card: #3a1f57;
+      --border: rgba(255,106,0,0.35);
+      --text: #ffffff;
+      --text-muted: #d4b8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--dark); color: var(--text); font-family: Arial, sans-serif;
+      min-height: 100vh; display: flex; align-items: flex-start; justify-content: center;
+      overflow-x: hidden; padding: 24px;
+    }
+    .container {
+      position: relative; z-index: 1; max-width: 520px; width: 100%;
+      margin: 0 auto; padding-top: 40px; padding-bottom: 36px; padding-left: 20px; padding-right: 20px;
+      text-align: center; animation: fadeUp 0.8s forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    h1 { font-size: clamp(1rem, 3vw, 1.8rem); font-weight: bold; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 16px; }
+
+    .mancia-img-wrap {
+      display: flex; justify-content: center; align-items: center;
+      gap: 12px; margin-bottom: 16px;
+    }
+    .mancia-img-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .mancia-img-col img { width: clamp(100px, 32vw, 180px); height: auto; object-fit: contain; display: none; }
+    .mancia-img-col img.visible { display: block; }
+    .mancia-img-nombre { font-size: clamp(12px, 2.5vw, 17px); color: var(--text-muted); text-align: center; display: none; }
+    .mancia-img-nombre.visible { display: block; }
+    .img-plus { font-size: 36px; color: var(--gold); align-self: center; display: none; }
+    .img-plus.visible { display: block; }
+
+    .subtitle { font-size: clamp(13px, 2vw, 16px); color: var(--text-muted); margin-bottom: 24px; }
+
+    .summary-box {
+      background: var(--dark-card); border: 1px solid var(--border);
+      padding: 14px 20px; margin-bottom: 16px; text-align: left;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; border-bottom: 1px solid rgba(255,106,0,0.15);
+      font-size: clamp(13px, 2vw, 15px);
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row .label { color: var(--text-muted); }
+    .summary-row .value { color: var(--gold-light); font-weight: bold; }
+    .summary-row-hidden { display: none; }
+    .summary-row-hidden.visible { display: flex; }
+
+    .datos-box { background: var(--dark-card); border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 16px; }
+    
+    #inputApellido, #sexoCol, .fila-2, #txtFechaGuia { 
+        display: none; 
+    }
+
+    .fila-1 { display: flex; gap: 6px; align-items: flex-end; margin-bottom: 8px; }
+    .fila-1 input {
+      flex: 2; padding: 9px 10px; background: var(--dark); border: 1px solid var(--border);
+      color: var(--text); font-family: Arial, sans-serif; font-size: clamp(11px, 1.8vw, 13px);
+      outline: none; min-width: 0;
+    }
+    .fila-1 input:focus { border-color: var(--gold); }
+    .fila-1 input::placeholder { color: var(--text-muted); }
+
+    .sexo-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; transition: opacity 0.4s; }
+    .sexo-label { font-size: clamp(9px, 1.5vw, 11px); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .sexo-botones { display: flex; gap: 4px; }
+    .btn-sexo { width: 28px; height: 28px; background: var(--dark); border: 1px solid var(--border); color: var(--text-muted); font-family: Arial, sans-serif; font-size: clamp(11px, 1.8vw, 13px); font-weight: bold; cursor: pointer; transition: all 0.2s; }
+    .btn-sexo:hover { border-color: var(--gold); color: var(--text); }
+    .btn-sexo.seleccionado { border-color: var(--gold); color: var(--gold); background: rgba(255,106,0,0.08); }
+
+    #txtFechaGuia {
+      font-size: clamp(10px, 1.6vw, 12px);
+      color: var(--gold);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    .fila-2 { display: flex; gap: 6px; margin-bottom: 8px; }
+    .fila-2 select {
+      flex: 1; padding: 9px 6px; background: var(--dark); border: 1px solid var(--border);
+      color: var(--text); font-family: Arial, sans-serif; font-size: clamp(11px, 1.8vw, 13px);
+      cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23FF6A00' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px center; outline: none; min-width: 0;
+      opacity: 0.3; pointer-events: none; transition: opacity 0.4s;
+    }
+    .fila-2 select.activo { opacity: 1; pointer-events: auto; }
+    .fila-2 select:focus { border-color: var(--gold); }
+    .fila-2 select option { background: var(--dark-card); color: var(--text); }
+
+    .fila-3 {
+      display: none; justify-content: center; align-items: center; gap: 10px;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.6s ease, transform 0.6s ease; margin-top: 4px;
+    }
+    .fila-3.visible { display: flex; opacity: 1; transform: translateY(0); }
+
+    .cuadrado {
+      width: 95px; height: 95px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: var(--dark); border: 1px solid var(--gold); flex-shrink: 0;
+    }
+    .cuadrado-label { font-size: clamp(9px, 1.4vw, 11px); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+    .numero-valor { font-size: clamp(26px, 5vw, 34px); font-weight: bold; color: var(--gold); line-height: 1; }
+
+    .zodiaco-cuadrado {
+      width: 95px; height: 95px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.6s ease, width 0.4s ease; flex-shrink: 0;
+    }
+    .zodiaco-cuadrado.oculto { width: 0; overflow: hidden; opacity: 0; pointer-events: none; }
+    .zodiaco-cuadrado.visible { opacity: 1; }
+    .zodiaco-pregunta { width: 95px; text-align: center; }
+    .zodiaco-pregunta-label { font-size: clamp(9px, 1.4vw, 11px); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
+    .botones-sino { display: flex; gap: 4px; }
+    .btn-sino {
+      flex: 1; padding: 6px 0; background: var(--dark); border: 1px solid var(--border);
+      color: var(--text-muted); font-family: Arial, sans-serif;
+      font-size: clamp(11px, 1.8vw, 13px); font-weight: bold; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-sino:hover { border-color: var(--gold); color: var(--text); }
+    .btn-sino.seleccionado { border-color: var(--gold); color: var(--gold); background: rgba(255,106,0,0.08); }
+
+    .zodiaco-selector {
+      display: none; width: 95px; height: 95px;
+      flex-direction: column; align-items: center; justify-content: center;
+      background: var(--dark); border: 1px solid var(--gold);
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      position: relative; gap: 4px;
+    }
+    .zodiaco-selector.visible { opacity: 1; transform: translateY(0); }
+    .zodiaco-selector-titulo {
+      font-size: clamp(8px, 1.3vw, 9px); color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.05em; text-align: center;
+      line-height: 1.3; padding: 0 4px;
+    }
+    .zodiaco-selector select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 2; }
+    .zodiaco-selector-display { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+    
+    .zodiaco-selector-simbolo { font-size: clamp(32px, 7vw, 42px); color: var(--gold); line-height: 1; }
+    .zodiaco-selector-nombre { font-size: clamp(14px, 2.2vw, 16px); color: var(--text); }
+
+    .fila-ubicacion {
+      display: flex; gap: 6px; margin-bottom: 8px;
+    }
+    .fila-ubicacion input {
+      flex: 1; padding: 9px 10px; background: var(--dark); border: 1px solid var(--border);
+      color: var(--text); font-family: Arial, sans-serif; font-size: clamp(11px, 1.8vw, 13px);
+      outline: none; min-width: 0; display: none;
+      -webkit-box-shadow: 0 0 0px 1000px var(--dark) inset;
+      -webkit-text-fill-color: var(--text);
+    }
+    .fila-ubicacion input:focus { border-color: var(--gold); }
+    .fila-ubicacion input::placeholder { color: var(--text-muted); }
+    .fila-ubicacion input.activo { display: block; }
+
+    .cuadrado-hora {
+      min-width: 95px; min-height: 95px; display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: var(--dark); border: 1px solid var(--gold); flex-shrink: 0; gap: 5px;
+      padding: 8px 8px; transition: min-width 0.3s ease, min-height 0.3s ease;
+    }
+    .cuadrado-hora.visible { display: flex; }
+
+    /* Botones de modo hora */
+    .hora-modos { display: flex; flex-direction: column; gap: 3px; width: 100%; }
+    .btn-hora-modo {
+      padding: 4px 8px; background: var(--dark); border: 1px solid var(--border);
+      color: var(--text-muted); font-family: Arial, sans-serif;
+      font-size: clamp(14px, 2vw, 15px); font-weight: bold; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap; letter-spacing: 0.02em;
+      width: 100%; text-align: center;
+    }
+    .btn-hora-modo:hover { border-color: var(--gold); color: var(--text); }
+    .btn-hora-modo.seleccionado { border-color: var(--gold); color: var(--gold); background: rgba(255,106,0,0.1); }
+
+    /* Fila: botón seleccionado + botón cambiar */
+    .hora-modo-activo { display: none; align-items: center; gap: 4px; width: 100%; }
+    .hora-modo-activo.visible { display: flex; }
+    .btn-hora-cambiar {
+      background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+      font-size: 10px; cursor: pointer; padding: 2px 5px; font-family: Arial, sans-serif;
+      flex-shrink: 0; transition: all 0.2s; line-height: 1;
+    }
+    .btn-hora-cambiar:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Contenedor de dropdowns de hora */
+    .hora-dropdowns { display: none; align-items: center; gap: 3px; }
+    .hora-dropdowns.visible { display: flex; }
+    .hora-sep { color: var(--gold); font-weight: bold; font-size: clamp(13px, 2vw, 15px); }
+
+    /* Dropdowns de hora */
+    .sel-hora {
+      padding: 5px 4px; background: var(--dark); border: 1px solid var(--border);
+      color: var(--text); font-family: Arial, sans-serif; font-size: clamp(11px, 1.8vw, 13px);
+      cursor: pointer; appearance: none; text-align: center;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 10 6'%3E%3Cpath fill='%23FF6A00' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 4px center; outline: none;
+      min-width: 0;
+    }
+    .sel-hora:focus { border-color: var(--gold); }
+    .sel-hora option { background: var(--dark-card); color: var(--text); }
+    .sel-hora-hh { width: 42px; }
+    .sel-hora-mm { width: 42px; }
+    .sel-hora-ampm { width: 46px; font-size: clamp(10px, 1.6vw, 11px); }
+
+    /* Texto "No sé mi hora" */
+    .hora-nosé { display: none; flex-direction: column; align-items: center; gap: 3px; }
+    .hora-nosé.visible { display: flex; }
+    .hora-nosé-txt { font-size: clamp(9px, 1.4vw, 10px); color: var(--text-muted); text-align: center; line-height: 1.3; }
+    .fila-1 input {
+      -webkit-box-shadow: 0 0 0px 1000px var(--dark) inset;
+      -webkit-text-fill-color: var(--text);
+    }
+
+    .tarjeta-logo-display {
+      display: none; height: 40px; width: auto; max-width: 100px;
+      object-fit: contain; border: 1px solid var(--border);
+      padding: 4px 8px; background: rgba(255,255,255,.06);
+      flex-shrink: 0; margin: 0 8px;
+    }
+    .tarjeta-logo-display.visible { display: block; }
+
+    .nota-campos { 
+      font-size: 15px; 
+      color: var(--gold-light); 
+      margin-bottom: 12px; 
+      font-style: italic; 
+      font-weight: 500;
+    }
+
+    .cta-btn {
+      display: block; width: 100%; padding: 16px; background: transparent;
+      border: 1px solid var(--gold); color: var(--gold); font-family: Arial, sans-serif;
+      font-size: clamp(19px, 2vw, 22px); font-weight: bold; letter-spacing: 0.1em;
+      cursor: pointer; transition: all 0.4s ease; text-align: center;
+      position: relative; overflow: hidden; text-decoration: none;
+    }
+    .cta-btn::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: translateX(-100%); transition: transform 0.4s ease; z-index: 0; }
+    .cta-btn:hover::before { transform: translateX(0); }
+    .cta-btn:hover { color: var(--dark); }
+    .cta-btn span { position: relative; z-index: 1; }
+    .cta-btn.disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>¡Pago Confirmado!</h1>
+
+  <div class="mancia-img-wrap">
+    <div class="mancia-img-col" id="colImgPrincipal">
+      <img id="manchaImg" src="" alt="Mancia elegida" />
+      <div class="mancia-img-nombre" id="nombreImgPrincipal"></div>
+    </div>
+    <div class="img-plus" id="imgPlus">+</div>
+    <div class="mancia-img-col" id="colImgExtra">
+      <img id="extraImg" src="" alt="Mancia extra" />
+      <div class="mancia-img-nombre" id="nombreImgExtra"></div>
+    </div>
+  </div>
+
+  <p class="subtitle">Tu lectura ha sido reservada con éxito</p>
+
+  <div class="summary-box">
+    <div class="summary-row">
+      <span class="label">Mancia elegida</span>
+      <span class="value" id="sum-mancia">-</span>
+    </div>
+    <div class="summary-row summary-row-hidden" id="sum-extra-row">
+      <span class="label">2x1 incluido</span>
+      <span class="value" id="sum-extra">-</span>
+    </div>
+    <div class="summary-row">
+      <span class="label">Duración</span>
+      <span class="value" id="sum-duration">-</span>
+    </div>
+    <div class="summary-row summary-row-hidden" id="sum-descuento-row">
+      <span class="label">Descuento aplicado</span>
+      <span class="value" id="sum-descuento">-</span>
+    </div>
+    <div class="summary-row">
+      <span class="label">Precio final</span>
+      <span class="value" id="sum-precio">-</span>
+    </div>
+    <div class="summary-row summary-row-hidden" id="sum-pago-row">
+      <span class="label">Forma de pago</span>
+      <span class="value" id="sum-pago-text">-</span>
+      <img class="tarjeta-logo-display" id="sum-pago-logo" src="" alt="" />
+    </div>
+  </div>
+
+  <div class="datos-box">
+    <div class="fila-1">
+      <input type="text" id="inputNombre" placeholder="Nombre" oninput="verificarCampos()" />
+      <input type="text" id="inputApellido" placeholder="Apellido" oninput="verificarCampos()" />
+      <div class="sexo-col" id="sexoCol">
+        <div class="sexo-label">Sexo</div>
+        <div class="sexo-botones">
+          <button class="btn-sexo" id="btnH" onclick="seleccionarSexo('H')">H</button>
+          <button class="btn-sexo" id="btnM" onclick="seleccionarSexo('M')">M</button>
+        </div>
+      </div>
+    </div>
+    
+    <div id="txtFechaGuia">Selecciona tu fecha de nacimiento</div>
+
+    <div class="fila-2">
+      <select id="selDia" onchange="verificarCampos(); actualizarDias()"><option value="">Día</option></select>
+      <select id="selMes" onchange="verificarCampos(); actualizarDias()">
+        <option value="">Mes</option>
+        <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option>
+        <option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option>
+        <option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option>
+        <option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+      </select>
+      <select id="selAnio" onchange="verificarCampos(); actualizarDias()"><option value="">Año</option></select>
+    </div>
+    <div class="fila-ubicacion" id="filaUbicacion">
+      <input type="text" id="inputPais" placeholder="País" oninput="verificarCampos()" />
+      <input type="text" id="inputProvincia" placeholder="Provincia" oninput="verificarCampos()" />
+      <input type="text" id="inputCiudad" placeholder="Ciudad" oninput="verificarCampos()" />
+    </div>
+
+    <div class="fila-3" id="fila3">
+      <div class="cuadrado-hora" id="cuadradoHora">
+        <div class="cuadrado-label">Hora nac.</div>
+        <!-- Botones de modo (se ocultan al elegir) -->
+        <div class="hora-modos" id="horaModos">
+          <button class="btn-hora-modo" id="btnModoAmPm" onclick="setModoHora('ampm')">A.M. | P.M.</button>
+          <button class="btn-hora-modo" id="btnModo24h" onclick="setModoHora('24h')">24 h</button>
+          <button class="btn-hora-modo" id="btnModoNose" onclick="setModoHora('nose')">No sé</button>
+        </div>
+        <!-- Modo AM/PM -->
+        <div class="hora-dropdowns" id="horaAmPmDrops">
+          <select class="sel-hora sel-hora-hh" id="selHoraAmPmH" onchange="verificarCampos()">
+            <option value="">h</option>
+          </select>
+          <span class="hora-sep">:</span>
+          <select class="sel-hora sel-hora-mm" id="selHoraAmPmM" onchange="verificarCampos()">
+            <option value="">m</option>
+          </select>
+          <select class="sel-hora sel-hora-ampm" id="selHoraAmPmSufijo" onchange="verificarCampos()">
+            <option value="">—</option>
+            <option value="a.m.">a.m.</option>
+            <option value="p.m.">p.m.</option>
+          </select>
+        </div>
+        <!-- Modo 24h -->
+        <div class="hora-dropdowns" id="hora24hDrops">
+          <select class="sel-hora sel-hora-hh" id="selHora24H" onchange="verificarCampos()">
+            <option value="">h</option>
+          </select>
+          <span class="hora-sep">:</span>
+          <select class="sel-hora sel-hora-mm" id="selHora24M" onchange="verificarCampos()">
+            <option value="">m</option>
+          </select>
+        </div>
+        <!-- Modo No sé -->
+        <div class="hora-nosé" id="horaNosePanel">
+          <div class="hora-nosé-txt">Hora de<br>nacimiento<br>desconocida</div>
+        </div>
+      </div>
+      <div class="cuadrado" id="cuadradoNumerologia">
+        <div class="cuadrado-label">Numerología</div>
+        <div class="numero-valor" id="numeroValor">-</div>
+      </div>
+      <div class="zodiaco-cuadrado" id="zodiacoCuadrado">
+        <div class="zodiaco-pregunta" id="zodiacoPregunta">
+          <div class="zodiaco-pregunta-label">Selección zodiacal</div>
+          <div class="botones-sino">
+            <button class="btn-sino" id="btnSi" onclick="seleccionarZodiacoPref('si')">Sí</button>
+            <button class="btn-sino" id="btnNo" onclick="seleccionarZodiacoPref('no')">No</button>
+          </div>
+        </div>
+        <div class="zodiaco-selector" id="zodiacoSelector">
+          <div class="zodiaco-selector-titulo" id="zodiacoTitulo">Selecciona<br>tu signo</div>
+          <div class="zodiaco-selector-display" id="zodiacoDisplay" style="display:none">
+            <span class="zodiaco-selector-simbolo" id="zodiacoSimbolo"></span>
+            <span class="zodiaco-selector-nombre" id="zodiacoNombre"></span>
+          </div>
+          <select id="selSigno" onchange="seleccionarSigno()">
+            <option value="">—</option>
+            <option value="Aries" data-simbolo="♈︎">Aries</option>
+            <option value="Tauro" data-simbolo="♉︎">Tauro</option>
+            <option value="Géminis" data-simbolo="♊︎">Géminis</option>
+            <option value="Cáncer" data-simbolo="♋︎">Cáncer</option>
+            <option value="Leo" data-simbolo="♌︎">Leo</option>
+            <option value="Virgo" data-simbolo="♍︎">Virgo</option>
+            <option value="Libra" data-simbolo="♎︎">Libra</option>
+            <option value="Escorpio" data-simbolo="♏︎">Escorpio</option>
+            <option value="Sagitario" data-simbolo="♐︎">Sagitario</option>
+            <option value="Capricornio" data-simbolo="♑︎">Capricornio</option>
+            <option value="Acuario" data-simbolo="♒︎">Acuario</option>
+            <option value="Piscis" data-simbolo="♓︎">Piscis</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="nota-campos">* Completa todos los campos para habilitar el botón</p>
+  <a class="cta-btn disabled" id="whatsappBtn" href="#" target="_blank">
+    <span>Coordinar mi Lectura por WhatsApp</span>
+    <br>
+ (CTRL+Clic en PC)
+  </a>
+</div>
+
+<script>
+  const WHATSAPP     = '59894140917';
+  const mesesNombres = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  const IMAGENES_MANCIAS = {
+    'Tarot Egipcio': 'https://static.wixstatic.com/media/0bac9e_d1dbad65ea514d3ebd2fbd87aacf27c8~mv2.png',
+    'Tarot de las Brujas': 'https://static.wixstatic.com/media/0bac9e_6b1af4a9ac8543ba8bc2ef3016cd4d31~mv2.png',
+    'Tarot RDR': 'https://static.wixstatic.com/media/0bac9e_2925b199d90d41b783492996749ece65~mv2.png',
+    'Astrología': 'https://static.wixstatic.com/media/0bac9e_eaa3ed8c842143aca95b9d666cc52250~mv2.png',
+    'Fotomancia': 'https://static.wixstatic.com/media/0bac9e_4ca4cc1a4c84484f8931c8121ccefb90~mv2.png'
+  };
+
+  const LOGOS_TARJETAS = {
+    'Visa':'https://static.wixstatic.com/media/0bac9e_988e4487f0a543019a09a61bbc3d3073~mv2.png',
+    'Mastercard':'https://static.wixstatic.com/media/0bac9e_95554542e97649ca8a2b94a1a55b41e6~mv2.png',
+    'American Express':'https://static.wixstatic.com/media/0bac9e_5cb7f0712e5f472494f65d82aeb878e0~mv2.png',
+    'Maestro':'https://static.wixstatic.com/media/0bac9e_f2f1bf2925de4fa7a0916166291892ae~mv2.png',
+    'Prex':'https://static.wixstatic.com/media/0bac9e_c2fefc3032b1412b94ce2015cd4953be~mv2.png',
+    'Mercado Pago':'https://static.wixstatic.com/media/0bac9e_26850efa98414f42afdefb949717a5da~mv2.png',
+    'OCA':'https://static.wixstatic.com/media/0bac9e_cac05cc26d87470499411e99a3a6860a~mv2.png',
+    'Cabal':'https://static.wixstatic.com/media/0bac9e_5b00b65aefeb4100ab26bcc1e7a0ac93~mv2.png',
+    'Naranja':'https://static.wixstatic.com/media/0bac9e_4e29bda615ed4d8ebc028cdd44ede5fe~mv2.png',
+    'Lider':'https://static.wixstatic.com/media/0bac9e_0cdf71c1aaad443198a6afe936dd24db~mv2.png',
+  };
+
+  const PAISES_COMPLETO = {
+    "Afganistán": {"Kabul": ["Kabul", "Dar Aman"], "Herat": ["Herat", "Ghoryan"], "Balkh": ["Mazar i Sharif", "Aybak"], "Kandahar": ["Kandahar", "Dand"], "Nangarhar": ["Jalalabad", "Asadabad"]},
+    "Albania": {"Tirana": ["Tirana", "Durrës"], "Vlorë": ["Vlorë", "Sarandë"], "Shkodër": ["Shkodër", "Pukë"], "Elbasan": ["Elbasan", "Librazhd"], "Durrës": ["Durrës", "Rrogozhinë"]},
+    "Alemania": {"Baden-Württemberg": ["Stuttgart", "Karlsruhe", "Heidelberg", "Mannheim"], "Baviera": ["Munich", "Núremberg", "Augsburgo", "Wurzburgo"], "Berlín": ["Berlín", "Charlottenburg", "Kreuzberg"], "Brandeburgo": ["Potsdam", "Cottbus"], "Bremen": ["Bremen", "Bremerhaven"], "Hamburgo": ["Hamburgo", "Altona"], "Hesse": ["Fráncfort", "Darmstadt", "Wiesbaden"], "Mecklemburgo-Pomerania Occidental": ["Rostock", "Schwerin"], "Baja Sajonia": ["Hannover", "Braunschweig", "Osnabrück"], "Renania del Norte-Westfalia": ["Colonia", "Düsseldorf", "Dortmund", "Essen"], "Renania-Palatinado": ["Maguncia", "Coblenza"], "Sarre": ["Saarbrücken", "Saarlouis"], "Sajonia": ["Dresde", "Leipzig", "Chemnitz"], "Sajonia-Anhalt": ["Magdeburgo", "Halle"], "Schleswig-Holstein": ["Kiel", "Lübeck"], "Turingia": ["Erfurt", "Jena", "Weimar"]},
+    "Argentina": {"Buenos Aires": ["Ciudad de Buenos Aires", "La Plata", "Quilmes", "Lomas de Zamora"], "Córdoba": ["Córdoba", "Río Cuarto", "Villa María"], "Santa Fe": ["Rosario", "Santa Fe", "Venado Tuerto"], "Mendoza": ["Mendoza", "San Rafael", "Godoy Cruz"], "Tucumán": ["San Miguel de Tucumán", "Tafí Viejo"], "Misiones": ["Posadas", "Puerto Iguazú"], "Salta": ["Salta", "San Salvador de Jujuy"], "Jujuy": ["San Salvador de Jujuy", "Palpalá"], "Catamarca": ["San Fernando del Valle de Catamarca"], "La Pampa": ["Santa Rosa"], "La Rioja": ["La Rioja"], "Entre Ríos": ["Paraná", "Concepción del Uruguay"], "Formosa": ["Formosa"], "Chaco": ["Resistencia"], "Corrientes": ["Corrientes"], "Santiago del Estero": ["Santiago del Estero"], "Tierra del Fuego": ["Ushuaia", "Río Grande"], "Neuquén": ["Neuquén", "San Martín de los Andes"], "Río Negro": ["Bariloche", "Viedma"], "Chubut": ["Rawson", "Comodoro Rivadavia"], "Santa Cruz": ["Río Gallegos", "El Calafate"]},
+    "España": {"Andalucía": ["Sevilla", "Málaga", "Granada", "Córdoba", "Jaén", "Huelva", "Cádiz", "Almería"], "Aragón": ["Zaragoza", "Huesca", "Teruel"], "Asturias": ["Oviedo", "Gijón", "Avilés"], "Baleares": ["Palma", "Ibiza", "Mahón"], "Canarias": ["Las Palmas", "Santa Cruz de Tenerife"], "Cantabria": ["Santander", "Torrelavega"], "Castilla y León": ["Valladolid", "Burgos", "Salamanca", "Zamora", "Soria", "Ávila", "Segovia", "Palencia"], "Castilla-La Mancha": ["Toledo", "Ciudad Real", "Guadalajara", "Cuenca", "Albacete"], "Cataluña": ["Barcelona", "Girona", "Lleida", "Tarragona"], "Comunidad Valenciana": ["Valencia", "Alicante", "Castellón"], "Extremadura": ["Badajoz", "Cáceres"], "Galicia": ["Santiago de Compostela", "A Coruña", "Vigo", "Pontevedra", "Lugo", "Ourense"], "Madrid": ["Madrid", "Alcalá de Henares", "Torrejón de Ardoz", "Móstoles"], "Murcia": ["Murcia", "Cartagena"], "Navarra": ["Pamplona", "Tudela"], "País Vasco": ["Bilbao", "Vitoria", "San Sebastián"], "La Rioja": ["Logroño", "Calahorra"]},
+    "Brasil": {"São Paulo": ["São Paulo", "Guarulhos", "Campinas", "Santo André"], "Rio de Janeiro": ["Rio de Janeiro", "Niterói", "Duque de Caxias"], "Minas Gerais": ["Belo Horizonte", "Uberlândia", "Contagem"], "Bahia": ["Salvador", "Feira de Santana"], "Paraná": ["Curitiba", "Londrina"], "Rio Grande do Sul": ["Porto Alegre", "Caxias do Sul"], "Pernambuco": ["Recife", "Olinda"], "Ceará": ["Fortaleza", "Caucaia"], "Pará": ["Belém", "Ananindeua"], "Santa Catarina": ["Florianópolis", "Joinville"], "Goiás": ["Goiânia", "Anápolis"], "Distrito Federal": ["Brasilia"], "Espírito Santo": ["Vitória", "Vila Velha"], "Maranhão": ["São Luís", "Imperatriz"], "Paraíba": ["João Pessoa", "Campina Grande"], "Piauí": ["Teresina", "Parnaíba"], "Rio Grande do Norte": ["Natal", "Mossoró"], "Rondônia": ["Porto Velho", "Ji-Paraná"], "Roraima": ["Boa Vista", "Caracaraí"], "Tocantins": ["Palmas", "Araguaína"], "Amazonas": ["Manaus", "Parintins"], "Acre": ["Rio Branco", "Cruzeiro do Sul"], "Mato Grosso": ["Cuiabá", "Várzea Grande"], "Mato Grosso do Sul": ["Campo Grande", "Dourados"]},
+    "México": {"Ciudad de México": ["Ciudad de México", "Coyoacán", "Benito Juárez"], "Jalisco": ["Guadalajara", "Zapopan", "Tlaquepaque"], "Nuevo León": ["Monterrey", "San Pedro Garza García"], "Veracruz": ["Veracruz", "Xalapa"], "Puebla": ["Puebla", "Cholula"], "Guanajuato": ["León", "Guanajuato"], "Sinaloa": ["Culiacán", "Mazatlán"], "Coahuila": ["Saltillo", "Torreón"], "Chihuahua": ["Chihuahua", "Juárez"], "Yucatán": ["Mérida", "Cancún"], "Sonora": ["Hermosillo", "Obregón"], "Baja California": ["Tijuana", "Ensenada"], "Baja California Sur": ["La Paz", "Los Cabos"], "Durango": ["Durango", "Gómez Palacio"], "Zacatecas": ["Zacatecas", "Fresnillo"], "San Luis Potosí": ["San Luis Potosí", "Soledad"], "Nayarit": ["Tepic", "Bahía de Banderas"], "Aguascalientes": ["Aguascalientes", "Jesús María"], "Querétaro": ["Santiago de Querétaro"], "Hidalgo": ["Pachuca", "Tulancingo"], "Tlaxcala": ["Tlaxcala", "Apizaco"], "Morelos": ["Cuernavaca", "Temixco"], "Estado de México": ["Toluca", "Ecatepec"], "Guerrero": ["Acapulco", "Chilpancingo"], "Oaxaca": ["Oaxaca", "Huatulco"], "Tabasco": ["Villahermosa", "Comalcalco"], "Campeche": ["Campeche", "Ciudad del Carmen"], "Quintana Roo": ["Cancún", "Cozumel"], "Michoacán": ["Morelia", "Uruapan"], "Tamaulipas": ["Ciudad Victoria", "Tampico"]},
+    "Colombia": {"Bogotá": ["Bogotá", "Usaquén", "Chapinero"], "Antioquia": ["Medellín", "Envigado", "Itagüí"], "Cundinamarca": ["Soacha", "Zipaquirá"], "Valle del Cauca": ["Cali", "Palmira"], "Atlántico": ["Barranquilla", "Soledad"], "Bolívar": ["Cartagena", "Magangué"], "Cauca": ["Popayán", "Puerto Caicedo"], "Córdoba": ["Montería", "Lorica"], "La Guajira": ["Riohacha", "Maicao"], "Magdalena": ["Santa Marta", "Ciénaga"], "Nariño": ["Pasto", "Ipiales"], "Quindío": ["Armenia", "Salento"], "Risaralda": ["Pereira", "Dosquebradas"], "Santander": ["Bucaramanga", "Floridablanca"], "Sucre": ["Sincelejo", "Corozal"], "Tolima": ["Ibagué", "Espinal"], "Caquetá": ["Florencia", "San Vicente"], "Casanare": ["Yopal", "Maní"], "Guainía": ["Inírida"], "Huila": ["Neiva", "Pitalito"], "Meta": ["Villavicencio", "Acacías"], "Putumayo": ["Mocoa"]},
+    "Chile": {"Región de Arica y Parinacota": ["Arica", "Putre"], "Región de Tarapacá": ["Iquique", "Alto Hospicio"], "Región de Antofagasta": ["Antofagasta", "Calama"], "Región de Atacama": ["Copiapó", "Vallenar"], "Región de Coquimbo": ["La Serena", "Coquimbo"], "Región de Valparaíso": ["Valparaíso", "Viña del Mar"], "Región Metropolitana": ["Santiago", "Puente Alto"], "Región del Maule": ["Talca", "Curicó"], "Región de Biobío": ["Concepción", "Los Ángeles"], "Región de La Araucanía": ["Temuco", "Villarrica"], "Región de Los Lagos": ["Puerto Montt", "Puerto Varas"], "Región de Magallanes": ["Punta Arenas", "Puerto Natales"]},
+    "Perú": {"Lima": ["Lima", "San Isidro", "Miraflores"], "Arequipa": ["Arequipa", "Puno"], "Cusco": ["Cusco", "Machu Picchu"], "Trujillo": ["Trujillo", "La Libertad"], "Piura": ["Piura", "Chimbote"], "Callao": ["Callao", "Bellavista"], "Huancayo": ["Huancayo", "El Tambo"], "Chiclayo": ["Chiclayo", "Lambayeque"], "Puno": ["Puno", "Juliaca"], "Huánuco": ["Huánuco", "Tingo María"], "Ica": ["Ica", "Nazca"], "Ayacucho": ["Ayacucho"], "Madre de Dios": ["Puerto Maldonado"], "San Martín": ["Tarapoto", "Moyobamba"], "Loreto": ["Iquitos", "Nauta"], "Ucayali": ["Pucallpa"], "Tacna": ["Tacna"]},
+    "Uruguay": {"Montevideo": ["Montevideo", "Malvín", "Punta Carretas"], "Canelones": ["Canelones", "Las Piedras"], "Colonia": ["Colonia del Sacramento"], "Soriano": ["Mercedes", "Fray Bentos"], "Florida": ["Florida"], "Cerro Largo": ["Melo"], "Durazno": ["Durazno"], "Flores": ["Trinidad"], "Lavalleja": ["Minas"], "Maldonado": ["Punta del Este", "Maldonado"], "Paysandú": ["Paysandú"], "Río Negro": ["Fray Bentos"], "Rivera": ["Rivera"], "Rocha": ["Rocha"], "Salto": ["Salto"], "San José": ["San José de Mayo"], "Tacuarembó": ["Tacuarembó"]},
+    "Portugal": {"Lisboa": ["Lisboa", "Cascais", "Sintra"], "Porto": ["Porto", "Vila do Conde"], "Algarve": ["Faro", "Loulé"], "Coímbra": ["Coímbra", "Cantanhede"], "Aveiro": ["Aveiro", "Ovar"], "Braga": ["Braga", "Guimarães"], "Viana do Castelo": ["Viana do Castelo", "Caminha"], "Viseu": ["Viseu"], "Castelo Branco": ["Castelo Branco"], "Leiria": ["Leiria"], "Santarém": ["Santarém"], "Setúbal": ["Setúbal"], "Évora": ["Évora"], "Beja": ["Beja"], "Madeira": ["Funchal"], "Açores": ["Ponta Delgada"]},
+    "Estados Unidos": {"California": ["Los Ángeles", "San Francisco", "San Diego"], "Texas": ["Houston", "Dallas", "Austin"], "Florida": ["Miami", "Orlando", "Tampa"], "Nueva York": ["Nueva York", "Albany"], "Pensilvania": ["Filadelfia", "Pittsburgh"], "Illinois": ["Chicago", "Naperville"], "Ohio": ["Columbus", "Cleveland"], "Georgia": ["Atlanta", "Augusta"], "Carolina del Norte": ["Charlotte", "Raleigh"], "Michigan": ["Detroit", "Ann Arbor"]},
+    "Canadá": {"Ontario": ["Toronto", "Ottawa", "Hamilton"], "Quebec": ["Montreal", "Quebec"], "Columbia Británica": ["Vancouver", "Victoria"], "Alberta": ["Calgary", "Edmonton"], "Manitoba": ["Winnipeg", "Brandon"], "Saskatchewan": ["Regina", "Saskatoon"], "Nueva Escocia": ["Halifax", "Sydney"], "Nuevo Brunswick": ["Saint John", "Moncton"]},
+    "Italia": {"Lazio": ["Roma", "Frascati"], "Lombardía": ["Milán", "Como"], "Toscana": ["Florencia", "Siena"], "Piamonte": ["Turín", "Alessandria"], "Campania": ["Nápoles", "Pompeya"], "Sicilia": ["Palermo", "Catania"], "Cerdeña": ["Cagliari", "Sassari"]},
+    "Francia": {"Île-de-France": ["París", "Boulogne-Billancourt"], "Provenza-Alpes-Costa Azul": ["Marsella", "Niza"], "Auvergnia-Ródano-Alpes": ["Lyon", "Grenoble"], "Nueva Aquitania": ["Burdeos", "Bayona"], "Gran Este": ["Estrasburgo", "Metz"], "Normandía": ["Rouen", "Le Havre"], "Bretaña": ["Rennes", "Brest"]},
+    "Japón": {"Tokio": ["Tokio", "Shinjuku"], "Osaka": ["Osaka", "Sakai"], "Kyoto": ["Kyoto", "Nara"], "Hiroshima": ["Hiroshima", "Kobe"], "Fukuoka": ["Fukuoka", "Kitakyushu"], "Saitama": ["Saitama", "Kawagoe"], "Kanagawa": ["Yokohama", "Kawasaki"]},
+    "China": {"Pekín": ["Pekín", "Zhangjiakou"], "Shanghái": ["Shanghái", "Suzhou"], "Guangdong": ["Cantón", "Shenzhen"], "Jiangsu": ["Nanjing", "Suzhou"], "Shandong": ["Jinan", "Qingdao"], "Sichuan": ["Chengdu", "Leshan"], "Hubei": ["Wuhan", "Yichang"]},
+    "India": {"Delhi": ["Nueva Delhi", "Delhi"], "Bombay": ["Bombay", "Thane"], "Bangalore": ["Bangalore", "Mysore"], "Calcuta": ["Calcuta", "Darjeeling"], "Madrás": ["Madrás", "Chennai"], "Hyderabad": ["Hyderabad", "Secunderabad"], "Ahmedabad": ["Ahmedabad", "Vadodara"]},
+    "Rusia": {"Moscú": ["Moscú"], "San Petersburgo": ["San Petersburgo"], "Novosibirsk": ["Novosibirsk"], "Ekaterimburgo": ["Ekaterimburgo"], "Nizhni Nóvgorod": ["Nizhni Nóvgorod"], "Kazán": ["Kazán"], "Cheliabinska": ["Cheliabinsk"]},
+    "Australía": {"Nueva Gales del Sur": ["Sídney", "Newcastle"], "Victoria": ["Melbourne", "Geelong"], "Queensland": ["Brisbane", "Gold Coast"], "Australia Occidental": ["Perth", "Fremantle"], "Australia Meridional": ["Adelaida"], "Tasmania": ["Hobart"], "Territorio del Norte": ["Darwin"]}
+  };
+
+  const mancia    = localStorage.getItem('mancia')    || '';
+  const manchaImg = localStorage.getItem('manchaImg') || '';
+  const minutos   = parseInt(localStorage.getItem('minutos'))   || 0;
+  const descuento = parseInt(localStorage.getItem('descuento')) || 0;
+  const extra     = localStorage.getItem('extra')     || '';
+  const extraImg  = localStorage.getItem('extraImg')  || '';
+  const tipoPago  = localStorage.getItem('tipoPago')  || '';
+  const tarjeta   = localStorage.getItem('tarjeta')   || '';
+  const precioFinal    = parseFloat(localStorage.getItem('precioFinal'))    || 0;
+  const precioOriginal = parseFloat(localStorage.getItem('precioOriginal')) || 0;
+
+  document.getElementById('sum-mancia').textContent   = mancia || '-';
+  document.getElementById('sum-duration').textContent = minutos ? minutos + ' minutos' : '-';
+
+  if (precioFinal && descuento > 0 && precioOriginal && precioOriginal !== precioFinal) {
+    document.getElementById('sum-precio').innerHTML =
+      `<span style="text-decoration:line-through;color:var(--text-muted);font-weight:normal;font-size:.85em;margin-right:6px;">USD ${precioOriginal.toFixed(2)}</span>USD ${precioFinal.toFixed(2)}`;
+  } else {
+    document.getElementById('sum-precio').textContent = precioFinal ? 'USD ' + precioFinal.toFixed(2) : '-';
+  }
+
+  if (extra) {
+    document.getElementById('sum-extra').textContent = extra;
+    document.getElementById('sum-extra-row').classList.add('visible');
+  }
+  if (descuento > 0) {
+    document.getElementById('sum-descuento').textContent = descuento + '%';
+    document.getElementById('sum-descuento-row').classList.add('visible');
+  }
+
+  if (tipoPago === 'PayPal') {
+    document.getElementById('sum-pago-text').textContent = 'PayPal';
+    document.getElementById('sum-pago-row').classList.add('visible');
+  } else if (tipoPago === 'Transferencia' && tarjeta) {
+    document.getElementById('sum-pago-text').textContent = tarjeta;
+    const logoUrl = LOGOS_TARJETAS[tarjeta];
+    if (logoUrl) {
+      const logoImg = document.getElementById('sum-pago-logo');
+      logoImg.src = logoUrl;
+      logoImg.alt = tarjeta;
+      logoImg.classList.add('visible');
+    }
+    document.getElementById('sum-pago-row').classList.add('visible');
+  }
+
+  const imgUrl = manchaImg || IMAGENES_MANCIAS[mancia] || '';
+  if (imgUrl) {
+    const img = document.getElementById('manchaImg');
+    img.src = imgUrl; img.classList.add('visible');
+    if (extra) {
+      document.getElementById('nombreImgPrincipal').textContent = mancia;
+      document.getElementById('nombreImgPrincipal').classList.add('visible');
+    }
+  }
+  if (extra) {
+    const imgExtraUrl = extraImg || IMAGENES_MANCIAS[extra] || '';
+    if (imgExtraUrl) {
+      const imgE = document.getElementById('extraImg');
+      imgE.src = imgExtraUrl; imgE.alt = extra; imgE.classList.add('visible');
+      document.getElementById('nombreImgExtra').textContent = extra;
+      document.getElementById('nombreImgExtra').classList.add('visible');
+      document.getElementById('imgPlus').classList.add('visible');
+    }
+  }
+
+  const anioSelect = document.getElementById('selAnio');
+  for (let a = new Date().getFullYear(); a >= 1920; a--) {
+    const op = document.createElement('option'); op.value = a; op.textContent = a; anioSelect.appendChild(op);
+  }
+  poblarDias(31);
+
+  function poblarDias(max) {
+    const s = document.getElementById('selDia'), v = s.value;
+    s.innerHTML = '<option value="">Día</option>';
+    for (let d = 1; d <= max; d++) { const op = document.createElement('option'); op.value = d; op.textContent = d; s.appendChild(op); }
+    if (v && parseInt(v) <= max) s.value = v;
+  }
+  function actualizarDias() {
+    const mes = parseInt(document.getElementById('selMes').value);
+    const anio = parseInt(document.getElementById('selAnio').value);
+    poblarDias(!mes ? 31 : new Date(anio || 2000, mes, 0).getDate());
+  }
+  function reducir(n) { return n <= 9 ? n : reducir(String(n).split('').reduce((a,d) => a + parseInt(d), 0)); }
+  function calcularNumerologia(d,m,a) { return reducir((String(d)+String(m)+String(a)).split('').reduce((acc,x) => acc + parseInt(x), 0)); }
+
+  let sexo=null, zodiacoPref=null, zodiacoConfirmado=null, timerZodiaco=null;
+  let modoHora = null; // 'ampm' | '24h' | 'nose'
+
+  // Poblar dropdowns de hora
+  (function poblarHoraDrops() {
+    // AM/PM horas 1-12
+    const sH12 = document.getElementById('selHoraAmPmH');
+    for (let h = 1; h <= 12; h++) { const o = document.createElement('option'); o.value = h; o.textContent = String(h).padStart(2,'0'); sH12.appendChild(o); }
+    // 24h horas 0-23
+    const sH24 = document.getElementById('selHora24H');
+    for (let h = 0; h <= 23; h++) { const o = document.createElement('option'); o.value = h; o.textContent = String(h).padStart(2,'0'); sH24.appendChild(o); }
+    // Minutos 00-59 (ambos)
+    for (const id of ['selHoraAmPmM','selHora24M']) {
+      const s = document.getElementById(id);
+      for (let m = 0; m <= 59; m++) { const o = document.createElement('option'); o.value = m; o.textContent = String(m).padStart(2,'0'); s.appendChild(o); }
+    }
+  })();
+
+  function setModoHora(modo) {
+    modoHora = modo;
+    document.getElementById('horaModos').style.display = 'none';
+    document.getElementById('horaAmPmDrops').classList.toggle('visible', modo === 'ampm');
+    document.getElementById('hora24hDrops').classList.toggle('visible', modo === '24h');
+    document.getElementById('horaNosePanel').classList.toggle('visible', modo === 'nose');
+    verificarCampos();
+  }
+
+  function getHoraTexto() {
+    if (!modoHora) return '';
+    if (modoHora === 'nose') return 'No sé mi hora de nacimiento';
+    if (modoHora === 'ampm') {
+      const h = document.getElementById('selHoraAmPmH').value;
+      const m = document.getElementById('selHoraAmPmM').value;
+      const suf = document.getElementById('selHoraAmPmSufijo').value;
+      if (!h || m==='' || !suf) return '';
+      return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')} ${suf}`;
+    }
+    if (modoHora === '24h') {
+      const h = document.getElementById('selHora24H').value;
+      const m = document.getElementById('selHora24M').value;
+      if (h==='' || m==='') return '';
+      return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+    }
+    return '';
+  }
+
+  function seleccionarSexo(s) {
+    sexo = s;
+    document.getElementById('btnH').classList.toggle('seleccionado', s==='H');
+    document.getElementById('btnM').classList.toggle('seleccionado', s==='M');
+    verificarCampos();
+  }
+  function seleccionarZodiacoPref(op) {
+    zodiacoPref = op;
+    const pregunta = document.getElementById('zodiacoPregunta');
+    const selector = document.getElementById('zodiacoSelector');
+    const zodiacoCuadrado = document.getElementById('zodiacoCuadrado');
+    if (op === 'si') {
+      zodiacoCuadrado.classList.remove('oculto');
+      zodiacoCuadrado.style.display = 'flex';
+      pregunta.style.display = 'none';
+      selector.style.display = 'flex';
+      setTimeout(() => selector.classList.add('visible'), 50);
+      zodiacoConfirmado = null;
+    } else {
+      zodiacoCuadrado.style.transition = 'opacity 0.4s ease';
+      zodiacoCuadrado.style.opacity = '0';
+      setTimeout(() => {
+        zodiacoCuadrado.style.display = 'none';
+        zodiacoCuadrado.classList.add('oculto');
+        selector.style.display = 'none';
+        selector.classList.remove('visible');
+        document.getElementById('selSigno').value = '';
+        document.getElementById('zodiacoTitulo').style.display = 'block';
+        document.getElementById('zodiacoDisplay').style.display = 'none';
+      }, 400);
+      zodiacoConfirmado = null;
+    }
+    verificarCampos();
+  }
+  function seleccionarSigno() {
+    const sel = document.getElementById('selSigno'), val = sel.value;
+    const titulo = document.getElementById('zodiacoTitulo'), display = document.getElementById('zodiacoDisplay');
+    if (val) {
+      document.getElementById('zodiacoSimbolo').textContent = sel.options[sel.selectedIndex].getAttribute('data-simbolo');
+      document.getElementById('zodiacoNombre').textContent  = val;
+      titulo.style.display = 'none'; display.style.display = 'flex';
+      zodiacoConfirmado = val;
+    } else {
+      titulo.style.display = 'block'; display.style.display = 'none';
+      zodiacoConfirmado = null;
+    }
+    verificarCampos();
+  }
+  
+  function verificarCampos() {
+    const nombre   = document.getElementById('inputNombre').value.trim();
+    const apellidoInput = document.getElementById('inputApellido');
+    const apellido = apellidoInput.value.trim();
+    const sexoCol = document.getElementById('sexoCol');
+    const txtFechaGuia = document.getElementById('txtFechaGuia');
+    const fila2 = document.querySelector('.fila-2');
+    const selDia  = document.getElementById('selDia');
+    const selMes  = document.getElementById('selMes');
+    const selAnio = document.getElementById('selAnio');
+    
+    apellidoInput.style.display = nombre ? 'block' : 'none';
+    if (!nombre) apellidoInput.value = '';
+
+    sexoCol.style.display = (nombre && apellido) ? 'flex' : 'none';
+    if (!(nombre && apellido)) {
+        sexo = null;
+        document.getElementById('btnH').classList.remove('seleccionado');
+        document.getElementById('btnM').classList.remove('seleccionado');
+    }
+
+    txtFechaGuia.style.display = sexo ? 'block' : 'none';
+    fila2.style.display = sexo ? 'flex' : 'none';
+
+    selDia.classList.toggle('activo', !!sexo);
+    const diaVal = parseInt(selDia.value);
+
+    selMes.style.display = (sexo && diaVal) ? '' : 'none';
+    selMes.classList.toggle('activo', !!(sexo && diaVal));
+    const mesVal = parseInt(selMes.value);
+
+    selAnio.style.display = (sexo && diaVal && mesVal) ? '' : 'none';
+    selAnio.classList.toggle('activo', !!(sexo && diaVal && mesVal));
+    const anioVal = parseInt(selAnio.value);
+
+    const esAstro = (mancia === 'Astrología' || extra === 'Astrología');
+
+    const pais = document.getElementById('inputPais').value.trim();
+    const provincia = document.getElementById('inputProvincia').value.trim();
+    const ciudad = document.getElementById('inputCiudad').value.trim();
+    const hora = getHoraTexto();
+
+    const elPais = document.getElementById('inputPais');
+    const elProvincia = document.getElementById('inputProvincia');
+    const elCiudad = document.getElementById('inputCiudad');
+
+    const cuadradoHora = document.getElementById('cuadradoHora');
+    const cuadradoNumerologia = document.getElementById('cuadradoNumerologia');
+    const zodiacoCuadrado = document.getElementById('zodiacoCuadrado');
+    const fila3 = document.getElementById('fila3');
+
+    // --- FLUJO ASTROLOGÍA (paso a paso) ---
+    if (esAstro) {
+      // País: aparece al tener año completo
+      if (anioVal) { elPais.classList.add('activo'); }
+      else { elPais.classList.remove('activo'); elPais.value = ''; }
+
+      // Provincia: aparece al tener país
+      if (anioVal && pais) { elProvincia.classList.add('activo'); }
+      else { elProvincia.classList.remove('activo'); if (!pais) elProvincia.value = ''; }
+
+      // Ciudad: aparece al tener provincia
+      if (anioVal && pais && provincia) { elCiudad.classList.add('activo'); }
+      else { elCiudad.classList.remove('activo'); if (!provincia) elCiudad.value = ''; }
+
+      // Hora: aparece al tener ciudad — fila3 se abre con solo cuadradoHora
+      if (anioVal && pais && provincia && ciudad) {
+        if (!fila3.classList.contains('visible')) {
+          fila3.style.display = 'flex';
+          setTimeout(() => fila3.classList.add('visible'), 50);
+        }
+        cuadradoHora.classList.add('visible');
+      } else {
+        cuadradoHora.classList.remove('visible');
+        if (!ciudad) modoHora = null;
+        fila3.classList.remove('visible');
+        setTimeout(() => { if (!fila3.classList.contains('visible')) fila3.style.display = 'none'; }, 600);
+      }
+
+      // Numerología: aparece al tener hora
+      if (anioVal && pais && provincia && ciudad && hora) {
+        document.getElementById('numeroValor').textContent = calcularNumerologia(diaVal, mesVal, anioVal);
+        cuadradoNumerologia.style.display = 'flex';
+      } else {
+        cuadradoNumerologia.style.display = 'none';
+      }
+
+      // Signo zodiacal: aparece al tener numerología (hora completa)
+      if (anioVal && pais && provincia && ciudad && hora) {
+        zodiacoCuadrado.style.display = '';
+        setTimeout(() => zodiacoCuadrado.classList.add('visible'), 50);
+      } else {
+        zodiacoCuadrado.classList.remove('visible');
+        zodiacoCuadrado.style.display = 'none';
+      }
+
+    // --- FLUJO NORMAL (sin astrología) ---
+    } else {
+      elPais.classList.remove('activo'); elPais.value = '';
+      elProvincia.classList.remove('activo'); elProvincia.value = '';
+      elCiudad.classList.remove('activo'); elCiudad.value = '';
+      cuadradoHora.classList.remove('visible');
+
+      // Numerología: aparece al tener año
+      if (anioVal) {
+        document.getElementById('numeroValor').textContent = calcularNumerologia(diaVal, mesVal, anioVal);
+        cuadradoNumerologia.style.display = 'flex';
+        if (!fila3.classList.contains('visible')) {
+          fila3.style.display = 'flex';
+          setTimeout(() => fila3.classList.add('visible'), 50);
+        }
+      } else {
+        cuadradoNumerologia.style.display = 'none';
+        fila3.classList.remove('visible');
+        setTimeout(() => { if (!fila3.classList.contains('visible')) fila3.style.display = 'none'; }, 600);
+      }
+
+      // Signo zodiacal: aparece después de numerología, con delay
+      if (anioVal) {
+        setTimeout(() => {
+          zodiacoCuadrado.style.display = '';
+          setTimeout(() => zodiacoCuadrado.classList.add('visible'), 50);
+        }, 400);
+      } else {
+        zodiacoCuadrado.classList.remove('visible');
+        zodiacoCuadrado.style.display = 'none';
+      }
+    }
+
+    const astroOk = esAstro ? !!(pais && provincia && ciudad && hora) : true;
+
+    const zodiacoResuelto = zodiacoPref === 'no' || (zodiacoPref === 'si' && zodiacoConfirmado);
+
+    const btn = document.getElementById('whatsappBtn');
+    const todo = nombre && apellido && sexo && diaVal && mesVal && anioVal && zodiacoResuelto && astroOk;
+    
+    btn.classList.toggle('disabled', !todo);
+
+    if (todo) {
+      const numero = calcularNumerologia(diaVal, mesVal, anioVal);
+      const nombreMes = mesesNombres[mesVal - 1];
+      const despedida = sexo === 'H' ? 'Estoy listo para coordinar mi lectura, gracias.' : 'Estoy lista para coordinar mi lectura, gracias.';
+      const mensajeZodiaco = (zodiacoPref === 'si' && zodiacoConfirmado) ? `Soy del signo ${zodiacoConfirmado}\n` : '';
+      const mensajeDesc    = descuento > 0 ? `Descuento aplicado: ${descuento}%\n` : '';
+      const mensajeExtra   = extra ? `2x1 con: ${extra}\n` : '';
+      let mensajePago = '';
+      if (tipoPago === 'PayPal') mensajePago = `Pagué por: *PayPal*\n`;
+      else if (tipoPago === 'Transferencia' && tarjeta) mensajePago = `Pagaré por transferencia con: *${tarjeta}*\n`;
+      const mensajePrecio = precioFinal ? `Precio final: *USD ${precioFinal.toFixed(2)}*\n` : '';
+      
+      let mensajeAstro = '';
+      if (esAstro) {
+        mensajeAstro = `\n*Datos de Astrología*\nLugar: ${ciudad}, ${provincia}, ${pais}\nHora de nacimiento: ${hora}\n`;
+      }
+
+      const mensaje = encodeURIComponent(
+        `Hola, Sergiomancias Gnostic.\n¡Pago confirmado!\nAquí están mis datos:\n\n` +
+        `*Datos personales*\n_${nombre} ${apellido}_\n` +
+        `Nací el ${diaVal} de ${nombreMes} de ${anioVal}\n` +
+        `Mi numerología es ${numero}\n` + mensajeZodiaco +
+        `\n*Datomancia*\n${mancia}\n` + mensajeExtra +
+        `Duración de la lectura: ${minutos} minutos\n` + mensajeDesc + 
+        mensajePrecio + mensajePago + mensajeAstro + `\n${despedida}`
+      );
+      btn.href = `https://wa.me/${WHATSAPP}?text=${mensaje}`;
+    } else {
+      btn.href = '#';
+    }
+  }
+  verificarCampos();
+</script>
+</body>
+</html>
