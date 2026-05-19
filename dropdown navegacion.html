@@ -126,7 +126,8 @@ function sgNavGo(val) {
       Wix.openModal(name);
     }
   } else {
-    window.location.href = val;
+    // window.top escapa del iframe de Wix y redirige la página completa
+    window.top.location.href = val;
   }
 }
 document.addEventListener('click', function(e) {
