@@ -737,6 +737,14 @@
       #homeLanding .home-inner-wrap > div { gap:6px !important; }
       #homeLanding { margin:0 -12px; width:calc(100% + 24px); }
       /* ── Botones cuadrados landing (Astrología / Otras Mancias) ── */
+      #homeLanding .home-inner-wrap > div {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      #landBtnAstro  { order: 1 !important; }
+      #landBtnMistico { order: 2 !important; }
+      /* En columna, aspect-ratio cuadrado queda muy alto — usamos auto */
+      #landBtnAstro, #landBtnMistico { aspect-ratio: unset !important; padding: 22px 16px !important; }
 
       .home-hdr{padding:18px 16px 16px;}
 
