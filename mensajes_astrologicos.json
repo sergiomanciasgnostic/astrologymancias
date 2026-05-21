@@ -22398,6 +22398,9 @@ var FENG_MENSAJES = {
 
 };
 
+// Hacer disponible globalmente para el HTML
+window.FENG_MENSAJES = FENG_MENSAJES;
+
 // ══════════════════════════════════════════════════════════════
 // ADAPTACIÓN HTML — Cómo conectar el JS externo con el HTML
 // ══════════════════════════════════════════════════════════════
