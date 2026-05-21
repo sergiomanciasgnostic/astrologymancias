@@ -22552,3 +22552,126 @@ window._NUM_NOMBRE = {
 // FIN — Numerología del Nombre
 // ════════════════════════════════════════════════════════════════
 
+// ════════════════════════════════════════════════════════════
+// ARCANOS MENORES — DECANATOS ASTROLÓGICOS
+// Añadir este bloque a mensajes_astrologicos.js
+// La variable se llama: window._ARCANOS_MENORES_DECANATO
+// Las claves usan el formato: signo_decN (sin acentos, minúsculas)
+// Ej: 'aries_dec1', 'cancer_dec2', 'geminis_dec3'
+// ════════════════════════════════════════════════════════════
+
+window._ARCANOS_MENORES_DECANATO = {
+
+  // ──────────────────────────────────────────────────────────
+  // ARIES
+  // ──────────────────────────────────────────────────────────
+  'aries_dec1': 'El 2 de Bastos bajo Marte en Aries marca el primer impulso del fuego: la voluntad que se lanza sin calcular. Tienes una fuerza interior casi primigenia, una capacidad de iniciativa que pocos poseen. La energía de Marte en su propio signo te convierte en un pionero nato, alguien que prefiere crear su propio camino antes que seguir el de otros. Tu desafío es canalizar esa intensidad sin quemarte en el proceso, aprendiendo a combinar la acción inmediata con una visión de largo plazo.',
+
+  'aries_dec2': 'El 3 de Bastos bajo el Sol en Aries ilumina tu potencial de liderazgo con una claridad solar. Eres alguien que naturalmente convoca a otros hacia una visión, un propósito o una aventura. La combinación del fuego de Aries con la luminosidad del Sol te otorga carisma genuino y una presencia que no pasa desapercibida. En este decanato, la confianza en uno mismo no es arrogancia sino reconocimiento de una fuerza real. La expansión es tu palabra clave: expandes horizontes, relaciones y proyectos.',
+
+  'aries_dec3': 'El 4 de Bastos bajo Venus en Aries teje la pasión con la belleza de los resultados. Aquí el fuego inicial de Aries ya ha construido algo concreto y busca celebrarlo. Venus suaviza la urgencia marciana y agrega el valor de la armonía: sabes que los grandes logros se comparten. Tu personalidad combina la valentía ariana con un magnetismo que atrae a personas y oportunidades. Tienes talento para crear entornos donde los demás se sientan inspirados y seguros al mismo tiempo.',
+
+  // ──────────────────────────────────────────────────────────
+  // LEO
+  // ──────────────────────────────────────────────────────────
+  'leo_dec1': 'El 5 de Bastos bajo Saturno en Leo nos habla de un fuego que debe ganarse su lugar. La tensión entre la expresión leonina y la disciplina saturnina te forma como alguien que no espera reconocimiento gratuito: lo construye con perseverancia. Esta combinación produce personas de una determinación extraordinaria, capaces de mantener su visión incluso cuando el camino se llena de obstáculos. Tu mayor fortaleza es la capacidad de transformar el conflicto en aprendizaje y la resistencia en temple.',
+
+  'leo_dec2': 'El 6 de Bastos bajo Júpiter en Leo es el arquetipo del triunfo generoso. Aquí el fuego de Leo encuentra la expansión jupiteriana y el resultado es una personalidad magnética, optimista y con una capacidad natural para inspirar a las masas. Tienes un don innato para reconocer el talento en los demás y para crear escenarios donde todos puedan brillar. Tu victoria personal nunca está completa si no hay otros que también celebren. La generosidad es tu sello.',
+
+  'leo_dec3': 'El 7 de Bastos bajo Marte en Leo combina dos de las energías más ardientes del zodíaco. Este decanato produce defensores apasionados de sus ideales, personas que no retroceden ante la adversidad y que tienen una capacidad casi sobrehumana para sostener su posición bajo presión. Tu valentía no es impulsiva sino estratégica: sabes cuándo pelear y cuándo esperar. Tu mayor aprendizaje radica en distinguir cuándo la batalla merece tu energía y cuándo es más sabio conservar la fortaleza.',
+
+  // ──────────────────────────────────────────────────────────
+  // SAGITARIO
+  // ──────────────────────────────────────────────────────────
+  'sagitario_dec1': 'El 8 de Bastos bajo Mercurio en Sagitario es la flecha del pensamiento lanzada hacia el horizonte. Tienes una mente veloz, comunicativa y ávida de conocimiento en todas sus formas. La combinación del idealismo sagitariano con la agilidad mercurial te convierte en un viajero de las ideas, capaz de conectar conceptos distantes y hacer que la complejidad parezca simple. Tu don es la síntesis: ves el patrón donde otros ven el caos.',
+
+  'sagitario_dec2': 'El 9 de Bastos bajo la Luna en Sagitario carga el fuego con profundidad emocional e instinto. Tienes una sabiduría que va más allá de los libros: es visceral, intuitiva, nacida de las experiencias vividas en carne propia. La Luna en Sagitario te otorga una memoria emocional muy rica y una capacidad para encontrar sentido filosófico en las experiencias más dolorosas. Tu mayor fortaleza es la resiliencia: puedes caer y volver a levantarte con más comprensión que antes.',
+
+  'sagitario_dec3': 'El 10 de Bastos bajo Saturno en Sagitario habla de la sabiduría que se gana a través de la carga y la responsabilidad. Has aprendido que la libertad tiene un precio y que las grandes visiones requieren estructura para materializarse. Este decanato produce maestros y guías que han pasado por sus propias pruebas y tienen la autoridad genuina de quien ha caminado el camino que enseña. Tu mayor don es convertir la experiencia acumulada en un legado que inspire a generaciones.',
+
+  // ──────────────────────────────────────────────────────────
+  // CÁNCER
+  // ──────────────────────────────────────────────────────────
+  'cancer_dec1': 'El 2 de Copas bajo Venus en Cáncer es el arquetipo del amor que nutre y crea hogar. Tienes una capacidad extraordinaria para establecer vínculos profundos basados en la confianza, la empatía y el cuidado genuino. Venus en el signo lunar eleva la sensibilidad emocional a una forma de arte: sabes leer los estados del alma de quienes te rodean y responder con precisión y ternura. Tu mayor don es hacer sentir a los demás que son vistos, comprendidos y valorados tal como son.',
+
+  'cancer_dec2': 'El 3 de Copas bajo Mercurio en Cáncer combina el corazón con la mente en una danza de comunicación emocional. Tienes un talento especial para expresar lo que otros sienten pero no pueden articular, para poner palabras a los estados del alma. Eres un puente entre el mundo interior y el exterior, entre lo que se siente y lo que se comparte. Tu comunidad es fundamental para ti: en la celebración colectiva encuentras tu mayor energía y sentido de pertenencia.',
+
+  'cancer_dec3': 'El 4 de Copas bajo la Luna en Cáncer es el decanato más lunático y profundo del zodíaco acuático. Aquí las emociones no solo se sienten: se viven en sus ciclos más completos, con sus mareas altas y sus quietudes. Tienes una vida interior rica y compleja, con una capacidad para la introspección y el proceso emocional que pocos poseen. Eres alguien que necesita tiempo y espacio para integrar las experiencias antes de poder actuar desde la claridad. Tu sabiduría más profunda viene del silencio.',
+
+  // ──────────────────────────────────────────────────────────
+  // ESCORPIO
+  // ──────────────────────────────────────────────────────────
+  'escorpio_dec1': 'El 5 de Copas bajo Marte en Escorpio nos habla de las pérdidas que transforman. No eres ajeno al dolor, pero tampoco te defines por él: lo atraviesas con una determinación que asombra a quienes te observan. Marte en Escorpio te otorga una fortaleza emocional forjada en la adversidad y una capacidad para renacer de circunstancias que habrían hundido a otros. Tu mirada siempre apunta hacia adelante aunque hayas llorado todo lo que había que llorar.',
+
+  'escorpio_dec2': 'El 6 de Copas bajo el Sol en Escorpio ilumina con luz solar las profundidades del agua más intensa. Tienes una capacidad para integrar los aspectos más sombríos de la experiencia humana y transformarlos en comprensión, compasión y poder personal. La conciencia es tu mayor herramienta: cuando iluminas tus propias profundidades, puedes guiar a otros en el proceso de autoconocimiento. Tu presencia tiene un efecto catalizador: simplemente siendo tú mismo, ayudas a los demás a verse con más claridad.',
+
+  'escorpio_dec3': 'El 7 de Copas bajo Venus en Escorpio es la unión del deseo y la belleza en sus formas más intensas y transformadoras. Tienes un magnetismo que atrae situaciones, personas y experiencias que van al núcleo de lo que significa estar vivo. Venus en Escorpio busca la fusión total, no los vínculos superficiales: cuando amas, lo haces con cada fibra de tu ser. Tu desafío es encontrar el equilibrio entre la entrega total y la preservación de tu propia identidad en las relaciones más profundas.',
+
+  // ──────────────────────────────────────────────────────────
+  // PISCIS
+  // ──────────────────────────────────────────────────────────
+  'piscis_dec1': 'El 8 de Copas bajo Saturno en Piscis es el alma que ha aprendido cuándo soltar. Tienes una capacidad poco común para reconocer cuándo una situación ha llegado a su fin y la valentía de dejarla ir, aunque el corazón todavía duela. Saturno en el signo de la disolución te enseña que los límites también son sagrados y que saber cuándo marcharse es una forma de amor propio. Tu sabiduría más profunda nace de las partidas que elegiste honrar.',
+
+  'piscis_dec2': 'El 9 de Copas bajo Júpiter en Piscis es el decanato de la abundancia emocional y espiritual. Tienes una capacidad extraordinaria para acceder a estados de gracia, bienestar y conexión con algo más grande que tú mismo. Júpiter expande la sensibilidad pisciana hasta convertirla en una antena que capta las dimensiones más sutiles de la existencia. Tu don es la fe: no como dogma sino como experiencia vivida de que el universo es fundamentalmente generoso y benevolente.',
+
+  'piscis_dec3': 'El 10 de Copas bajo Marte en Piscis teje acción con entrega, voluntad con compasión. Tienes la capacidad de actuar desde el corazón sin perder la dirección, de luchar por lo que amas sin convertirte en lo que combates. Este es el decanato del guerrero espiritual: alguien que pone su fuerza al servicio de algo más grande que su propio ego. Tu mayor fortaleza es la capacidad de sostener la compasión incluso en circunstancias que desafían tu humanidad.',
+
+  // ──────────────────────────────────────────────────────────
+  // LIBRA
+  // ──────────────────────────────────────────────────────────
+  'libra_dec1': 'El 2 de Espadas bajo la Luna en Libra es la mente que busca equilibrio en medio de la duda emocional. Tienes una capacidad analítica que se nutre de la intuición: no solo piensas las situaciones, las sientes en busca de la verdad más justa. La Luna en Libra te hace especialmente sensible a las dinámicas relacionales y a los desequilibrios que otros no notan. Tu mayor don es la mediación: puedes ver todos los ángulos de un conflicto y encontrar el punto donde todos puedan ganar.',
+
+  'libra_dec2': 'El 3 de Espadas bajo Saturno en Libra habla de los dolores que enseñan sobre el amor y la justicia. Has aprendido, quizás a través de experiencias difíciles, que las relaciones verdaderas requieren honestidad aunque duela. Saturno en Libra te otorga una madurez relacional que va más allá de tu edad: sabes que la armonía duradera se construye sobre la verdad, no sobre la ilusión. Eres alguien que prefiere una ruptura honesta a una paz falsa.',
+
+  'libra_dec3': 'El 4 de Espadas bajo Júpiter en Libra es la mente que encuentra su expansión en la contemplación y el descanso. Tienes una sabiduría que se activa en la quietud: necesitas períodos de retiro y reflexión para integrar las experiencias y acceder a tu mayor claridad. Júpiter en Libra expande tu sentido de la justicia hasta dimensiones filosóficas y espirituales. Eres alguien que busca el principio más alto detrás de cada situación particular, la ley universal detrás de la norma cotidiana.',
+
+  // ──────────────────────────────────────────────────────────
+  // ACUARIO
+  // ──────────────────────────────────────────────────────────
+  'acuario_dec1': 'El 5 de Espadas bajo Venus en Acuario combina el idealismo colectivo con la necesidad de autenticidad relacional. Tienes una visión del mundo que va más allá de los convencionalismos y una capacidad para establecer vínculos que respeten profundamente la individualidad de cada quien. Venus en Acuario busca la belleza en la originalidad y la conexión en la libertad. Tu desafío más profundo es aprender a amar con cercanía sin perder la visión del todo.',
+
+  'acuario_dec2': 'El 6 de Espadas bajo Mercurio en Acuario es la mente del visionario que ve el camino hacia aguas más tranquilas. Tienes una capacidad extraordinaria para entender los patrones sistémicos, los mecanismos que mueven las situaciones y las salidas que otros no pueden ver. Mercurio en el signo del futuro te convierte en un pensador adelantado a su tiempo, capaz de diseñar soluciones que serán relevantes mucho después de que las hayas concebido.',
+
+  'acuario_dec3': 'El 7 de Espadas bajo la Luna en Acuario conjuga la intuición emocional con la perspectiva distante del observador. Tienes una relación particular con tus emociones: las sientes pero también las observas, lo que te otorga una comprensión de la psicología humana que puede resultar extraordinariamente precisa. La Luna en Acuario te hace consciente de los patrones colectivos que se mueven en el inconsciente de la sociedad. Eres alguien que ve lo que los demás sienten sin poder nombrarlo.',
+
+  // ──────────────────────────────────────────────────────────
+  // GÉMINIS
+  // ──────────────────────────────────────────────────────────
+  'geminis_dec1': 'El 8 de Espadas bajo Júpiter en Géminis es la mente que se libera de sus propias jaulas expandiendo su marco conceptual. Tienes una inteligencia versátil que se nutre de perspectivas diversas, filosóficas y culturales. Júpiter expande la curiosidad geminiana hasta convertirla en una búsqueda de significado: no solo quieres saber más, quieres entender por qué importa lo que sabes. Tu mayor libertad está en reconocer que la percepción puede cambiar y que cambiarla es siempre una opción.',
+
+  'geminis_dec2': 'El 9 de Espadas bajo Marte en Géminis es la mente que puede volverse su propio mayor adversario. Tienes una agudeza mental extraordinaria pero también la tendencia a usarla en tu propia contra cuando la ansiedad se apodera del pensamiento. Marte en Géminis acelera los procesos mentales hasta que a veces se convierten en tormenta. Tu mayor aprendizaje es canalizar esa energía mental hacia la acción concreta y recordar que pensar demasiado puede ser una forma de parálisis disfrazada de productividad.',
+
+  'geminis_dec3': 'El 10 de Espadas bajo Sol y Luna en Géminis marca el final de un ciclo de la mente con la plenitud de ambas luminarias. Tienes una capacidad única para integrar opuestos: lo racional y lo intuitivo, el análisis y la síntesis, el yo individual y el colectivo. Este decanato produce personas que han atravesado muchas transformaciones mentales y han llegado a una comprensión más compleja y matizada de la realidad. Tu sabiduría está en saber que toda verdad es parcial y toda perspectiva, válida.',
+
+  // ──────────────────────────────────────────────────────────
+  // CAPRICORNIO
+  // ──────────────────────────────────────────────────────────
+  'capricornio_dec1': 'El 2 de Oros bajo Júpiter en Capricornio es la capacidad de mantener el equilibrio entre múltiples responsabilidades con una gracia inesperada. Tienes una habilidad natural para gestionar recursos, prioridades y compromisos que a otros les resultaría abrumadora. Júpiter en Capricornio expande tu sentido de la responsabilidad hasta convertirlo en una vocación: construyes no solo para ti sino para las generaciones que vienen. Tu pragmatismo tiene una dimensión filosófica que va más allá de lo material.',
+
+  'capricornio_dec2': 'El 3 de Oros bajo Marte en Capricornio es el artesano que trabaja con determinación incansable hacia la obra maestra. Tienes una ética de trabajo que impresiona por su constancia, y una capacidad para la excelencia que no acepta mediocridades. Marte en Capricornio te otorga una disciplina marcial aplicada a la construcción: cada acción está calculada, cada esfuerzo tiene un propósito claro. Tu legado se mide en lo que has construido con tus propias manos a lo largo del tiempo.',
+
+  'capricornio_dec3': 'El 4 de Oros bajo el Sol en Capricornio ilumina el poder del que ha construido su propio trono. Tienes una relación consciente con los recursos, la autoridad y el poder: sabes que se ganan y que se mantienen con integridad. El Sol en Capricornio confiere dignidad, solidez y una presencia que transmite confiabilidad. Tu desafío es encontrar el equilibrio entre la seguridad que construyes y la generosidad que te mantiene conectado con los demás: el poder más duradero es el que se comparte.',
+
+  // ──────────────────────────────────────────────────────────
+  // TAURO
+  // ──────────────────────────────────────────────────────────
+  'tauro_dec1': 'El 5 de Oros bajo Mercurio en Tauro combina la solidez taurina con la capacidad de comunicar el valor de las cosas. Tienes un don especial para identificar lo que es verdaderamente valioso, tanto en el mundo material como en el intangible, y para articularlo de manera que otros puedan apreciarlo también. Mercurio en Tauro piensa con los sentidos y evalúa con paciencia: tus conclusiones suelen ser concretas y aplicables. Tu sabiduría más profunda viene de la observación paciente de la naturaleza y sus ritmos.',
+
+  'tauro_dec2': 'El 6 de Oros bajo la Luna en Tauro es el arquetipo de la generosidad que nace de la abundancia interior. Tienes una relación orgánica con el dar y el recibir, una comprensión instintiva de que los recursos fluyen mejor cuando se comparten con sabiduría. La Luna en Tauro te conecta con los ciclos naturales de la abundancia y la escasez, y te enseña a confiar en la tierra que siempre vuelve a dar frutos. Tu mayor don es crear seguridad y nutrición para quienes te rodean.',
+
+  'tauro_dec3': 'El 7 de Oros bajo Saturno en Tauro es la paciencia del granjero que espera la cosecha sabiendo que el tiempo es el ingrediente más importante. Tienes una capacidad para los proyectos de largo aliento que pocos pueden igualar: cuando decides construir algo, lo construyes para que dure. Saturno en Tauro te enseña el valor del esfuerzo sostenido y la recompensa que llega para quienes no abandonan cuando el proceso se vuelve lento. Tu mayor fortaleza es la perseverancia que no necesita urgencia para mantenerse viva.',
+
+  // ──────────────────────────────────────────────────────────
+  // VIRGO
+  // ──────────────────────────────────────────────────────────
+  'virgo_dec1': 'El 8 de Oros bajo el Sol en Virgo es el artesano que encuentra su propósito en el perfeccionamiento del oficio. Tienes una dedicación al trabajo que va más allá de la productividad: para ti, hacer algo bien es una forma de respeto hacia lo que haces y hacia quienes se benefician de ello. El Sol en Virgo ilumina los detalles y convierte la atención al proceso en una práctica casi espiritual. Tu mayor don es la capacidad de mejorar cualquier sistema, método o habilidad con la que entras en contacto.',
+
+  'virgo_dec2': 'El 9 de Oros bajo Venus en Virgo es la belleza que emerge de la precisión y el cuidado. Tienes un sentido estético muy particular, que aprecia la elegancia funcional por encima del ornamento vacío. Venus en Virgo busca la perfección como una forma de amor: cuando cuidas algo o a alguien, lo haces con una atención meticulosa que convierte el acto cotidiano en arte. Tu independencia es uno de tus mayores tesoros: has construido tu propia abundancia con tus propias manos.',
+
+  'virgo_dec3': 'El 10 de Oros bajo Mercurio en Virgo es la culminación del conocimiento aplicado en todas sus dimensiones. Tienes una mente analítica extraordinaria y una capacidad para sistematizar, organizar y transmitir información que construye legados duraderos. Mercurio en su propio signo elemental alcanza aquí su máxima expresión de servicio: el conocimiento no como fin en sí mismo sino como herramienta de mejora continua para uno mismo y para los demás. Tu mayor contribución al mundo es el orden que creas donde había caos.'
+
+};
+
+// ════════════════════════════════════════════════════════════
+// FIN DEL BLOQUE ARCANOS MENORES DECANATOS
+// ════════════════════════════════════════════════════════════
