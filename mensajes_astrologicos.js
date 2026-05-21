@@ -22427,3 +22427,126 @@ window.FENG_MENSAJES = FENG_MENSAJES;
 //
 // ══════════════════════════════════════════════════════════════
 
+// ════════════════════════════════════════════════════════════════
+// NUMEROLOGÍA DEL NOMBRE — Mensajes para mensajes_astrologicos.js
+// Agregar dentro de window._NUM_NOMBRE = { ... };
+// ════════════════════════════════════════════════════════════════
+
+window._NUM_NOMBRE = {
+
+  // ─────────────────────────────────────────
+  // NÚMERO DE EXPRESIÓN (todas las letras)
+  // Lo que viniste a expresar en esta vida
+  // ─────────────────────────────────────────
+  expresion: {
+    1: 'Tu número de Expresión es el 1: viniste a liderar, iniciar y abrir caminos donde otros no se atreven. Tienes una energía pionera que, cuando se orienta desde el alma, se convierte en fuerza creadora pura. El reto es aprender a liderar sin necesitar que todos te sigan.',
+    2: 'Tu número de Expresión es el 2: viniste a unir, mediar y crear armonía donde hay tensión. Tienes una sensibilidad diplomática extraordinaria y una capacidad de escucha que pocos poseen. El reto es aprender a sostener tu propio centro mientras sostienes el de los demás.',
+    3: 'Tu número de Expresión es el 3: viniste a crear, comunicar y alegrar. Tus palabras tienen un peso que muchas veces no dimensionás. Cuando hablás desde el corazón, podés mover algo profundo en quien te escucha. El reto es usar esa creatividad para construir y no solo para entretener.',
+    4: 'Tu número de Expresión es el 4: viniste a construir con paciencia, a crear estructuras sólidas sobre las que otros puedan apoyarse. Tu fuerza está en la constancia y la confiabilidad. El reto es no confundir el orden con el control, ni la disciplina con la rigidez.',
+    5: 'Tu número de Expresión es el 5: viniste a explorar, adaptarte y mostrar que la libertad no es ausencia de compromiso sino expansión continua. Tenés una energía versátil que puede abrirse camino donde otros se bloquean. El reto es aprender a profundizar sin huir.',
+    6: 'Tu número de Expresión es el 6: viniste a cuidar, sanar y crear belleza donde hay caos. Tenés un sentido profundo de la responsabilidad afectiva y una vocación natural de servicio. El reto es aprender que cuidar también incluye ponerte límites a vos mismo.',
+    7: 'Tu número de Expresión es el 7: viniste a buscar, analizar y revelar lo que está oculto detrás de la superficie. Tu mente penetra donde otros no llegan. El reto es no usar el conocimiento como escudo para no conectar emocionalmente con los demás.',
+    8: 'Tu número de Expresión es el 8: viniste a construir poder en el plano material, no como fin en sí mismo sino como herramienta para crear algo que trascienda tu ego. Tenés una capacidad natural para los negocios, la organización y la visión estratégica. El reto es no confundir el éxito con el valor personal.',
+    9: 'Tu número de Expresión es el 9: viniste a completar ciclos, sanar lo heredado y servir a algo más grande que vos mismo. Tenés una compasión natural que puede alcanzar a muchos. El reto es soltar lo que ya terminó sin aferrarte a él por miedo a lo que viene.',
+    11: 'Tu número de Expresión es el 11 (Número Maestro): viniste a inspirar, iluminar y ser un canal entre lo visible y lo invisible. Tenés una sensibilidad y una intuición que van más allá de lo ordinario. El reto es aprender a vivir con esa intensidad sin desbordarte ni escapar de ella.',
+    22: 'Tu número de Expresión es el 22 (Número Maestro): viniste a construir algo grande, algo que dure más que vos. Tenés la visión del soñador y la capacidad del constructor. El reto es no achicarte frente a la magnitud de tu propio potencial.',
+    33: 'Tu número de Expresión es el 33 (Número Maestro): viniste a enseñar con el ejemplo, a sanar con tu presencia y a amar de una manera que inspire sin condicionar. El reto es sostener esa entrega sin perder tu propio eje en el proceso.'
+  },
+
+  // ─────────────────────────────────────────
+  // NÚMERO DEL ALMA (solo vocales)
+  // Lo que realmente deseás en el fondo
+  // ─────────────────────────────────────────
+  alma: {
+    1: 'Tu número del Alma es el 1: en el fondo, lo que más deseás es ser independiente, ser el primero en algo que te importe de verdad y no tener que pedir permiso para ser quien sos. Hay una llama interna de autonomía que necesita espacio para arder libremente.',
+    2: 'Tu número del Alma es el 2: en el fondo, lo que más deseás es amor real, conexión genuina y paz. No la paz superficial de quien evita conflictos, sino la paz profunda de quien se siente comprendido y acompañado sin necesidad de palabras.',
+    3: 'Tu número del Alma es el 3: en el fondo, lo que más deseás es expresarte sin censura, crear con libertad y sentir que lo que traés al mundo genera alegría o movimiento en otros. El silencio emocional te pesa más de lo que solés admitir.',
+    4: 'Tu número del Alma es el 4: en el fondo, lo que más deseás es estabilidad, seguridad y un suelo firme bajo los pies. No le temés al trabajo duro — le temés a construir sobre arena. Necesitás saber que lo que construís va a durar.',
+    5: 'Tu número del Alma es el 5: en el fondo, lo que más deseás es libertad — de movimiento, de pensamiento, de experiencias. Las rutinas que no eligen te asfixian. Necesitás sentir que la vida sigue siendo una aventura abierta.',
+    6: 'Tu número del Alma es el 6: en el fondo, lo que más deseás es armonía en tus vínculos, un hogar que se sienta como refugio y la certeza de que las personas que amás están bien. Tu felicidad está profundamente ligada a la de quienes te rodean.',
+    7: 'Tu número del Alma es el 7: en el fondo, lo que más deseás es entender. Entender la vida, entenderte a vos mismo, entender por qué las cosas pasan como pasan. La superficialidad te aburre. Buscás sentido en todo.',
+    8: 'Tu número del Alma es el 8: en el fondo, lo que más deseás es lograr algo concreto y significativo en el mundo material. No es solo ambición: es la necesidad profunda de saber que tu paso por aquí dejó algo tangible.',
+    9: 'Tu número del Alma es el 9: en el fondo, lo que más deseás es que el mundo sea un poco mejor por haber existido. Tenés una sed de justicia y compasión que va más allá de lo personal. El sufrimiento ajeno te llega hondo.',
+    11: 'Tu número del Alma es el 11: en el fondo, lo que más deseás es conectar con algo sagrado — una misión, un propósito, una verdad más profunda. La vida ordinaria te queda chica si no tiene un componente de trascendencia.',
+    22: 'Tu número del Alma es el 22: en el fondo, lo que más deseás es construir algo que dure, algo que sirva a muchos. No te conformás con los logros pequeños. Hay una grandeza interior que busca salida.',
+    33: 'Tu número del Alma es el 33: en el fondo, lo que más deseás es amor universal — dar y recibir amor de una manera que no juzgue ni condicione. Tenés una capacidad de entrega que puede ser sagrada o agotadora según cómo la uses.'
+  },
+
+  // ─────────────────────────────────────────
+  // NÚMERO DE PERSONALIDAD (solo consonantes)
+  // Cómo te perciben los demás desde afuera
+  // ─────────────────────────────────────────
+  personalidad: {
+    1: 'Tu número de Personalidad es el 1: los demás te perciben como alguien seguro de sí mismo, con presencia y determinación. Proyectás confianza incluso cuando por dentro no la sentís del todo. La gente suele verte como un referente o una figura de autoridad antes de conocerte en profundidad.',
+    2: 'Tu número de Personalidad es el 2: los demás te perciben como alguien amable, accesible y fácil de tratar. Proyectás una calidez que hace que la gente se abra con vos rápidamente. A veces te subestiman precisamente por esa suavidad, sin ver la fuerza que hay detrás.',
+    3: 'Tu número de Personalidad es el 3: los demás te perciben como alguien sociable, entretenido y lleno de vida. Proyectás una energía que ilumina los ambientes. La gente te busca porque con vos las cosas parecen más livianas. El reto es que a veces no te toman en serio cuando querés serlo.',
+    4: 'Tu número de Personalidad es el 4: los demás te perciben como alguien confiable, serio y con los pies en la tierra. Proyectás solidez y responsabilidad. La gente sabe que cuando decís que hacés algo, lo hacés. A veces eso te hace cargar con más de lo que te corresponde.',
+    5: 'Tu número de Personalidad es el 5: los demás te perciben como alguien dinámico, interesante y difícil de predecir. Proyectás una energía de libertad que atrae a quienes se sienten encerrados en sus propias rutinas. A veces generás la percepción de ser poco estable.',
+    6: 'Tu número de Personalidad es el 6: los demás te perciben como alguien cálido, responsable y confiable en lo afectivo. Proyectás la imagen de alguien que cuida y sostiene. La gente suele acudir a vos en busca de consejo o contención.',
+    7: 'Tu número de Personalidad es el 7: los demás te perciben como alguien reservado, inteligente y con algo misterioso. Proyectás profundidad. No sos fácil de leer, y eso genera fascinación en algunos e incomodidad en otros.',
+    8: 'Tu número de Personalidad es el 8: los demás te perciben como alguien poderoso, ambicioso y capaz. Proyectás autoridad y seguridad. La gente siente que podés resolver lo que otros no pueden. A veces eso genera expectativas muy altas.',
+    9: 'Tu número de Personalidad es el 9: los demás te perciben como alguien compasivo, maduro y con una perspectiva amplia de la vida. Proyectás sabiduría y apertura. La gente siente que no te juzga fácilmente, y eso los hace sentir seguros cerca tuyo.',
+    11: 'Tu número de Personalidad es el 11: los demás te perciben como alguien fuera de lo común, con una sensibilidad especial y una presencia que no pasa desapercibida. Proyectás algo etéreo y al mismo tiempo magnético.',
+    22: 'Tu número de Personalidad es el 22: los demás te perciben como alguien con visión, capacidad y una escala de acción más grande que la de la mayoría. Proyectás la imagen de alguien que puede hacer realidad lo que otros solo imaginan.',
+    33: 'Tu número de Personalidad es el 33: los demás te perciben como alguien excepcionalmente compasivo, sabio y con una presencia que transmite paz. Proyectás una calidez que hace que la gente sienta que puede ser ella misma cerca tuyo.'
+  },
+
+  // ─────────────────────────────────────────
+  // NÚMERO DE EQUILIBRIO (iniciales)
+  // Cómo actuás en momentos de crisis
+  // ─────────────────────────────────────────
+  equilibrio: {
+    1: 'Tu número de Equilibrio es el 1: en los momentos de crisis, tu mejor recurso es la autonomía y la acción directa. No esperes que otros resuelvan lo que está en tus manos. La independencia es tu ancla cuando todo se mueve. Cuidado con el aislamiento disfrazado de fortaleza.',
+    2: 'Tu número de Equilibrio es el 2: en los momentos de crisis, tu mejor recurso es la calma, la diplomacia y la capacidad de escuchar antes de reaccionar. No entres en la batalla cuando podés negociar. Tu fuerza está en la paciencia estratégica.',
+    3: 'Tu número de Equilibrio es el 3: en los momentos de crisis, tu mejor recurso es la creatividad y el humor. Cuando encontrás la salida creativa a un problema, descomprimís una tensión que para otros sería paralizante. No suprimas esa ligereza — es tu herramienta.',
+    4: 'Tu número de Equilibrio es el 4: en los momentos de crisis, tu mejor recurso es la estructura y el orden. Cuando todo se desmorona, vos sos quien puede sentar las bases de lo nuevo. Hacer listas, planificar, dividir el problema en partes — eso te saca del pánico.',
+    5: 'Tu número de Equilibrio es el 5: en los momentos de crisis, tu mejor recurso es la adaptabilidad. Podés pivotar cuando otros se congelan. La flexibilidad y la disposición a cambiar de plan rápido es lo que te saca de los atolladeros.',
+    6: 'Tu número de Equilibrio es el 6: en los momentos de crisis, tu mejor recurso es volver a los afectos y a lo concreto. Las relaciones que nutren te devuelven el centro. Cuidado con cargar con la crisis de todos y olvidar la tuya.',
+    7: 'Tu número de Equilibrio es el 7: en los momentos de crisis, tu mejor recurso es el análisis y la reflexión. Antes de reaccionar, necesitás entender. El retiro temporal para pensar con claridad no es huir — es tu forma de procesar.',
+    8: 'Tu número de Equilibrio es el 8: en los momentos de crisis, tu mejor recurso es la visión estratégica y la voluntad. Podés ver el largo plazo cuando otros solo ven el incendio del momento. Eso te da una ventaja que no siempre dimensionás.',
+    9: 'Tu número de Equilibrio es el 9: en los momentos de crisis, tu mejor recurso es soltar. Suena simple pero es profundo: tu capacidad de dejar ir lo que ya no puede salvarse es lo que te permite seguir adelante sin hundirte en lo que se rompió.',
+    11: 'Tu número de Equilibrio es el 11: en los momentos de crisis, tu mejor recurso es la intuición. Cuando silenciás el ruido externo, hay algo en vos que sabe qué hacer. El problema es cuando el pánico tapa esa voz — por eso el primer paso es siempre hacer silencio.',
+    22: 'Tu número de Equilibrio es el 22: en los momentos de crisis, tu mejor recurso es la visión global. Podés ver cómo se conectan las piezas cuando otros solo ven fragmentos. Esa capacidad de síntesis es lo que te permite encontrar soluciones donde otros no las ven.',
+    33: 'Tu número de Equilibrio es el 33: en los momentos de crisis, tu mejor recurso es el amor compasivo sin condiciones. Cuando volvés a ese lugar de apertura genuina, encontrás la claridad que el miedo le había quitado a tu mente.'
+  },
+
+  // ─────────────────────────────────────────
+  // NÚMERO KÁRMICO DEL NOMBRE (letras ausentes)
+  // Lecciones que el alma trae pendientes
+  // ─────────────────────────────────────────
+  karmicoNombre: {
+    1: 'El karma del 1 ausente habla de una lección en torno a la identidad y la autonomía. En vidas pasadas o en tu historia más temprana, algo te enseñó que ocupar espacio era peligroso. Esta vida, la tarea es aprender a ser vos sin pedir disculpas por ello.',
+    2: 'El karma del 2 ausente habla de una lección en torno a las relaciones y la cooperación. Puede que en algún punto hayas aprendido que confiar en otros era sinónimo de ser traicionado. Esta vida, la tarea es redescubrir que la vulnerabilidad compartida puede ser sagrada.',
+    3: 'El karma del 3 ausente habla de una lección en torno a la expresión. Hay algo en vos que siente que su voz no merece ser escuchada. Esta vida, la tarea es encontrar las palabras — escritas, habladas, creadas — y soltar el miedo a ser juzgado por lo que expresás.',
+    4: 'El karma del 4 ausente habla de una lección en torno al trabajo y la disciplina. Puede que hayas aprendido que el esfuerzo nunca da frutos, o que construir cosas durables no vale la pena. Esta vida, la tarea es descubrir el poder transformador de la constancia.',
+    5: 'El karma del 5 ausente habla de una lección en torno a la libertad y el cambio. Puede que hayas aprendido a quedarte quieto cuando necesitabas moverte, o a no confiar en tu capacidad de adaptarte. Esta vida, la tarea es atreverte a moverte sin pedir permiso.',
+    6: 'El karma del 6 ausente habla de una lección en torno al cuidado y la responsabilidad afectiva. Puede que hayas cargado demasiado o que hayas aprendido a no cargar nada para no sufrir. Esta vida, la tarea es encontrar el equilibrio entre el cuidado propio y el cuidado del otro.',
+    7: 'El karma del 7 ausente habla de una lección en torno a la búsqueda interior. Puede que hayas aprendido a vivir solo en la superficie, a no hacerte preguntas que molesten. Esta vida, la tarea es animarte a mirar hacia adentro aunque lo que encuentres no siempre sea cómodo.',
+    8: 'El karma del 8 ausente habla de una lección en torno al poder y los recursos. Puede que hayas tenido una relación complicada con el dinero, la autoridad o el reconocimiento. Esta vida, la tarea es sanar esa relación y aprender a manifestar abundancia sin culpa.',
+    9: 'El karma del 9 ausente habla de una lección en torno a la compasión y el cierre de ciclos. Puede que hayas aprendido que soltar duele demasiado, o que no valía la pena dar sin recibir. Esta vida, la tarea es practicar el desapego como acto de amor y no de pérdida.'
+  },
+
+  // ─────────────────────────────────────────
+  // NÚMERO DE MADUREZ (Expresión + Vida)
+  // Lo que te espera en la segunda mitad
+  // ─────────────────────────────────────────
+  madurezNombre: {
+    1: 'Tu número de Madurez es el 1: en la segunda mitad de tu vida, el camino te llevará cada vez más hacia la autonomía real y el liderazgo desde el interior. Lo que en tu juventud tal vez fue ego o necesidad de destacar, en la madurez se convierte en una presencia genuina que no necesita imponerse para ser reconocida.',
+    2: 'Tu número de Madurez es el 2: en la segunda mitad de tu vida, el camino te llevará hacia vínculos más profundos y auténticos. Las relaciones que antes te costaban trabajo empezarán a fluir cuando hayas aprendido a estar en paz con vos mismo primero. La colaboración y la intuición serán tus mayores activos.',
+    3: 'Tu número de Madurez es el 3: en la segunda mitad de tu vida, el camino te llevará hacia una expresión más plena y libre. Si en tu juventud callaste partes de vos mismo, en la madurez esa voz encontrará su canal — sea el arte, la palabra, la enseñanza o la risa.',
+    4: 'Tu número de Madurez es el 4: en la segunda mitad de tu vida, el camino te llevará hacia una estabilidad ganada con conciencia. Las estructuras que construiste — externas e internas — empezarán a dar frutos. La paciencia y la constancia de años anteriores se vuelven tu mayor capital.',
+    5: 'Tu número de Madurez es el 5: en la segunda mitad de tu vida, el camino te llevará hacia una libertad más genuina. No la libertad de huir, sino la de elegir conscientemente. Los cambios que en tu juventud te desestabilizaban, en la madurez los navegás con una soltura que sorprende a quienes te conocen.',
+    6: 'Tu número de Madurez es el 6: en la segunda mitad de tu vida, el camino te llevará hacia un cuidado más sabio — de vos mismo y de los que amás. Aprenderás a dar sin vaciarte, a sostener sin perderte. La familia, la comunidad y la belleza cotidiana se vuelven tus maestros principales.',
+    7: 'Tu número de Madurez es el 7: en la segunda mitad de tu vida, el camino te llevará hacia la profundidad espiritual e intelectual. Las preguntas que antes te incomodaban se vuelven tu refugio. La soledad deja de ser una amenaza y se convierte en un espacio de revelación.',
+    8: 'Tu número de Madurez es el 8: en la segunda mitad de tu vida, el camino te llevará hacia una relación más sana con el poder y la abundancia. Lo que construiste con esfuerzo empieza a rendir sus frutos más reales. La autoridad que ejercés ya no necesita demostrarse — simplemente se siente.',
+    9: 'Tu número de Madurez es el 9: en la segunda mitad de tu vida, el camino te llevará hacia una comprensión más profunda de los ciclos y el servicio. Lo que antes vivías como pérdida empieza a verse como espacio para lo nuevo. Tu sabiduría acumulada se vuelve un regalo para quienes te rodean.',
+    11: 'Tu número de Madurez es el 11: en la segunda mitad de tu vida, el camino te llevará hacia una espiritualidad vivida desde adentro, no buscada afuera. Tu intuición, que siempre fue intensa, se vuelve más confiable. Y lo que antes se sentía como carga sensible, se convierte en tu don más real.',
+    22: 'Tu número de Madurez es el 22: en la segunda mitad de tu vida, el camino te llevará hacia una construcción con propósito mayor. Los proyectos que emprendés en la madurez tienen una escala y un impacto que sorprenden incluso a vos mismo. La visión y la capacidad constructiva se fusionan.',
+    33: 'Tu número de Madurez es el 33: en la segunda mitad de tu vida, el camino te llevará hacia un amor más sabio e incondicional. La entrega que antes te agotaba, en la madurez se vuelve fuente de renovación. Enseñás sin esfuerzo — con el ejemplo de cómo elegís vivir.'
+  }
+
+};
+
+// ════════════════════════════════════════════════════════════════
+// FIN — Numerología del Nombre
+// ════════════════════════════════════════════════════════════════
