@@ -24,9 +24,7 @@
 
   4. Siempre darme el HTML corregido del error o lo que se le pida hacer, siempre el HTML completo con lo pedido (error corregido o pate             añadida). Y utilizar el visualizador de HTML y entregarlo siempre con el visualizador.
 
-   5. Para verificar los archivos: JS / JSON, tienes estas URLs que son puros textos internos:
-       JS: https://raw.githubusercontent.com/sergiomanciasgnostic/astrologymancias/refs/heads/main/mensajes_astrologicos.js
-       JSON: https://raw.githubusercontent.com/sergiomanciasgnostic/astrologymancias/refs/heads/main/mensajes_astrologicos.json
+
 
   Propietario: Sergio — Sergiomancias Gnostic (sergiomanciasgnostic.online)
   ════════════════════════════════════════════════════════════════
@@ -69,7 +67,7 @@
     .date-row{display:grid;grid-template-columns:70px 160px 100px;gap:10px;justify-content:center;}
     .time-row{display:flex;align-items:flex-end;gap:6px;justify-content:center;}
     .time-row .finput{width:70px;text-align:center;}
-    .btn-geo{background:rgba(0,200,255,.08);border:1px solid var(--bord);color:var(--acc);font-size:14px;cursor:pointer;padding:10px 20px;white-space:nowrap;transition:all .2s;text-transform:uppercase;align-self:flex-end;margin-bottom:2px;}
+    .btn-geo{background:rgba(0,200,255,.08);border:1px solid var(--bord);color:var(--acc);font-size:14px;cursor:pointer;padding:10px 20px;white-space:nowrap;transition:all .2s;text-transform:uppercase;}
     .btn-geo:hover{background:rgba(0,200,255,.18);border-color:var(--acc);}
     .sw{position:relative;width:44px;height:24px;flex-shrink:0;}
     .sw input{opacity:0;}
@@ -461,7 +459,7 @@
     @media(min-width:900px){
       .sgn-page{max-width:960px;padding:0 40px 80px;margin:0 auto;}
       .sgn-hdr{display:flex;align-items:center;gap:16px;padding:28px 0 22px;border-bottom:1px solid var(--bord);margin-bottom:36px;width:100%;}
-      .sgn-back{font-size:12px;padding:11px 22px;}
+      .sgn-back, .mod-back{font-size:12px;padding:11px 22px;}
       .sgn-title{font-size:22px;flex:1;text-align:center;}
       .sgn-logo{height:80px;}
       .sgn-hint{font-size:17px;letter-spacing:.12em;margin-bottom:32px;}
@@ -489,7 +487,7 @@
     @media(min-width:600px) and (max-width:899px){
       .sgn-page{max-width:700px;padding:0 24px 60px;margin:0 auto;}
       .sgn-hdr{display:flex;align-items:center;gap:12px;padding:22px 0 18px;border-bottom:1px solid var(--bord);margin-bottom:28px;width:100%;}
-      .sgn-back{font-size:12px;padding:10px 18px;}
+      .sgn-back, .mod-back{font-size:12px;padding:10px 18px;}
       .sgn-title{font-size:19px;flex:1;text-align:center;}
       .sgn-logo{height:80px;}
       .sgn-hint{font-size:17px;letter-spacing:.12em;margin-bottom:24px;}
@@ -609,12 +607,12 @@
         width:100% !important; font-size:12px !important; padding:8px !important; text-align:center !important;
       }
 
-      /* GMT / Estado / Ciudad: botón → no se cae */
+      /* GMT / Estado / Ciudad: botón ➤ en la misma fila */
       #stepGmt > div, #stepEstado > div, #stepCiudad > div {
-        flex-wrap:wrap !important; gap:6px !important;
+        flex-wrap:nowrap !important; gap:6px !important;
       }
       #stepGmt .btn-geo, #stepEstado .btn-geo, #stepCiudad .btn-geo {
-        width:100% !important; text-align:center !important;
+        width:auto !important; flex-shrink:0 !important; text-align:center !important;
       }
       #tzSelect { width:100% !important; font-size:14px !important; }
       #qEstado, #q { font-size:15px !important; }
@@ -777,6 +775,7 @@
         position:relative;
       }
       .sgn-back{font-size:11px; padding:8px 12px; position:static !important; transform:none !important; align-self:flex-start;}
+      .mod-back{font-size:11px !important; padding:8px 12px !important;}
       .sgn-title{font-size:15px; text-align:center;}
       .sgn-logo{height:56px !important;}
       .sgn-hint{font-size:15px; letter-spacing:.08em; margin-bottom:16px; text-align:center;}
@@ -876,17 +875,17 @@
       /* ── Módulo Personalidad ── */
       .pers-sel{font-size:11px; padding:7px 20px 7px 6px; min-width:0; width:100%; max-width:100%;}
       .pers-block{padding:14px 12px;}
-      .pers-block-title{font-size:10px;}
+      .pers-block-title{font-size:18px;}
       .pers-block-text,.pers-sintesis-text{font-size:14px; line-height:1.7;}
       .pers-sintesis{padding:18px;}
 
       /* ── Slider de Personalidad (móvil) ── */
       #persSlideMob .pers-slider-nav { gap:4px !important; margin-bottom:14px !important; }
-      #persSlideMob .pers-slider-nav-label { font-size:11px !important; padding:0 4px !important; }
+      #persSlideMob .pers-slider-nav-label { font-size:17px !important; padding:0 4px !important; }
       #persSlideMob .pers-slider-arrow { padding:10px 10px !important; font-size:15px !important; gap:5px !important; }
-      #persSlideMob .pers-slider-arrow-lbl { font-size:10px !important; letter-spacing:.08em !important; }
+      #persSlideMob .pers-slider-arrow-lbl { font-size:16px !important; letter-spacing:.08em !important; }
       /* Título del mensaje (ej: ♡ Virgo · Primer Decanato) — mismo tamaño que el texto */
-      .pers-block-title { font-size:11px !important; letter-spacing:.1em !important; text-align:center !important; }
+      .pers-block-title { font-size:19px !important; letter-spacing:.1em !important; text-align:center !important; }
       /* Tres dropdowns de personalidad — fila única en móvil */
       #personalidadView > div:nth-child(3){
         grid-template-columns:1fr 1fr 1fr !important;
@@ -951,9 +950,9 @@
         line-height:1.65 !important;
       }
       .pers-block { padding:12px 10px !important; margin-bottom:0 !important; }
-      .pers-block-title { font-size:9px !important; }
+      .pers-block-title { font-size:17px !important; }
       .pers-sintesis { padding:14px 10px !important; }
-      .pers-sintesis-title { font-size:10px !important; margin-bottom:10px !important; }
+      .pers-sintesis-title { font-size:18px !important; margin-bottom:10px !important; }
       /* Tag de elemento — compacto */
       #persSolTag, #persLunaTag, #persAscTag {
         font-size:9px !important;
@@ -1030,13 +1029,14 @@
       /* btnVolverNatal, btnLeerSolar/Lunar/Mercury desactivados temporalmente */
       #retornosPanel > div:nth-child(2) { flex-wrap:wrap !important; gap:6px !important; width:100% !important; box-sizing:border-box !important; }
       #retornoTipo { min-width:0 !important; width:100% !important; font-size:14px !important; }
-      #retornoSolarFields, #retornoLunarFields, #retornoMercuryFields {
+      #retornoSolarFields, #retornoLunarFields, #retornoMercuryFields,
+      #retornoVenusFields, #retornoMarsFields, #retornoJupiterFields, #retornoSaturnFields {
         flex-wrap:wrap !important;
         justify-content:center !important;
         gap:6px !important;
         width:100% !important;
       }
-      #retornoAnyo, #retornoAnyoL, #retornoAnyoM { width:80px !important; font-size:15px !important; flex-shrink:0 !important; }
+      #retornoAnyo, #retornoAnyoL, #retornoAnyoM, #retornoAnyoV, #retornoAnyoMr, #retornoAnyoJ, #retornoAnyoSa { width:80px !important; font-size:15px !important; flex-shrink:0 !important; }
       #retornoMes, #retornoMesM { flex:1 !important; min-width:0 !important; font-size:13px !important; width:auto !important; text-align:center !important; text-align-last:center !important; }
       /* Mes y año en la misma fila — no romper */
       #retornoLunarFields, #retornoMercuryFields {
@@ -1408,6 +1408,7 @@
       /* Ocultar los botones tabs originales */
       #signosEtapaTabs { display: none !important; }
       .arc-tabs-row    { display: none !important; }
+      #pcArcSelectWrap { display: none !important; }
       #arcPanel-anual    > div[style*="flex-wrap:nowrap"],
       #arcPanel-transito > div[style*="flex-wrap:nowrap"] { display: none !important; }
       .runa-tabs-row   { display: none !important; }
@@ -1452,12 +1453,12 @@
     #persSlideMob { display:none; flex-direction:column; align-items:center; width:100%; padding:0 0 20px; }
     #persSlideMob.slider-activo { display:flex; }
     #persSlideMob .pers-slider-nav { display:flex; align-items:center; justify-content:space-between; width:100%; margin-bottom:18px; gap:8px; }
-    #persSlideMob .pers-slider-nav-label { font-size:13px; letter-spacing:.22em; text-transform:uppercase; font-weight:700; text-align:center; flex:1; padding:0 8px; }
+    #persSlideMob .pers-slider-nav-label { font-size:19px; letter-spacing:.22em; text-transform:uppercase; font-weight:700; text-align:center; flex:1; padding:0 8px; }
     #persSlideMob .pers-slider-arrow { background:rgba(0,0,0,0.3); border:1px solid rgba(0,200,255,0.3); border-left-width:3px; color:#fff; cursor:pointer; display:flex; align-items:center; gap:8px; padding:12px 18px; font-size:20px; transition:all .25s; flex-shrink:0; width:auto; justify-content:flex-start; }
     #persSlideMob .pers-slider-arrow:hover { background:rgba(0,0,0,0.5); box-shadow:0 0 18px rgba(0,200,255,0.15); }
     #persSlideMob .pers-slider-arrow--right { justify-content:flex-end; border-left-width:1px; border-right-width:3px; }
     #persSlideMob .pers-slider-arrow:disabled { opacity:0; cursor:default; pointer-events:none; visibility:hidden; }
-    #persSlideMob .pers-slider-arrow-lbl { font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; line-height:1.3; }
+    #persSlideMob .pers-slider-arrow-lbl { font-size:19px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; line-height:1.3; }
     #persSlideContent { width:100%; animation:numReveal .4s cubic-bezier(.22,1,.36,1); }
 
     /* ══ SLIDER TRÁNSITO ══ */
@@ -1482,10 +1483,10 @@
     .pers-sel-asc option{background:#111;color:#fff;}
     .pers-elem-tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-top:7px;padding:8px 14px;display:inline-block;font-weight:700;text-align:center;line-height:1.8;}
     .pers-block{background:var(--panel);border:1px solid var(--bord);padding:12px 10px;margin-bottom:0;border-left-width:3px;text-align:center;}
-    .pers-block-title{font-size:9px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bord);text-align:center;}
+    .pers-block-title{font-size:17px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bord);text-align:center;}
     .pers-block-text{font-size:21px;line-height:1.75;color:rgba(255,255,255,.85);text-align:left;}
     .pers-sintesis{padding:14px 10px;margin-top:6px;border-top:2px solid var(--bord);text-align:center;}
-    .pers-sintesis-title{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--acc);margin-bottom:10px;text-align:center;}
+    .pers-sintesis-title{font-size:18px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--acc);margin-bottom:10px;text-align:center;}
     .pers-sintesis-text{font-size:21px;line-height:1.75;color:rgba(255,255,255,.85);text-align:left;}
 
     /* ══════════════════════════════════════════════════
@@ -1523,6 +1524,7 @@
       right:40px;
       top:50%;
       transform:translateY(-50%);
+      margin-top:10px;
     }
 
     /* ── Shared section label ── */
@@ -1619,11 +1621,12 @@
     .cdrop-wrap{position:relative;display:inline-block;--cdrop-clr:var(--acc);--cdrop-rgb:0,200,255;}
     .cdrop-wrap--arc  {--cdrop-clr:#c084fc;--cdrop-rgb:192,132,252;}
     .cdrop-wrap--runa {--cdrop-clr:#f0a500;--cdrop-rgb:240,165,0;}
+    .cdrop-wrap--zc   {--cdrop-clr:#f0a500;--cdrop-rgb:240,165,0;}
     .cdrop-btn{
       display:flex;align-items:center;justify-content:space-between;gap:8px;
       min-width:80px;padding:9px 12px;
       background:#000d20;border:1px solid rgba(var(--cdrop-rgb),0.4);
-      color:#fff;font-size:19px;font-weight:500;letter-spacing:.04em;
+      color:#fff;font-size:15px;font-weight:500;letter-spacing:.04em;
       cursor:pointer;user-select:none;transition:all .2s;white-space:nowrap;
     }
     .cdrop-btn:hover{border-color:var(--cdrop-clr);background:#001820;}
@@ -1644,7 +1647,7 @@
       text-align:center;background:#000a18;
     }
     .cdrop-item{
-      padding:7px 18px;color:#fff;font-size:19px;font-weight:500;
+      padding:7px 18px;color:#fff;font-size:15px;font-weight:500;
       cursor:pointer;transition:color .15s,background .15s;text-align:center;
     }
     .cdrop-item:hover{color:var(--cdrop-clr);background:#001820;}
@@ -1709,6 +1712,9 @@
     .anio-dots--runa .anio-dot { border-color:rgba(240,165,0,0.35); }
     .anio-dots--runa .anio-dot.filled { background:rgba(240,165,0,0.55); border-color:#f0a500; }
     .anio-dots--runa .anio-dot.ready  { background:#f0a500; border-color:#f0a500; box-shadow:0 0 8px rgba(240,165,0,0.7); }
+    .anio-dots--zc .anio-dot { border-color:rgba(240,165,0,0.35); }
+    .anio-dots--zc .anio-dot.filled { background:rgba(240,165,0,0.55); border-color:#f0a500; }
+    .anio-dots--zc .anio-dot.ready  { background:#f0a500; border-color:#f0a500; box-shadow:0 0 8px rgba(240,165,0,0.7); }
     .tarot-btn-gnosis{
       background:transparent;
       border:1px solid rgba(74,222,128,0.5);
@@ -1875,6 +1881,19 @@
       color:rgba(255,255,255,.82);
     }
 
+    /* ── NUMEROLOGÍA: pantalla de inicio (dos cuadrados) ── */
+    .num-home-wrap{width:100%;max-width:680px;margin:0 auto;display:flex;flex-direction:column;align-items:center;padding:20px 20px 40px;}
+    .num-home-cards{display:flex;gap:24px;justify-content:center;align-items:stretch;width:100%;max-width:520px;margin-top:10px;}
+    .num-home-card{flex:1;min-width:160px;max-width:220px;background:rgba(0,8,20,0.85);border:1px solid rgba(0,200,255,0.22);padding:36px 20px 32px;display:flex;flex-direction:column;align-items:center;gap:18px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+    .num-home-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,200,255,0.07) 0%,transparent 70%);opacity:0;transition:opacity .3s;}
+    .num-home-card:hover::before{opacity:1;}
+    .num-home-card:hover{border-color:rgba(0,200,255,0.6);box-shadow:0 0 30px rgba(0,200,255,0.18),inset 0 0 20px rgba(0,200,255,0.04);transform:translateY(-2px);}
+    .num-home-card-icon{font-size:42px;line-height:1;filter:drop-shadow(0 0 12px rgba(0,200,255,0.4));}
+    .num-home-card-title{font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);}
+    .num-home-card-desc{font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:.06em;text-align:center;line-height:1.7;}
+    /* ── NUMEROLOGÍA: botón cambiar entre Fecha ↔ Nombre ── */
+    .num-switch-btn{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(0,200,255,0.28);color:rgba(255,255,255,0.55);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all .22s;margin:0 auto 14px;}
+    .num-switch-btn:hover{border-color:var(--acc);color:var(--acc);box-shadow:0 0 16px rgba(0,200,255,.18);}
     /* ── NUMEROLOGÍA: selector de grupo (dropdown) ── */
     .num-group-drop-wrap{
       position:relative;display:inline-block;width:100%;max-width:340px;
@@ -2008,7 +2027,7 @@
     .num-empty-card{
       border:1px solid color-mix(in srgb, var(--c) 20%, transparent);
       background:color-mix(in srgb, var(--c) 4%, rgba(0,0,0,.5));
-      padding:22px 12px 18px;
+      padding:32px 22px 28px;
       text-align:center;
       display:flex;flex-direction:column;align-items:center;gap:7px;
       position:relative;overflow:hidden;
@@ -2027,7 +2046,7 @@
     }
     .num-empty-card:hover::before{ opacity:.25; }
     .nec-num{
-      font-size:38px;font-weight:900;line-height:1;
+      font-size:48px;font-weight:900;line-height:1;
       color:var(--c);
       opacity:.22;
       filter:blur(5px);
@@ -2036,12 +2055,13 @@
     }
     .num-empty-card:hover .nec-num{opacity:.35;filter:blur(3px);}
     .nec-lbl{
-      font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+      font-size:clamp(8px, 1.6vw, 11.5px);letter-spacing:.14em;text-transform:uppercase;
       color:rgba(255,255,255,.35);line-height:1.3;
+      word-break:break-word;overflow-wrap:break-word;width:100%;
     }
     .num-empty-hint{
       text-align:center;font-size:12px;letter-spacing:.1em;
-      color:rgba(0,200,255,.55);text-transform:uppercase;
+      color:#ffffff;text-transform:uppercase;
       animation:numSymFloat 3.5s ease-in-out infinite;
     }
 
@@ -2589,19 +2609,22 @@
 
       /* ── GMT / PAÍS ── */
       #stepGmt > div {
-        flex-direction: column !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
         gap: 8px !important;
       }
-      #tzSelect { width: 100% !important; font-size: 14px !important; }
+      #tzSelect { width:100% !important; font-size:14px !important; }
       #stepGmt .btn-geo, #stepEstado .btn-geo, #stepCiudad .btn-geo {
-        width: 100% !important;
+        width: auto !important;
+        flex-shrink: 0 !important;
         text-align: center !important;
         font-size: 13px !important;
       }
 
       /* ── ESTADO Y CIUDAD ── */
       #stepEstado > div, #stepCiudad > div {
-        flex-direction: column !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
         gap: 8px !important;
       }
       #qEstado, #q {
@@ -2695,13 +2718,14 @@
         width: 100% !important;
         font-size: 14px !important;
       }
-      #retornoSolarFields, #retornoLunarFields {
+      #retornoSolarFields, #retornoLunarFields,
+      #retornoVenusFields, #retornoMarsFields, #retornoJupiterFields, #retornoSaturnFields {
         flex-wrap: wrap !important;
         justify-content: center !important;
         gap: 8px !important;
         width: 100% !important;
       }
-      #retornoAnyo, #retornoAnyoL {
+      #retornoAnyo, #retornoAnyoL, #retornoAnyoV, #retornoAnyoMr, #retornoAnyoJ, #retornoAnyoSa {
         width: 90px !important;
         font-size: 15px !important;
       }
@@ -2791,7 +2815,7 @@
     .asp-hint-icon{font-size:38px;margin-bottom:18px;display:block;filter:drop-shadow(0 0 12px rgba(0,200,255,0.5));}
     .asp-hint-title{font-size:25px;letter-spacing:.28em;color:rgba(0,200,255,0.7);text-transform:uppercase;margin-bottom:14px;}
     .asp-hint-msg{font-size:25px;font-weight:500;color:#ffffff;line-height:1.6;margin-bottom:24px;}
-    .asp-hint-close{background:transparent;border:1px solid rgba(0,200,255,0.4);color:rgba(0,200,255,0.85);font-size:15px;letter-spacing:.2em;text-transform:uppercase;padding:12px 32px;cursor:pointer;transition:all .2s;}
+    .asp-hint-close{background:transparent;border:1px solid rgba(0,200,255,0.4);color:rgba(0,200,255,0.85);font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:12px 32px;cursor:pointer;transition:all .2s;}
     .asp-hint-close:hover{background:rgba(0,200,255,0.1);border-color:var(--acc);color:#fff;}
 
     /* == DROPDOWN EMPRESAS == */
@@ -2822,6 +2846,59 @@
     @keyframes dotPulse{0%{transform:scale(1)}50%{transform:scale(1.5)}100%{transform:scale(1)}}
 
     /* ── Tabs Arcanos / Runas ── */
+    /* PC: ocultar botones tabs y mostrar dropdown centrado */
+    .arc-tabs-row { display: none !important; }
+    .pc-arc-select-wrap { display: flex; justify-content: center; margin-bottom: 28px; width: 100%; }
+    .pc-arc-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: #0d0318;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23c084fc' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 10px;
+      border: 1px solid #c084fc;
+      color: #c084fc;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 11px 42px 11px 20px;
+      cursor: pointer;
+      outline: none;
+      text-align: center;
+      transition: box-shadow .22s;
+      min-width: 220px;
+    }
+    .pc-arc-select:hover { box-shadow: 0 0 18px rgba(192,132,252,0.28); }
+    .pc-arc-select option { background: #0d0318; color: #c084fc; font-size: 14px; }
+    /* PC y móvil: ocultar botones runas y mostrar dropdown centrado (dentro del panel, bajo el deco-strip) */
+    .runa-tabs-row { display: none !important; }
+    .pc-runa-select {
+      display: block;
+      margin: 0 auto 28px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: #140900;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23f0a500' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 10px;
+      border: 1px solid #f0a500;
+      color: #f0a500;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 11px 42px 11px 20px;
+      cursor: pointer;
+      outline: none;
+      text-align: center;
+      transition: box-shadow .22s;
+      min-width: 220px;
+    }
+    .pc-runa-select:hover { box-shadow: 0 0 18px rgba(240,165,0,0.28); }
+    .pc-runa-select option { background: #140900; color: #f0a500; font-size: 14px; }
     .arc-tab{background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:16px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:13px 16px;cursor:pointer;transition:all .22s;white-space:nowrap;flex:1;text-align:center;min-width:0;}
     .arc-tab--active{border-color:#c084fc !important;color:#fff !important;background:rgba(192,132,252,0.1) !important;box-shadow:0 0 16px rgba(192,132,252,0.18);}
     .arc-tab:hover:not(.arc-tab--active):not(.arc-tab--active-runa){border-color:#c084fc;color:rgba(192,132,252,0.8);}
@@ -2953,7 +3030,16 @@
     .ckb-swatch-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;}
     .ckb-swatch{width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,0.22);}
     .ckb-swatch-lbl{font-size:10px;letter-spacing:.08em;color:rgba(255,255,255,0.45);}
+
+    /* ── FENG SHUI: todos los textos y títulos a 20px ── */
+    #fengshuiView, #fengshuiView *, #fengshuiView div, #fengshuiView span,
+    #fengshuiView p, #fengshuiView h1, #fengshuiView h2, #fengshuiView h3,
+    #fengshuiView h4, #fengshuiView button, #fengshuiView select,
+    #fengshuiView option, #fengshuiView label, #fengshuiView em, #fengshuiView strong {
+      font-size: 20px !important;
+    }
   </style>
+  <script src="https://sergiomanciasgnostic.github.io/astrologymancias/mensajes_astrologicos.js"></script>
 </head>
 <body style="position:relative;min-height:100vh;">
 
@@ -3186,6 +3272,7 @@
     numerologia: ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩','⑪','⑫','∞','⓪','Ⅺ'],
     cromancia: ['🔴','🟠','🟡','🟢','🔵','🟣','⚪','🟤','🔶','🔷'],
     chakras:   ['◉','◎','○','●','◉','◎','○'],
+    zodiacoChino: ['🐀','🐂','🐅','🐇','🐉','🐍','🐎','🐐','🐒','🐓','🐕','🐖'],
   };
 
   /* ── Colores de texto de símbolos por módulo ── */
@@ -3200,6 +3287,7 @@
     arcanos: '#c084fc', runas: '#f0a500',
     numerologia: '#facc15', cromancia: 'inherit',
     chakras: null, // multicolor
+    zodiacoChino: '#f0a500',
   };
 
   /* Colores de chakras por posición */
@@ -4008,6 +4096,20 @@
           '<div class="hcard-tag">Amor · Amistad · Trabajo · Familia</div>' +
         '</div>';
       }
+    },
+    {
+      key: 'zodiacoChino',
+      navIcon: '🐉',
+      navName: 'Zodiaco Chino',
+      navDeco: '🐀 🐂 🐅 🐇 🐉 🐍 · Los 4 Pilares',
+      card: function(){
+        return '<div class="hcard" onclick="showModule(\'zodiacoChino\')" style="cursor:pointer;">' +
+          '<div class="hcard-icon">🐉</div>' +
+          '<div class="hcard-title">Zodiaco Chino</div>' +
+          '<div class="hcard-desc">Los 4 Pilares del Destino: tu animal del año, mes, día y hora revelan quién eres en lo externo, interno, tu esencia y tu secreto.</div>' +
+          '<div class="hcard-tag">4 Pilares · Elemento · Yin/Yang · Compatibilidad</div>' +
+        '</div>';
+      }
     }
   ];
 
@@ -4079,6 +4181,20 @@
           '<div class="hcard-title">Chakras</div>' +
           '<div class="hcard-desc">Descubre cuáles de tus chakras están abiertos y cuáles necesitan trabajo a través de un cuestionario energético guiado.</div>' +
           '<div class="hcard-tag">7 Chakras · Energía · Equilibrio</div>' +
+        '</div>';
+      }
+    },
+    {
+      key: 'fengshui',
+      navIcon: '🧭',
+      navName: 'Feng Shui',
+      navDeco: '🧭 Kua · Estrellas Voladoras · Ba Zi',
+      card: function(){
+        return '<div class="hcard" onclick="showModule(\'fengshui\')" style="cursor:pointer;">' +
+          '<div class="hcard-icon">🧭</div>' +
+          '<div class="hcard-title">Feng Shui</div>' +
+          '<div class="hcard-desc">Número Kua, Estrellas Voladoras y Ba Zi Completo: los pilares del Feng Shui chino en un solo lugar.</div>' +
+          '<div class="hcard-tag">Kua · Lo Shu · 4 Pilares · Da Yun</div>' +
         '</div>';
       }
     }
@@ -4378,7 +4494,7 @@
 
 <div id="app" class="hidden">
   <header class="hdr">
-    <button onclick="volverASeccion('carta')" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0);border:1px solid var(--bord);color:#fff;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:8px 16px;transition:all .2s;white-space:nowrap;" onmouseover="this.style.borderColor='var(--acc)';this.style.color='#fff'" onmouseout="this.style.borderColor='var(--bord)';this.style.color='#fff'">&#8592; Inicio</button>
+    <button class="mod-back" onclick="volverASeccion('carta')" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);">← Inicio</button>
     <div class="hdr-center">
       <div class="hdr-title">Carta Natal</div>
       <img src="https://static.wixstatic.com/media/0bac9e_19934d62be5d497c9443813d4e163a81~mv2.png" alt="Sergiomancias" style="height:80px;width:auto;display:block;"/>
@@ -4501,27 +4617,27 @@
       <!-- PASO 4: GMT (aparece al confirmar hora o elegir "No") -->
       <div class="field" id="stepGmt" style="display:none;">
         <label>Selecciona tu horario de país</label>
-        <div style="display:flex;gap:10px;align-items:flex-end;">
+        <div style="display:flex;gap:10px;align-items:stretch;">
           <select id="tzSelect" class="fselect" style="flex:1;"></select>
-          <button type="button" class="btn-geo" onclick="geoStep1()" style="white-space:nowrap;padding:8px 14px;font-size:12px;">→</button>
+          <button type="button" class="btn-geo" onclick="geoStep1()" style="white-space:nowrap;padding:10px 18px;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;">➤</button>
         </div>
       </div>
 
       <!-- PASO 5: Estado/Provincia -->
       <div class="field" id="stepEstado" style="display:none;">
         <label>Estado · Provincia · Departamento</label>
-        <div style="display:flex;gap:10px;">
+        <div style="display:flex;gap:10px;align-items:stretch;">
           <input id="qEstado" class="finput" type="text" placeholder="ej: Madrid · Buenos Aires · California" style="flex:1;"/>
-          <button type="button" class="btn-geo" onclick="geoStep2()" style="padding:8px 14px;font-size:12px;">→</button>
+          <button type="button" class="btn-geo" onclick="geoStep2()" style="padding:10px 18px;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;">➤</button>
         </div>
       </div>
 
       <!-- PASO 6: Ciudad -->
       <div class="field" id="stepCiudad" style="display:none;">
         <label>Ciudad</label>
-        <div style="display:flex;gap:10px;">
+        <div style="display:flex;gap:10px;align-items:stretch;">
           <input id="q" class="finput" type="text" placeholder="ej: Barcelona · Punta del Este · Los Ángeles" style="flex:1;"/>
-          <button type="button" class="btn-geo" id="btnGeo" onclick="geoStep3()" style="padding:8px 14px;font-size:12px;">→</button>
+          <button type="button" class="btn-geo" id="btnGeo" onclick="geoStep3()" style="padding:10px 18px;font-size:18px;font-weight:700;letter-spacing:.08em;line-height:1;display:flex;align-items:center;justify-content:center;">OK</button>
         </div>
       </div>
 
@@ -4660,8 +4776,11 @@
         <div class="placidus-name">Placidus</div>
         <div class="glyphs-row planets">☉ ☽ ☿ ♀ ♂ ♃ ♄ ♅ ♆ ♇</div>
         <div class="glyphs-row signs">♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓</div>
+        <button class="btn-back" id="btnBack" style="margin-top:12px;font-size:19px;padding:10px 22px;letter-spacing:.12em;">✎ Editar información</button>
       </div>
-      <button class="btn-back" id="btnBack" style="margin-bottom:15px;font-size:21px;padding:14px 28px;letter-spacing:.12em;">✎ Editar información</button>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div id="fechasEspecialesTopbar" style="text-align:center;margin-bottom:8px;font-size:18px;color:#ffffff;line-height:1.7;"></div>
+      </div>
     </div>
     <div class="res-grid">
       <div class="chart-wrap">
@@ -4748,6 +4867,10 @@
               <option value="solar">&#9737; Retorno Solar</option>
               <option value="lunar">&#9789; Retorno Lunar</option>
               <option value="mercury">&#9791; Retorno de Mercurio</option>
+              <option value="venus">&#9792; Retorno de Venus</option>
+              <option value="mars">&#9794; Retorno de Marte</option>
+              <option value="jupiter">&#9795; Retorno de Júpiter</option>
+              <option value="saturn">&#9796; Retorno de Saturno</option>
             </select>
             <div id="retornoSolarFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
               <input id="retornoAnyo" type="number" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025" min="1" max="9999"/>
@@ -4772,6 +4895,22 @@
               </select>
               <input id="retornoAnyoM" type="number" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025" min="1" max="9999"/>
               <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9791;</button>
+            </div>
+            <div id="retornoVenusFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
+              <input id="retornoAnyoV" type="text" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025"/>
+              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9792;</button>
+            </div>
+            <div id="retornoMarsFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
+              <input id="retornoAnyoMr" type="text" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025"/>
+              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9794;</button>
+            </div>
+            <div id="retornoJupiterFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
+              <input id="retornoAnyoJ" type="text" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025"/>
+              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9795;</button>
+            </div>
+            <div id="retornoSaturnFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
+              <input id="retornoAnyoSa" type="text" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025"/>
+              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9796;</button>
             </div>
           </div>
           <div id="retornoStatus" style="font-size:14px;color:var(--acc);margin-top:6px;text-align:center;"></div>
@@ -5012,6 +5151,15 @@
     <button class="mod-back" onclick="volverASeccion('arcanos')">← Inicio</button>
     <div class="mod-title">Arcanos</div>
     <img src="https://static.wixstatic.com/media/0bac9e_19934d62be5d497c9443813d4e163a81~mv2.png" alt="Sergiomancias" class="mod-logo"/>
+  </div>
+
+  <!-- Dropdown PC arcanos (siempre visible, fuera de los panels) -->
+  <div class="pc-arc-select-wrap" id="pcArcSelectWrap">
+    <select id="pcArcSelect" class="pc-arc-select" onchange="if(window.arcSwitchTab) arcSwitchTab(this.value)">
+      <option value="personal">Arcano Personal</option>
+      <option value="anual">Arcano del Año</option>
+      <option value="transito">Arcanos en Tránsito</option>
+    </select>
   </div>
 
   <!-- ════ PANEL: Arcano Personal ════ -->
@@ -5819,132 +5967,267 @@
     <img src="https://static.wixstatic.com/media/0bac9e_19934d62be5d497c9443813d4e163a81~mv2.png" alt="Sergiomancias" class="mod-logo"/>
   </div>
 
-  <div class="num-deco-top">
-    <div class="num-deco-symbols">
-      <span class="num-sym" style="--d:0s">①</span>
-      <span class="num-sym" style="--d:.15s">②</span>
-      <span class="num-sym" style="--d:.3s">③</span>
-      <span class="num-sym num-sym--big" style="--d:.45s">✦</span>
-      <span class="num-sym" style="--d:.3s">⑦</span>
-      <span class="num-sym" style="--d:.15s">⑧</span>
-      <span class="num-sym" style="--d:0s">⑨</span>
-    </div>
-    <div class="num-deco-line">
-      <span class="num-deco-dot"></span>
-      <span class="num-deco-rule"></span>
-      <span class="num-deco-dot"></span>
-    </div>
-    <p class="num-deco-phrase">Cada fecha esconde un código. El tuyo está a punto de revelarse.</p>
-    <div class="num-deco-line">
-      <span class="num-deco-dot"></span>
-      <span class="num-deco-rule"></span>
-      <span class="num-deco-dot"></span>
-    </div>
-  </div>
-
-  <div class="num-form-wrap" style="padding-bottom:10px;">
-    <div class="mod-section-label">Ingresa tu fecha de nacimiento</div>
-    <div class="num-inputs-row">
-      <div class="tarot-field">
-        <select id="numDia" style="display:none;" onchange="calcNumerologia()"></select>
-          <div class="cdrop-wrap" id="cdrop-numDia-wrap">
-            <div class="cdrop-btn" id="cdrop-numDia-btn" onclick="cdropToggle('numDia')">
-              <span class="cdrop-label" id="cdrop-numDia-label">Día</span>
-              <span class="cdrop-arrow">&#9660;</span>
-            </div>
-            <div class="cdrop-list" id="cdrop-numDia-list"></div>
-          </div>
+  <!-- ══ PANTALLA DE INICIO ══ -->
+  <div id="numHomeView" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+    <div class="num-deco-top">
+      <div class="num-deco-symbols">
+        <span class="num-sym" style="--d:0s">①</span>
+        <span class="num-sym" style="--d:.15s">Α</span>
+        <span class="num-sym" style="--d:.3s">③</span>
+        <span class="num-sym num-sym--big" style="--d:.45s">✦</span>
+        <span class="num-sym" style="--d:.3s">Γ</span>
+        <span class="num-sym" style="--d:.15s">⑧</span>
+        <span class="num-sym" style="--d:0s">⑨</span>
       </div>
-      <div class="tarot-field">
-        <select id="numMes" style="display:none;" onchange="calcNumerologia()"></select>
-          <div class="cdrop-wrap" id="cdrop-numMes-wrap">
-            <div class="cdrop-btn" id="cdrop-numMes-btn" onclick="cdropToggle('numMes')">
-              <span class="cdrop-label" id="cdrop-numMes-label">Mes</span>
-              <span class="cdrop-arrow">&#9660;</span>
-            </div>
-            <div class="cdrop-list" id="cdrop-numMes-list"></div>
-          </div>
-      </div>
-      <div class="tarot-field tarot-field--anio">
-        <div class="anio-wrap">
-          <input id="numAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'num')" onchange="calcNumerologia()"/>
-          <div class="anio-dots" id="dots-numAnio"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+      <div class="num-deco-line"><span class="num-deco-dot"></span><span class="num-deco-rule"></span><span class="num-deco-dot"></span></div>
+      <p class="num-deco-phrase">El universo habla en números y en nombres. ¿Por cuál querés comenzar?</p>
+      <div class="num-deco-line"><span class="num-deco-dot"></span><span class="num-deco-rule"></span><span class="num-deco-dot"></span></div>
+    </div>
+    <div class="num-home-wrap">
+      <div class="num-home-cards">
+        <div class="num-home-card" onclick="numSwitchTab('fecha')">
+          <div class="num-home-card-icon">🗓️</div>
+          <div class="num-home-card-title">Números</div>
+          <div class="num-home-card-desc">Camino de vida, año personal, kármico y más desde tu fecha de nacimiento</div>
+        </div>
+        <div class="num-home-card" onclick="numSwitchTab('nombre')">
+          <div class="num-home-card-icon">🔤</div>
+          <div class="num-home-card-title">Nombre</div>
+          <div class="num-home-card-desc">Expresión, alma, personalidad y más desde las letras de tu nombre</div>
         </div>
       </div>
+    </div>
+  </div><!-- /numHomeView -->
 
-    </div>
-  </div>
+  <!-- ══ PANEL FECHA ══ -->
+  <div id="numPanel-fecha" style="display:none;width:100%;flex-direction:column;align-items:center;">
 
-  <!-- Estado vacío -->
-  <div id="numEmptyState" class="num-empty-state">
-    <div class="num-empty-grid">
-      <div class="num-empty-card" style="--c:#ff6b6b"><span class="nec-num">1</span><span class="nec-lbl">Camino de Vida</span></div>
-      <div class="num-empty-card" style="--c:#4ecdc4"><span class="nec-num">2</span><span class="nec-lbl">Número de Actitud</span></div>
-      <div class="num-empty-card" style="--c:#ffe66d"><span class="nec-num">3</span><span class="nec-lbl">Año Personal</span></div>
-      <div class="num-empty-card" style="--c:#c084fc"><span class="nec-num">4</span><span class="nec-lbl">Número Kármico</span></div>
-      <div class="num-empty-card" style="--c:#38bdf8"><span class="nec-num">5</span><span class="nec-lbl">Número de Madurez</span></div>
-      <div class="num-empty-card" style="--c:#f472b6"><span class="nec-num">6</span><span class="nec-lbl">Número de Poder</span></div>
-      <div class="num-empty-card" style="--c:#4ade80"><span class="nec-num">7</span><span class="nec-lbl">Ciclo Pinnacle</span></div>
-      <div class="num-empty-card" style="--c:#fb923c"><span class="nec-num">8</span><span class="nec-lbl">Número de Generación</span></div>
-      <div class="num-empty-card" style="--c:#a78bfa"><span class="nec-num">9</span><span class="nec-lbl">Mes Personal</span></div>
+    <div class="num-deco-top">
+      <div class="num-deco-symbols">
+        <span class="num-sym" style="--d:0s">①</span>
+        <span class="num-sym" style="--d:.15s">②</span>
+        <span class="num-sym" style="--d:.3s">③</span>
+        <span class="num-sym num-sym--big" style="--d:.45s">✦</span>
+        <span class="num-sym" style="--d:.3s">⑦</span>
+        <span class="num-sym" style="--d:.15s">⑧</span>
+        <span class="num-sym" style="--d:0s">⑨</span>
+      </div>
+      <div class="num-deco-line"><span class="num-deco-dot"></span><span class="num-deco-rule"></span><span class="num-deco-dot"></span></div>
+      <p class="num-deco-phrase">Cada fecha esconde un código. El tuyo está a punto de revelarse.</p>
+      <div class="num-deco-line"><span class="num-deco-dot"></span><span class="num-deco-rule"></span><span class="num-deco-dot"></span></div>
     </div>
-    <p class="num-empty-hint">✦ Ingresa tu fecha de nacimiento para desbloquear tu perfil numerológico completo ✦</p>
-  </div>
+    <div style="width:100%;text-align:center;margin:0 0 12px;">
+      <button class="num-switch-btn" onclick="numSwitchTab('nombre')">🔤 Ir a Numerología · Nombre</button>
+    </div>
 
-  <!-- Selector de grupo (dropdown) -->
-  <div id="numGroupSelector" style="display:none;width:100%;max-width:960px;margin:0 auto 20px;padding:0 20px;text-align:center;">
-    <div class="num-group-drop-wrap">
-      <select class="num-group-select" onchange="filtrarGrupo(this.value)">
-        <option value="Ser">✦ Números del Ser</option>
-        <option value="Nacimiento">✦ Números del Nacimiento</option>
-        <option value="Tiempo">✦ Números del Tiempo</option>
-      </select>
-      <span class="num-group-arrow">▼</span>
+    <div class="num-form-wrap" style="padding-bottom:10px;">
+      <div class="mod-section-label">Ingresa tu fecha de nacimiento</div>
+      <div class="num-inputs-row">
+        <div class="tarot-field">
+          <select id="numDia" style="display:none;" onchange="calcNumerologia()"></select>
+            <div class="cdrop-wrap" id="cdrop-numDia-wrap">
+              <div class="cdrop-btn" id="cdrop-numDia-btn" onclick="cdropToggle('numDia')">
+                <span class="cdrop-label" id="cdrop-numDia-label">Día</span>
+                <span class="cdrop-arrow">&#9660;</span>
+              </div>
+              <div class="cdrop-list" id="cdrop-numDia-list"></div>
+            </div>
+        </div>
+        <div class="tarot-field">
+          <select id="numMes" style="display:none;" onchange="calcNumerologia()"></select>
+            <div class="cdrop-wrap" id="cdrop-numMes-wrap">
+              <div class="cdrop-btn" id="cdrop-numMes-btn" onclick="cdropToggle('numMes')">
+                <span class="cdrop-label" id="cdrop-numMes-label">Mes</span>
+                <span class="cdrop-arrow">&#9660;</span>
+              </div>
+              <div class="cdrop-list" id="cdrop-numMes-list"></div>
+            </div>
+        </div>
+        <div class="tarot-field tarot-field--anio">
+          <div class="anio-wrap">
+            <input id="numAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'num')" onchange="calcNumerologia()"/>
+            <div class="anio-dots" id="dots-numAnio"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Grilla de tarjetas -->
-  <div id="numSelectorWrap" class="num-cards-grid" style="display:none;">
-    <div class="num-card-btn" id="nc_camino"    data-group="Ser"        style="--nc:#ff6b6b" onclick="selectNumCard('camino')">
-      <span class="ncb-bignum" id="ncn_camino">—</span><span class="ncb-bar"></span><span class="ncb-label">Camino de Vida</span>
+    <!-- Estado vacío -->
+    <div id="numEmptyState" class="num-empty-state">
+      <div class="num-empty-grid">
+        <div class="num-empty-card" style="--c:#ff6b6b"><span class="nec-num">1</span><span class="nec-lbl">Camino de Vida</span></div>
+        <div class="num-empty-card" style="--c:#4ecdc4"><span class="nec-num">2</span><span class="nec-lbl">Número de Actitud</span></div>
+        <div class="num-empty-card" style="--c:#ffe66d"><span class="nec-num">3</span><span class="nec-lbl">Año Personal</span></div>
+        <div class="num-empty-card" style="--c:#c084fc"><span class="nec-num">4</span><span class="nec-lbl">Número Kármico</span></div>
+        <div class="num-empty-card" style="--c:#38bdf8"><span class="nec-num">5</span><span class="nec-lbl">Número de Madurez</span></div>
+        <div class="num-empty-card" style="--c:#f472b6"><span class="nec-num">6</span><span class="nec-lbl">Número de Poder</span></div>
+        <div class="num-empty-card" style="--c:#4ade80"><span class="nec-num">7</span><span class="nec-lbl">Ciclo Pinnacle</span></div>
+        <div class="num-empty-card" style="--c:#fb923c"><span class="nec-num">8</span><span class="nec-lbl">Número de Generación</span></div>
+        <div class="num-empty-card" style="--c:#a78bfa"><span class="nec-num">9</span><span class="nec-lbl">Mes Personal</span></div>
+      </div>
+      <p class="num-empty-hint">✦ Ingresa tu fecha de nacimiento para desbloquear tu perfil numerológico completo ✦</p>
     </div>
-    <div class="num-card-btn" id="nc_madurez"   data-group="Ser"        style="--nc:#f9a8d4" onclick="selectNumCard('madurez')">
-      <span class="ncb-bignum" id="ncn_madurez">—</span><span class="ncb-bar"></span><span class="ncb-label">Madurez</span>
-    </div>
-    <div class="num-card-btn" id="nc_poder"     data-group="Ser"        style="--nc:#a78bfa" onclick="selectNumCard('poder')">
-      <span class="ncb-bignum" id="ncn_poder">—</span><span class="ncb-bar"></span><span class="ncb-label">Número de Poder</span>
-    </div>
-    <div class="num-card-btn" id="nc_dia"       data-group="Nacimiento" style="--nc:#fbbf24" onclick="selectNumCard('dia')">
-      <span class="ncb-bignum" id="ncn_dia">—</span><span class="ncb-bar"></span><span class="ncb-label">Día de Nacimiento</span>
-    </div>
-    <div class="num-card-btn" id="nc_actitud"   data-group="Nacimiento" style="--nc:#f472b6" onclick="selectNumCard('actitud')">
-      <span class="ncb-bignum" id="ncn_actitud">—</span><span class="ncb-bar"></span><span class="ncb-label">Actitud</span>
-    </div>
-    <div class="num-card-btn" id="nc_karmica"   data-group="Nacimiento" style="--nc:#e879f9" onclick="selectNumCard('karmica')">
-      <span class="ncb-bignum" id="ncn_karmica">—</span><span class="ncb-bar"></span><span class="ncb-label">Número Kármico</span>
-    </div>
-    <div class="num-card-btn" id="nc_generacion" data-group="Nacimiento" style="--nc:#67e8f9" onclick="selectNumCard('generacion')">
-      <span class="ncb-bignum" id="ncn_generacion">—</span><span class="ncb-bar"></span><span class="ncb-label">Generación</span>
-    </div>
-    <div class="num-card-btn" id="nc_anio"      data-group="Tiempo"     style="--nc:#4ade80" onclick="selectNumCard('anio')">
-      <span class="ncb-bignum" id="ncn_anio">—</span><span class="ncb-bar"></span><span class="ncb-label">Año Personal</span>
-    </div>
-    <div class="num-card-btn" id="nc_mesPers"   data-group="Tiempo"     style="--nc:#86efac" onclick="selectNumCard('mesPers')">
-      <span class="ncb-bignum" id="ncn_mesPers">—</span><span class="ncb-bar"></span><span class="ncb-label">Mes Personal</span>
-    </div>
-    <div class="num-card-btn" id="nc_diaPers"   data-group="Tiempo"     style="--nc:#fcd34d" onclick="selectNumCard('diaPers')">
-      <span class="ncb-bignum" id="ncn_diaPers">—</span><span class="ncb-bar"></span><span class="ncb-label">Día Personal</span>
-    </div>
-    <div class="num-card-btn" id="nc_pinnacle"  data-group="Tiempo"     style="--nc:#fdba74" onclick="selectNumCard('pinnacle')">
-      <span class="ncb-bignum" id="ncn_pinnacle">—</span><span class="ncb-bar"></span><span class="ncb-label">Ciclo Pinnacle</span>
-    </div>
-  </div>
 
-  <!-- Vista de detalle -->
-  <div id="numDetailView" style="display:none;width:100%;max-width:960px;margin:0 auto;padding:0 20px 48px;">
-    <button class="num-btn-volver" onclick="cerrarNumDetalle()">← Volver al perfil</button>
-    <div id="numResultInner"></div>
-  </div>
+    <!-- Selector de grupo -->
+    <div id="numGroupSelector" style="display:none;width:100%;max-width:960px;margin:0 auto 20px;padding:0 20px;text-align:center;">
+      <div class="num-group-drop-wrap">
+        <select class="num-group-select" onchange="filtrarGrupo(this.value)">
+          <option value="Ser">✦ Números del Ser</option>
+          <option value="Nacimiento">✦ Números del Nacimiento</option>
+          <option value="Tiempo">✦ Números del Tiempo</option>
+        </select>
+        <span class="num-group-arrow">▼</span>
+      </div>
+    </div>
+
+    <!-- Grilla de tarjetas -->
+    <div id="numSelectorWrap" class="num-cards-grid" style="display:none;">
+      <div class="num-card-btn" id="nc_camino"    data-group="Ser"        style="--nc:#ff6b6b" onclick="selectNumCard('camino')">
+        <span class="ncb-bignum" id="ncn_camino">—</span><span class="ncb-bar"></span><span class="ncb-label">Camino de Vida</span>
+      </div>
+      <div class="num-card-btn" id="nc_madurez"   data-group="Ser"        style="--nc:#f9a8d4" onclick="selectNumCard('madurez')">
+        <span class="ncb-bignum" id="ncn_madurez">—</span><span class="ncb-bar"></span><span class="ncb-label">Madurez</span>
+      </div>
+      <div class="num-card-btn" id="nc_poder"     data-group="Ser"        style="--nc:#a78bfa" onclick="selectNumCard('poder')">
+        <span class="ncb-bignum" id="ncn_poder">—</span><span class="ncb-bar"></span><span class="ncb-label">Número de Poder</span>
+      </div>
+      <div class="num-card-btn" id="nc_dia"       data-group="Nacimiento" style="--nc:#fbbf24" onclick="selectNumCard('dia')">
+        <span class="ncb-bignum" id="ncn_dia">—</span><span class="ncb-bar"></span><span class="ncb-label">Día de Nacimiento</span>
+      </div>
+      <div class="num-card-btn" id="nc_actitud"   data-group="Nacimiento" style="--nc:#f472b6" onclick="selectNumCard('actitud')">
+        <span class="ncb-bignum" id="ncn_actitud">—</span><span class="ncb-bar"></span><span class="ncb-label">Actitud</span>
+      </div>
+      <div class="num-card-btn" id="nc_karmica"   data-group="Nacimiento" style="--nc:#e879f9" onclick="selectNumCard('karmica')">
+        <span class="ncb-bignum" id="ncn_karmica">—</span><span class="ncb-bar"></span><span class="ncb-label">Número Kármico</span>
+      </div>
+      <div class="num-card-btn" id="nc_generacion" data-group="Nacimiento" style="--nc:#67e8f9" onclick="selectNumCard('generacion')">
+        <span class="ncb-bignum" id="ncn_generacion">—</span><span class="ncb-bar"></span><span class="ncb-label">Generación</span>
+      </div>
+      <div class="num-card-btn" id="nc_anio"      data-group="Tiempo"     style="--nc:#4ade80" onclick="selectNumCard('anio')">
+        <span class="ncb-bignum" id="ncn_anio">—</span><span class="ncb-bar"></span><span class="ncb-label">Año Personal</span>
+      </div>
+      <div class="num-card-btn" id="nc_mesPers"   data-group="Tiempo"     style="--nc:#86efac" onclick="selectNumCard('mesPers')">
+        <span class="ncb-bignum" id="ncn_mesPers">—</span><span class="ncb-bar"></span><span class="ncb-label">Mes Personal</span>
+      </div>
+      <div class="num-card-btn" id="nc_diaPers"   data-group="Tiempo"     style="--nc:#fcd34d" onclick="selectNumCard('diaPers')">
+        <span class="ncb-bignum" id="ncn_diaPers">—</span><span class="ncb-bar"></span><span class="ncb-label">Día Personal</span>
+      </div>
+      <div class="num-card-btn" id="nc_pinnacle"  data-group="Tiempo"     style="--nc:#fdba74" onclick="selectNumCard('pinnacle')">
+        <span class="ncb-bignum" id="ncn_pinnacle">—</span><span class="ncb-bar"></span><span class="ncb-label">Ciclo Pinnacle</span>
+      </div>
+    </div>
+
+    <!-- Vista de detalle fecha -->
+    <div id="numDetailView" style="display:none;width:100%;max-width:960px;margin:0 auto;padding:0 20px 48px;">
+      <button class="num-btn-volver" onclick="cerrarNumDetalle()">← Volver al perfil</button>
+      <div id="numResultInner"></div>
+    </div>
+
+  </div><!-- /numPanel-fecha -->
+
+  <!-- ══ PANEL NOMBRE ══ -->
+  <div id="numPanel-nombre" style="display:none;width:100%;flex-direction:column;align-items:center;">
+
+    <div class="num-deco-top">
+      <div class="num-deco-symbols">
+        <span class="num-sym" style="--d:0s">Α</span>
+        <span class="num-sym" style="--d:.15s">Β</span>
+        <span class="num-sym" style="--d:.3s">Γ</span>
+        <span class="num-sym num-sym--big" style="--d:.45s">✦</span>
+        <span class="num-sym" style="--d:.3s">Δ</span>
+        <span class="num-sym" style="--d:.15s">Ε</span>
+        <span class="num-sym" style="--d:0s">Ζ</span>
+      </div>
+      <div class="num-deco-line"><span class="num-deco-dot"></span><span class="num-deco-rule"></span><span class="num-deco-dot"></span></div>
+      <p class="num-deco-phrase">Tu nombre no fue elegido al azar. Cada letra lleva un código.</p>
+      <div class="num-deco-line"><span class="num-deco-dot"></span><span class="num-deco-rule"></span><span class="num-deco-dot"></span></div>
+    </div>
+    <div style="width:100%;text-align:center;margin:0 0 12px;">
+      <button class="num-switch-btn" onclick="numSwitchTab('fecha')">🗓️ Ir a Numerología · Números</button>
+    </div>
+
+    <div class="num-form-wrap" id="numNombreFormWrap" style="padding-bottom:10px;">
+      <div class="mod-section-label">Ingresa tu nombre completo de nacimiento</div>
+      <div class="num-inputs-row" style="flex-direction:column;align-items:center;gap:18px;">
+        <input
+          id="numNombreInput"
+          type="text"
+          maxlength="80"
+          placeholder="Nombre y apellido completo"
+          autocomplete="off"
+          style="width:100%;max-width:480px;background:#000d20;border:none;border-bottom:1px solid rgba(0,200,255,0.3);color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-size:20px;font-weight:600;padding:12px 8px;outline:none;text-align:center;letter-spacing:.04em;transition:border-color .2s;"
+          oninput="this.value=this.value.replace(/[^a-zA-ZÁÉÍÓÚáéíóúÜüÑñ\s]/g,'')"
+          onfocus="this.style.borderBottomColor='var(--acc)';this.style.background='#001820';"
+          onblur="this.style.borderBottomColor='rgba(0,200,255,0.3)';this.style.background='#000d20';"
+        />
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,255,0.55);">Número de Vida <span style="color:rgba(255,255,255,0.3);font-size:10px;">(opcional · para el Número de Madurez)</span></span>
+          <input
+            id="numNombreVida"
+            type="text"
+            inputmode="numeric"
+            maxlength="2"
+            placeholder="Ej: 7"
+            autocomplete="off"
+            style="width:80px;background:#000d20;border:none;border-bottom:1px solid rgba(0,200,255,0.3);color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-size:20px;font-weight:600;padding:10px 6px;outline:none;text-align:center;transition:border-color .2s;"
+            oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+            onfocus="this.style.borderBottomColor='var(--acc)';this.style.background='#001820';"
+            onblur="this.style.borderBottomColor='rgba(0,200,255,0.3)';this.style.background='#000d20';"
+          />
+        </div>
+        <button
+          onclick="calcNumerologiaNombre()"
+          style="background:transparent;border:1px solid var(--acc);color:#ffffff;font-size:14px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 40px;cursor:pointer;transition:all .25s;margin-top:4px;"
+          onmouseover="this.style.boxShadow='0 0 30px rgba(0,200,255,.22)'"
+          onmouseout="this.style.boxShadow=''">🔤 Calcular mi Nombre</button>
+      </div>
+    </div>
+
+    <!-- Estado vacío nombre -->
+    <div id="numNombreEmptyState" class="num-empty-state">
+      <div class="num-empty-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="num-empty-card" style="--c:#a78bfa"><span class="nec-num">E</span><span class="nec-lbl">Expresión</span></div>
+        <div class="num-empty-card" style="--c:#f472b6"><span class="nec-num">A</span><span class="nec-lbl">Número del Alma</span></div>
+        <div class="num-empty-card" style="--c:#38bdf8"><span class="nec-num">P</span><span class="nec-lbl">Personalidad</span></div>
+        <div class="num-empty-card" style="--c:#4ade80"><span class="nec-num">Q</span><span class="nec-lbl">Equilibrio</span></div>
+        <div class="num-empty-card" style="--c:#e879f9"><span class="nec-num">K</span><span class="nec-lbl">Kármico del Nombre</span></div>
+        <div class="num-empty-card" style="--c:#fbbf24"><span class="nec-num">M</span><span class="nec-lbl">Madurez</span></div>
+      </div>
+      <p class="num-empty-hint">✦ Ingresa tu nombre completo para desbloquear el perfil numerológico de las letras ✦</p>
+    </div>
+
+    <!-- Grilla de tarjetas nombre -->
+    <div id="numNombreSelectorWrap" class="num-cards-grid" style="display:none;">
+      <div style="width:100%;text-align:center;margin-bottom:6px;">
+        <button class="num-btn-volver" onclick="numNombreRecalcular()">← Ingresar otro nombre</button>
+      </div>
+      <div class="num-card-btn" style="--nc:#a78bfa" onclick="selectNumNombreCard('expresion')">
+        <span class="ncb-bignum" id="ncnn_expresion">—</span><span class="ncb-bar"></span><span class="ncb-label">Número de Expresión</span>
+      </div>
+      <div class="num-card-btn" style="--nc:#f472b6" onclick="selectNumNombreCard('alma')">
+        <span class="ncb-bignum" id="ncnn_alma">—</span><span class="ncb-bar"></span><span class="ncb-label">Número del Alma</span>
+      </div>
+      <div class="num-card-btn" style="--nc:#38bdf8" onclick="selectNumNombreCard('personalidad')">
+        <span class="ncb-bignum" id="ncnn_personalidad">—</span><span class="ncb-bar"></span><span class="ncb-label">Personalidad</span>
+      </div>
+      <div class="num-card-btn" style="--nc:#4ade80" onclick="selectNumNombreCard('equilibrio')">
+        <span class="ncb-bignum" id="ncnn_equilibrio">—</span><span class="ncb-bar"></span><span class="ncb-label">Equilibrio</span>
+      </div>
+      <div class="num-card-btn" style="--nc:#e879f9" onclick="selectNumNombreCard('karmicoNombre')">
+        <span class="ncb-bignum" id="ncnn_karmicoNombre">—</span><span class="ncb-bar"></span><span class="ncb-label">Kármico del Nombre</span>
+      </div>
+      <div class="num-card-btn" style="--nc:#fbbf24" onclick="selectNumNombreCard('madurezNombre')">
+        <span class="ncb-bignum" id="ncnn_madurezNombre">—</span><span class="ncb-bar"></span><span class="ncb-label">Madurez</span>
+      </div>
+    </div>
+
+    <!-- Vista de detalle nombre -->
+    <div id="numNombreDetailView" style="display:none;width:100%;max-width:960px;margin:0 auto;padding:0 20px 80px;">
+      <button class="num-btn-volver" onclick="cerrarNumNombreDetalle()">← Volver al perfil del nombre</button>
+      <div id="numNombreResultInner"></div>
+    </div>
+
+  </div><!-- /numPanel-nombre -->
 
 </div><!-- /numerologiaView -->
 
@@ -6203,7 +6486,14 @@ function _aplicarDatosMensajes() {
           function(e)  { console.error('[Sergiomancias] Error al parsear .json:', e); }
         );
       },
-      function(e) { console.error('[Sergiomancias] AMBOS archivos fallaron.', e); }
+      function(e) {
+        console.error('[Sergiomancias] AMBOS archivos fallaron.', e);
+        // Aunque fallen los mensajes externos, ocultar el overlay para que la app cargue igual
+        window._smDataReady = true;
+        if (typeof smHideLoading === 'function') {
+          setTimeout(function(){ smHideLoading(); }, 300);
+        }
+      }
     );
   }
 
@@ -6283,6 +6573,30 @@ let _savedHousesMercury  = null;
 let _savedAscMercury     = null;
 let _savedMcMercury      = null;
 let _savedAstMercury     = null;
+// Datos del retorno de Venus
+let _savedPlanetsVenus = null;
+let _savedHousesVenus  = null;
+let _savedAscVenus     = null;
+let _savedMcVenus      = null;
+let _savedAstVenus     = null;
+// Datos del retorno de Marte
+let _savedPlanetsMars = null;
+let _savedHousesMars  = null;
+let _savedAscMars     = null;
+let _savedMcMars      = null;
+let _savedAstMars     = null;
+// Datos del retorno de Júpiter
+let _savedPlanetsJupiter = null;
+let _savedHousesJupiter  = null;
+let _savedAscJupiter     = null;
+let _savedMcJupiter      = null;
+let _savedAstJupiter     = null;
+// Datos del retorno de Saturno
+let _savedPlanetsSaturn = null;
+let _savedHousesSaturn  = null;
+let _savedAscSaturn     = null;
+let _savedMcSaturn      = null;
+let _savedAstSaturn     = null;
 // Datos activos en pantalla (natal o retorno) — usados por tabs
 let _activePlanets = null;
 let _activeHouses  = null;
@@ -10741,7 +11055,54 @@ async function calculate() {
       horaSub + sep + horaHTML;
   } catch(e) { console.warn('Horario planetario error:', e); }
 
-  document.getElementById('rSub').innerHTML = `${fechaFmt}<br>${horarioPlanetarioHTML || horaSub}<br><span>${ciudadSub}</span>`;
+  // Guardar fecha de nacimiento globalmente para recalcular desde editar
+  window._rSubFD = fD; window._rSubFM = fM; window._rSubFY = fY;
+
+  // Función para calcular y actualizar las fechas especiales en rSub
+  window.actualizarFechasEspeciales = function(diaB, mesB, anioB) {
+    const mesesNombreCorto = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    // ── Concepción: + 3 meses (mismo día, mes +3)
+    var mesCon = mesB + 3;
+    var anioCon = anioB;
+    if (mesCon > 12) { mesCon -= 12; anioCon += 1; }
+    var strConcepcion = diaB + ' de ' + mesesNombreCorto[mesCon - 1];
+
+    // ── Helper: sumar/restar días a fecha usando Date
+    function offsetDias(d, m, y, offset) {
+      var dt = new Date(y, m - 1, d);
+      dt.setDate(dt.getDate() + offset);
+      return { d: dt.getDate(), m: dt.getMonth() + 1, y: dt.getFullYear() };
+    }
+
+    // Para aprendizaje y renacimiento usamos año actual para mostrar la próxima ocurrencia
+    var hoy = new Date();
+    var anioActual = hoy.getFullYear();
+
+    // ── Aprendizaje: cumpleaños − 52 días (próxima ocurrencia)
+    var aprBase = offsetDias(diaB, mesB, anioActual, -52);
+    var dtApr = new Date(aprBase.y, aprBase.m - 1, aprBase.d);
+    if (dtApr < hoy) { aprBase = offsetDias(diaB, mesB, anioActual + 1, -52); dtApr = new Date(aprBase.y, aprBase.m - 1, aprBase.d); }
+    var strAprendizaje = aprBase.d + ' de ' + mesesNombreCorto[aprBase.m - 1];
+
+    // ── Renacimiento: cumpleaños + 52 días (próxima ocurrencia)
+    var renBase = offsetDias(diaB, mesB, anioActual, 52);
+    var dtRen = new Date(renBase.y, renBase.m - 1, renBase.d);
+    if (dtRen < hoy) { renBase = offsetDias(diaB, mesB, anioActual + 1, 52); dtRen = new Date(renBase.y, renBase.m - 1, renBase.d); }
+    var strRenacimiento = renBase.d + ' de ' + mesesNombreCorto[renBase.m - 1];
+
+    var fechasHTML =
+      '<div style="font-size:18px;color:#ffffff;line-height:1.8;text-align:center;">' +
+        '<div><span style="color:#ffffff;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;">Fecha de Concepción:</span> ' + strConcepcion + '</div>' +
+        '<div style="margin-top:4px;"><span style="color:#ffffff;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;">Fecha de Aprendizajes:</span> ' + strAprendizaje + '</div>' +
+        '<div style="margin-top:4px;"><span style="color:#ffffff;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;">Fecha de Renacimiento:</span> ' + strRenacimiento + '</div>' +
+      '</div>';
+    var topbarEl = document.getElementById('fechasEspecialesTopbar');
+    if (topbarEl) topbarEl.innerHTML = fechasHTML;
+    return '';
+  };
+
+  var _fechasEspecialesHTML = window.actualizarFechasEspeciales(fD, fM, fY);
+  document.getElementById('rSub').innerHTML = `${fechaFmt}<br>${horarioPlanetarioHTML || horaSub}<br><span>${ciudadSub}</span>${_fechasEspecialesHTML}`;
   const aspects = drawChart(planets, asc, mc, unknown, minor, houses);
   // Mostrar resultView DESPUÉS de drawChart para que no se vea el canvas negro
   rv.classList.add('active'); document.querySelector('.hdr-latin').style.display='block';
@@ -10810,10 +11171,19 @@ async function calculate() {
     document.getElementById('retornoAnyo').value = new Date().getFullYear();
     document.getElementById('retornoAnyoL').value = new Date().getFullYear();
     document.getElementById('retornoMes').value = new Date().getMonth() + 1;
+    document.getElementById('retornoAnyoV').value = new Date().getFullYear();
+    document.getElementById('retornoAnyoMr').value = new Date().getFullYear();
+    document.getElementById('retornoAnyoJ').value = new Date().getFullYear();
+    document.getElementById('retornoAnyoSa').value = new Date().getFullYear();
     // Reset tipo selector
     document.getElementById('retornoTipo').value = '';
     document.getElementById('retornoSolarFields').style.display = 'none';
     document.getElementById('retornoLunarFields').style.display = 'none';
+    document.getElementById('retornoMercuryFields').style.display = 'none';
+    document.getElementById('retornoVenusFields').style.display = 'none';
+    document.getElementById('retornoMarsFields').style.display = 'none';
+    document.getElementById('retornoJupiterFields').style.display = 'none';
+    document.getElementById('retornoSaturnFields').style.display = 'none';
     var _rr = document.getElementById('retornoResult'); if (_rr) _rr.style.display = 'none';
     document.getElementById('retornoStatus').textContent = '';
   }
@@ -10858,6 +11228,10 @@ function onRetornoTipoChange() {
   document.getElementById('retornoSolarFields').style.display   = tipo === 'solar'   ? 'flex' : 'none';
   document.getElementById('retornoLunarFields').style.display   = tipo === 'lunar'   ? 'flex' : 'none';
   document.getElementById('retornoMercuryFields').style.display = tipo === 'mercury' ? 'flex' : 'none';
+  document.getElementById('retornoVenusFields').style.display   = tipo === 'venus'   ? 'flex' : 'none';
+  document.getElementById('retornoMarsFields').style.display    = tipo === 'mars'    ? 'flex' : 'none';
+  document.getElementById('retornoJupiterFields').style.display = tipo === 'jupiter' ? 'flex' : 'none';
+  document.getElementById('retornoSaturnFields').style.display  = tipo === 'saturn'  ? 'flex' : 'none';
   document.getElementById('retornoStatus').textContent = '';
   // Auto-rellenar año y mes actuales si el campo está vacío
   var _now = new Date();
@@ -11176,6 +11550,73 @@ function findMercuryReturnFallback(natalMercuryLon, month, year) {
   return new Date((lo + hi) / 2);
 }
 
+// Función genérica para retorno de Venus (id=3), Marte (id=4), Júpiter (id=5), Saturno (id=6)
+// Busca en una ventana de ±2 años desde el 1 de enero del año indicado.
+// Para planetas lentos (Júpiter: ~12 años, Saturno: ~29 años) el retorno puede
+// estar en cualquier punto del año — se busca en todo el año completo.
+async function findPlanetReturnSweph(natalLon, year, sweId, swe) {
+  const target   = natalLon;
+  const nrm      = x => ((x % 360) + 360) % 360;
+  const normDiff = a => { let d = ((a % 360) + 360) % 360; return d > 180 ? d - 360 : d; };
+  // Venus orbita ~225 días, Marte ~687 días, Júpiter ~12 años, Saturno ~29 años.
+  // Para cubrir todos, buscamos en todo el año calendario.
+  const startDate = new Date(Date.UTC(year, 0, 1, 0, 0, 0));
+  const endDate   = new Date(Date.UTC(year, 11, 31, 23, 59, 0));
+  let prev = null, prevTime = null, found = null;
+  if (swe && typeof swe.swe_calc_ut === 'function') {
+    for (let d = new Date(startDate); d <= endDate; d.setUTCDate(d.getUTCDate() + 1)) {
+      try {
+        const res  = swe.swe_calc_ut(jdUTC(new Date(d)), sweId, 256);
+        const lon  = nrm(res.longitude ?? res[0] ?? res?.xx?.[0] ?? 0);
+        const diff = normDiff(lon - target);
+        if (prev !== null && prev * diff <= 0 && Math.abs(prev) < 180) { found = prevTime; break; }
+        prev = diff; prevTime = new Date(d);
+      } catch(e) { break; }
+    }
+    if (found) {
+      let lo = found.getTime(), hi = lo + 86400000;
+      for (let i = 0; i < 80; i++) {
+        const mid = (lo + hi) / 2;
+        try {
+          const res  = swe.swe_calc_ut(jdUTC(new Date(mid)), sweId, 256);
+          const lon  = nrm(res.longitude ?? res[0] ?? res?.xx?.[0] ?? 0);
+          const diff = normDiff(lon - target);
+          if (diff < 0) lo = mid; else hi = mid;
+        } catch(e) { break; }
+        if (hi - lo < 200) break;
+      }
+      return new Date((lo + hi) / 2);
+    }
+  }
+  // Fallback astronomy-engine para Venus y Marte (Júpiter y Saturno no disponibles en AE directamente)
+  if (!window.Astronomy) return null;
+  const aeNames = { 3: 'Venus', 4: 'Mars' };
+  const aeName = aeNames[sweId];
+  if (!aeName) return null;
+  prev = null; prevTime = null; found = null;
+  for (let d = new Date(startDate); d <= endDate; d.setUTCDate(d.getUTCDate() + 1)) {
+    try {
+      const ecl  = Astronomy.EclipticLongitude(aeName, new Astronomy.AstroTime(new Date(d)));
+      const lon  = nrm(ecl);
+      const diff = normDiff(lon - target);
+      if (prev !== null && prev * diff <= 0 && Math.abs(prev) < 180) { found = prevTime; break; }
+      prev = diff; prevTime = new Date(d);
+    } catch(e) { return null; }
+  }
+  if (!found) return null;
+  let lo = found.getTime(), hi = lo + 86400000;
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2;
+    try {
+      const ecl  = Astronomy.EclipticLongitude(aeName, new Astronomy.AstroTime(new Date(mid)));
+      const diff = normDiff(nrm(ecl) - target);
+      if (diff < 0) lo = mid; else hi = mid;
+    } catch(e) { break; }
+    if (hi - lo < 200) break;
+  }
+  return new Date((lo + hi) / 2);
+}
+
 
 // Vuelve a dibujar la carta natal original en el canvas principal
 function volverCartaNatal() {
@@ -11190,6 +11631,10 @@ function volverCartaNatal() {
   _savedPlanetsSun  = null; _savedHousesSun  = null; _savedAscSun  = null; _savedMcSun  = null;
   _savedPlanetsMoon = null; _savedHousesMoon = null; _savedAscMoon = null; _savedMcMoon = null;
   _savedPlanetsMercury = null; _savedHousesMercury = null; _savedAscMercury = null; _savedMcMercury = null;
+  _savedPlanetsVenus = null; _savedHousesVenus = null; _savedAscVenus = null; _savedMcVenus = null;
+  _savedPlanetsMars = null; _savedHousesMars = null; _savedAscMars = null; _savedMcMars = null;
+  _savedPlanetsJupiter = null; _savedHousesJupiter = null; _savedAscJupiter = null; _savedMcJupiter = null;
+  _savedPlanetsSaturn = null; _savedHousesSaturn = null; _savedAscSaturn = null; _savedMcSaturn = null;
   const minor = document.getElementById('chkMenores').value === '1';
   const aspects = drawChart(_savedPlanets, _savedAsc, _savedMc, _savedUnknown, minor, _savedHouses);
   _activePlanets = _savedPlanets;
@@ -11207,6 +11652,10 @@ function volverCartaNatal() {
   document.getElementById('retornoSolarFields').style.display = 'none';
   document.getElementById('retornoLunarFields').style.display = 'none';
   document.getElementById('retornoMercuryFields').style.display = 'none';
+  document.getElementById('retornoVenusFields').style.display = 'none';
+  document.getElementById('retornoMarsFields').style.display = 'none';
+  document.getElementById('retornoJupiterFields').style.display = 'none';
+  document.getElementById('retornoSaturnFields').style.display = 'none';
   document.getElementById('retornoStatus').textContent = '';
   document.getElementById('retornoTitulo').style.display = 'none';
   document.getElementById('retornoTitulo').textContent = '';
@@ -11252,6 +11701,10 @@ async function calcularRetorno() {
   let natalSunLon      = (_natalPlanets || _savedPlanets).find(p => p.key === 'Sun')?.lon;
   let natalMoonLon     = (_natalPlanets || _savedPlanets).find(p => p.key === 'Moon')?.lon;
   let natalMercuryLon  = (_natalPlanets || _savedPlanets).find(p => p.key === 'Mercury')?.lon;
+  let natalVenusLon    = (_natalPlanets || _savedPlanets).find(p => p.key === 'Venus')?.lon;
+  let natalMarsLon     = (_natalPlanets || _savedPlanets).find(p => p.key === 'Mars')?.lon;
+  let natalJupiterLon  = (_natalPlanets || _savedPlanets).find(p => p.key === 'Jupiter')?.lon;
+  let natalSaturnLon   = (_natalPlanets || _savedPlanets).find(p => p.key === 'Saturn')?.lon;
 
   const lat = _savedLat, lon = _savedLon;
   let retornoUtc = null;
@@ -11267,12 +11720,24 @@ async function calcularRetorno() {
         const resSol     = sweInst.swe_calc_ut(jdNatal, 0, 256);
         const resMoon    = sweInst.swe_calc_ut(jdNatal, 1, 256);
         const resMercury = sweInst.swe_calc_ut(jdNatal, 2, 256);
+        const resVenus   = sweInst.swe_calc_ut(jdNatal, 3, 256);
+        const resMars    = sweInst.swe_calc_ut(jdNatal, 4, 256);
+        const resJupiter = sweInst.swe_calc_ut(jdNatal, 5, 256);
+        const resSaturn  = sweInst.swe_calc_ut(jdNatal, 6, 256);
         const sweSun     = resSol.longitude     ?? resSol[0]     ?? resSol?.xx?.[0];
         const sweMoon    = resMoon.longitude    ?? resMoon[0]    ?? resMoon?.xx?.[0];
         const sweMercury = resMercury.longitude ?? resMercury[0] ?? resMercury?.xx?.[0];
+        const sweVenus   = resVenus.longitude   ?? resVenus[0]   ?? resVenus?.xx?.[0];
+        const sweMars    = resMars.longitude    ?? resMars[0]    ?? resMars?.xx?.[0];
+        const sweJupiter = resJupiter.longitude ?? resJupiter[0] ?? resJupiter?.xx?.[0];
+        const sweSaturn  = resSaturn.longitude  ?? resSaturn[0]  ?? resSaturn?.xx?.[0];
         if (sweSun     != null) { natalSunLon     = ((sweSun     % 360) + 360) % 360; }
         if (sweMoon    != null) { natalMoonLon    = ((sweMoon    % 360) + 360) % 360; }
         if (sweMercury != null) { natalMercuryLon = ((sweMercury % 360) + 360) % 360; }
+        if (sweVenus   != null) { natalVenusLon   = ((sweVenus   % 360) + 360) % 360; }
+        if (sweMars    != null) { natalMarsLon    = ((sweMars    % 360) + 360) % 360; }
+        if (sweJupiter != null) { natalJupiterLon = ((sweJupiter % 360) + 360) % 360; }
+        if (sweSaturn  != null) { natalSaturnLon  = ((sweSaturn  % 360) + 360) % 360; }
         console.log('%cSWEPH natal → Sol:', 'color:lime', natalSunLon?.toFixed(4), '| Luna:', natalMoonLon?.toFixed(4), '| Mercurio:', natalMercuryLon?.toFixed(4));
       } catch(e) {
         console.warn('SWEPH natal recalc falló, usando _natalPlanets:', e.message);
@@ -11303,6 +11768,22 @@ async function calcularRetorno() {
         retornoUtc = await findMercuryReturnSweph(natalMercuryLon, month, year, sweInst);
       }
       if (!retornoUtc) retornoUtc = findMercuryReturnFallback(natalMercuryLon, month, year);
+    } else if (tipo === 'venus') {
+      const year = parseInt(document.getElementById('retornoAnyoV').value);
+      if (!year || isNaN(year)) { rstEl.textContent = 'Ingresa un año válido.'; return; }
+      retornoUtc = await findPlanetReturnSweph(natalVenusLon, year, 3, sweInst);
+    } else if (tipo === 'mars') {
+      const year = parseInt(document.getElementById('retornoAnyoMr').value);
+      if (!year || isNaN(year)) { rstEl.textContent = 'Ingresa un año válido.'; return; }
+      retornoUtc = await findPlanetReturnSweph(natalMarsLon, year, 4, sweInst);
+    } else if (tipo === 'jupiter') {
+      const year = parseInt(document.getElementById('retornoAnyoJ').value);
+      if (!year || isNaN(year)) { rstEl.textContent = 'Ingresa un año válido.'; return; }
+      retornoUtc = await findPlanetReturnSweph(natalJupiterLon, year, 5, sweInst);
+    } else if (tipo === 'saturn') {
+      const year = parseInt(document.getElementById('retornoAnyoSa').value);
+      if (!year || isNaN(year)) { rstEl.textContent = 'Ingresa un año válido.'; return; }
+      retornoUtc = await findPlanetReturnSweph(natalSaturnLon, year, 6, sweInst);
     }
   } catch(e) {
     rstEl.textContent = 'Error: ' + e.message; return;
@@ -11378,7 +11859,7 @@ async function calcularRetorno() {
     window._jdRetornoSun = _jdRetorno;
     // btnLeerSolar desactivado temporalmente — no mostrar
     document.getElementById('chartCanvas').scrollIntoView({behavior:'smooth', block:'start'});
-    // showRetornoHint('solar') desactivado temporalmente
+    showRetornoHint('solar');
   } else if (tipo === 'lunar') {
     _savedPlanetsMoon = rPlanets;
     _savedHousesMoon  = rHouses;
@@ -11386,9 +11867,8 @@ async function calcularRetorno() {
     _savedMcMoon      = rMc;
     _savedAstMoon     = _astRetorno;
     window._jdRetornoMoon = _jdRetorno;
-    // btnLeerLunar desactivado temporalmente — no mostrar
     document.getElementById('chartCanvas').scrollIntoView({behavior:'smooth', block:'start'});
-    // showRetornoHint('lunar') desactivado temporalmente
+    showRetornoHint('lunar');
   } else if (tipo === 'mercury') {
     _savedPlanetsMercury = rPlanets;
     _savedHousesMercury  = rHouses;
@@ -11396,9 +11876,44 @@ async function calcularRetorno() {
     _savedMcMercury      = rMc;
     _savedAstMercury     = _astRetorno;
     window._jdRetornoMercury = _jdRetorno;
-    // btnLeerMercury desactivado temporalmente — no mostrar
     document.getElementById('chartCanvas').scrollIntoView({behavior:'smooth', block:'start'});
-    // showRetornoHint('mercury') desactivado temporalmente
+    showRetornoHint('mercury');
+  } else if (tipo === 'venus') {
+    _savedPlanetsVenus = rPlanets;
+    _savedHousesVenus  = rHouses;
+    _savedAscVenus     = rAsc;
+    _savedMcVenus      = rMc;
+    _savedAstVenus     = _astRetorno;
+    window._jdRetornoVenus = _jdRetorno;
+    document.getElementById('chartCanvas').scrollIntoView({behavior:'smooth', block:'start'});
+    showRetornoHint('venus');
+  } else if (tipo === 'mars') {
+    _savedPlanetsMars = rPlanets;
+    _savedHousesMars  = rHouses;
+    _savedAscMars     = rAsc;
+    _savedMcMars      = rMc;
+    _savedAstMars     = _astRetorno;
+    window._jdRetornoMars = _jdRetorno;
+    document.getElementById('chartCanvas').scrollIntoView({behavior:'smooth', block:'start'});
+    showRetornoHint('mars');
+  } else if (tipo === 'jupiter') {
+    _savedPlanetsJupiter = rPlanets;
+    _savedHousesJupiter  = rHouses;
+    _savedAscJupiter     = rAsc;
+    _savedMcJupiter      = rMc;
+    _savedAstJupiter     = _astRetorno;
+    window._jdRetornoJupiter = _jdRetorno;
+    document.getElementById('chartCanvas').scrollIntoView({behavior:'smooth', block:'start'});
+    showRetornoHint('jupiter');
+  } else if (tipo === 'saturn') {
+    _savedPlanetsSaturn = rPlanets;
+    _savedHousesSaturn  = rHouses;
+    _savedAscSaturn     = rAsc;
+    _savedMcSaturn      = rMc;
+    _savedAstSaturn     = _astRetorno;
+    window._jdRetornoSaturn = _jdRetorno;
+    document.getElementById('chartCanvas').scrollIntoView({behavior:'smooth', block:'start'});
+    showRetornoHint('saturn');
   }
 
   // Actualizar datos activos en pantalla con los del retorno
@@ -11412,12 +11927,21 @@ async function calcularRetorno() {
     timeZone:'UTC', year:'numeric', month:'long', day:'numeric',
     hour:'2-digit', minute:'2-digit'
   });
-  const esLabel = tipo === 'solar' ? '☉ Retorno Solar' : tipo === 'lunar' ? '☽ Retorno Lunar' : '☿ Retorno de Mercurio';
+  const esLabel = tipo === 'solar' ? '☉ Retorno Solar'
+    : tipo === 'lunar'   ? '☽ Retorno Lunar'
+    : tipo === 'mercury' ? '☿ Retorno de Mercurio'
+    : tipo === 'venus'   ? '♀ Retorno de Venus'
+    : tipo === 'mars'    ? '♂ Retorno de Marte'
+    : tipo === 'jupiter' ? '♃ Retorno de Júpiter'
+    : '♄ Retorno de Saturno';
   // btnVolverNatal y retornoTitulo desactivados temporalmente — no se muestran
   const MESES = ['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  var _icono = tipo === 'solar' ? '☉' : tipo === 'lunar' ? '☽' : '☿';
-  var _icolor = tipo === 'solar' ? '#f0a500' : tipo === 'lunar' ? '#a8d8ff' : '#9de8b0';
-  var _ilabel = tipo === 'solar' ? 'Retorno Solar' : tipo === 'lunar' ? 'Retorno Lunar' : 'Retorno de Mercurio';
+  var _icono = tipo === 'solar' ? '☉' : tipo === 'lunar' ? '☽' : tipo === 'mercury' ? '☿'
+    : tipo === 'venus' ? '♀' : tipo === 'mars' ? '♂' : tipo === 'jupiter' ? '♃' : '♄';
+  var _icolor = tipo === 'solar' ? '#f0a500' : tipo === 'lunar' ? '#a8d8ff' : tipo === 'mercury' ? '#9de8b0'
+    : tipo === 'venus' ? '#ffb3d9' : tipo === 'mars' ? '#ff6655' : tipo === 'jupiter' ? '#c8a86b' : '#b0b8d0';
+  var _ilabel = tipo === 'solar' ? 'Retorno Solar' : tipo === 'lunar' ? 'Retorno Lunar' : tipo === 'mercury' ? 'Retorno de Mercurio'
+    : tipo === 'venus' ? 'Retorno de Venus' : tipo === 'mars' ? 'Retorno de Marte' : tipo === 'jupiter' ? 'Retorno de Júpiter' : 'Retorno de Saturno';
   window._retornoTipoActivo = { tipo: tipo, icono: _icono, color: _icolor, label: _ilabel };
 
   rstEl.innerHTML = `✅ ${esLabel} calculado — rueda actualizada<!-- Precisión de casas: ±3-5' (límite del motor Moshier en browser). Para mayor exactitud se requieren efemérides JPL completas. -->`;
@@ -11596,6 +12120,17 @@ function resetAllUserData() {
   if (formWrap) formWrap.style.display = 'block';
   const decoTop = document.querySelector('#numerologiaView .num-deco-top');
   if (decoTop) decoTop.style.display = 'block';
+  // Resetear panel nombre
+  var _nnInput = document.getElementById('numNombreInput'); if (_nnInput) _nnInput.value = '';
+  var _nnVida  = document.getElementById('numNombreVida');  if (_nnVida)  _nnVida.value  = '';
+  var _nnEmpty = document.getElementById('numNombreEmptyState'); if (_nnEmpty) _nnEmpty.style.display = 'block';
+  var _nnSel   = document.getElementById('numNombreSelectorWrap'); if (_nnSel) _nnSel.style.display = 'none';
+  var _nnDet   = document.getElementById('numNombreDetailView');   if (_nnDet) _nnDet.style.display = 'none';
+  var _nnInner = document.getElementById('numNombreResultInner');   if (_nnInner) _nnInner.innerHTML = '';
+  var _nnForm  = document.getElementById('numNombreFormWrap');      if (_nnForm) _nnForm.style.display = 'block';
+  window._numNombreData = null;
+  // Volver a pantalla de inicio de numerología
+  if (typeof numSwitchTab === 'function') numSwitchTab('home');
   // Reset Carta Natal (wizard completo)
   volverFormularioManual();
   document.getElementById('resultView').classList.remove('active');
@@ -11721,6 +12256,26 @@ function resetAllUserData() {
   if (transitoResult) transitoResult.style.display = 'none';
   window._trSlides = null;
   window._trSlideIdx = 0;
+
+  // Reset Zodiaco Chino
+  var zcResult = document.getElementById('zcResult');
+  var zcForm   = document.getElementById('zcForm');
+  if (zcResult) zcResult.style.display = 'none';
+  if (zcForm)   zcForm.style.display   = 'block';
+  var zcAnioEl = document.getElementById('zcAnio');
+  if (zcAnioEl) zcAnioEl.value = '';
+  document.querySelectorAll('#dots-zcAnio .anio-dot').forEach(function(d){ d.classList.remove('filled','ready'); });
+  var zcDiaEl = document.getElementById('zcDia'); if (zcDiaEl) zcDiaEl.value = '';
+  var zcMesEl = document.getElementById('zcMes'); if (zcMesEl) zcMesEl.value = '';
+  cdropReset('zcDia', 'Día');
+  cdropReset('zcMes', 'Mes');
+  var zcHoraEl = document.getElementById('zcHora');
+  var zcMinEl  = document.getElementById('zcMin');
+  if (zcHoraEl) { zcHoraEl.value = ''; zcHoraEl.selectedIndex = 0; zcHoraEl.disabled = false; zcHoraEl.style.opacity = '1'; }
+  if (zcMinEl)  { zcMinEl.value  = ''; zcMinEl.selectedIndex  = 0; zcMinEl.disabled  = false; zcMinEl.style.opacity  = '1'; }
+  var zcNoSabeHoraBtn = document.getElementById('zcNoSabeHora');
+  if (zcNoSabeHoraBtn) { zcNoSabeHoraBtn.textContent = 'Sin hora'; zcNoSabeHoraBtn.style.borderColor = 'rgba(240,165,0,0.3)'; zcNoSabeHoraBtn.style.color = 'rgba(255,255,255,0.4)'; }
+  if (typeof window.zcReset === 'function') window.zcReset();
 }
 
 // ── Navegación principal ──
@@ -11739,7 +12294,7 @@ function showHome() {
   });
   document.getElementById('app').classList.add('hidden');
   document.getElementById('homeView').classList.remove('hidden');
-  ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView'].forEach(id => {
+  ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView','zodiacoChinoView','fengshuiView'].forEach(id => {
     const el = document.getElementById(id); if (el) el.style.display = 'none';
   });
   // Back to pg1
@@ -11950,7 +12505,7 @@ function showModule(mod) {
   if (_cm) { _cm.style.display='none'; _cm.style.pointerEvents='none'; }
   document.getElementById('homeView').classList.add('hidden');
   document.getElementById('app').classList.add('hidden');
-  ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView'].forEach(id => {
+  ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView','zodiacoChinoView','fengshuiView'].forEach(id => {
     const el = document.getElementById(id); if (el) el.style.display = 'none';
   });
   if (mod === 'carta') {
@@ -11966,7 +12521,7 @@ function showModule(mod) {
     if (appEl) appEl.scrollIntoView({behavior:'smooth', block:'nearest'});
     return;
   }
-  const map = { signos:'signosView', personalidad:'personalidadView', compat:'compatView', arcanos:'arcanosView', runas:'runasView', numerologia:'numerologiaView', cromancia:'cromanciaView', chakras:'chakrasView' };
+  const map = { signos:'signosView', personalidad:'personalidadView', compat:'compatView', arcanos:'arcanosView', runas:'runasView', numerologia:'numerologiaView', cromancia:'cromanciaView', chakras:'chakrasView', zodiacoChino:'zodiacoChinoView', fengshui:'fengshuiView' };
   if (map[mod]) {
     const el = document.getElementById(map[mod]);
     el.style.display = 'flex';
@@ -11991,18 +12546,36 @@ function showModule(mod) {
     window._trSlides = null;
     var mobArcSel = document.getElementById('mobArcSelect');
     if (mobArcSel) mobArcSel.value = 'personal';
+    var pcArcSel = document.getElementById('pcArcSelect');
+    if (pcArcSel) pcArcSel.value = 'personal';
   }
   if (mod === 'runas') {
     if (typeof runaSwitchTab === 'function') runaSwitchTab('personal');
     var mobRunaSel = document.getElementById('mobRunaSelect');
     if (mobRunaSel) mobRunaSel.value = 'personal';
   }
+  if (mod === 'zodiacoChino') {
+    if (typeof zcInit === 'function') zcInit();
+  }
+  if (mod === 'fengshui') {
+    // Resetear sub-forms al entrar
+    if (typeof fsReset === 'function') fsReset();
+    if (typeof evReset === 'function') evReset();
+    if (typeof bzReset === 'function') bzReset();
+    // Mostrar sub-tab Kua por defecto
+    if (typeof fengSwitchTab === 'function') fengSwitchTab('kua');
+    // Poblar dropdown de Otras Mancias en el módulo
+    if (typeof fengPoblarNavDrop === 'function') fengPoblarNavDrop();
+  }
+  if (mod === 'numerologia') {
+    if (typeof numSwitchTab === 'function') numSwitchTab('home');
+  }
 }
 
 // Vuelve al home mostrando la sección (astro/mistico) con ese módulo como tarjeta principal activa
 function volverASeccion(mod) {
-  var _ASTRO_KEYS   = ['carta','personalidad','signos','compat'];
-  var _MISTICO_KEYS = ['arcanos','runas','numerologia','cromancia','chakras'];
+  var _ASTRO_KEYS   = ['carta','personalidad','signos','compat','zodiacoChino'];
+  var _MISTICO_KEYS = ['arcanos','runas','numerologia','cromancia','chakras','fengshui'];
   document.querySelectorAll('dialog[open]').forEach(function(d){ try{ d.close(); }catch(e){} });
   ['aspHintOverlay','retornoHintOverlay','acHintOverlay','empresasModalOverlay','sintesisNatalModal','editInfoOverlay'].forEach(function(id){
     var el = document.getElementById(id); if (el) el.style.display = 'none';
@@ -12037,7 +12610,7 @@ function volverASeccion(mod) {
     // Ocultar #app y vistas secundarias después de que homeView ya es visible
     document.getElementById('app').classList.add('hidden');
     requestAnimationFrame(function() {
-      ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView'].forEach(function(id){
+      ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView','zodiacoChinoView','fengshuiView'].forEach(function(id){
         var el = document.getElementById(id); if (el) el.style.display = 'none';
       });
     });
@@ -13479,6 +14052,218 @@ function cerrarNumDetalle() {
   document.getElementById('numGroupSelector').scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
+// ══════════════════════════════════════════════════════════════
+// NUMEROLOGÍA: navegación entre Home / Fecha / Nombre
+// ══════════════════════════════════════════════════════════════
+function numSwitchTab(tab) {
+  var home   = document.getElementById('numHomeView');
+  var fecha  = document.getElementById('numPanel-fecha');
+  var nombre = document.getElementById('numPanel-nombre');
+  if (home)   home.style.display   = 'none';
+  if (fecha)  fecha.style.display  = 'none';
+  if (nombre) nombre.style.display = 'none';
+  if (tab === 'fecha'  && fecha)  fecha.style.display  = 'flex';
+  else if (tab === 'nombre' && nombre) nombre.style.display = 'flex';
+  else if (home) home.style.display = 'flex';
+}
+
+// ══════════════════════════════════════════════════════════════
+// NUMEROLOGÍA DEL NOMBRE — cálculo completo
+// Tabla pitagórica extendida (incluye Ñ=5, letras acentuadas)
+// ══════════════════════════════════════════════════════════════
+(function() {
+  var TABLA = {
+    A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,
+    J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,
+    S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8,
+    Ñ:5,
+    Á:1,É:5,Í:9,Ó:6,Ú:3,Ü:3
+  };
+  var VOCALES = {A:1,E:1,I:1,O:1,U:1,Á:1,É:1,Í:1,Ó:1,Ú:1,Ü:1};
+
+  function normalizar(str) {
+    return str.toUpperCase()
+      .replace(/[^A-ZÁÉÍÓÚÜÑ\s]/g, '');
+  }
+
+  function reducir(n) {
+    while (n > 9 && n !== 11 && n !== 22 && n !== 33) {
+      n = String(n).split('').reduce(function(a,b){ return a + parseInt(b); }, 0);
+    }
+    return n;
+  }
+
+  function reducirSimple(n) {
+    while (n > 9) {
+      n = String(n).split('').reduce(function(a,b){ return a + parseInt(b); }, 0);
+    }
+    return n;
+  }
+
+  function sumaLetras(letras) {
+    var total = 0;
+    for (var i = 0; i < letras.length; i++) {
+      var v = TABLA[letras[i]];
+      if (v) total += v;
+    }
+    return total;
+  }
+
+  // Letras kármicas ausentes del nombre (1-9 únicamente)
+  function karmicoAusente(letras) {
+    var presentes = {};
+    for (var i = 0; i < letras.length; i++) {
+      var v = TABLA[letras[i]];
+      if (v && v <= 9) presentes[v] = true;
+    }
+    var ausentes = [];
+    for (var d = 1; d <= 9; d++) {
+      if (!presentes[d]) ausentes.push(d);
+    }
+    return ausentes;
+  }
+
+  // Iniciales de cada palabra
+  function iniciales(nombre) {
+    return nombre.trim().split(/\s+/).map(function(p){ return p[0] || ''; });
+  }
+
+  window.calcNumerologiaNombre = function() {
+    var input = document.getElementById('numNombreInput');
+    var vidaInput = document.getElementById('numNombreVida');
+    if (!input) return;
+
+    var nombreRaw = input.value.trim();
+    if (!nombreRaw) { alert('Ingresa tu nombre completo de nacimiento.'); return; }
+
+    var nombre = normalizar(nombreRaw);
+    var letras = nombre.replace(/\s/g, '').split('');
+    if (!letras.length) { alert('Nombre no válido.'); return; }
+
+    // Cálculos
+    var totalExp  = sumaLetras(letras);
+    var expresion = reducir(totalExp);
+
+    var vocalesArr = letras.filter(function(l){ return VOCALES[l]; });
+    var totalAlma  = sumaLetras(vocalesArr);
+    var alma       = reducir(totalAlma);
+
+    var consArr = letras.filter(function(l){ return TABLA[l] && !VOCALES[l]; });
+    var totalPers = sumaLetras(consArr);
+    var personalidad = reducir(totalPers);
+
+    var inics = iniciales(nombre).filter(function(l){ return TABLA[l]; });
+    var totalEq = sumaLetras(inics);
+    var equilibrio = reducir(totalEq);
+
+    var ausentes = karmicoAusente(letras);
+
+    // Madurez: necesita número de vida (opcional)
+    var vidaVal = vidaInput ? parseInt(vidaInput.value) : NaN;
+    var madurezNombre = null;
+    if (!isNaN(vidaVal) && vidaVal > 0) {
+      madurezNombre = reducir(expresion + reducir(vidaVal));
+    }
+
+    // Guardar datos usando window._NUM_NOMBRE para los textos
+    window._numNombreData = {
+      expresion:     { numero: expresion,     titulo: 'Número de Expresión',    color: '#a78bfa' },
+      alma:          { numero: alma,           titulo: 'Número del Alma',        color: '#f472b6' },
+      personalidad:  { numero: personalidad,   titulo: 'Personalidad',           color: '#38bdf8' },
+      equilibrio:    { numero: equilibrio,     titulo: 'Número de Equilibrio',   color: '#4ade80' },
+      karmicoNombre: { numero: ausentes.length ? ausentes.join(', ') : '—', titulo: 'Kármico del Nombre', color: '#e879f9', ausentes: ausentes },
+      madurezNombre: madurezNombre ? { numero: madurezNombre, titulo: 'Número de Madurez', color: '#fbbf24' } : null
+    };
+
+    // Actualizar tarjetas con números
+    var ids = { expresion:'ncnn_expresion', alma:'ncnn_alma', personalidad:'ncnn_personalidad',
+                equilibrio:'ncnn_equilibrio', karmicoNombre:'ncnn_karmicoNombre', madurezNombre:'ncnn_madurezNombre' };
+    Object.keys(ids).forEach(function(k) {
+      var el = document.getElementById(ids[k]);
+      if (!el) return;
+      var d = window._numNombreData[k];
+      el.textContent = d ? d.numero : '—';
+    });
+
+    // Mostrar grilla, ocultar estado vacío y form
+    document.getElementById('numNombreEmptyState').style.display = 'none';
+    var fw = document.getElementById('numNombreFormWrap');
+    if (fw) fw.style.display = 'none';
+    var dt = document.querySelector('#numPanel-nombre .num-deco-top');
+    if (dt) dt.style.display = 'none';
+    var sw = document.querySelector('#numPanel-nombre .num-switch-btn');
+    if (sw) sw.style.display = 'none';
+
+    var wrap = document.getElementById('numNombreSelectorWrap');
+    wrap.style.display = 'flex';
+
+    // Ocultar tarjeta madurez si no hay número de vida
+    var cardMad = document.querySelector('#numNombreSelectorWrap [onclick*="madurezNombre"]');
+    if (cardMad) cardMad.style.display = madurezNombre ? 'flex' : 'none';
+
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  window.selectNumNombreCard = function(key) {
+    var d = window._numNombreData && window._numNombreData[key];
+    if (!d) return;
+
+    // Obtener texto desde window._NUM_NOMBRE
+    var txt = '';
+    var src = window._NUM_NOMBRE && window._NUM_NOMBRE[key];
+    if (key === 'karmicoNombre') {
+      // Puede haber varios ausentes
+      var ausentes = d.ausentes || [];
+      if (!ausentes.length) {
+        txt = 'Tu nombre contiene todas las letras numéricas del 1 al 9. No tienes deudas kármicas en el nombre — tu alma llega en un ciclo de integración completa.';
+      } else {
+        txt = ausentes.map(function(n) {
+          return (src && src[n]) ? src[n] : 'Número ' + n + ' ausente.';
+        }).join('<br><br>');
+      }
+    } else {
+      txt = (src && src[d.numero]) ? src[d.numero] : '';
+    }
+
+    // Ocultar grilla
+    document.getElementById('numNombreSelectorWrap').style.display = 'none';
+
+    // Renderizar detalle
+    document.getElementById('numNombreResultInner').innerHTML =
+      '<div class="num-result-inner-card" style="--nc:' + d.color + '">' +
+        '<div class="nri-eyebrow">' + d.titulo + '</div>' +
+        '<div class="nri-bignum">' + d.numero + '</div>' +
+        '<div class="nri-text">' + txt + '</div>' +
+      '</div>';
+
+    var detail = document.getElementById('numNombreDetailView');
+    detail.style.display = 'block';
+    detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  window.cerrarNumNombreDetalle = function() {
+    document.getElementById('numNombreDetailView').style.display = 'none';
+    document.getElementById('numNombreResultInner').innerHTML = '';
+    // Mostrar grilla y ocultar form/deco (ya calculado)
+    document.getElementById('numNombreSelectorWrap').style.display = 'flex';
+    document.getElementById('numNombreSelectorWrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  window.numNombreRecalcular = function() {
+    // Volver al formulario de nombre
+    document.getElementById('numNombreSelectorWrap').style.display = 'none';
+    document.getElementById('numNombreDetailView').style.display = 'none';
+    document.getElementById('numNombreEmptyState').style.display = 'block';
+    var fw = document.getElementById('numNombreFormWrap'); if (fw) fw.style.display = 'block';
+    var dt = document.querySelector('#numPanel-nombre .num-deco-top'); if (dt) dt.style.display = 'block';
+    var sw = document.querySelector('#numPanel-nombre .num-switch-btn'); if (sw) sw.style.display = 'inline-flex';
+    var inp = document.getElementById('numNombreInput'); if (inp) { inp.value = ''; inp.focus(); }
+    var vida = document.getElementById('numNombreVida'); if (vida) vida.value = '';
+    window._numNombreData = null;
+  };
+
+})();
+
 // ── Inicialización de módulos al mostrarlos ──
 document.addEventListener('DOMContentLoaded', () => {
   initCielo();
@@ -14019,36 +14804,54 @@ function volverFormularioManual() {
 var _retornoHintTipo = 'solar';
 function showRetornoHint(tipo) {
   _retornoHintTipo = tipo;
-  var icono  = tipo === 'solar' ? '☉' : tipo === 'lunar' ? '☽' : '☿';
-  var label  = tipo === 'solar' ? 'Retorno Solar' : tipo === 'lunar' ? 'Retorno Lunar' : 'Retorno de Mercurio';
+  var icono  = tipo === 'solar' ? '☉' : tipo === 'lunar' ? '☽' : tipo === 'mercury' ? '☿'
+    : tipo === 'venus' ? '♀' : tipo === 'mars' ? '♂' : tipo === 'jupiter' ? '♃' : '♄';
+  var label  = tipo === 'solar' ? 'Retorno Solar' : tipo === 'lunar' ? 'Retorno Lunar' : tipo === 'mercury' ? 'Retorno de Mercurio'
+    : tipo === 'venus' ? 'Retorno de Venus' : tipo === 'mars' ? 'Retorno de Marte' : tipo === 'jupiter' ? 'Retorno de Júpiter' : 'Retorno de Saturno';
   var desc   = tipo === 'solar'
     ? 'Marca el inicio de su año personal. Revela los temas centrales y energías que guiarán los próximos 12 meses de su vida.'
     : tipo === 'lunar'
     ? 'Ciclo emocional mensual. Refleja el estado interior, los vínculos afectivos y las necesidades del hogar durante este mes.'
-    : 'Abre un nuevo ciclo mental y comunicativo. Momento clave para revisar contratos, decisiones y vínculos intelectuales.';
-  var c3     = tipo === 'solar' ? '#f0a500' : tipo === 'lunar' ? '#a8d8ff' : '#9de8b0';
-  var border = tipo === 'solar' ? 'rgba(240,165,0,0.5)' : tipo === 'lunar' ? 'rgba(148,200,255,0.45)' : 'rgba(80,220,140,0.45)';
-  var glow   = tipo === 'solar' ? 'rgba(240,165,0,0.18)' : tipo === 'lunar' ? 'rgba(148,200,255,0.15)' : 'rgba(80,220,140,0.15)';
-  var bgModal = tipo === 'solar' ? 'rgba(0,3,8,0.72)' : tipo === 'lunar' ? 'rgba(0,2,12,0.76)' : 'rgba(0,5,8,0.74)';
-  var titleColor = tipo === 'solar' ? 'rgba(240,165,0,0.75)' : tipo === 'lunar' ? 'rgba(148,200,255,0.75)' : 'rgba(80,220,140,0.75)';
+    : tipo === 'mercury'
+    ? 'Abre un nuevo ciclo mental y comunicativo. Momento clave para revisar contratos, decisiones y vínculos intelectuales.'
+    : tipo === 'venus'
+    ? 'Inicia un nuevo ciclo afectivo y financiero. Indica cómo se desenvolverán sus relaciones, valores y recursos durante el año.'
+    : tipo === 'mars'
+    ? 'Inaugura un ciclo de acción y energía vital. Muestra la dirección de sus impulsos, proyectos y desafíos durante los próximos dos años.'
+    : tipo === 'jupiter'
+    ? 'Abre un ciclo de expansión y oportunidades. Cada 12 años señala hacia dónde se dirigirá su crecimiento, abundancia y propósito.'
+    : 'Marca un ciclo de madurez y responsabilidad. Ocurre cada 29 años aproximadamente y representa una reestructuración profunda de los fundamentos de su vida.';
+  var c3     = tipo === 'solar' ? '#f0a500' : tipo === 'lunar' ? '#a8d8ff' : tipo === 'mercury' ? '#9de8b0'
+    : tipo === 'venus' ? '#ffb3d9' : tipo === 'mars' ? '#ff6655' : tipo === 'jupiter' ? '#c8a86b' : '#b0b8d0';
+  var border = tipo === 'solar' ? 'rgba(240,165,0,0.5)' : tipo === 'lunar' ? 'rgba(148,200,255,0.45)' : tipo === 'mercury' ? 'rgba(80,220,140,0.45)'
+    : tipo === 'venus' ? 'rgba(255,179,217,0.45)' : tipo === 'mars' ? 'rgba(255,102,85,0.45)' : tipo === 'jupiter' ? 'rgba(200,168,107,0.45)' : 'rgba(176,184,208,0.45)';
+  var glow   = tipo === 'solar' ? 'rgba(240,165,0,0.18)' : tipo === 'lunar' ? 'rgba(148,200,255,0.15)' : tipo === 'mercury' ? 'rgba(80,220,140,0.15)'
+    : tipo === 'venus' ? 'rgba(255,179,217,0.15)' : tipo === 'mars' ? 'rgba(255,102,85,0.15)' : tipo === 'jupiter' ? 'rgba(200,168,107,0.15)' : 'rgba(176,184,208,0.12)';
+  var bgModal = tipo === 'solar' ? 'rgba(0,3,8,0.72)' : tipo === 'lunar' ? 'rgba(0,2,12,0.76)' : tipo === 'mercury' ? 'rgba(0,5,8,0.74)'
+    : tipo === 'venus' ? 'rgba(6,0,8,0.74)' : tipo === 'mars' ? 'rgba(8,0,0,0.74)' : tipo === 'jupiter' ? 'rgba(4,3,0,0.74)' : 'rgba(2,2,6,0.74)';
+  var titleColor = tipo === 'solar' ? 'rgba(240,165,0,0.75)' : tipo === 'lunar' ? 'rgba(148,200,255,0.75)' : tipo === 'mercury' ? 'rgba(80,220,140,0.75)'
+    : tipo === 'venus' ? 'rgba(255,179,217,0.80)' : tipo === 'mars' ? 'rgba(255,102,85,0.80)' : tipo === 'jupiter' ? 'rgba(200,168,107,0.80)' : 'rgba(176,184,208,0.80)';
 
   var sym    = document.getElementById('retornoHintSymbol');
   var titulo = document.getElementById('retornoHintTitulo');
   var msg    = document.getElementById('retornoHintMsg');
-  var btn    = document.getElementById('retornoHintBtnVerBtn');
-  var btnLbl = document.getElementById('retornoHintBtnLabel');
+  var btnCerrar = document.getElementById('retornoHintBtnCerrar');
   var box    = document.getElementById('retornoHintBox');
 
-  if (sym)    { sym.textContent = icono; sym.style.color = c3; sym.style.filter = 'drop-shadow(0 0 12px ' + c3 + ')'; }
-  if (titulo) { titulo.textContent = label; titulo.style.color = titleColor; }
-  if (msg)    { msg.textContent = desc; }
-  if (btn)    { btn.style.borderColor = border; btn.style.color = c3; }
-  if (btnLbl) btnLbl.textContent = 'Resumen: ' + label + ' ' + icono;
-  if (box)    { box.style.borderColor = border; box.style.boxShadow = '0 0 60px ' + glow; }
+  if (sym)      { sym.textContent = icono; sym.style.color = c3; sym.style.filter = 'drop-shadow(0 0 12px ' + c3 + ')'; }
+  if (titulo)   { titulo.textContent = label; titulo.style.color = titleColor; }
+  if (msg)      { msg.textContent = desc; }
+  if (btnCerrar){ btnCerrar.style.borderColor = border; btnCerrar.style.color = c3; }
+  if (box)      { box.style.borderColor = border; box.style.boxShadow = '0 0 60px ' + glow; }
 
   _mostrarModal('retornoHintOverlay', bgModal);
 }
 function retornoHintCerrar() { _cerrarModal('retornoHintOverlay'); }
+function retornoHintCerrarYScrollCanvas() {
+  _cerrarModal('retornoHintOverlay');
+  var canvas = document.getElementById('chartCanvas');
+  if (canvas) canvas.scrollIntoView({behavior:'smooth', block:'start'});
+}
 function retornoHintAbrir() {
   retornoHintCerrar();
   abrirLecturaRetorno(_retornoHintTipo);
@@ -14206,12 +15009,9 @@ window.drawChartConTransitos = drawChartConTransitos;
   <div id="retornoHintBox">
     <span class="asp-hint-icon" id="retornoHintSymbol" style="filter:drop-shadow(0 0 12px rgba(240,165,0,0.6));color:#f0a500;">☉</span>
     <div class="asp-hint-title" id="retornoHintTitulo" style="color:rgba(240,165,0,0.75);">Retorno Solar</div>
-    <div class="asp-hint-msg" id="retornoHintMsg">Puedes ver un resumen con los datos de tu Retorno</div>
+    <div class="asp-hint-msg" id="retornoHintMsg"></div>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:4px;">
-      <button class="asp-hint-close" id="retornoHintBtnVerBtn" style="border-color:rgba(240,165,0,0.5);color:#f0a500;" onclick="retornoHintAbrir()">
-        <span id="retornoHintBtnLabel">☉ Ver Retorno Solar</span>
-      </button>
-      <button class="asp-hint-close" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.45);" onclick="retornoHintCerrar()">Lo veo luego</button>
+      <button class="asp-hint-close" id="retornoHintBtnCerrar" onclick="retornoHintCerrarYScrollCanvas()">Cerrar</button>
     </div>
   </div>
 </div>
@@ -15753,6 +16553,9 @@ document.addEventListener('DOMContentLoaded', () => {
     cdropBuildMes(id);
   });
 
+  // Inicializar cdrop del Zodiaco Chino
+  if (typeof window.zcInit === 'function') window.zcInit();
+
   // Selects tipo pers-sel
   document.querySelectorAll('.pers-sel').forEach(sel => {
     sel.style.background = '#000';
@@ -16636,6 +17439,16 @@ function cromReset() {
     var _menPreserve  = (document.getElementById('chkMenores')||{value:'0'}).value === '1';
     // Recalcular con los nuevos datos
     if(typeof calculate==='function')calculate();
+    // Si se editó la fecha, actualizar las fechas especiales en rSub
+    if(_editCampoActivo==='fecha' && typeof window.actualizarFechasEspeciales==='function'){
+      var _eDia  = parseInt((document.getElementById('selDay')||{value:''}).value);
+      var _eMes  = parseInt((document.getElementById('selMonth')||{value:''}).value);
+      var _eAnio = parseInt((document.getElementById('inYear')||{value:''}).value);
+      if(_eDia && _eMes && _eAnio){
+        window._rSubFD = _eDia; window._rSubFM = _eMes; window._rSubFY = _eAnio;
+        window.actualizarFechasEspeciales(_eDia, _eMes, _eAnio);
+      }
+    }
     // Restaurar estado por si calculate lo reseteó
     if(typeof _gnosticoActivo !== 'undefined') _gnosticoActivo = _gnosPreserve;
     var _chkM = document.getElementById('chkMenores'); if(_chkM) _chkM.value = _menPreserve ? '1' : '0';
@@ -16794,7 +17607,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
 </script>
 
 <script>
-// ── Tabs → Dropdown en móvil (≤599px) ──
+// ── Tabs → Dropdown en móvil (≤599px) y Arcanos en PC ──
 (function() {
   function isMobile() { return window.innerWidth <= 599; }
 
@@ -16802,7 +17615,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     if (document.getElementById(id)) return null;
     var sel = document.createElement('select');
     sel.id = id;
-    sel.className = 'mob-tab-select ' + colorClass;
+    sel.className = colorClass;
     options.forEach(function(opt) {
       var o = document.createElement('option');
       o.value = opt.value;
@@ -16818,57 +17631,102 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     if (sel) sel.value = activeValue;
   }
 
-  function initMobileDropdowns() {
-    if (!isMobile()) return;
-
-    // ── Arcanos: dropdown dentro del panel activo, después del deco-strip ──
-    // Se mueve al nuevo panel al cambiar tab → orden: deco-strip → dropdown → contenido
-    function arcDropInsert(tab) {
+  // ── Arcanos: mueve el dropdown al panel activo, justo después del deco-strip ──
+  function arcDropInsert(tab) {
+    var panel = document.getElementById('arcPanel-' + tab);
+    if (!panel) return;
+    var strip = panel.querySelector('.tarot-deco-strip');
+    if (isMobile()) {
+      // Móvil: mover mobArcSelect
       var sel = document.getElementById('mobArcSelect');
       if (!sel) return;
-      var panel = document.getElementById('arcPanel-' + tab);
-      if (!panel) return;
-      var strip = panel.querySelector('.tarot-deco-strip');
       if (strip && strip.nextSibling) {
         panel.insertBefore(sel, strip.nextSibling);
+      } else if (strip) {
+        panel.appendChild(sel);
       } else {
         panel.insertBefore(sel, panel.firstChild);
       }
-    }
-    window._arcDropInsert = arcDropInsert;
-
-    var arcanosView = document.getElementById('arcanosView');
-    if (arcanosView && !document.getElementById('mobArcSelect')) {
-      var sel = makeSelect('mobArcSelect',
-        [
-          { value: 'personal',  label: 'Arcano Personal' },
-          { value: 'anual',     label: 'Arcano del Año' },
-          { value: 'transito',  label: 'Arcanos en Tránsito' }
-        ],
-        function(v) { if(window.arcSwitchTab) arcSwitchTab(v); },
-        'mob-tab-select--arc'
-      );
-      if (sel) {
-        // Añadir al DOM primero (oculto), luego mover al lugar correcto
-        arcanosView.appendChild(sel);
-        arcDropInsert('personal');
+    } else {
+      // PC: mover pcArcSelectWrap
+      var wrap = document.getElementById('pcArcSelectWrap');
+      if (!wrap) return;
+      if (strip && strip.nextSibling) {
+        panel.insertBefore(wrap, strip.nextSibling);
+      } else if (strip) {
+        panel.appendChild(wrap);
+      } else {
+        panel.insertBefore(wrap, panel.firstChild);
       }
     }
+  }
+  window._arcDropInsert = arcDropInsert;
 
-    // ── Runas: insertar ANTES de la fila de tabs ──
-    var runaTabsRow = document.querySelector('.runa-tabs-row');
-    if (runaTabsRow && !document.getElementById('mobRunaSelect')) {
-      var sel2 = makeSelect('mobRunaSelect',
-        [
-          { value: 'personal',    label: 'Runa Personal' },
-          { value: 'anual',       label: 'Runa Anual' },
-          { value: 'nacimiento',  label: 'Runas de Nacimiento' }
-        ],
-        function(v) { if(window.runaSwitchTab) runaSwitchTab(v); },
-        'mob-tab-select--runa'
-      );
-      if (sel2) runaTabsRow.parentNode.insertBefore(sel2, runaTabsRow);
+  function initArcDropdown() {
+    // PC: mover el wrapper estático al panel personal al iniciar
+    if (!isMobile()) {
+      arcDropInsert('personal');
+      return;
     }
+    // Móvil: crear dinámicamente y moverlo por panel
+    var arcanosView = document.getElementById('arcanosView');
+    if (!arcanosView || document.getElementById('mobArcSelect')) return;
+    var sel = makeSelect('mobArcSelect',
+      [
+        { value: 'personal',  label: 'Arcano Personal' },
+        { value: 'anual',     label: 'Arcano del Año' },
+        { value: 'transito',  label: 'Arcanos en Tránsito' }
+      ],
+      function(v) { if(window.arcSwitchTab) arcSwitchTab(v); },
+      'mob-tab-select mob-tab-select--arc'
+    );
+    if (!sel) return;
+    arcanosView.appendChild(sel);
+    arcDropInsert('personal');
+  }
+
+  // Mueve el select de runas dentro del panel activo, justo después del deco-strip
+  function runaDropInsert(tab) {
+    var sel = document.getElementById('mobRunaSelect');
+    if (!sel) return;
+    var panel = document.getElementById('runaPanel-' + tab);
+    if (!panel) return;
+    var strip = panel.querySelector('.runa-deco-strip');
+    if (strip && strip.nextSibling) {
+      panel.insertBefore(sel, strip.nextSibling);
+    } else if (strip) {
+      panel.appendChild(sel);
+    } else {
+      panel.insertBefore(sel, panel.firstChild);
+    }
+  }
+  window._runaDropInsert = runaDropInsert;
+
+  function initRunaDropdown() {
+    var runasView = document.getElementById('runasView');
+    if (!runasView || document.getElementById('mobRunaSelect')) return;
+    var colorClass = isMobile()
+      ? 'mob-tab-select mob-tab-select--runa'
+      : 'pc-runa-select';
+    var sel = makeSelect('mobRunaSelect',
+      [
+        { value: 'personal',    label: 'Runa Personal' },
+        { value: 'anual',       label: 'Runa Anual' },
+        { value: 'nacimiento',  label: 'Runas de Nacimiento' }
+      ],
+      function(v) { if(window.runaSwitchTab) runaSwitchTab(v); },
+      colorClass
+    );
+    if (!sel) return;
+    // Añadir al DOM y luego mover al panel activo (personal por defecto)
+    runasView.appendChild(sel);
+    runaDropInsert('personal');
+  }
+
+  function initMobileDropdowns() {
+    if (!isMobile()) return;
+
+    // ── Runas: solo móvil (PC se maneja en initRunaDropdown) ──
 
     // ── Tu Signo: insertar DENTRO de sgnPg3, ANTES de signosEtapaTabs ──
     var tabsEl = document.getElementById('signosEtapaTabs');
@@ -16892,12 +17750,15 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
 
   // Patch functions to keep dropdowns in sync
   document.addEventListener('DOMContentLoaded', function() {
+    initArcDropdown();
+    initRunaDropdown();
     initMobileDropdowns();
 
     var _origArc = window.arcSwitchTab;
     window.arcSwitchTab = function(tab) {
       if (_origArc) _origArc(tab);
       syncDropdown('mobArcSelect', tab);
+      syncDropdown('pcArcSelect', tab);
       if (window._arcDropInsert) window._arcDropInsert(tab);
     };
 
@@ -16905,6 +17766,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     window.runaSwitchTab = function(tab) {
       if (_origRuna) _origRuna(tab);
       syncDropdown('mobRunaSelect', tab);
+      if (window._runaDropInsert) window._runaDropInsert(tab);
     };
 
     var _origSgn = window.signosSetEtapa;
@@ -19222,5 +20084,1009 @@ window._COMPAT_TEXTS_PAIRS = {
 
 })();
 
+</script>
+
+<!-- ═══════════════════ MÓDULO ZODIACO CHINO ═══════════════════ -->
+<div id="zodiacoChinoView" style="display:none;width:100%;padding:0;position:relative;z-index:1;flex-direction:column;align-items:center;">
+
+  <div class="mod-hdr mod-hdr--num">
+    <button class="mod-back" onclick="volverASeccion('zodiacoChino')">← Inicio</button>
+    <div class="mod-title">Zodiaco Chino</div>
+    <img src="https://static.wixstatic.com/media/0bac9e_19934d62be5d497c9443813d4e163a81~mv2.png" alt="Sergiomancias" class="mod-logo"/>
+  </div>
+
+  <div style="width:100%;max-width:680px;padding:0 20px 60px;margin:0 auto;">
+
+    <!-- FORMULARIO -->
+    <div id="zcForm" style="text-align:center;">
+      <div style="font-size:13px;letter-spacing:.22em;color:#f0a500;text-transform:uppercase;margin-bottom:8px;">🐉 Los 4 Pilares del Destino</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:28px;">Ingresa tu fecha y hora exactas de nacimiento.<br>La hora determina tu <em>animal secreto</em>.</div>
+
+      <!-- Fila fecha -->
+      <div class="tarot-inputs-row" style="margin-bottom:16px;">
+        <div class="tarot-field">
+          <select id="zcDia" style="display:none;"></select>
+          <div class="cdrop-wrap cdrop-wrap--zc" id="cdrop-zcDia-wrap">
+            <div class="cdrop-btn" id="cdrop-zcDia-btn" onclick="cdropToggle('zcDia')" style="min-width:72px;">
+              <span class="cdrop-label" id="cdrop-zcDia-label">Día</span>
+              <span class="cdrop-arrow">&#9660;</span>
+            </div>
+            <div class="cdrop-list" id="cdrop-zcDia-list"></div>
+          </div>
+        </div>
+        <div class="tarot-field">
+          <select id="zcMes" style="display:none;"></select>
+          <div class="cdrop-wrap cdrop-wrap--zc" id="cdrop-zcMes-wrap">
+            <div class="cdrop-btn" id="cdrop-zcMes-btn" onclick="cdropToggle('zcMes')" style="min-width:130px;">
+              <span class="cdrop-label" id="cdrop-zcMes-label">Mes</span>
+              <span class="cdrop-arrow">&#9660;</span>
+            </div>
+            <div class="cdrop-list" id="cdrop-zcMes-list"></div>
+          </div>
+        </div>
+        <div class="tarot-field tarot-field--anio">
+          <div class="anio-wrap">
+            <input id="zcAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'zc')"/>
+            <div class="anio-dots anio-dots--zc" id="dots-zcAnio"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila hora -->
+      <div class="tarot-inputs-row" style="margin-bottom:28px;">
+        <div style="display:flex;align-items:flex-end;gap:6px;">
+          <select id="zcHora" class="fselect" style="width:72px;text-align:center;border-bottom-color:rgba(240,165,0,0.4);"></select>
+          <span style="font-size:28px;color:#f0a500;padding-bottom:10px;">:</span>
+          <select id="zcMin" class="fselect" style="width:72px;border-bottom-color:rgba(240,165,0,0.4);"></select>
+          <span style="color:var(--gray);font-size:18px;padding:0 8px;align-self:center;">|</span>
+          <button type="button" onclick="zcToggleHoraDesconocida(this)" id="zcNoSabeHora" style="background:transparent;border:1px solid rgba(240,165,0,0.3);color:rgba(255,255,255,0.4);font-size:13px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;padding:9px 14px;cursor:pointer;transition:all .2s;align-self:flex-end;">Sin hora</button>
+        </div>
+      </div>
+
+      <button type="button" onclick="zcCalcular()" style="background:transparent;border:1px solid #f0a500;color:#fff;font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 40px;cursor:pointer;transition:all .25s;" onmouseover="this.style.boxShadow='0 0 30px rgba(240,165,0,.28)'" onmouseout="this.style.boxShadow=''">✦ Calcular mis 4 Pilares</button>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="zcResult" style="display:none;">
+
+      <!-- Animales header -->
+      <div id="zcAnimalHeader" style="text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(240,165,0,0.2);"></div>
+
+      <!-- SLIDER -->
+      <div style="position:relative;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <button id="zcPrev" onclick="zcSlide(-1)" style="background:transparent;border:1px solid rgba(240,165,0,0.35);color:#f0a500;width:36px;height:36px;cursor:pointer;font-size:18px;flex-shrink:0;transition:all .2s;" onmouseover="this.style.background='rgba(240,165,0,0.1)'" onmouseout="this.style.background='transparent'">‹</button>
+          <div id="zcSliderTitle" style="flex:1;text-align:center;font-size:15px;letter-spacing:.2em;color:#f0a500;text-transform:uppercase;"></div>
+          <button id="zcNext" onclick="zcSlide(1)" style="background:transparent;border:1px solid rgba(240,165,0,0.35);color:#f0a500;width:36px;height:36px;cursor:pointer;font-size:18px;flex-shrink:0;transition:all .2s;" onmouseover="this.style.background='rgba(240,165,0,0.1)'" onmouseout="this.style.background='transparent'">›</button>
+        </div>
+        <!-- Dots -->
+        <div id="zcDots" style="display:flex;justify-content:center;gap:6px;margin-bottom:16px;"></div>
+        <!-- Slides -->
+        <div id="zcSlides" style="overflow:hidden;"></div>
+      </div>
+
+      <div style="text-align:center;margin-top:28px;">
+        <button type="button" onclick="zcReset()" style="background:transparent;border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.45);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:9px 20px;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='#f0a500';this.style.color='#f0a500'" onmouseout="this.style.borderColor='rgba(255,255,255,0.18)';this.style.color='rgba(255,255,255,0.45)'">↺ Nueva consulta</button>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /zodiacoChinoView -->
+
+<script>
+(function(){
+  // ── DATOS BASE ──────────────────────────────────────────────────
+  var ZC_ANIMALES = [
+    { key:'rata',     emoji:'🐀', nombre:'Rata',     yin:false, trine:1, elemento_fijo:'Agua',   horas:[23,0],  descripcion:'Inteligente, adaptable, carismática. Sabe aprovechar las oportunidades y tiene gran memoria. A veces demasiado calculadora.' },
+    { key:'buey',     emoji:'🐂', nombre:'Buey',     yin:true,  trine:2, elemento_fijo:'Tierra',  horas:[1,2],   descripcion:'Trabajador, confiable, determinado. Su perseverancia lo lleva lejos aunque avance lento. Puede ser terco.' },
+    { key:'tigre',    emoji:'🐅', nombre:'Tigre',    yin:false, trine:3, elemento_fijo:'Madera',  horas:[3,4],   descripcion:'Valiente, apasionado, carismático. Natural líder que no teme los desafíos. Puede ser impulsivo.' },
+    { key:'conejo',   emoji:'🐇', nombre:'Conejo',   yin:true,  trine:1, elemento_fijo:'Madera',  horas:[5,6],   descripcion:'Diplomático, empático, artístico. Ama la armonía y la belleza. Puede evitar los conflictos en exceso.' },
+    { key:'dragon',   emoji:'🐉', nombre:'Dragón',   yin:false, trine:1, elemento_fijo:'Tierra',  horas:[7,8],   descripcion:'Poderoso, visionario, magnético. El único animal mítico: simboliza fuerza e inspiración divina. Puede ser arrogante.' },
+    { key:'serpiente',emoji:'🐍', nombre:'Serpiente',yin:true,  trine:2, elemento_fijo:'Fuego',   horas:[9,10],  descripcion:'Sabia, intuitiva, misteriosa. Percibe lo que otros no ven. Puede ser posesiva y celosa.' },
+    { key:'caballo',  emoji:'🐎', nombre:'Caballo',  yin:false, trine:3, elemento_fijo:'Fuego',   horas:[11,12], descripcion:'Libre, enérgico, sociable. Ama la aventura y la independencia. Puede dispersarse con facilidad.' },
+    { key:'cabra',    emoji:'🐐', nombre:'Cabra',    yin:true,  trine:2, elemento_fijo:'Tierra',  horas:[13,14], descripcion:'Creativa, sensible, generosa. Profundamente artística y empática. Puede ser insegura.' },
+    { key:'mono',     emoji:'🐒', nombre:'Mono',     yin:false, trine:1, elemento_fijo:'Metal',   horas:[15,16], descripcion:'Ingenioso, curioso, versátil. Aprende todo con velocidad asombrosa. Puede ser manipulador.' },
+    { key:'gallo',    emoji:'🐓', nombre:'Gallo',    yin:true,  trine:3, elemento_fijo:'Metal',   horas:[17,18], descripcion:'Perfeccionista, honesto, observador. Dice la verdad aunque duela. Puede ser demasiado crítico.' },
+    { key:'perro',    emoji:'🐕', nombre:'Perro',    yin:false, trine:3, elemento_fijo:'Tierra',  horas:[19,20], descripcion:'Leal, justo, protector. El más fiel de los animales. Puede ser ansioso y pesimista.' },
+    { key:'cerdo',    emoji:'🐖', nombre:'Cerdo',    yin:true,  trine:2, elemento_fijo:'Agua',   horas:[21,22], descripcion:'Generoso, sincero, compasivo. Disfruta la vida con plenitud. Puede ser ingenuo.' }
+  ];
+
+  var ZC_ELEMENTOS = ['Madera','Fuego','Tierra','Metal','Agua'];
+  var ZC_ELEM_EMOJI = { 'Madera':'🌿', 'Fuego':'🔥', 'Tierra':'🌍', 'Metal':'⚙️', 'Agua':'💧' };
+  var ZC_ELEM_COLOR = { 'Madera':'#4ade80', 'Fuego':'#f97316', 'Tierra':'#d97706', 'Metal':'#94a3b8', 'Agua':'#38bdf8' };
+
+  // Año base de referencia: 1900 = Rata de Metal (Yang)
+  // El ciclo de 60 años: 12 animales × 5 elementos × 2 polaridades
+  var ZC_ANIO_BASE = 1900; // Rata Yang Metal
+
+  // Orden animales para el año (ciclo de 12 desde 1900 = Rata)
+  var ZC_ORDEN_ANIMALES = ['rata','buey','tigre','conejo','dragon','serpiente','caballo','cabra','mono','gallo','perro','cerdo'];
+
+  // Elementos del año en ciclo de 10 (cada uno dura 2 años, alternando Yang/Yin)
+  var ZC_ELEMENTOS_CICLO = ['Metal','Metal','Agua','Agua','Madera','Madera','Fuego','Fuego','Tierra','Tierra'];
+
+  // Ciclo de 12 animales por mes lunar (fijo)
+  var ZC_MESES_ANIMAL = ['tigre','conejo','dragon','serpiente','caballo','cabra','mono','gallo','perro','cerdo','rata','buey'];
+
+  // Estado
+  var zcSlideIdx = 0;
+  var zcSlides   = [];
+  var zcHoraDesconocida = false;
+
+  // ── INIT SELECTS ─────────────────────────────────────────────
+  function zcInitSelects() {
+    // Poblar hidden select de Día
+    var selDia = document.getElementById('zcDia');
+    if (selDia && selDia.options.length <= 1) {
+      selDia.innerHTML = '';
+      for (var d = 1; d <= 31; d++) {
+        var o = document.createElement('option'); o.value = d; o.textContent = d; selDia.appendChild(o);
+      }
+      cdropBuildDia('zcDia');
+    }
+    // Poblar hidden select de Mes
+    var selMes = document.getElementById('zcMes');
+    if (selMes && selMes.options.length <= 1) {
+      var meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+      selMes.innerHTML = '';
+      meses.forEach(function(m, i) { var o = document.createElement('option'); o.value = i+1; o.textContent = m; selMes.appendChild(o); });
+      cdropBuildMes('zcMes');
+    }
+    // Poblar hidden select de Hora
+    var selHora = document.getElementById('zcHora');
+    if (selHora && selHora.options.length <= 1) {
+      selHora.innerHTML = '<option value="">Hora</option>';
+      for (var h = 0; h < 24; h++) {
+        var oh = document.createElement('option');
+        oh.value = h; oh.textContent = (h < 10 ? '0' : '') + h; selHora.appendChild(oh);
+      }
+    }
+    // Poblar hidden select de Min
+    var selMin = document.getElementById('zcMin');
+    if (selMin && selMin.options.length <= 1) {
+      selMin.innerHTML = '<option value="">Min</option>';
+      for (var mi = 0; mi < 60; mi += 1) {
+        var om = document.createElement('option');
+        om.value = mi; om.textContent = (mi < 10 ? '0' : '') + mi; selMin.appendChild(om);
+      }
+    }
+  }
+
+  // ── TOGGLE SIN HORA ──────────────────────────────────────────
+  window.zcToggleHoraDesconocida = function(btn) {
+    zcHoraDesconocida = !zcHoraDesconocida;
+    var selHora = document.getElementById('zcHora');
+    var selMin  = document.getElementById('zcMin');
+    if (zcHoraDesconocida) {
+      btn.style.borderColor = '#f0a500';
+      btn.style.color = '#f0a500';
+      btn.textContent = '✓ Sin hora';
+      if (selHora) { selHora.disabled = true;  selHora.style.opacity = '.3'; }
+      if (selMin)  { selMin.disabled  = true;  selMin.style.opacity  = '.3'; }
+    } else {
+      btn.style.borderColor = 'rgba(240,165,0,0.3)';
+      btn.style.color = 'rgba(255,255,255,0.4)';
+      btn.textContent = 'Sin hora';
+      if (selHora) { selHora.disabled = false; selHora.style.opacity = '1'; }
+      if (selMin)  { selMin.disabled  = false; selMin.style.opacity  = '1'; }
+    }
+  };
+
+  // ── CÁLCULO ANIMAL DEL AÑO ───────────────────────────────────
+  function zcAnimalAnio(anio) {
+    // El año chino empieza en Feb aprox; simplificación: usamos 4 Feb como corte
+    var idx = ((anio - ZC_ANIO_BASE) % 12 + 12) % 12;
+    return ZC_ANIMALES[idx];
+  }
+
+  function zcElementoAnio(anio) {
+    var offset = ((anio - ZC_ANIO_BASE) % 10 + 10) % 10;
+    var elem   = ZC_ELEMENTOS_CICLO[offset];
+    var esYang = (offset % 2 === 0);
+    return { elemento: elem, polaridad: esYang ? 'Yang' : 'Yin' };
+  }
+
+  // ── CÁLCULO ANIMAL DEL MES ───────────────────────────────────
+  // El mes chino empieza el 4-8 de cada mes gregoriano; simplificación estándar
+  function zcAnimalMes(mes, dia) {
+    // Mes lunar chino comienza ~4-8 del mes solar
+    var mesIdx = mes - 1; // 0-based
+    if (dia < 6) mesIdx = (mesIdx - 1 + 12) % 12;
+    return ZC_ANIMALES[ZC_ORDEN_ANIMALES.indexOf(ZC_MESES_ANIMAL[mesIdx])];
+  }
+
+  // ── CÁLCULO ANIMAL DEL DÍA ───────────────────────────────────
+  // Ciclo de 60 días desde fecha base conocida: 1 Ene 1900 = Rata (idx=0)
+  function zcAnimalDia(anio, mes, dia) {
+    // Calcular días desde 1 Ene 1900
+    var base = new Date(1900, 0, 1);
+    var fecha = new Date(anio, mes - 1, dia);
+    var diff = Math.round((fecha - base) / 86400000);
+    var idx  = ((diff % 12) + 12) % 12;
+    return ZC_ANIMALES[idx];
+  }
+
+  // ── CÁLCULO ANIMAL DE LA HORA ────────────────────────────────
+  function zcAnimalHora(hora) {
+    // Cada animal rige 2 horas. Rata: 23-1, Buey: 1-3 ...
+    var horaAjustada = hora === 23 ? 0 : hora;
+    var idx = Math.floor(((horaAjustada + 1) % 24) / 2);
+    return ZC_ANIMALES[idx];
+  }
+
+  // ── COMPATIBILIDADES ─────────────────────────────────────────
+  var ZC_TRINE = {
+    1: ['rata','dragon','mono'],
+    2: ['buey','serpiente','gallo'],
+    3: ['tigre','caballo','perro'],
+    4: ['conejo','cabra','cerdo']
+  };
+  var ZC_OPUESTOS = {
+    rata:'caballo', buey:'cabra', tigre:'mono', conejo:'gallo',
+    dragon:'perro', serpiente:'cerdo', caballo:'rata', cabra:'buey',
+    mono:'tigre', gallo:'conejo', perro:'dragon', cerdo:'serpiente'
+  };
+  var ZC_AFINES = {
+    rata:['buey'], buey:['rata'], tigre:['cerdo'], cerdo:['tigre'],
+    conejo:['perro'], perro:['conejo'], dragon:['gallo'], gallo:['dragon'],
+    serpiente:['mono'], mono:['serpiente'], caballo:['cabra'], cabra:['caballo']
+  };
+
+  // ── MENSAJES (reemplazables desde mensajes_astrologicos.js) ──
+  var ZC_MENSAJES = (typeof window.ZC_MENSAJES !== 'undefined') ? window.ZC_MENSAJES : null;
+
+  function zcGetMsg(animal, tipo) {
+    if (ZC_MENSAJES && ZC_MENSAJES[animal] && ZC_MENSAJES[animal][tipo]) {
+      return ZC_MENSAJES[animal][tipo];
+    }
+    // Fallback: usa descripcion base
+    var a = ZC_ANIMALES.find(function(x){ return x.key === animal; });
+    return a ? a.descripcion : '';
+  }
+
+  // ── CONSTRUIR SLIDES ─────────────────────────────────────────
+  function zcBuildSlides(data) {
+    var slides = [];
+    var acc = data.anioElem;
+    var aColor = ZC_ELEM_COLOR[acc.elemento];
+
+    // Slide 1: Animal del Año
+    slides.push({
+      titulo: data.anioAnimal.emoji + ' Animal del Año · ' + data.anioAnimal.nombre,
+      html: zcSlideAnimal(data.anioAnimal, acc, 'año',
+        'Tu máscara social · cómo te ven los demás',
+        zcGetMsg(data.anioAnimal.key, 'anio'))
+    });
+
+    // Slide 2: Animal del Mes
+    slides.push({
+      titulo: data.mesAnimal.emoji + ' Animal del Mes · ' + data.mesAnimal.nombre,
+      html: zcSlideAnimal(data.mesAnimal, null, 'mes',
+        'Tu mundo interior · emociones y familia',
+        zcGetMsg(data.mesAnimal.key, 'mes'))
+    });
+
+    // Slide 3: Animal del Día
+    slides.push({
+      titulo: data.diaAnimal.emoji + ' Animal del Día · ' + data.diaAnimal.nombre,
+      html: zcSlideAnimal(data.diaAnimal, null, 'dia',
+        'Tu yo verdadero · esencia y pareja ideal',
+        zcGetMsg(data.diaAnimal.key, 'dia'))
+    });
+
+    // Slide 4: Animal de la Hora (o aviso)
+    if (data.horaAnimal) {
+      slides.push({
+        titulo: data.horaAnimal.emoji + ' Animal Secreto · ' + data.horaAnimal.nombre,
+        html: zcSlideAnimal(data.horaAnimal, null, 'hora',
+          'Tu animal secreto · potencial oculto y vejez',
+          zcGetMsg(data.horaAnimal.key, 'hora'))
+      });
+    } else {
+      slides.push({
+        titulo: '🕐 Animal Secreto · Desconocido',
+        html: '<div style="text-align:center;padding:32px 20px;"><div style="font-size:40px;margin-bottom:12px;opacity:.4;">🕐</div><div style="font-size:15px;color:rgba(255,255,255,0.5);line-height:1.8;">No ingresaste la hora de nacimiento.<br>El animal de la hora (tu <em>animal secreto</em>) no puede calcularse.<br><span style="font-size:13px;color:rgba(240,165,0,0.6);">Consultá tu partida de nacimiento para descubrirlo.</span></div></div>'
+      });
+    }
+
+    // Slide 5: Elemento y Polaridad
+    slides.push({
+      titulo: ZC_ELEM_EMOJI[acc.elemento] + ' Elemento del Año · ' + acc.elemento,
+      html: zcSlideElemento(acc, data.anioAnimal)
+    });
+
+    // Slide 6: Compatibilidades
+    slides.push({
+      titulo: '☯ Compatibilidades · ' + data.anioAnimal.nombre,
+      html: zcSlideCompat(data.anioAnimal)
+    });
+
+    // Slide 7: Lectura Combinada
+    slides.push({
+      titulo: '✦ Lectura Combinada · Los 4 Pilares',
+      html: zcSlideCombinada(data)
+    });
+
+    return slides;
+  }
+
+  function zcSlideAnimal(animal, elem, pilar, subtitulo, msg) {
+    var color = '#f0a500';
+    var etiquetas = { anio:'Año', mes:'Mes', dia:'Día', hora:'Hora' };
+    var html = '<div style="background:rgba(240,165,0,0.04);border:1px solid rgba(240,165,0,0.15);padding:24px 20px;transition:opacity .3s;">';
+    html += '<div style="text-align:center;margin-bottom:16px;">';
+    html += '<div style="font-size:56px;line-height:1;margin-bottom:8px;">'+animal.emoji+'</div>';
+    html += '<div style="font-size:15px;letter-spacing:.2em;color:rgba(240,165,0,0.65);text-transform:uppercase;margin-bottom:4px;">Pilar del '+etiquetas[pilar]+' · '+subtitulo+'</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.35);">Elemento fijo: '+ZC_ELEM_EMOJI[animal.elemento_fijo]+' '+animal.elemento_fijo+' &nbsp;|&nbsp; '+(animal.yin ? 'Yin ☾' : 'Yang ☀')+'</div>';
+    html += '</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.82);line-height:1.8;text-align:left;border-top:1px solid rgba(240,165,0,0.12);padding-top:16px;">'+msg+'</div>';
+    if (elem) {
+      html += '<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(240,165,0,0.08);font-size:15px;color:'+ZC_ELEM_COLOR[elem.elemento]+';text-align:center;">'+ZC_ELEM_EMOJI[elem.elemento]+' Elemento del año: <strong>'+elem.elemento+'</strong> &nbsp;|&nbsp; '+elem.polaridad+'</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function zcSlideElemento(elem, animal) {
+    var eColor = ZC_ELEM_COLOR[elem.elemento];
+    var msgs = {
+      'Madera': 'La Madera representa crecimiento, expansión y creatividad. Las personas nacidas en años de Madera son generosas, comprensivas y tienen visión de futuro. Su mayor desafío es aprender a recibir tanto como dan.',
+      'Fuego':  'El Fuego representa pasión, liderazgo y transformación. Los nacidos en años de Fuego son carismáticos, aventureros y altamente motivados. Su desafío es canalizar la energía sin quemarse a sí mismos.',
+      'Tierra': 'La Tierra representa estabilidad, confiabilidad y nutrición. Quienes nacen en años de Tierra son prácticos, pacientes y saben construir cosas duraderas. Su desafío es no caer en el exceso de cautela.',
+      'Metal':  'El Metal representa determinación, justicia y claridad. Los nacidos en años de Metal son fuertes, ambiciosos y poseen gran fuerza de voluntad. Su desafío es aprender la flexibilidad.',
+      'Agua':   'El Agua representa sabiduría, fluidez e intuición. Quienes nacen en años de Agua son perceptivos, diplomáticos y saben adaptarse. Su desafío es no disolver su identidad por complacer a todos.'
+    };
+    var html = '<div style="background:rgba(240,165,0,0.04);border:1px solid rgba(240,165,0,0.15);padding:24px 20px;">';
+    html += '<div style="text-align:center;margin-bottom:20px;">';
+    html += '<div style="font-size:52px;margin-bottom:8px;">'+ZC_ELEM_EMOJI[elem.elemento]+'</div>';
+    html += '<div style="font-size:22px;font-weight:700;color:'+eColor+';letter-spacing:.1em;margin-bottom:6px;">'+elem.elemento+'</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.5);">Polaridad: <strong style="color:#fff">'+(elem.polaridad==='Yang'?'☀ Yang — activo, expansivo':'☾ Yin — receptivo, introspectivo')+'</strong></div>';
+    html += '</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.82);line-height:1.8;border-top:1px solid rgba(240,165,0,0.12);padding-top:16px;">'+msgs[elem.elemento]+'</div>';
+    html += '<div style="margin-top:14px;font-size:15px;color:rgba(255,255,255,0.4);text-align:center;">'+animal.emoji+' '+animal.nombre+' de '+elem.elemento+'</div>';
+    html += '</div>';
+    return html;
+  }
+
+  function zcSlideCompat(animal) {
+    var trineGroup = null;
+    for (var t in ZC_TRINE) {
+      if (ZC_TRINE[t].indexOf(animal.key) !== -1) { trineGroup = ZC_TRINE[t]; break; }
+    }
+    var opuesto = ZC_OPUESTOS[animal.key];
+    var afines  = ZC_AFINES[animal.key] || [];
+    function nombreEmoji(key) {
+      var a = ZC_ANIMALES.find(function(x){ return x.key===key; });
+      return a ? a.emoji+' '+a.nombre : key;
+    }
+    var html = '<div style="background:rgba(240,165,0,0.04);border:1px solid rgba(240,165,0,0.15);padding:24px 20px;">';
+    html += '<div style="margin-bottom:18px;">';
+    html += '<div style="font-size:15px;letter-spacing:.18em;color:#4ade80;text-transform:uppercase;margin-bottom:8px;">✦ Gran Triada (mayor afinidad)</div>';
+    html += '<div style="font-size:18px;text-align:center;padding:10px;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);">'+(trineGroup||[]).map(nombreEmoji).join(' &nbsp;·&nbsp; ')+'</div>';
+    html += '</div>';
+    html += '<div style="margin-bottom:18px;">';
+    html += '<div style="font-size:15px;letter-spacing:.18em;color:#60a5fa;text-transform:uppercase;margin-bottom:8px;">✦ Afín natural</div>';
+    html += '<div style="font-size:16px;text-align:center;padding:8px;background:rgba(96,165,250,0.06);border:1px solid rgba(96,165,250,0.12);">'+afines.map(nombreEmoji).join(' &nbsp;·&nbsp; ')+'</div>';
+    html += '</div>';
+    html += '<div>';
+    html += '<div style="font-size:15px;letter-spacing:.18em;color:rgba(248,113,113,0.8);text-transform:uppercase;margin-bottom:8px;">◌ Animal opuesto (tensión)</div>';
+    html += '<div style="font-size:16px;text-align:center;padding:8px;background:rgba(248,113,113,0.04);border:1px solid rgba(248,113,113,0.12);">'+nombreEmoji(opuesto)+'</div>';
+    html += '</div>';
+    html += '<div style="margin-top:14px;font-size:15px;color:rgba(255,255,255,0.35);line-height:1.7;">La oposición no es enemiga: representa el mayor aprendizaje y crecimiento mutuo cuando se trabaja con consciencia.</div>';
+    html += '</div>';
+    return html;
+  }
+
+  function zcSlideCombinada(data) {
+    var animales = [
+      { pilar:'Año', a:data.anioAnimal },
+      { pilar:'Mes', a:data.mesAnimal },
+      { pilar:'Día', a:data.diaAnimal }
+    ];
+    if (data.horaAnimal) animales.push({ pilar:'Hora', a:data.horaAnimal });
+    var html = '<div style="background:rgba(240,165,0,0.04);border:1px solid rgba(240,165,0,0.15);padding:24px 20px;">';
+    html += '<div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(240,165,0,0.12);">';
+    animales.forEach(function(p){
+      html += '<div style="text-align:center;">';
+      html += '<div style="font-size:32px;">'+p.a.emoji+'</div>';
+      html += '<div style="font-size:15px;letter-spacing:.14em;color:rgba(240,165,0,0.65);text-transform:uppercase;margin-top:4px;">'+p.pilar+'</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+    var msg = zcGetMsg(data.anioAnimal.key + '_combinada', 'combinada');
+    if (!msg || msg === data.anioAnimal.descripcion) {
+      // Generar mensaje combinado dinámico
+      var elem = data.anioElem;
+      msg = 'Hacia el mundo muestras la energía del <strong>'+data.anioAnimal.nombre+'</strong> '+data.anioAnimal.emoji+': '+data.anioAnimal.descripcion+'<br><br>';
+      msg += 'En tu interior vibra el <strong>'+data.mesAnimal.nombre+'</strong> '+data.mesAnimal.emoji+', que moldea tu mundo emocional y tus vínculos más íntimos.<br><br>';
+      msg += 'Tu esencia más profunda es el <strong>'+data.diaAnimal.nombre+'</strong> '+data.diaAnimal.emoji+': este animal revela quién eres de verdad y qué buscas en pareja.';
+      if (data.horaAnimal) {
+        msg += '<br><br>Tu potencial oculto y el don que desarrollarás en la madurez está regido por el <strong>'+data.horaAnimal.nombre+'</strong> '+data.horaAnimal.emoji+'.';
+      }
+      msg += '<br><br><span style="color:'+ZC_ELEM_COLOR[elem.elemento]+';">'+ZC_ELEM_EMOJI[elem.elemento]+' Todo esto se tiñe del elemento <strong>'+elem.elemento+'</strong> ('+elem.polaridad+'), que define el tono de tu fuerza vital.</span>';
+    }
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.82);line-height:1.85;">'+msg+'</div>';
+    html += '</div>';
+    return html;
+  }
+
+  // ── CALCULAR ─────────────────────────────────────────────────
+  window.zcCalcular = function() {
+    var dia  = parseInt(document.getElementById('zcDia').value);
+    var mes  = parseInt(document.getElementById('zcMes').value);
+    var anio = parseInt(document.getElementById('zcAnio').value);
+    var horaVal = document.getElementById('zcHora').value;
+    var minVal  = document.getElementById('zcMin').value;
+
+    if (!dia || !mes || !anio || anio < 1900 || anio > 2100) {
+      alert('Por favor ingresa una fecha de nacimiento válida.');
+      return;
+    }
+
+    var horaAnimal = null;
+    if (!zcHoraDesconocida && horaVal !== '') {
+      horaAnimal = zcAnimalHora(parseInt(horaVal));
+    }
+
+    var data = {
+      anioAnimal: zcAnimalAnio(anio),
+      mesAnimal:  zcAnimalMes(mes, dia),
+      diaAnimal:  zcAnimalDia(anio, mes, dia),
+      horaAnimal: horaAnimal,
+      anioElem:   zcElementoAnio(anio)
+    };
+
+    // Header
+    var header = document.getElementById('zcAnimalHeader');
+    var animalesHeader = [data.anioAnimal, data.mesAnimal, data.diaAnimal];
+    if (data.horaAnimal) animalesHeader.push(data.horaAnimal);
+    header.innerHTML =
+      '<div style="font-size:36px;letter-spacing:8px;margin-bottom:6px;">'+animalesHeader.map(function(a){return a.emoji;}).join('')+'</div>'+
+      '<div style="font-size:12px;color:rgba(240,165,0,0.7);letter-spacing:.14em;text-transform:uppercase;">'+
+        data.anioAnimal.nombre+' · '+data.mesAnimal.nombre+' · '+data.diaAnimal.nombre+(data.horaAnimal?' · '+data.horaAnimal.nombre:'· —')+
+      '</div>'+
+      '<div style="font-size:13px;color:'+ZC_ELEM_COLOR[data.anioElem.elemento]+';margin-top:4px;">'+
+        ZC_ELEM_EMOJI[data.anioElem.elemento]+' '+data.anioElem.elemento+' · '+data.anioElem.polaridad+
+      '</div>';
+
+    // Slides
+    zcSlides = zcBuildSlides(data);
+    zcSlideIdx = 0;
+    zcRenderSlides();
+
+    // Mostrar resultado
+    document.getElementById('zcForm').style.display = 'none';
+    document.getElementById('zcResult').style.display = 'block';
+  };
+
+  function zcRenderSlides() {
+    var container = document.getElementById('zcSlides');
+    var titleEl   = document.getElementById('zcSliderTitle');
+    var dotsEl    = document.getElementById('zcDots');
+    var current   = zcSlides[zcSlideIdx];
+
+    titleEl.textContent = current.titulo;
+    container.innerHTML = '<div style="opacity:0;transition:opacity .25s;">'+current.html+'</div>';
+    setTimeout(function(){ var c = container.firstChild; if(c) c.style.opacity='1'; }, 20);
+
+    // Dots
+    dotsEl.innerHTML = '';
+    zcSlides.forEach(function(_, i) {
+      var dot = document.createElement('div');
+      dot.style.cssText = 'width:7px;height:7px;border-radius:50%;cursor:pointer;transition:all .2s;background:'+(i===zcSlideIdx?'#f0a500':'rgba(240,165,0,0.25)');
+      dot.onclick = (function(idx){ return function(){ zcSlideIdx=idx; zcRenderSlides(); }; })(i);
+      dotsEl.appendChild(dot);
+    });
+
+    // Prev/Next
+    document.getElementById('zcPrev').disabled = zcSlideIdx === 0;
+    document.getElementById('zcNext').disabled = zcSlideIdx === zcSlides.length - 1;
+    document.getElementById('zcPrev').style.opacity = zcSlideIdx === 0 ? '.25' : '1';
+    document.getElementById('zcNext').style.opacity = zcSlideIdx === zcSlides.length - 1 ? '.25' : '1';
+  }
+
+  window.zcSlide = function(dir) {
+    var next = zcSlideIdx + dir;
+    if (next < 0 || next >= zcSlides.length) return;
+    zcSlideIdx = next;
+    zcRenderSlides();
+  };
+
+  window.zcReset = function() {
+    document.getElementById('zcResult').style.display = 'none';
+    document.getElementById('zcForm').style.display = 'block';
+    zcSlideIdx = 0;
+    zcSlides = [];
+    // Limpiar año y sus dots
+    var anioEl = document.getElementById('zcAnio');
+    if (anioEl) anioEl.value = '';
+    document.querySelectorAll('#dots-zcAnio .anio-dot').forEach(function(d){ d.classList.remove('filled','ready'); });
+    // Resetear cdrop día/mes
+    cdropReset('zcDia', 'Día');
+    cdropReset('zcMes', 'Mes');
+    var zcDiaEl = document.getElementById('zcDia');
+    var zcMesEl = document.getElementById('zcMes');
+    if (zcDiaEl) zcDiaEl.value = '';
+    if (zcMesEl) zcMesEl.value = '';
+    // Resetear fselect hora/min
+    var selHora = document.getElementById('zcHora');
+    var selMin  = document.getElementById('zcMin');
+    if (selHora) { selHora.value = ''; selHora.selectedIndex = 0; selHora.disabled = false; selHora.style.opacity = '1'; }
+    if (selMin)  { selMin.value  = ''; selMin.selectedIndex  = 0; selMin.disabled  = false; selMin.style.opacity  = '1'; }
+    // Resetear estado "sin hora"
+    zcHoraDesconocida = false;
+    var btn = document.getElementById('zcNoSabeHora');
+    if (btn) { btn.textContent = 'Sin hora'; btn.style.borderColor = 'rgba(240,165,0,0.3)'; btn.style.color = 'rgba(255,255,255,0.4)'; }
+  };
+
+  // Exponer init para llamar al abrir el módulo
+  window.zcInit = function() {
+    zcInitSelects();
+    zcReset();
+    // Recargar mensajes externos si ya están disponibles
+    if (typeof window.ZC_MENSAJES !== 'undefined') ZC_MENSAJES = window.ZC_MENSAJES;
+  };
+
+})();
+</script>
+
+<!-- ═══════════════════ MÓDULO FENG SHUI (Unificado) ═══════════════════ -->
+<div id="fengshuiView" style="display:none;width:100%;padding:0;position:relative;z-index:1;flex-direction:column;align-items:center;">
+  <!-- Header Feng Shui -->
+  <div class="mod-hdr mod-hdr--num">
+    <button class="mod-back" onclick="volverASeccion('fengshui')">← Inicio</button>
+    <div class="mod-title">Feng Shui</div>
+    <img src="https://static.wixstatic.com/media/0bac9e_19934d62be5d497c9443813d4e163a81~mv2.png" alt="Sergiomancias" class="mod-logo"/>
+  </div>
+
+  <!-- Dropdown sub-apartados Feng Shui -->
+  <div style="width:100%;max-width:680px;padding:16px 20px 20px;margin:0 auto;text-align:center;">
+    <select id="fengTabSelect" onchange="fengSwitchTab(this.value)" style="background:#000a18;border:1px solid rgba(192,132,252,0.5);border-bottom:2px solid #c084fc;color:#c084fc;font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px 22px;outline:none;appearance:none;cursor:pointer;min-width:280px;text-align:center;color-scheme:dark;transition:all .2s;" onmouseover="this.style.boxShadow='0 0 20px rgba(192,132,252,.25)'" onmouseout="this.style.boxShadow=''">
+      <option value="kua">🧭  Feng Shui · Kua</option>
+      <option value="ev">⭐  Estrellas Voladoras</option>
+      <option value="bz">🏯  Ba Zi Completo</option>
+    </select>
+  </div>
+
+  <!-- ── Sub-panel: Kua ── -->
+  <div id="fengPanel-kua" style="width:100%;max-width:680px;padding:0 20px 60px;margin:0 auto;">
+    <div id="fsForm" style="text-align:center;">
+      <div style="font-size:13px;letter-spacing:.22em;color:#c084fc;text-transform:uppercase;margin-bottom:8px;">🧭 Número Kua · Ba-Zhai</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:28px;">Ingresa tu año de nacimiento y sexo para calcular tu <em>número Kua</em> y tus 8 direcciones personales.</div>
+      <div class="tarot-inputs-row" style="margin-bottom:20px;justify-content:center;">
+        <div class="tarot-field tarot-field--anio">
+          <div style="font-size:12px;letter-spacing:.16em;color:#c084fc;text-transform:uppercase;margin-bottom:8px;">Año de nacimiento</div>
+          <div class="anio-wrap">
+            <input id="fsAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" style="border-bottom-color:rgba(192,132,252,0.4)!important;" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'fs')"/>
+            <div class="anio-dots anio-dots--arc" id="dots-fsAnio"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+          </div>
+        </div>
+        <div class="tarot-field">
+          <div style="font-size:12px;letter-spacing:.16em;color:#c084fc;text-transform:uppercase;margin-bottom:8px;">Sexo</div>
+          <select id="fsSexo" style="background:#000d20;border:1px solid rgba(192,132,252,0.4);color:#c084fc;font-size:16px;font-weight:700;padding:10px 18px;outline:none;cursor:pointer;appearance:none;text-align:center;color-scheme:dark;min-width:140px;">
+            <option value="">— Sexo —</option>
+            <option value="M">♂ Hombre</option>
+            <option value="F">♀ Mujer</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="fsCalcular()" style="background:transparent;border:1px solid #c084fc;color:#fff;font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 40px;cursor:pointer;transition:all .25s;" onmouseover="this.style.boxShadow='0 0 30px rgba(192,132,252,.35)'" onmouseout="this.style.boxShadow=''">🧭 Calcular mi Kua</button>
+    </div>
+    <div id="fsResult" style="display:none;">
+      <div id="fsResultContent" style="font-size:15px;"></div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Estrellas Voladoras ── -->
+  <div id="fengPanel-ev" style="display:none;width:100%;max-width:680px;padding:0 20px 60px;margin:0 auto;">
+    <div id="evForm" style="text-align:center;">
+      <div style="font-size:13px;letter-spacing:.22em;color:#c084fc;text-transform:uppercase;margin-bottom:8px;">⭐ Lo Shu · Estrellas Voladoras</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:28px;">Ingresa tu año de nacimiento para conocer tu <em>estrella natal</em>, el cuadrado Lo Shu personal y la lectura de cada sector.</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:20px;">
+        <div style="font-size:12px;letter-spacing:.16em;color:#c084fc;text-transform:uppercase;margin-bottom:4px;">Año de nacimiento</div>
+        <div class="anio-wrap">
+          <input id="evAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" style="border-bottom-color:rgba(192,132,252,0.4)!important;" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'ev')"/>
+          <div class="anio-dots anio-dots--arc" id="dots-evAnio"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+        </div>
+      </div>
+      <button onclick="evCalcular()" style="background:transparent;border:1px solid #c084fc;color:#fff;font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 40px;cursor:pointer;transition:all .25s;" onmouseover="this.style.boxShadow='0 0 30px rgba(192,132,252,.35)'" onmouseout="this.style.boxShadow=''">⭐ Ver mis Estrellas</button>
+    </div>
+    <div id="evResult" style="display:none;">
+      <div id="evResultContent" style="font-size:15px;"></div>
+    </div>
+  </div>
+
+  <!-- ── Sub-panel: Ba Zi Completo ── -->
+  <div id="fengPanel-bz" style="display:none;width:100%;max-width:720px;padding:0 20px 60px;margin:0 auto;">
+    <div id="bzForm" style="text-align:center;">
+      <div style="font-size:13px;letter-spacing:.22em;color:#f0a500;text-transform:uppercase;margin-bottom:8px;">🏯 Los 4 Pilares Completos</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.75;margin-bottom:28px;">Ingresa tu fecha y hora de nacimiento para obtener los Troncos Celestes, Ramas Terrestres, los 10 Dioses y tu ciclo de Grandes Fortunas.</div>
+
+      <!-- Fila fecha -->
+      <div class="tarot-inputs-row" style="margin-bottom:16px;justify-content:center;">
+        <div class="tarot-field">
+          <select id="bzDia" style="display:none;"></select>
+          <div class="cdrop-wrap cdrop-wrap--zc" id="cdrop-bzDia-wrap">
+            <div class="cdrop-btn" id="cdrop-bzDia-btn" onclick="cdropToggle('bzDia')" style="min-width:72px;">
+              <span class="cdrop-label" id="cdrop-bzDia-label">Día</span>
+              <span class="cdrop-arrow">&#9660;</span>
+            </div>
+            <div class="cdrop-list" id="cdrop-bzDia-list"></div>
+          </div>
+        </div>
+        <div class="tarot-field">
+          <select id="bzMes" style="display:none;"></select>
+          <div class="cdrop-wrap cdrop-wrap--zc" id="cdrop-bzMes-wrap">
+            <div class="cdrop-btn" id="cdrop-bzMes-btn" onclick="cdropToggle('bzMes')" style="min-width:130px;">
+              <span class="cdrop-label" id="cdrop-bzMes-label">Mes</span>
+              <span class="cdrop-arrow">&#9660;</span>
+            </div>
+            <div class="cdrop-list" id="cdrop-bzMes-list"></div>
+          </div>
+        </div>
+        <div class="tarot-field tarot-field--anio">
+          <div class="anio-wrap">
+            <input id="bzAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" style="border-bottom-color:rgba(240,165,0,0.4)!important;" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'bz')"/>
+            <div class="anio-dots anio-dots--zc" id="dots-bzAnio"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila hora + sexo -->
+      <div class="tarot-inputs-row" style="margin-bottom:28px;justify-content:center;">
+        <div class="tarot-field">
+          <div style="font-size:11px;letter-spacing:.16em;color:#f0a500;text-transform:uppercase;margin-bottom:8px;">Hora</div>
+          <select id="bzHora" style="background:#000d20;border:1px solid rgba(240,165,0,0.4);color:#fff;font-size:15px;font-weight:500;padding:10px 14px;outline:none;cursor:pointer;appearance:none;text-align:center;color-scheme:dark;min-width:200px;">
+            <option value="">— Opcional —</option>
+          </select>
+        </div>
+        <div class="tarot-field">
+          <div style="font-size:11px;letter-spacing:.16em;color:#f0a500;text-transform:uppercase;margin-bottom:8px;">Sexo</div>
+          <select id="bzSexo" style="background:#000d20;border:1px solid rgba(240,165,0,0.4);color:#f0a500;font-size:16px;font-weight:700;padding:10px 18px;outline:none;cursor:pointer;appearance:none;text-align:center;color-scheme:dark;min-width:140px;">
+            <option value="">— Sexo —</option>
+            <option value="M">♂ Hombre</option>
+            <option value="F">♀ Mujer</option>
+          </select>
+        </div>
+      </div>
+
+      <button onclick="bzCalcular()" style="background:transparent;border:1px solid #f0a500;color:#fff;font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 40px;cursor:pointer;transition:all .25s;" onmouseover="this.style.boxShadow='0 0 30px rgba(240,165,0,.28)'" onmouseout="this.style.boxShadow=''">🏯 Calcular Ba Zi</button>
+    </div>
+    <div id="bzResult" style="display:none;">
+      <div id="bzResultContent" style="font-size:15px;"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// FENG SHUI — Sub-tabs y navegación interna
+// ══════════════════════════════════════════════════════════════
+(function(){
+  var FENG_TABS = ['kua','ev','bz'];
+  var FENG_COLORS = { kua:'#c084fc', ev:'#c084fc', bz:'#f0a500' };
+  var FENG_LABELS = {
+    kua: { border:'#c084fc', bg:'rgba(192,132,252,0.12)', color:'#c084fc' },
+    ev:  { border:'#c084fc', bg:'rgba(192,132,252,0.12)', color:'#c084fc' },
+    bz:  { border:'#f0a500', bg:'rgba(240,165,0,0.1)',    color:'#f0a500' }
+  };
+
+  window.fengSwitchTab = function(tab) {
+    FENG_TABS.forEach(function(t) {
+      var panel = document.getElementById('fengPanel-' + t);
+      if (!panel) return;
+      panel.style.display = (t === tab) ? '' : 'none';
+    });
+    // Sincronizar el dropdown
+    var sel = document.getElementById('fengTabSelect');
+    if (sel) sel.value = tab;
+    // Inicializar cdrop del Ba Zi al abrirlo
+    if (tab === 'bz') {
+      if (typeof cdropBuildDia === 'function' && !document.querySelector('#cdrop-bzDia-list .cdrop-item')) {
+        cdropBuildDia('bzDia');
+      }
+      if (typeof cdropBuildMes === 'function' && !document.querySelector('#cdrop-bzMes-list .cdrop-item')) {
+        cdropBuildMes('bzMes');
+      }
+    }
+  };
+
+  // fengPoblarNavDrop: ya no se usa (se eliminó el dropdown de otras mancias del header)
+  window.fengPoblarNavDrop = function() {};
+
+})();
+</script>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// MÓDULO FENG SHUI — Número Kua
+// ══════════════════════════════════════════════════════════════
+(function(){
+  var KUA_DATA = window.FENG_MENSAJES ? window.FENG_MENSAJES.kua : {};
+
+  function calcKua(anio, sexo) {
+    var suma = String(anio).split('').reduce(function(a,b){ return a+parseInt(b); },0);
+    while (suma > 9) { suma = String(suma).split('').reduce(function(a,b){ return a+parseInt(b); },0); }
+    var kua;
+    if (sexo === 'M') {
+      kua = 11 - suma;
+      if (kua > 9) kua = kua - 9;
+      if (kua === 5) kua = 2;
+    } else {
+      kua = 4 + suma;
+      while (kua > 9) { kua = kua - 9; }
+      if (kua === 5) kua = 8;
+    }
+    return kua;
+  }
+
+  window.fsCalcular = function() {
+    var anio = parseInt(document.getElementById('fsAnio').value);
+    var sexo = document.getElementById('fsSexo').value;
+    if (!anio || anio < 1900 || anio > 2100) { alert('Ingresa un año de nacimiento válido.'); return; }
+    if (!sexo) { alert('Selecciona tu sexo.'); return; }
+    var kua = calcKua(anio, sexo);
+    var d = KUA_DATA[kua];
+    if (!d) { alert('No se pudo calcular el Kua.'); return; }
+    var acc = d.color;
+    var html = '';
+    html += '<div style="text-align:center;padding:28px 20px 20px;background:rgba(192,132,252,0.04);border:1px solid rgba(192,132,252,0.2);margin-bottom:20px;">';
+    html += '<div style="font-size:72px;font-weight:900;color:'+acc+';line-height:1;margin-bottom:8px;">'+kua+'</div>';
+    html += '<div style="font-size:20px;font-weight:700;letter-spacing:.14em;color:'+acc+';">'+d.nombre+'</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.6);margin-top:6px;">Grupo <strong style="color:#fff;">'+d.grupo+'</strong> &nbsp;·&nbsp; Elemento <strong style="color:'+acc+';">'+d.elemento+'</strong></div>';
+    html += '</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.82);line-height:1.85;padding:20px;background:rgba(192,132,252,0.04);border:1px solid rgba(192,132,252,0.12);margin-bottom:20px;">'+d.lectura+'</div>';
+    html += '<div style="margin-bottom:20px;">';
+    html += '<div style="font-size:13px;letter-spacing:.2em;color:#4ade80;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(74,222,128,0.2);">✦ Direcciones Favorables</div>';
+    d.favorables.forEach(function(f) {
+      html += '<div style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);">';
+      html += '<div style="text-align:center;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;">';
+      html += '<div style="font-size:20px;font-weight:700;color:#4ade80;line-height:1;">'+f.letra+'</div>';
+      html += '<div style="font-size:13px;color:rgba(74,222,128,0.85);word-break:break-word;line-height:1.2;">'+f.dir+'</div></div>';
+      html += '<div><div style="font-size:16px;font-weight:700;color:#4ade80;letter-spacing:.08em;margin-bottom:6px;">'+f.nombre+'</div>';
+      html += '<div style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.6;">'+f.desc+'</div></div></div>';
+    });
+    html += '</div>';
+    html += '<div>';
+    html += '<div style="font-size:13px;letter-spacing:.2em;color:#f87171;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(248,113,113,0.2);">◌ Direcciones Desfavorables</div>';
+    d.desfavorables.forEach(function(f) {
+      html += '<div style="display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);">';
+      html += '<div style="text-align:center;background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.2);padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;">';
+      html += '<div style="font-size:20px;font-weight:700;color:#f87171;line-height:1;">'+f.letra+'</div>';
+      html += '<div style="font-size:13px;color:rgba(248,113,113,0.85);word-break:break-word;line-height:1.2;">'+f.dir+'</div></div>';
+      html += '<div><div style="font-size:16px;font-weight:700;color:#f87171;letter-spacing:.08em;margin-bottom:6px;">'+f.nombre+'</div>';
+      html += '<div style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.6;">'+f.desc+'</div></div></div>';
+    });
+    html += '</div>';
+    document.getElementById('fsResultContent').innerHTML = html;
+    document.getElementById('fsForm').style.display = 'none';
+    document.getElementById('fsResult').style.display = 'block';
+  };
+
+  window.fsReset = function() {
+    document.getElementById('fsAnio').value = '';
+    document.getElementById('fsSexo').value = '';
+    document.getElementById('fsResult').style.display = 'none';
+    document.getElementById('fsForm').style.display = 'block';
+  };
+})();
+
+// ══════════════════════════════════════════════════════════════
+// MÓDULO ESTRELLAS VOLADORAS — Lo Shu
+// ══════════════════════════════════════════════════════════════
+(function(){
+  var EV_ESTRELLAS = window.FENG_MENSAJES ? window.FENG_MENSAJES.ev : {};
+
+  var LO_SHU_BASE = [4,9,2,3,5,7,8,1,6];
+  var SECTOR_NAMES = ['Sureste','Sur','Suroeste','Este','Centro','Oeste','Noreste','Norte','Noroeste'];
+  var SECTOR_CUAL  = ['Riqueza','Fama','Amor','Salud','Poder','Alegría','Conocimiento','Carrera','Mentores'];
+
+  function calcEstrellaNatal(anio) {
+    var suma = String(anio).split('').reduce(function(a,b){return a+parseInt(b);},0);
+    while(suma>9){suma=String(suma).split('').reduce(function(a,b){return a+parseInt(b);},0);}
+    var e = (11-suma)%9; if(e<=0) e+=9; return e;
+  }
+
+  function buildLoShu(ec) {
+    var offset = ec - 5;
+    return LO_SHU_BASE.map(function(v){ var r=((v-1+offset+90)%9)+1; return r; });
+  }
+
+  window.evCalcular = function() {
+    var anio = parseInt(document.getElementById('evAnio').value);
+    if(!anio||anio<1900||anio>2100){alert('Ingresa un año de nacimiento válido.');return;}
+    var estrella = calcEstrellaNatal(anio);
+    var d = EV_ESTRELLAS[estrella];
+    var grid = buildLoShu(estrella);
+    var acc = d.color;
+    var html = '';
+    html += '<div style="text-align:center;padding:24px 20px;background:rgba(192,132,252,0.04);border:1px solid rgba(192,132,252,0.2);margin-bottom:20px;">';
+    html += '<div style="font-size:64px;margin-bottom:8px;">'+d.emoji+'</div>';
+    html += '<div style="font-size:19px;font-weight:700;letter-spacing:.12em;color:'+acc+';">'+d.nombre+'</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.55);margin-top:4px;">Elemento: <strong style="color:'+acc+';">'+d.elemento+'</strong> &nbsp;·&nbsp; Sector: <strong style="color:#fff;">'+d.sector+'</strong></div>';
+    html += '</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.82);line-height:1.85;padding:20px;background:rgba(192,132,252,0.04);border:1px solid rgba(192,132,252,0.12);margin-bottom:16px;">'+d.lectura+'</div>';
+    html += '<div style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.75;padding:14px 18px;background:rgba(192,132,252,0.06);border-left:3px solid '+acc+';margin-bottom:24px;">💡 <strong>Activación:</strong> '+d.consejo+'</div>';
+    html += '<div style="font-size:13px;letter-spacing:.18em;color:#c084fc;text-transform:uppercase;margin-bottom:10px;">Cuadrado Lo Shu Personal</div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px;">';
+    grid.forEach(function(num,i){
+      var ed=EV_ESTRELLAS[num]||{};
+      var isC=i===4;
+      html+='<div style="padding:14px 6px;text-align:center;background:'+(isC?'rgba(192,132,252,0.12)':'rgba(255,255,255,0.03)')+';border:1px solid '+(isC?'rgba(192,132,252,0.4)':'rgba(255,255,255,0.08)')+';">';
+      html+='<div style="font-size:28px;font-weight:900;color:'+(ed.color||'#fff')+';">'+num+'</div>';
+      html+='<div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">'+SECTOR_NAMES[i]+'</div>';
+      html+='<div style="font-size:10px;color:'+(ed.color||'#fff')+';opacity:.7;margin-top:1px;">'+SECTOR_CUAL[i]+'</div>';
+      html+='</div>';
+    });
+    html += '</div>';
+    document.getElementById('evResultContent').innerHTML = html;
+    document.getElementById('evForm').style.display = 'none';
+    document.getElementById('evResult').style.display = 'block';
+  };
+
+  window.evReset = function() {
+    document.getElementById('evAnio').value='';
+    document.getElementById('evResult').style.display='none';
+    document.getElementById('evForm').style.display='block';
+  };
+})();
+
+// ══════════════════════════════════════════════════════════════
+// MÓDULO BA ZI COMPLETO
+// ══════════════════════════════════════════════════════════════
+(function(){
+  var TRONCOS_ES=['甲 Jia (Madera+)','乙 Yi (Madera-)','丙 Bing (Fuego+)','丁 Ding (Fuego-)','戊 Wu (Tierra+)','己 Ji (Tierra-)','庚 Geng (Metal+)','辛 Xin (Metal-)','壬 Ren (Agua+)','癸 Gui (Agua-)'];
+  var RAMAS_ES=['子 Zi (Rata)','丑 Chou (Buey)','寅 Yin (Tigre)','卯 Mao (Conejo)','辰 Chen (Dragón)','巳 Si (Serpiente)','午 Wu (Caballo)','未 Wei (Cabra)','申 Shen (Mono)','酉 You (Gallo)','戌 Xu (Perro)','亥 Hai (Cerdo)'];
+  var ELEM_T=['Madera','Madera','Fuego','Fuego','Tierra','Tierra','Metal','Metal','Agua','Agua'];
+  var ELEM_R=['Agua','Tierra','Madera','Madera','Tierra','Fuego','Fuego','Tierra','Metal','Metal','Tierra','Agua'];
+  var POL_T=['+','-','+','-','+','-','+','-','+','-'];
+  var EC={'Madera':'#4ade80','Fuego':'#f87171','Tierra':'#fbbf24','Metal':'#e2e8f0','Agua':'#60a5fa'};
+  var EE={'Madera':'🌿','Fuego':'🔥','Tierra':'🌍','Metal':'⚙️','Agua':'💧'};
+
+  function troncoAnio(y){return ((y-4)%10+10)%10;}
+  function ramaAnio(y){return ((y-4)%12+12)%12;}
+  function troncoMes(y,m){var ty=troncoAnio(y)%5;return (ty*2+m+1)%10;}
+  function ramaMes(m){return [2,3,4,5,6,7,8,9,10,11,0,1][(m-2+12)%12];}
+  function pilaresDia(y,m,d){
+    var a=y,mn=m; if(mn<2){a--;mn+=12;}
+    var k1=Math.floor(a/100),k2=a%100;
+    var jd=Math.floor(365.25*(k2+4716))+Math.floor(30.6001*(mn+1))+d+1-Math.floor(k1/4)*3/4+2-1524.5;
+    return{tronco:((Math.floor(jd)-1)%10+10)%10,rama:((Math.floor(jd)-1)%12+12)%12};
+  }
+  function troncoHora(td,h){var ih=Math.floor((h+1)/2)%12;return((td%5)*2+ih)%10;}
+  function ramaHora(h){return Math.floor((h+1)/2)%12;}
+
+  var DIEZ_DIOSES={
+    'Madera':{'Madera+':'Hermano Rob','Madera-':'Amigo Rob','Fuego+':'Producción','Fuego-':'Expresión','Tierra+':'Riqueza','Tierra-':'Riqueza Sutil','Metal+':'Poder/Control','Metal-':'Influencia','Agua+':'Recurso','Agua-':'Madre'},
+    'Fuego': {'Fuego+':'Hermano Rob','Fuego-':'Amigo Rob','Tierra+':'Producción','Tierra-':'Expresión','Metal+':'Riqueza','Metal-':'Riqueza Sutil','Agua+':'Poder/Control','Agua-':'Influencia','Madera+':'Recurso','Madera-':'Madre'},
+    'Tierra':{'Tierra+':'Hermano Rob','Tierra-':'Amigo Rob','Metal+':'Producción','Metal-':'Expresión','Agua+':'Riqueza','Agua-':'Riqueza Sutil','Madera+':'Poder/Control','Madera-':'Influencia','Fuego+':'Recurso','Fuego-':'Madre'},
+    'Metal': {'Metal+':'Hermano Rob','Metal-':'Amigo Rob','Agua+':'Producción','Agua-':'Expresión','Madera+':'Riqueza','Madera-':'Riqueza Sutil','Fuego+':'Poder/Control','Fuego-':'Influencia','Tierra+':'Recurso','Tierra-':'Madre'},
+    'Agua':  {'Agua+':'Hermano Rob','Agua-':'Amigo Rob','Madera+':'Producción','Madera-':'Expresión','Fuego+':'Riqueza','Fuego-':'Riqueza Sutil','Tierra+':'Poder/Control','Tierra-':'Influencia','Metal+':'Recurso','Metal-':'Madre'}
+  };
+  var DIEZ_DESC = window.FENG_MENSAJES ? window.FENG_MENSAJES.diezDioses : {};
+
+  function calcDaYun(y,m,sexo){
+    var ty=troncoAnio(y),esYang=ty%2===0,esH=sexo==='M';
+    var avanza=(esYang&&esH)||(!esYang&&!esH);
+    var ciclos=[],tBase=troncoMes(y,m),rBase=ramaMes(m);
+    for(var i=1;i<=8;i++){
+      var off=avanza?i:-i;
+      ciclos.push({edad:i*10-3,tronco:((tBase+off)%10+10)%10,rama:((rBase+off)%12+12)%12});
+    }
+    return{avanza:avanza,ciclos:ciclos};
+  }
+
+  function bzInitHora(){
+    var sel=document.getElementById('bzHora');
+    if(!sel||sel.options.length>1)return;
+    var horas=[{v:'23',l:'23:00-01:00 (Zi · Rata)'},{v:'1',l:'01:00-03:00 (Chou · Buey)'},{v:'3',l:'03:00-05:00 (Yin · Tigre)'},{v:'5',l:'05:00-07:00 (Mao · Conejo)'},{v:'7',l:'07:00-09:00 (Chen · Dragón)'},{v:'9',l:'09:00-11:00 (Si · Serpiente)'},{v:'11',l:'11:00-13:00 (Wu · Caballo)'},{v:'13',l:'13:00-15:00 (Wei · Cabra)'},{v:'15',l:'15:00-17:00 (Shen · Mono)'},{v:'17',l:'17:00-19:00 (You · Gallo)'},{v:'19',l:'19:00-21:00 (Xu · Perro)'},{v:'21',l:'21:00-23:00 (Hai · Cerdo)'}];
+    horas.forEach(function(h){var o=document.createElement('option');o.value=h.v;o.textContent=h.l;sel.appendChild(o);});
+  }
+
+  window.bzCalcular = function(){
+    bzInitHora();
+    // Leer dia/mes desde hidden select; si está vacío, leer desde cdrop visual
+    var diaRaw = document.getElementById('bzDia').value;
+    if (!diaRaw) { var diaItem = document.querySelector('#cdrop-bzDia-list .cdrop-item.selected'); if (diaItem) diaRaw = diaItem.dataset.val; }
+    var mesRaw = document.getElementById('bzMes').value;
+    if (!mesRaw) { var mesItem = document.querySelector('#cdrop-bzMes-list .cdrop-item.selected'); if (mesItem) mesRaw = mesItem.dataset.val; }
+    var dia=parseInt(diaRaw);
+    var mes=parseInt(mesRaw);
+    var anioRaw=document.getElementById('bzAnio').value;
+    var anio=parseInt(anioRaw);
+    var horaStr=document.getElementById('bzHora').value;
+    var sexo=document.getElementById('bzSexo').value;
+    if(!dia||!mes||!anio||anio<1900||anio>2100){alert('Ingresa una fecha válida.');return;}
+    if(!sexo){alert('Selecciona tu sexo.');return;}
+    var hora=horaStr!==''?parseInt(horaStr):null;
+    var tA=troncoAnio(anio),rA=ramaAnio(anio);
+    var tM=troncoMes(anio,mes),rM=ramaMes(mes);
+    var pd=pilaresDia(anio,mes,dia),tD=pd.tronco,rD=pd.rama;
+    var tH=hora!==null?troncoHora(tD,hora):null;
+    var rH=hora!==null?ramaHora(hora):null;
+    var dm=ELEM_T[tD],acc=EC[dm];
+    var pilares=[{pilar:'Año',tronco:tA,rama:rA},{pilar:'Mes',tronco:tM,rama:rM},{pilar:'Día',tronco:tD,rama:rD,esDM:true},{pilar:'Hora',tronco:tH,rama:rH,sinHora:hora===null}];
+    var html='';
+    html+='<div style="text-align:center;padding:24px 20px;background:rgba(240,165,0,0.04);border:1px solid rgba(240,165,0,0.2);margin-bottom:20px;">';
+    html+='<div style="font-size:36px;margin-bottom:6px;">'+EE[dm]+'</div>';
+    html+='<div style="font-size:18px;font-weight:700;letter-spacing:.1em;color:'+acc+';">Day Master · '+TRONCOS_ES[tD]+'</div>';
+    html+='<div style="font-size:14px;color:rgba(255,255,255,0.55);margin-top:4px;">Tu esencia fundamental es el elemento <strong style="color:'+acc+';">'+dm+'</strong> ('+POL_T[tD]+')</div>';
+    html+='</div>';
+    // Pilares
+    html+='<div style="margin-bottom:20px;"><div style="font-size:13px;letter-spacing:.2em;color:#f0a500;text-transform:uppercase;margin-bottom:12px;">🏯 Los 4 Pilares</div>';
+    html+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">';
+    pilares.forEach(function(p){
+      var tc=p.sinHora?'—':TRONCOS_ES[p.tronco],rc=p.sinHora?'—':RAMAS_ES[p.rama];
+      var eT=p.sinHora?null:ELEM_T[p.tronco],eR=p.sinHora?null:ELEM_R[p.rama];
+      var cT=eT?EC[eT]:'rgba(255,255,255,0.3)',cR=eR?EC[eR]:'rgba(255,255,255,0.3)';
+      html+='<div style="background:'+(p.esDM?'rgba(240,165,0,0.08)':'rgba(255,255,255,0.02)')+';border:1px solid '+(p.esDM?'rgba(240,165,0,0.35)':'rgba(255,255,255,0.08)')+';padding:12px 6px;text-align:center;">';
+      html+='<div style="font-size:11px;letter-spacing:.14em;color:rgba(240,165,0,0.7);text-transform:uppercase;margin-bottom:8px;">'+p.pilar+'</div>';
+      html+='<div style="font-size:11px;color:'+cT+';font-weight:700;margin-bottom:4px;line-height:1.3;">'+(p.sinHora?'Sin hora':tc)+'</div>';
+      html+='<div style="width:100%;height:1px;background:rgba(255,255,255,0.06);margin:6px 0;"></div>';
+      html+='<div style="font-size:11px;color:'+cR+';line-height:1.3;">'+(p.sinHora?'—':rc)+'</div></div>';
+    });
+    html+='</div></div>';
+    // Balance
+    var conteo={Madera:0,Fuego:0,Tierra:0,Metal:0,Agua:0};
+    pilares.forEach(function(p){if(p.sinHora||p.tronco===null)return;conteo[ELEM_T[p.tronco]]++;conteo[ELEM_R[p.rama]]++;});
+    html+='<div style="margin-bottom:20px;"><div style="font-size:13px;letter-spacing:.2em;color:#f0a500;text-transform:uppercase;margin-bottom:12px;">⚖️ Balance de Elementos</div>';
+    html+='<div style="display:flex;flex-wrap:wrap;gap:8px;">';
+    Object.keys(conteo).forEach(function(el){
+      html+='<div style="flex:1;min-width:70px;text-align:center;padding:10px 6px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);">';
+      html+='<div style="font-size:20px;">'+EE[el]+'</div>';
+      html+='<div style="font-size:11px;color:'+EC[el]+';margin:4px 0;">'+el+'</div>';
+      html+='<div style="font-size:20px;font-weight:700;color:'+EC[el]+';">'+conteo[el]+'</div></div>';
+    });
+    html+='</div></div>';
+    // 10 Dioses
+    html+='<div style="margin-bottom:20px;"><div style="font-size:13px;letter-spacing:.2em;color:#f0a500;text-transform:uppercase;margin-bottom:12px;">✦ Los 10 Dioses de tu Carta</div>';
+    var diosesMapa=DIEZ_DIOSES[dm]||{},diosesVisto={};
+    pilares.forEach(function(p){
+      if(p.sinHora||p.tronco===null)return;
+      var key=ELEM_T[p.tronco]+POL_T[p.tronco];
+      if(!diosesVisto[key]){diosesVisto[key]=true;
+        var dios=diosesMapa[key]||'—',desc=DIEZ_DESC[dios]||'',col=EC[ELEM_T[p.tronco]];
+        html+='<div style="display:grid;grid-template-columns:130px 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">';
+        html+='<div style="font-size:13px;font-weight:700;color:'+col+';">'+dios+'<br><span style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:400;">(Pilar del '+p.pilar+')</span></div>';
+        html+='<div style="font-size:14px;color:rgba(255,255,255,0.75);line-height:1.6;">'+desc+'</div></div>';}
+    });
+    html+='</div>';
+    // Da Yun
+    var dyn=calcDaYun(anio,mes,sexo);
+    html+='<div><div style="font-size:13px;letter-spacing:.2em;color:#f0a500;text-transform:uppercase;margin-bottom:4px;">⏳ Ciclo de Grandes Fortunas (Da Yun)</div>';
+    html+='<div style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:12px;">Ciclos de 10 años · Dirección: '+(dyn.avanza?'Avanza →':'← Retrocede')+'</div>';
+    html+='<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">';
+    dyn.ciclos.forEach(function(c){
+      var et=ELEM_T[c.tronco],er=ELEM_R[c.rama];
+      html+='<div style="padding:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);">';
+      html+='<div style="font-size:11px;color:rgba(240,165,0,0.7);letter-spacing:.1em;margin-bottom:6px;">Edad ~'+c.edad+'-'+(c.edad+10)+'</div>';
+      html+='<div style="font-size:13px;color:'+EC[et]+';font-weight:700;">'+TRONCOS_ES[c.tronco]+'</div>';
+      html+='<div style="font-size:12px;color:'+EC[er]+';margin-top:2px;">'+RAMAS_ES[c.rama]+'</div></div>';
+    });
+    html+='</div></div>';
+    document.getElementById('bzResultContent').innerHTML=html;
+    document.getElementById('bzForm').style.display='none';
+    document.getElementById('bzResult').style.display='block';
+  };
+
+  window.bzReset=function(){
+    document.getElementById('bzAnio').value='';
+    document.getElementById('bzHora').value='';
+    document.getElementById('bzSexo').value='';
+    if(typeof cdropReset==='function'){cdropReset('bzDia','Día');cdropReset('bzMes','Mes');}
+    else{document.getElementById('bzDia').value='';document.getElementById('bzMes').value='';}
+    document.getElementById('bzResult').style.display='none';
+    document.getElementById('bzForm').style.display='block';
+  };
+
+  window.addEventListener('load',function(){
+    bzInitHora();
+    // Inicializar cdrop de fecha del Ba Zi
+    if(typeof cdropBuildDia==='function') cdropBuildDia('bzDia');
+    if(typeof cdropBuildMes==='function') cdropBuildMes('bzMes');
+  });
+})();
 </script>
 </body>
