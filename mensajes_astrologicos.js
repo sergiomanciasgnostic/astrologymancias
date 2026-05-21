@@ -24540,3 +24540,51 @@ var KB_DATA = [
 if (typeof window !== 'undefined') {
   window.KB_DATA = KB_DATA;
 }
+
+// ══════════════════════════════════════════════════════════════
+// MENSAJES KABALAH NUMEROLOGÍA — Sergiomancias Gnostic
+// Tabla de correspondencia entre número reducido (1-9, 11, 22)
+// y Sefirá del Árbol de la Vida.
+// Añadir este bloque al archivo mensajes_astrologicos.js
+// ══════════════════════════════════════════════════════════════
+
+var KB_NUM_MAP = {
+  // Número → índice de Sefirá en KB_SEFIROTH / KB_DATA
+  // La reducción numerológica estándar da 1-9 (+ maestros 11, 22)
+  1:  { sefiraIdx: 0, nota: 'El Uno resuena con Kether: la unidad primordial, el origen de todo.' },
+  2:  { sefiraIdx: 2, nota: 'El Dos resuena con Binah: la dualidad, la forma que recibe y gestiona.' },
+  3:  { sefiraIdx: 1, nota: 'El Tres resuena con Chokmah: la sabiduría que irradia en todas direcciones.' },
+  4:  { sefiraIdx: 9, nota: 'El Cuatro resuena con Malkuth: la manifestación concreta, los cuatro elementos.' },
+  5:  { sefiraIdx: 4, nota: 'El Cinco resuena con Geburah: la fuerza transformadora, el cambio necesario.' },
+  6:  { sefiraIdx: 5, nota: 'El Seis resuena con Tiphareth: el corazón del Árbol, armonía y belleza.' },
+  7:  { sefiraIdx: 8, nota: 'El Siete resuena con Yesod: el fundamento misterioso, los sueños y el inconsciente.' },
+  8:  { sefiraIdx: 3, nota: 'El Ocho resuena con Chesed: la abundancia y la expansión del amor.' },
+  9:  { sefiraIdx: 6, nota: 'El Nueve resuena con Netzach: la victoria, la emoción plena y la naturaleza.' },
+  11: { sefiraIdx: 7, nota: 'El Maestro 11 resuena con Hod: el esplendor de la mente iluminada, puente entre mundos.' },
+  22: { sefiraIdx: 3, nota: 'El Maestro 22 resuena con Chesed: el constructor maestro que expande amor en forma.' }
+};
+
+// Mensajes de comparación entre Sefirá numerológica y Sefirá del cuestionario
+var KB_NUM_MENSAJES = {
+  coincidencia: [
+    'Tu número de destino y tu energía vivida convergen en el mismo punto del Árbol. Esto es una señal de alineación profunda: lo que eres en esencia ya es lo que manifiestas.',
+    'Cuando el número que porta tu nombre y fecha coincide con tu Sefirá dominante, el Árbol te habla de unidad. Estás en tu camino.',
+    'La convergencia entre tu numerología y tu cuestionario es notable: el Árbol confirma que tu energía más activa es también tu propósito más profundo.'
+  ],
+  complemento: [
+    'Tu número de destino señala una energía que complementa tu Sefirá dominante. No son opuestos: son maestro y alumno dentro de ti.',
+    'La diferencia entre tu Sefirá numerológica y la del cuestionario indica que tienes dos grandes fuerzas trabajando en ti, cada una enriqueciendo a la otra.',
+    'Tu número porta una enseñanza que tu energía dominante aún está integrando. Este es un punto de crecimiento consciente en tu camino kabbalístico.'
+  ],
+  tension: [
+    'Existe una tensión creativa entre tu número de destino y tu energía más activa. En Kábalah, la tensión entre pilares es la fuente de toda creación.',
+    'Tu número y tu Sefirá dominante pertenecen a pilares distintos del Árbol. Este contraste es un llamado a integrar ambas fuerzas sin anular ninguna.',
+    'La distancia entre tu numerología y tu cuestionario kabbalístico no es un problema: es la materia prima de tu evolución espiritual.'
+  ]
+};
+
+// Exportar
+if (typeof window !== 'undefined') {
+  window.KB_NUM_MAP = KB_NUM_MAP;
+  window.KB_NUM_MENSAJES = KB_NUM_MENSAJES;
+}
