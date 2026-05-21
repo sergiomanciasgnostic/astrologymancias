@@ -2960,6 +2960,458 @@
 <div id="chartTooltip"></div>
 <canvas id="sky"></canvas>
 
+<!-- ═══════════════════════ LOADING OVERLAY ═══════════════════════ -->
+<style>
+/* ── Loading Overlay Principal ── */
+#smLoadingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #000308;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  transition: opacity .5s ease;
+}
+#smLoadingOverlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+#smLoadingOverlay.hidden { display: none; }
+
+/* Texto "Cargando..." */
+.sm-load-text {
+  font-size: 13px;
+  letter-spacing: .36em;
+  text-transform: uppercase;
+  color: rgba(0,200,255,0.75);
+  font-family: Arial, sans-serif;
+  animation: smLoadPulse 1.6s ease-in-out infinite;
+}
+@keyframes smLoadPulse {
+  0%,100% { opacity:.45; }
+  50%      { opacity:1; }
+}
+
+/* ── Barra de símbolos ── */
+.sm-bar-wrap {
+  width: min(420px, 85vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.sm-bar-track {
+  width: 100%;
+  height: 32px;
+  background: rgba(0,200,255,0.04);
+  border: 1px solid rgba(0,200,255,0.18);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+/* Barra de progreso base */
+.sm-bar-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: linear-gradient(90deg,
+    rgba(0,200,255,0.08) 0%,
+    rgba(0,200,255,0.18) 100%
+  );
+  transition: width 2.8s ease-out;
+}
+/* Símbolos que llenan la barra */
+.sm-bar-symbols {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  gap: 2px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.sm-sym-item {
+  font-family: 'Noto Sans Symbols 2','Segoe UI Symbol',sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0;
+  transform: scale(.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity .35s ease, transform .35s ease;
+  text-shadow: 0 0 10px currentColor;
+}
+.sm-sym-item.lit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Barra de progreso neón debajo del track */
+.sm-progress-line {
+  width: 100%;
+  height: 2px;
+  background: rgba(0,200,255,0.1);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+.sm-progress-glow {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, transparent, #00c8ff, #00e5ff);
+  box-shadow: 0 0 12px #00c8ff, 0 0 24px rgba(0,200,255,.5);
+  border-radius: 1px;
+  transition: width 2.8s ease-out;
+}
+
+/* ── Variantes cromáticas por módulo ── */
+/* Astrológico — cian */
+.sm-bar-track.astro { border-color: rgba(0,200,255,0.22); }
+.sm-bar-fill.astro  { background: linear-gradient(90deg, rgba(0,200,255,0.06), rgba(0,200,255,0.16)); }
+.sm-progress-glow.astro { background: linear-gradient(90deg, transparent, #00c8ff, #00e5ff); box-shadow: 0 0 12px #00c8ff, 0 0 24px rgba(0,200,255,.5); }
+.sm-load-text.astro { color: rgba(0,200,255,0.75); }
+
+/* Chakras — multicolor */
+.sm-bar-track.chakra { border-color: rgba(255,180,0,0.22); }
+.sm-bar-fill.chakra  { background: linear-gradient(90deg, rgba(255,0,0,0.06), rgba(255,120,0,0.08), rgba(255,200,0,0.08), rgba(0,200,0,0.08), rgba(0,150,255,0.08), rgba(80,0,200,0.08), rgba(180,0,255,0.08)); }
+.sm-progress-glow.chakra { background: linear-gradient(90deg, #ff0000, #ff7700, #ffcc00, #00cc44, #0099ff, #5500cc, #aa00ff); box-shadow: 0 0 12px rgba(255,120,0,0.8), 0 0 24px rgba(150,0,255,0.4); }
+.sm-load-text.chakra { color: rgba(255,180,100,0.85); }
+
+/* Numerología — dorado */
+.sm-bar-track.num { border-color: rgba(250,200,0,0.22); }
+.sm-bar-fill.num  { background: linear-gradient(90deg, rgba(250,200,0,0.06), rgba(250,200,0,0.16)); }
+.sm-progress-glow.num { background: linear-gradient(90deg, transparent, #f0c000, #ffe066); box-shadow: 0 0 12px #f0c000, 0 0 24px rgba(240,160,0,.5); }
+.sm-load-text.num { color: rgba(250,200,0,0.8); }
+
+/* Arcanos — púrpura */
+.sm-bar-track.arc { border-color: rgba(192,132,252,0.25); }
+.sm-bar-fill.arc  { background: linear-gradient(90deg, rgba(192,132,252,0.06), rgba(192,132,252,0.16)); }
+.sm-progress-glow.arc { background: linear-gradient(90deg, transparent, #c084fc, #e0aaff); box-shadow: 0 0 12px #c084fc, 0 0 24px rgba(192,132,252,.5); }
+.sm-load-text.arc { color: rgba(192,132,252,0.85); }
+
+/* Cromancia — arcoíris */
+.sm-bar-track.crom { border-color: rgba(255,100,200,0.22); }
+.sm-bar-fill.crom  { background: linear-gradient(90deg, rgba(255,0,0,0.08), rgba(255,165,0,0.08), rgba(255,255,0,0.08), rgba(0,200,0,0.08), rgba(0,100,255,0.08), rgba(148,0,211,0.08)); }
+.sm-progress-glow.crom { background: linear-gradient(90deg, #ff4444, #ff9900, #ffee00, #44ff44, #4499ff, #aa44ff); box-shadow: 0 0 14px rgba(255,200,0,0.6), 0 0 28px rgba(150,50,255,0.4); }
+.sm-load-text.crom { color: rgba(255,180,255,0.8); }
+
+/* Runas — ámbar */
+.sm-bar-track.runa { border-color: rgba(240,165,0,0.25); }
+.sm-bar-fill.runa  { background: linear-gradient(90deg, rgba(240,165,0,0.06), rgba(240,165,0,0.16)); }
+.sm-progress-glow.runa { background: linear-gradient(90deg, transparent, #f0a500, #ffd060); box-shadow: 0 0 12px #f0a500, 0 0 24px rgba(240,165,0,.5); }
+.sm-load-text.runa { color: rgba(240,165,0,0.85); }
+
+/* Signos — por signo */
+.sm-bar-track.sign-aries,.sm-bar-track.sign-leo,.sm-bar-track.sign-sagitario { border-color: rgba(249,115,22,0.28); }
+.sm-progress-glow.sign-aries,.sm-progress-glow.sign-leo,.sm-progress-glow.sign-sagitario { background: linear-gradient(90deg,transparent,#f97316,#ffb366); box-shadow:0 0 12px #f97316,0 0 24px rgba(249,115,22,.5); }
+.sm-load-text.sign-aries,.sm-load-text.sign-leo,.sm-load-text.sign-sagitario { color:rgba(249,115,22,0.9); }
+
+.sm-bar-track.sign-tauro,.sm-bar-track.sign-virgo,.sm-bar-track.sign-capricornio { border-color: rgba(132,204,22,0.28); }
+.sm-progress-glow.sign-tauro,.sm-progress-glow.sign-virgo,.sm-progress-glow.sign-capricornio { background: linear-gradient(90deg,transparent,#84cc16,#ccff44); box-shadow:0 0 12px #84cc16,0 0 24px rgba(132,204,22,.5); }
+.sm-load-text.sign-tauro,.sm-load-text.sign-virgo,.sm-load-text.sign-capricornio { color:rgba(132,204,22,0.9); }
+
+.sm-bar-track.sign-geminis,.sm-bar-track.sign-libra,.sm-bar-track.sign-acuario { border-color: rgba(250,204,21,0.28); }
+.sm-progress-glow.sign-geminis,.sm-progress-glow.sign-libra,.sm-progress-glow.sign-acuario { background: linear-gradient(90deg,transparent,#facc15,#fff066); box-shadow:0 0 12px #facc15,0 0 24px rgba(250,204,21,.5); }
+.sm-load-text.sign-geminis,.sm-load-text.sign-libra,.sm-load-text.sign-acuario { color:rgba(250,204,21,0.9); }
+
+.sm-bar-track.sign-cancer,.sm-bar-track.sign-escorpio,.sm-bar-track.sign-piscis { border-color: rgba(103,232,249,0.28); }
+.sm-progress-glow.sign-cancer,.sm-progress-glow.sign-escorpio,.sm-progress-glow.sign-piscis { background: linear-gradient(90deg,transparent,#67e8f9,#aaffff); box-shadow:0 0 12px #67e8f9,0 0 24px rgba(103,232,249,.5); }
+.sm-load-text.sign-cancer,.sm-load-text.sign-escorpio,.sm-load-text.sign-piscis { color:rgba(103,232,249,0.9); }
+
+/* Responsive */
+@media(max-width:599px){
+  .sm-bar-wrap { width: min(340px, 90vw); }
+  .sm-sym-item { font-size: 13px; }
+  .sm-bar-track { height: 28px; }
+  .sm-load-text { font-size: 11px; letter-spacing: .28em; }
+}
+@media(max-width:390px){
+  .sm-bar-wrap { width: min(290px, 92vw); }
+  .sm-sym-item { font-size: 11px; }
+  .sm-bar-track { height: 24px; }
+}
+</style>
+
+<!-- Overlay de carga inicial (mientras carga mensajes_astrologicos.js) -->
+<div id="smLoadingOverlay">
+  <div class="sm-load-text astro" id="smLoadText">Cargando...</div>
+  <div class="sm-bar-wrap">
+    <div class="sm-bar-track astro" id="smBarTrack">
+      <div class="sm-bar-fill astro" id="smBarFill"></div>
+      <div class="sm-bar-symbols" id="smBarSymbols"></div>
+    </div>
+    <div class="sm-progress-line">
+      <div class="sm-progress-glow astro" id="smProgressGlow"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════
+   SISTEMA DE LOADING TEMÁTICO — Sergiomancias
+   Autor: Claude para Sergio Mancías Gnostic
+══════════════════════════════════════════════ */
+(function(){
+
+  /* ── Definición de símbolos por módulo ── */
+  var THEME_SYMBOLS = {
+    // Carta natal + módulos astrológicos
+    astro: ['☉','☽','☿','♀','♂','♃','♄','♅','♆','♇','⊕','✦','★','⊛','⊙'],
+    carta: ['☉','☽','☿','♀','♂','♃','♄','♅','♆','♇','⊕','⊛','⊙','✦','♈︎'],
+    personalidad: ['☉','☽','↑','♀','♂','☿','♃','♄','♅','♆','✦','⊕','★','⊛','⊙'],
+    signos: ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎','☉','☽','✦'],
+    compat: ['♡','♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎','✦','♥'],
+    // Signos individuales
+    'sign-aries':      ['♈︎','☉','♂','✦','⊕','★','♈︎','☉','♂','✦','⊕','★','♈︎','☉','♂'],
+    'sign-tauro':      ['♉︎','☉','♀','✦','⊕','★','♉︎','☉','♀','✦','⊕','★','♉︎','☉','♀'],
+    'sign-geminis':    ['♊︎','☉','☿','✦','⊕','★','♊︎','☉','☿','✦','⊕','★','♊︎','☉','☿'],
+    'sign-cancer':     ['♋︎','☽','☿','✦','⊕','★','♋︎','☽','☿','✦','⊕','★','♋︎','☽','☿'],
+    'sign-leo':        ['♌︎','☉','✦','⊕','★','⊛','♌︎','☉','✦','⊕','★','⊛','♌︎','☉','✦'],
+    'sign-virgo':      ['♍︎','☉','☿','✦','⊕','★','♍︎','☉','☿','✦','⊕','★','♍︎','☉','☿'],
+    'sign-libra':      ['♎︎','☉','♀','✦','⊕','★','♎︎','☉','♀','✦','⊕','★','♎︎','☉','♀'],
+    'sign-escorpio':   ['♏︎','☉','♂','✦','⊕','★','♏︎','☉','♂','✦','⊕','★','♏︎','☉','♂'],
+    'sign-sagitario':  ['♐︎','☉','♃','✦','⊕','★','♐︎','☉','♃','✦','⊕','★','♐︎','☉','♃'],
+    'sign-capricornio':['♑︎','☉','♄','✦','⊕','★','♑︎','☉','♄','✦','⊕','★','♑︎','☉','♄'],
+    'sign-acuario':    ['♒︎','☉','♅','✦','⊕','★','♒︎','☉','♅','✦','⊕','★','♒︎','☉','♅'],
+    'sign-piscis':     ['♓︎','☉','♆','✦','⊕','★','♓︎','☉','♆','✦','⊕','★','♓︎','☉','♆'],
+    // Otras mancias
+    arcanos: ['🃏','Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ','Ⅷ','Ⅸ','Ⅹ','Ⅺ','Ⅻ','✦','★'],
+    runas:   ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ'],
+    numerologia: ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩','⑪','⑫','∞','⓪','Ⅺ'],
+    cromancia: ['🔴','🟠','🟡','🟢','🔵','🟣','⚪','🟤','🔶','🔷'],
+    chakras:   ['◉','◎','○','●','◉','◎','○'],
+  };
+
+  /* ── Colores de texto de símbolos por módulo ── */
+  var SYMBOL_COLORS = {
+    astro:        '#00c8ff', carta:         '#00c8ff',
+    personalidad: '#00c8ff', signos:        '#00c8ff',
+    compat:       '#f472b6',
+    'sign-aries': '#f97316','sign-leo': '#f97316','sign-sagitario': '#f97316',
+    'sign-tauro': '#84cc16','sign-virgo': '#84cc16','sign-capricornio': '#84cc16',
+    'sign-geminis': '#facc15','sign-libra': '#facc15','sign-acuario': '#facc15',
+    'sign-cancer': '#67e8f9','sign-escorpio': '#67e8f9','sign-piscis': '#67e8f9',
+    arcanos: '#c084fc', runas: '#f0a500',
+    numerologia: '#facc15', cromancia: 'inherit',
+    chakras: null, // multicolor
+  };
+
+  /* Colores de chakras por posición */
+  var CHAKRA_COLORS_SEQ = ['#ef4444','#f97316','#facc15','#4ade80','#60a5fa','#818cf8','#c084fc'];
+  /* Símbolos de chakras con colores */
+  var CHAKRA_SYMS = ['◉','◎','○','●','◉','◎','○','◉','◎','○','●','◉','◎','○','◉'];
+
+  /* ── Colores de arcanos mini (simulan cartas) ── */
+  var ARC_COLORS = [
+    '#c084fc','#f472b6','#60a5fa','#4ade80','#facc15',
+    '#f97316','#ef4444','#a78bfa','#34d399','#fbbf24',
+    '#c084fc','#f472b6','#60a5fa','#4ade80','#facc15'
+  ];
+
+  /* ── Estado global de carga ── */
+  window._smDataReady = false;   // se pone true cuando mensajes_astrologicos termina
+  window._smPendingModule = null; // módulo esperando que cargue el JS
+  var _animInterval = null;
+  var _symCount = 0;
+  var _barItems = [];
+
+  /* ── Construir la barra de símbolos ── */
+  function buildBar(themeKey) {
+    var syms = THEME_SYMBOLS[themeKey] || THEME_SYMBOLS.astro;
+    var track = document.getElementById('smBarTrack');
+    var container = document.getElementById('smBarSymbols');
+    if (!track || !container) return;
+
+    // Calcular cuántos caben
+    var trackW = track.offsetWidth || 420;
+    var itemW = window.innerWidth <= 390 ? 18 : window.innerWidth <= 599 ? 21 : 24;
+    var count = Math.max(8, Math.floor((trackW - 8) / itemW));
+
+    container.innerHTML = '';
+    _barItems = [];
+    _symCount = 0;
+
+    var baseColor = SYMBOL_COLORS[themeKey];
+
+    for (var i = 0; i < count; i++) {
+      var span = document.createElement('span');
+      span.className = 'sm-sym-item';
+
+      var sym = syms[i % syms.length];
+
+      // Coloreado especial
+      if (themeKey === 'chakras') {
+        span.style.color = CHAKRA_COLORS_SEQ[i % 7];
+        span.textContent = CHAKRA_SYMS[i % CHAKRA_SYMS.length];
+        span.style.fontSize = (window.innerWidth <= 390 ? 12 : window.innerWidth <= 599 ? 14 : 17) + 'px';
+      } else if (themeKey === 'cromancia') {
+        // Bloques de color en vez de símbolo de texto
+        span.style.width = (window.innerWidth <= 390 ? 11 : window.innerWidth <= 599 ? 13 : 16) + 'px';
+        span.style.height = (window.innerWidth <= 390 ? 11 : window.innerWidth <= 599 ? 13 : 16) + 'px';
+        span.style.borderRadius = '2px';
+        span.style.flexShrink = '0';
+        var cromColors = ['#ef4444','#f97316','#facc15','#4ade80','#60a5fa','#a855f7','#ec4899','#ffffff','#92400e','#64748b'];
+        span.style.background = cromColors[i % cromColors.length];
+        span.style.boxShadow = '0 0 8px ' + cromColors[i % cromColors.length];
+        span.textContent = '';
+      } else if (themeKey === 'arcanos') {
+        // Minicartas de colores
+        span.style.width  = (window.innerWidth <= 599 ? 9 : 11) + 'px';
+        span.style.height = (window.innerWidth <= 599 ? 14 : 17) + 'px';
+        span.style.borderRadius = '2px';
+        span.style.flexShrink = '0';
+        span.style.background = ARC_COLORS[i % ARC_COLORS.length];
+        span.style.boxShadow = '0 0 6px ' + ARC_COLORS[i % ARC_COLORS.length];
+        span.style.border = '1px solid rgba(255,255,255,0.15)';
+        span.style.font = 'bold ' + (window.innerWidth <= 599 ? 6 : 7) + 'px Arial';
+        span.style.color = '#fff';
+        span.style.display = 'inline-flex';
+        span.style.alignItems = 'center';
+        span.style.justifyContent = 'center';
+        var nums = ['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ','Ⅷ','Ⅸ','Ⅹ','Ⅺ','Ⅻ','0','✦','★'];
+        span.textContent = nums[i % nums.length];
+      } else {
+        span.style.color = baseColor || '#00c8ff';
+        span.textContent = sym;
+        span.style.width = itemW + 'px';
+        span.style.textAlign = 'center';
+      }
+
+      container.appendChild(span);
+      _barItems.push(span);
+    }
+  }
+
+  /* ── Animar la barra (encender símbolo a símbolo) ── */
+  function startBarAnim(duration) {
+    var total = _barItems.length;
+    if (total === 0) return;
+
+    var speed = duration / total;      // ms por símbolo
+    _symCount = 0;
+
+    if (_animInterval) clearInterval(_animInterval);
+    _animInterval = setInterval(function() {
+      if (_symCount < total) {
+        _barItems[_symCount].classList.add('lit');
+        _symCount++;
+        // Sincronizar barra de progreso
+        var pct = (_symCount / total * 100);
+        var fill = document.getElementById('smBarFill');
+        var glow = document.getElementById('smProgressGlow');
+        if (fill) fill.style.width = pct + '%';
+        if (glow) glow.style.width = pct + '%';
+      } else {
+        clearInterval(_animInterval);
+        _animInterval = null;
+      }
+    }, speed);
+  }
+
+  /* ── Mostrar el overlay con un tema ── */
+  window.smShowLoading = function(themeKey) {
+    var overlay = document.getElementById('smLoadingOverlay');
+    if (!overlay) return;
+
+    // Actualizar clases de tema
+    var text  = document.getElementById('smLoadText');
+    var track = document.getElementById('smBarTrack');
+    var fill  = document.getElementById('smBarFill');
+    var glow  = document.getElementById('smProgressGlow');
+
+    // Detectar clase base de tema CSS
+    var cssTheme = 'astro';
+    if (themeKey === 'chakras')     cssTheme = 'chakra';
+    else if (themeKey === 'numerologia') cssTheme = 'num';
+    else if (themeKey === 'arcanos')     cssTheme = 'arc';
+    else if (themeKey === 'cromancia')   cssTheme = 'crom';
+    else if (themeKey === 'runas')       cssTheme = 'runa';
+    else if (themeKey && themeKey.startsWith('sign-')) cssTheme = themeKey;
+
+    // Limpiar clases previas
+    var classesToRemove = ['astro','chakra','num','arc','crom','runa'];
+    // Limpiar también sign-*
+    [text, track, fill, glow].forEach(function(el) {
+      if (!el) return;
+      el.className = el.className.replace(/\bsign-\S+/g, '').trim();
+      classesToRemove.forEach(function(c){ el.classList.remove(c); });
+      el.classList.add(cssTheme);
+    });
+
+    // Resetear barra
+    if (fill) fill.style.width = '0%';
+    if (glow) glow.style.width = '0%';
+
+    // Construir símbolos y animar
+    buildBar(themeKey || 'astro');
+    startBarAnim(2400);
+
+    overlay.classList.remove('hidden', 'fade-out');
+    overlay.style.display = 'flex';
+  };
+
+  /* ── Ocultar el overlay ── */
+  window.smHideLoading = function() {
+    if (_animInterval) { clearInterval(_animInterval); _animInterval = null; }
+    // Completar barra visualmente
+    var fill = document.getElementById('smBarFill');
+    var glow = document.getElementById('smProgressGlow');
+    if (fill) fill.style.width = '100%';
+    if (glow) glow.style.width = '100%';
+    _barItems.forEach(function(b){ b.classList.add('lit'); });
+
+    var overlay = document.getElementById('smLoadingOverlay');
+    if (!overlay) return;
+    overlay.classList.add('fade-out');
+    setTimeout(function(){
+      overlay.classList.add('hidden');
+      overlay.style.display = 'none';
+      overlay.classList.remove('fade-out');
+    }, 520);
+  };
+
+  /* ── Mostrar loading inmediato al cargar la página ── */
+  smShowLoading('astro');
+
+  /* ── Hook en showModule para mostrar loading si datos aún no cargaron ── */
+  // Se aplica después de DOMContentLoaded cuando showModule existe
+  document.addEventListener('DOMContentLoaded', function() {
+    var _origShowModule = window.showModule;
+    if (!_origShowModule) return;
+
+    window.showModule = function(mod) {
+      if (!window._smDataReady) {
+        // Determinar tema según módulo
+        var themeMap = {
+          carta: 'astro', personalidad: 'astro', signos: 'signos', compat: 'astro',
+          arcanos: 'arcanos', runas: 'runas', numerologia: 'numerologia',
+          cromancia: 'cromancia', chakras: 'chakras'
+        };
+        var theme = themeMap[mod] || 'astro';
+        smShowLoading(theme);
+        window._smPendingModule = mod;
+        // Esperar a que carguen los datos; _aplicarDatosMensajes llamará smHideLoading
+        var _waitAndShow = setInterval(function() {
+          if (window._smDataReady) {
+            clearInterval(_waitAndShow);
+            _origShowModule(mod);
+          }
+        }, 80);
+        return;
+      }
+      _origShowModule(mod);
+    };
+  });
+
+})();
+</script>
+
 <!-- ═══════════════════════════════════════ HOME PAGE ═══════════════════════════════════════ -->
 <style>
 /* ══ HOME v2: pantalla inicial → sección elegida ══ */
@@ -5699,6 +6151,12 @@ function _aplicarDatosMensajes() {
     _datosListos = true;
     _mensajesListos = true;
     console.log('[Sergiomancias] Mensajes cargados correctamente.');
+    // Marcar datos listos para el sistema de loading
+    window._smDataReady = true;
+    // Ocultar overlay de carga inicial o de módulo pendiente
+    if (typeof smHideLoading === 'function') {
+      setTimeout(function(){ smHideLoading(); }, 200);
+    }
     // Si el usuario ya eligió signo, re-renderizar con los textos ricos recién cargados
     if (window._signoSelKey && window.signosSetEtapa) {
       var tabActivo = document.querySelector('.setab.active');
@@ -11697,6 +12155,11 @@ function signosVolver(toPg) {
 }
 
 function signosSelectSign(key) {
+  // Loading temático del signo seleccionado
+  if (typeof smShowLoading === 'function') {
+    smShowLoading('sign-' + key);
+    setTimeout(function(){ if (typeof smHideLoading === 'function') smHideLoading(); }, 900);
+  }
   _signoSelKey = key;
   document.querySelectorAll('[id^="sg2_"]').forEach(b => {
     b.classList.remove('active');
