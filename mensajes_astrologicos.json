@@ -24656,17 +24656,6 @@ window._BIORRIT_MENSAJES = {
 //  FIN BLOQUE BIORRÍTMOS
 // ════════════════════════════════════════════════════════════════
 
-════════════════════════════════════════════════════════
-MENSAJES BIORRÍTMOS — Sergio Mancias Gnostic
-Pegar en mensajes_astrologicos.js debajo de lo existente
-════════════════════════════════════════════════════════
-
-Agrega esto al objeto window._BIORRIT_MENSAJES (o crea el bloque completo si no existe):
-
-─────────────────────────────────────────────────────────
-BLOQUE COMPLETO PARA PEGAR EN mensajes_astrologicos.js
-─────────────────────────────────────────────────────────
-
 window._BIORRIT_MENSAJES = {
 
   /* ══ CICLO FÍSICO (23 días) ══ */
