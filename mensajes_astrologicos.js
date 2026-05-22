@@ -24607,9 +24607,9 @@ window.KB_DATA = [
 ];
 
 // ════════════════════════════════════════════════════════════════
-//  BIORRÍTMOS — Mensajes · Sergiomancias Gnostic
+//  BIORRÍTMOS — Mensajes para añadir a mensajes_astrologicos.js
+//  Autor: Sergiomancias Gnostic | sergiomanciasgnostic.online
 //  Pegar este bloque DENTRO de mensajes_astrologicos.js
-//  (reemplaza cualquier bloque _BIORRIT_MENSAJES anterior)
 // ════════════════════════════════════════════════════════════════
 
 window._BIORRIT_MENSAJES = {
@@ -24640,11 +24640,21 @@ window._BIORRIT_MENSAJES = {
 
   /* ══ COMBINACIONES DE RESONANCIA ══ */
   combinaciones: {
+
+    /* Triple estados */
     triple_alto:    "¡Triple resonancia positiva! Los tres ciclos —físico, emocional e intelectual— están en su fase alta simultáneamente. Este es uno de los días más poderosos de tu ciclo biorítmico. Tu cuerpo, corazón y mente funcionan como una sola fuerza. Aprovecha este momento para metas ambiciosas, decisiones importantes o cualquier proyecto que requiera lo mejor de ti.",
+
     triple_bajo:    "Los tres ciclos coinciden en su fase de recuperación. Tu cuerpo, tus emociones y tu mente piden descanso al unísono. No es un día para forzar ni exigir; es un día para reponer, nutrir y soltar. El descanso consciente hoy es la inversión más inteligente para los días que vienen.",
+
     triple_critico: "Punto crítico triple: los tres ciclos atraviesan su transición al mismo tiempo. Este es uno de los momentos más delicados de tu mapa biorítmico. Actúa con calma, evita decisiones irreversibles, situaciones de riesgo físico o confrontaciones emocionales. La paciencia y la prudencia son tu escudo hoy.",
+
+    /* Físico + Emocional altos */
     fis_emoc_alto:  "Tu energía física y tu mundo emocional están en fase alta juntos. Una combinación poderosa para actividades que unen el cuerpo y el corazón: deporte en equipo, danza, trabajo social, o cualquier proyecto que requiera presencia y carisma. Tu vitalidad contagia a quienes te rodean.",
+
+    /* Físico + Intelectual altos */
     fis_int_alto:   "Cuerpo y mente en su punto máximo. Una sinergia excepcional para tareas que exigen tanto esfuerzo físico como agudeza mental: atletismo técnico, trabajo de campo, planificación estratégica en acción. Hoy puedes ejecutar con precisión y resistencia al mismo tiempo.",
+
+    /* Emocional + Intelectual altos */
     emoc_int_alto:  "Tu corazón y tu mente resuenan en alta frecuencia. Es el momento ideal para la creatividad profunda, la escritura, la comunicación empática o cualquier proyecto donde la intuición y el análisis se complementan. Las ideas que surjan hoy tienen raíces tanto en la razón como en el sentimiento."
   },
 
@@ -24652,7 +24662,3 @@ window._BIORRIT_MENSAJES = {
   nota_pie: "Los biorrítmos son ciclos matemáticos basados en tu fecha de nacimiento. Úsalos como referencia orientativa, no como verdad absoluta. Tu libre albedrío siempre es la fuerza más poderosa."
 
 };
-
-// ════════════════════════════════════════════════════════════════
-//  FIN BLOQUE BIORRÍTMOS
-// ════════════════════════════════════════════════════════════════
