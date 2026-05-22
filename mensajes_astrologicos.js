@@ -24607,53 +24607,9 @@ window.KB_DATA = [
 ];
 
 // ════════════════════════════════════════════════════════════════
-//  BIORRÍTMOS — Mensajes para añadir a mensajes_astrologicos.js
-//  Autor: Sergiomancias Gnostic | sergiomanciasgnostic.online
+//  BIORRÍTMOS — Mensajes · Sergiomancias Gnostic
 //  Pegar este bloque DENTRO de mensajes_astrologicos.js
-// ════════════════════════════════════════════════════════════════
-
-window._BIORRIT_MENSAJES = {
-
-  // ── CICLO FÍSICO (23 días) ────────────────────────────────────
-  fisico: {
-    alto:    "Tu energía corporal está en su punto de mayor expresión. Es un momento excelente para el deporte, la actividad física intensa y cualquier desafío que requiera fuerza y resistencia.",
-    medio:   "Tu vitalidad física se encuentra en una fase de transición. Ni en el pico ni en el valle: aprovecha para mantener rutinas y no forzar el cuerpo más allá de lo habitual.",
-    bajo:    "Tu ciclo físico atraviesa su fase de recuperación. El descanso y la nutrición son prioritarios. Evita el sobreentrenamiento; escucha las señales de tu cuerpo.",
-    critico: "Hoy es un día de transición crítica en tu ciclo físico. Las células se reorganizan y la coordinación puede ser irregular. Actúa con precaución en actividades de riesgo físico."
-  },
-
-  // ── CICLO EMOCIONAL (28 días) ─────────────────────────────────
-  emocional: {
-    alto:    "Tus emociones fluyen con fuerza positiva. La empatía, la creatividad y la conexión con los demás están en su cima. Es un período favorable para relaciones, expresión artística y decisiones del corazón.",
-    medio:   "Tu mundo emocional transita una zona de equilibrio. Ni la euforia ni la introspección profunda dominan: es buen momento para observar y ajustar vínculos con calma.",
-    bajo:    "Tu ciclo emocional está en fase de introspección y recuperación. Puede haber mayor sensibilidad o necesidad de soledad. Honra ese ritmo interior en lugar de resistirlo.",
-    critico: "Hoy tu ciclo emocional cruza un punto de inflexión. Las reacciones pueden ser más intensas o imprevisibles. Practica la pausa consciente antes de actuar desde el sentimiento."
-  },
-
-  // ── CICLO INTELECTUAL (33 días) ──────────────────────────────
-  intelectual: {
-    alto:    "Tu capacidad analítica, de aprendizaje y de comunicación alcanza su expresión más clara. Aprovecha para estudiar, planificar, tomar decisiones complejas o presentar ideas.",
-    medio:   "Tu mente está en un ritmo estable de procesamiento. No es el pico creativo ni el valle de menor claridad: es ideal para consolidar lo aprendido y organizar pensamientos.",
-    bajo:    "Tu ciclo intelectual se encuentra en fase de reposición. La memoria, la concentración y la velocidad mental pueden requerir más esfuerzo. Sé compasivo contigo y repasa antes de decidir.",
-    critico: "Tu ciclo intelectual atraviesa un momento de cambio de fase. Los errores de lógica o de comunicación son más probables. Revisa dos veces antes de enviar, firmar o publicar."
-  },
-
-  // ── COMBINACIONES DESTACADAS ──────────────────────────────────
-  combinaciones: {
-    triple_alto:    "Los tres ciclos coinciden en su fase alta. Un día de extraordinaria capacidad en todos los planos: físico, emocional e intelectual. Aprovéchalo con intención.",
-    triple_bajo:    "Los tres ciclos convergen en su fase de reposo. Un día para el descanso profundo, la meditación y la introspección. No es debilidad: es regeneración.",
-    triple_critico: "Los tres ciclos atraviesan simultáneamente su punto crítico. Una rareza matemática. Actúa con extrema prudencia y evita decisiones de gran impacto hoy.",
-    fis_emoc_alto:  "Energía corporal y emocional en cima. Las relaciones físicas y afectivas están favorecidas. La mente puede necesitar algo más de apoyo.",
-    fis_int_alto:   "Cuerpo y mente en su pico. Ideal para rendimiento deportivo con componente estratégico, trabajo de campo o cualquier actividad que combine destreza y análisis.",
-    emoc_int_alto:  "Emociones e intelecto en armonía máxima. La expresión creativa, la escritura, la enseñanza y la comunicación profunda alcanzan hoy su mayor potencial."
-  },
-
-  // ── NOTA INTERPRETATIVA (pie de página del módulo) ────────────
-  nota_pie: "Los biorrítmos son ciclos matemáticos calculados desde tu fecha de nacimiento mediante funciones sinusoidales. No predicen el futuro: describen tendencias cíclicas de tu energía. Úsalos como referencia, no como límite."
-
-};
-// ════════════════════════════════════════════════════════════════
-//  FIN BLOQUE BIORRÍTMOS
+//  (reemplaza cualquier bloque _BIORRIT_MENSAJES anterior)
 // ════════════════════════════════════════════════════════════════
 
 window._BIORRIT_MENSAJES = {
@@ -24684,21 +24640,11 @@ window._BIORRIT_MENSAJES = {
 
   /* ══ COMBINACIONES DE RESONANCIA ══ */
   combinaciones: {
-
-    /* Triple estados */
     triple_alto:    "¡Triple resonancia positiva! Los tres ciclos —físico, emocional e intelectual— están en su fase alta simultáneamente. Este es uno de los días más poderosos de tu ciclo biorítmico. Tu cuerpo, corazón y mente funcionan como una sola fuerza. Aprovecha este momento para metas ambiciosas, decisiones importantes o cualquier proyecto que requiera lo mejor de ti.",
-
     triple_bajo:    "Los tres ciclos coinciden en su fase de recuperación. Tu cuerpo, tus emociones y tu mente piden descanso al unísono. No es un día para forzar ni exigir; es un día para reponer, nutrir y soltar. El descanso consciente hoy es la inversión más inteligente para los días que vienen.",
-
     triple_critico: "Punto crítico triple: los tres ciclos atraviesan su transición al mismo tiempo. Este es uno de los momentos más delicados de tu mapa biorítmico. Actúa con calma, evita decisiones irreversibles, situaciones de riesgo físico o confrontaciones emocionales. La paciencia y la prudencia son tu escudo hoy.",
-
-    /* Físico + Emocional altos */
     fis_emoc_alto:  "Tu energía física y tu mundo emocional están en fase alta juntos. Una combinación poderosa para actividades que unen el cuerpo y el corazón: deporte en equipo, danza, trabajo social, o cualquier proyecto que requiera presencia y carisma. Tu vitalidad contagia a quienes te rodean.",
-
-    /* Físico + Intelectual altos */
     fis_int_alto:   "Cuerpo y mente en su punto máximo. Una sinergia excepcional para tareas que exigen tanto esfuerzo físico como agudeza mental: atletismo técnico, trabajo de campo, planificación estratégica en acción. Hoy puedes ejecutar con precisión y resistencia al mismo tiempo.",
-
-    /* Emocional + Intelectual altos */
     emoc_int_alto:  "Tu corazón y tu mente resuenan en alta frecuencia. Es el momento ideal para la creatividad profunda, la escritura, la comunicación empática o cualquier proyecto donde la intuición y el análisis se complementan. Las ideas que surjan hoy tienen raíces tanto en la razón como en el sentimiento."
   },
 
@@ -24706,3 +24652,7 @@ window._BIORRIT_MENSAJES = {
   nota_pie: "Los biorrítmos son ciclos matemáticos basados en tu fecha de nacimiento. Úsalos como referencia orientativa, no como verdad absoluta. Tu libre albedrío siempre es la fuerza más poderosa."
 
 };
+
+// ════════════════════════════════════════════════════════════════
+//  FIN BLOQUE BIORRÍTMOS
+// ════════════════════════════════════════════════════════════════
