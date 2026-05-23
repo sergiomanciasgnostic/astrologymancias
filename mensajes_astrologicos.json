@@ -24675,7 +24675,7 @@ window.ASTROMORF_DATA = {
 
   signos: {
     aries: {
-      emoji: '♈', nombre: 'Aries', elemento: 'Fuego', planeta: 'Marte',
+      emoji: '♈︎', nombre: 'Aries', elemento: 'Fuego', planeta: 'Marte',
       zonas: ['cabeza'],
       solar: {
         texto: 'Aries rige la cabeza, el rostro y el cerebro. Los nativos de Aries suelen tener rasgos marcados: frente amplia, cejas prominentes, mirada directa e intensa. El cuerpo tiende a ser atlético y de movimientos rápidos. La piel puede ser rojiza o con tendencia al rubor. La energía física es explosiva y de alta intensidad.',
@@ -24689,7 +24689,7 @@ window.ASTROMORF_DATA = {
     },
 
     tauro: {
-      emoji: '♉', nombre: 'Tauro', elemento: 'Tierra', planeta: 'Venus',
+      emoji: '♉︎', nombre: 'Tauro', elemento: 'Tierra', planeta: 'Venus',
       zonas: ['cuello','hombros'],
       solar: {
         texto: 'Tauro rige el cuello, la garganta y la voz. Los taurinos suelen tener un cuello largo y bien formado, hombros anchos y una constitución robusta y sólida. La piel tiende a ser suave y de buena calidad. La voz es uno de sus rasgos más distintivos: profunda, cálida y musical.',
@@ -24703,7 +24703,7 @@ window.ASTROMORF_DATA = {
     },
 
     geminis: {
-      emoji: '♊', nombre: 'Géminis', elemento: 'Aire', planeta: 'Mercurio',
+      emoji: '♊︎', nombre: 'Géminis', elemento: 'Aire', planeta: 'Mercurio',
       zonas: ['brazos','manos','hombros'],
       solar: {
         texto: 'Géminis rige los brazos, las manos, los hombros y los pulmones. Los geminianos suelen ser de complexión delgada y ágil, con manos expresivas que acompañan el habla. Los rasgos faciales son juveniles y variables en expresión. La agilidad física y el movimiento constante son característicos.',
@@ -24717,7 +24717,7 @@ window.ASTROMORF_DATA = {
     },
 
     cancer: {
-      emoji: '♋', nombre: 'Cáncer', elemento: 'Agua', planeta: 'Luna',
+      emoji: '♋︎', nombre: 'Cáncer', elemento: 'Agua', planeta: 'Luna',
       zonas: ['pecho','abdomen'],
       solar: {
         texto: 'Cáncer rige el pecho, el estómago y los senos. Los cancerianos suelen tener un torso amplio y redondeado, rostro ovalado o en forma de luna, ojos grandes y profundos. La piel es pálida o de tonos claros. Retienen líquidos con facilidad y el peso corporal fluctúa con los ciclos emocionales.',
@@ -24731,7 +24731,7 @@ window.ASTROMORF_DATA = {
     },
 
     leo: {
-      emoji: '♌', nombre: 'Leo', elemento: 'Fuego', planeta: 'Sol',
+      emoji: '♌︎', nombre: 'Leo', elemento: 'Fuego', planeta: 'Sol',
       zonas: ['pecho','hombros'],
       solar: {
         texto: 'Leo rige el corazón, la espalda y la columna vertebral. Los leoninos se distinguen por su porte real: caminan erguidos, con la cabeza en alto. El cabello suele ser abundante y llamativo. La constitución es fuerte y magnética. El corazón — tanto físico como emocional — es su centro vital.',
@@ -24745,7 +24745,7 @@ window.ASTROMORF_DATA = {
     },
 
     virgo: {
-      emoji: '♍', nombre: 'Virgo', elemento: 'Tierra', planeta: 'Mercurio',
+      emoji: '♍︎', nombre: 'Virgo', elemento: 'Tierra', planeta: 'Mercurio',
       zonas: ['abdomen'],
       solar: {
         texto: 'Virgo rige el aparato digestivo, el intestino y el sistema nervioso. Los virginianos suelen ser de complexión delgada y meticulosa, con rasgos finos y precisos. La piel es limpia y de buena calidad cuando cuidan su alimentación. Los movimientos son medidos y controlados, nunca excesivos.',
@@ -24759,7 +24759,7 @@ window.ASTROMORF_DATA = {
     },
 
     libra: {
-      emoji: '♎', nombre: 'Libra', elemento: 'Aire', planeta: 'Venus',
+      emoji: '♎︎', nombre: 'Libra', elemento: 'Aire', planeta: 'Venus',
       zonas: ['caderas'],
       solar: {
         texto: 'Libra rige los riñones, las caderas y la parte lumbar. Los librianos suelen tener una belleza equilibrada y simétrica, lo cual es su sello más reconocible. El cuerpo tiende a ser proporcionado, con caderas bien delineadas. El rostro irradia armonía y agrado natural.',
@@ -24773,7 +24773,7 @@ window.ASTROMORF_DATA = {
     },
 
     escorpio: {
-      emoji: '♏', nombre: 'Escorpio', elemento: 'Agua', planeta: 'Plutón/Marte',
+      emoji: '♏︎', nombre: 'Escorpio', elemento: 'Agua', planeta: 'Plutón/Marte',
       zonas: ['caderas','abdomen'],
       solar: {
         texto: 'Escorpio rige los órganos reproductores, la pelvis y el sistema eliminatorio. Los escorpianos tienen una presencia intensa y magnética que se siente antes de verse. Los ojos son penetrantes e hipnóticos. La piel puede ser oscura o con un tono profundo. La constitución es fuerte y resistente.',
@@ -24787,7 +24787,7 @@ window.ASTROMORF_DATA = {
     },
 
     sagitario: {
-      emoji: '♐', nombre: 'Sagitario', elemento: 'Fuego', planeta: 'Júpiter',
+      emoji: '♐︎', nombre: 'Sagitario', elemento: 'Fuego', planeta: 'Júpiter',
       zonas: ['muslos','caderas'],
       solar: {
         texto: 'Sagitario rige los muslos, las caderas y el hígado. Los sagitarianos suelen ser altos o con extremidades largas, con una expresión abierta y franca. La sonrisa es amplia y generosa. El cuerpo irradia vitalidad y movimiento. Tendencia a ganar peso en la zona de caderas y muslos.',
@@ -24801,7 +24801,7 @@ window.ASTROMORF_DATA = {
     },
 
     capricornio: {
-      emoji: '♑', nombre: 'Capricornio', elemento: 'Tierra', planeta: 'Saturno',
+      emoji: '♑︎', nombre: 'Capricornio', elemento: 'Tierra', planeta: 'Saturno',
       zonas: ['rodillas','piernas'],
       solar: {
         texto: 'Capricornio rige las rodillas, los huesos y la estructura ósea. Los capricornianos suelen tener rasgos angulosos y bien definidos, con una estructura ósea prominente. Envejecen inversamente — de jóvenes parecen mayores y con los años se vuelven más interesantes. La piel es resistente y de tonos secos.',
@@ -24815,7 +24815,7 @@ window.ASTROMORF_DATA = {
     },
 
     acuario: {
-      emoji: '♒', nombre: 'Acuario', elemento: 'Aire', planeta: 'Urano/Saturno',
+      emoji: '♒︎', nombre: 'Acuario', elemento: 'Aire', planeta: 'Urano/Saturno',
       zonas: ['piernas'],
       solar: {
         texto: 'Acuario rige las piernas (pantorrillas y tobillos) y el sistema circulatorio. Los acuarianos suelen tener rasgos únicos y difíciles de clasificar en un "tipo" — son originales en su apariencia. Los ojos son inusuales, a veces de color claro o con un brillo eléctrico. El estilo personal rompe normas.',
@@ -24829,7 +24829,7 @@ window.ASTROMORF_DATA = {
     },
 
     piscis: {
-      emoji: '♓', nombre: 'Piscis', elemento: 'Agua', planeta: 'Neptuno/Júpiter',
+      emoji: '♓︎', nombre: 'Piscis', elemento: 'Agua', planeta: 'Neptuno/Júpiter',
       zonas: ['pies'],
       solar: {
         texto: 'Piscis rige los pies y el sistema linfático. Los piscianos suelen tener una apariencia etérea y soñadora. Los ojos son grandes, acuosos y profundos — a menudo de tonos cambiantes. La piel es delicada y sensible. El cuerpo es fluido en sus movimientos, como si flotara. Los pies suelen ser importantes en su vida.',
@@ -24847,62 +24847,62 @@ window.ASTROMORF_DATA = {
 
   zonas: {
     cabeza:   {
-      signo: 'Aries ♈', titulo: 'Cabeza · Rostro · Cerebro',
+      signo: 'Aries ♈︎', titulo: 'Cabeza · Rostro · Cerebro',
       desc: 'Aries rige toda la región cefálica. Las personas con énfasis en esta zona suelen tener frente prominente, rasgos frontales marcados y una presencia directa. Las cejas, los ojos y la mandíbula son los elementos más expresivos. El cuero cabelludo y el cerebro son áreas de sensibilidad física particular.',
       signos: ['aries']
     },
     cuello:   {
-      signo: 'Tauro ♉', titulo: 'Cuello · Garganta · Voz',
+      signo: 'Tauro ♉︎', titulo: 'Cuello · Garganta · Voz',
       desc: 'Tauro gobierna el cuello y la garganta. Esta zona es en muchos sentidos el "centro expresivo" del cuerpo: la voz que emana de aquí es uno de los atributos más distintivos. Un cuello largo y bien formado es signo venusino. La tiroides y las cuerdas vocales son los órganos más sensibles.',
       signos: ['tauro']
     },
     hombros:  {
-      signo: 'Géminis ♊ / Tauro ♉', titulo: 'Hombros · Clavículas',
+      signo: 'Géminis ♊︎ / Tauro ♉︎', titulo: 'Hombros · Clavículas',
       desc: 'Los hombros marcan la amplitud de la presencia. Tauro los forma, Géminis los activa con movimiento. Una clavícula prominente o hombros anchos hablan de estructura taurina. Los hombros caídos o tensos son señal de carga emocional no procesada.',
       signos: ['tauro','geminis']
     },
     pecho:    {
-      signo: 'Cáncer ♋ / Leo ♌', titulo: 'Pecho · Corazón · Pulmones',
+      signo: 'Cáncer ♋︎ / Leo ♌︎', titulo: 'Pecho · Corazón · Pulmones',
       desc: 'Cáncer rige el pecho y el estómago; Leo, el corazón y la espalda alta. El pecho es el centro de la emoción y la vitalidad. Un tórax amplio habla de generosidad emocional. El corazón — tanto músculo como símbolo — late desde aquí como el motor de la vida.',
       signos: ['cancer','leo']
     },
     brazos:   {
-      signo: 'Géminis ♊', titulo: 'Brazos · Antebrazos · Codos',
+      signo: 'Géminis ♊︎', titulo: 'Brazos · Antebrazos · Codos',
       desc: 'Géminis rige los brazos y los pulmones. Los brazos son el instrumento de la comunicación física — abrazar, señalar, escribir, crear. Las personas con énfasis en Géminis suelen tener brazos ágiles y expresivos. El sistema respiratorio y los nervios de los brazos son sus puntos sensibles.',
       signos: ['geminis']
     },
     manos:    {
-      signo: 'Géminis ♊ / Virgo ♍', titulo: 'Manos · Muñecas · Dedos',
+      signo: 'Géminis ♊︎ / Virgo ♍︎', titulo: 'Manos · Muñecas · Dedos',
       desc: 'Las manos son el instrumento más expresivo del cuerpo humano. Géminis las activa, Virgo las refina. Manos largas y delgadas son mercurianas; manos cuadradas y sólidas, taurinas. La quiromancia completa esta lectura — las líneas de las manos son el mapa del destino.',
       signos: ['geminis','virgo']
     },
     abdomen:  {
-      signo: 'Cáncer ♋ / Virgo ♍', titulo: 'Abdomen · Sistema digestivo',
+      signo: 'Cáncer ♋︎ / Virgo ♍︎', titulo: 'Abdomen · Sistema digestivo',
       desc: 'Cáncer rige el estómago y la retención de líquidos; Virgo, el intestino y el proceso digestivo. El abdomen es el centro de procesamiento del cuerpo — no solo físico sino emocional. Las "sensaciones viscerales" son literales: el miedo, la intuición y el amor se sienten aquí primero.',
       signos: ['cancer','virgo']
     },
     caderas:  {
-      signo: 'Libra ♎ / Escorpio ♏', titulo: 'Caderas · Riñones · Pelvis',
+      signo: 'Libra ♎︎ / Escorpio ♏︎', titulo: 'Caderas · Riñones · Pelvis',
       desc: 'Libra gobierna los riñones y la zona lumbar; Escorpio, los órganos reproductores y la pelvis. Las caderas definen la silueta y el equilibrio del cuerpo. En la astrología clásica, esta zona conecta con la creatividad, la sexualidad y el movimiento vital. El equilibrio de los riñones refleja el equilibrio de las relaciones.',
       signos: ['libra','escorpio']
     },
     muslos:   {
-      signo: 'Sagitario ♐', titulo: 'Muslos · Parte superior de las piernas',
+      signo: 'Sagitario ♐︎', titulo: 'Muslos · Parte superior de las piernas',
       desc: 'Sagitario rige los muslos y el hígado. Los muslos son el motor de la locomoción — representan la capacidad de avanzar, viajar, expandirse. En las personas sagitarianas, los muslos suelen ser prominentes o bien desarrollados. El hígado, su órgano regente, procesa tanto los alimentos como los excesos.',
       signos: ['sagitario']
     },
     rodillas: {
-      signo: 'Capricornio ♑', titulo: 'Rodillas · Articulaciones',
+      signo: 'Capricornio ♑︎', titulo: 'Rodillas · Articulaciones',
       desc: 'Capricornio rige las rodillas y la estructura ósea general. Las rodillas son la articulación de la humildad — doblarse sin quebrarse. Los capricornianos deben cuidar especialmente sus rodillas, que cargan el peso de su ambición. Las articulaciones en general hablan de la flexibilidad interior.',
       signos: ['capricornio']
     },
     piernas:  {
-      signo: 'Acuario ♒ / Capricornio ♑', titulo: 'Piernas · Pantorrillas · Tobillos',
+      signo: 'Acuario ♒︎ / Capricornio ♑︎', titulo: 'Piernas · Pantorrillas · Tobillos',
       desc: 'Acuario rige las pantorrillas y los tobillos; Capricornio, las rodillas y la tibia. Las piernas son el sustento, el avance, la conexión con la tierra. Las personas con énfasis en Acuario suelen tener piernas largas y bien formadas, con tobillos llamativos. La circulación es su punto de atención.',
       signos: ['acuario','capricornio']
     },
     pies:     {
-      signo: 'Piscis ♓', titulo: 'Pies · Tobillos · Sistema linfático',
+      signo: 'Piscis ♓︎', titulo: 'Pies · Tobillos · Sistema linfático',
       desc: 'Piscis rige los pies — el punto final del zodíaco y de la silueta humana. Los pies conectan con la tierra pero también con lo invisible: en muchas tradiciones son el centro de la energía kundalini y del campo energético general. Los piscianos suelen tener pies especialmente sensibles o con características particulares.',
       signos: ['piscis']
     }
