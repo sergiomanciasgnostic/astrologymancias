@@ -24606,6 +24606,58 @@ window.KB_DATA = [
     {idx:9,nombre:'Malkuth',subtitulo:'El Reino',color:'#795548',rgb:'121,85,72',simbolo:'◆',pilar:'Equilibrio',planeta:'Tierra',arcano:'El Mundo (XXI)',angel:'Sandalfón',nombre_divino:'Adonai ha-Aretz (Señor de la Tierra)',elemento:'Tierra',keywords:['Manifestación','Materia','Presencia','El aquí y ahora','Encarnación'],descripcion:'Malkuth es el reino de la manifestación, el mundo físico donde lo divino toma forma. Es la tierra, el cuerpo, el presente. Quien resuena con Malkuth tiene una capacidad extraordinaria de manifestar, de encarnar lo espiritual en lo cotidiano y de encontrar lo sagrado en los actos más simples de la vida material.',practica:'Trabajo corporal: yoga, masaje, contacto con la tierra. Cocina consciente, jardinería, artesanía. Prácticas de presencia plena (mindfulness). Rituales cotidianos que sacralicen lo mundano.',mensaje_espiritual:'Lo divino no está en lo lejano: está en tus manos que sostienen el café por la mañana, en tus pies que tocan la tierra. Encarnar es el acto sagrado más difícil y más necesario.',desequilibrio:'Materialismo que ahoga la espiritualidad. Dificultad para elevar la mirada más allá de lo inmediato. Apego excesivo a lo físico o desprecio del cuerpo.',caminos_activos:['El Mundo','El Juicio','La Luna'],questions:[{text:'¿Encuentras lo sagrado en las actividades cotidianas: cocinar, caminar, estar en silencio?',opts:['Sí, lo ordinario es mi templo','Con frecuencia, valoro los rituales simples','A veces, en momentos de calma','Busco lo sagrado más en lo extraordinario']},{text:'¿Tienes facilidad para manifestar tus intenciones en resultados concretos y materiales?',opts:['Sí, soy muy efectivo/a para concretar','Bastante, aunque toma tiempo','A veces, con esfuerzo','Me cuesta pasar de las ideas a la acción']},{text:'¿El cuerpo y la salud física son una prioridad sagrada en tu vida?',opts:['Absolutamente, el cuerpo es templo del alma','Sí, cuido mi salud con consciencia','Lo intento aunque no siempre logro sostenerlo','No es algo que priorice especialmente']}]}
 ];
 
+
+// ════════════════════════════════════════════════════════════════
+//  KABALAH — Numerología Kabbalística · Mensajes para mensajes_astrologicos.js
+//  Autor: Sergiomancias Gnostic | sergiomanciasgnostic.online
+//  Pegar este bloque DENTRO de mensajes_astrologicos.js
+// ════════════════════════════════════════════════════════════════
+
+// ── Mapa número → Sefirá (puede sobreescribir el inline del HTML) ──
+window.KB_NUM_MAP = {
+  1:  { sefiraIdx: 0, nota: 'El Uno resuena con Kether: la unidad primordial, la chispa antes de toda forma.' },
+  2:  { sefiraIdx: 2, nota: 'El Dos resuena con Binah: la dualidad sagrada, la matriz que da forma a lo que existe.' },
+  3:  { sefiraIdx: 1, nota: 'El Tres resuena con Chokmah: la sabiduría que irradia antes de tomar forma.' },
+  4:  { sefiraIdx: 9, nota: 'El Cuatro resuena con Malkuth: los cuatro elementos, la manifestación completa en la Tierra.' },
+  5:  { sefiraIdx: 4, nota: 'El Cinco resuena con Geburah: la fuerza que transforma, el corte necesario para crecer.' },
+  6:  { sefiraIdx: 5, nota: 'El Seis resuena con Tiphareth: el corazón del Árbol, equilibrio, belleza y amor solar.' },
+  7:  { sefiraIdx: 8, nota: 'El Siete resuena con Yesod: el fundamento oculto, los sueños y el mundo del inconsciente.' },
+  8:  { sefiraIdx: 3, nota: 'El Ocho resuena con Chesed: la expansión generosa del amor que todo lo sostiene.' },
+  9:  { sefiraIdx: 6, nota: 'El Nueve resuena con Netzach: la victoria de la emoción plena y la fuerza de la naturaleza.' },
+  11: { sefiraIdx: 7, nota: 'El Maestro 11 resuena con Hod: el esplendor de la mente que ve más allá del velo.' },
+  22: { sefiraIdx: 3, nota: 'El Maestro 22 resuena con Chesed: el constructor que edifica amor en forma duradera.' }
+};
+
+// ── Mensajes comparativos ──
+window.KB_NUM_MENSAJES = {
+
+  /* ══ COINCIDENCIA: número y Sefirá del cuestionario son la misma ══ */
+  coincidencia: [
+    'Tu número de destino y la Sefirá que el cuestionario reveló convergen en el mismo punto del Árbol. Esto no es casualidad en la Kábalah: es señal de que tu esencia interior y tu camino de vida están profundamente alineados. Lo que eres en el alma ya es lo que manifiestas.',
+    'Cuando el número que porta tu nombre y fecha coincide con tu Sefirá dominante, el Árbol habla de unidad. Tus distintas dimensiones —la que sientes, la que piensas y la que el cosmos trazó en tu nacimiento— apuntan en la misma dirección. Estás en tu camino.',
+    'La tradición kabbalística llama "tikún" al proceso de corrección del alma. En tu caso, la numerología y el cuestionario apuntan al mismo sello. Significa que tu trabajo en esta vida tiene un foco claro, sin contradicciones fundamentales entre lo que fuiste destinado a ser y lo que eres.'
+  ],
+
+  /* ══ COMPLEMENTO: mismo pilar o energía relacionada ══ */
+  complemento: [
+    'Tu número de destino señala una energía que complementa tu Sefirá dominante. En el Árbol de la Vida, la complementariedad no es debilidad: es la forma en que dos luces distintas se potencian. Tienes dos grandes fuerzas trabajando en ti, cada una enriqueciendo a la otra.',
+    'La diferencia entre tu Sefirá numerológica y la del cuestionario indica que transitas por dos corrientes del Árbol. Una es tu naturaleza más instintiva y vivida; la otra, el camino que el cielo inscribió en tu nacimiento. Integrar ambas es parte de tu crecimiento.',
+    'En la Kábalah, el alma raramente encarna una sola Sefirá. Tus dos resonancias —la del cuestionario y la del número— forman un arco: una es el maestro y la otra el aprendiz, y a lo largo de la vida van intercambiando roles. Esto habla de profundidad y riqueza espiritual.'
+  ],
+
+  /* ══ TENSIÓN CREATIVA: pilares distintos ══ */
+  tension: [
+    'Existe una tensión creativa entre tu número de destino y tu Sefirá más activa. En la Kábalah, la tensión entre pilares es la fuente de toda creación: la chispa surge cuando dos fuerzas se rozan. Esta aparente contradicción es, en realidad, tu motor más poderoso.',
+    'Tu número y tu Sefirá dominante pertenecen a pilares distintos del Árbol. El Pilar de la Misericordia y el del Rigor nunca se anulan: se necesitan. Tu alma fue diseñada para vivir en ese umbral, aprendiendo a dar y a poner límites, a expandir y a condensar, a amar y a discernir.',
+    'La Kábalah enseña que el Árbol necesita los tres pilares para sostenerse. Cuando tu numerología y tu cuestionario señalan pilares diferentes, el Árbol mismo te está diciendo que eres un puente. No tengas prisa por resolver la tensión: vívela, que de ella nace tu obra.'
+  ],
+
+  /* ══ NOTA AL PIE ══ */
+  nota_pie: 'La numerología kabbalística es una llave, no una sentencia. Los números revelan patrones; tú decides qué hacer con ellos.'
+
+};
+
+
 // ════════════════════════════════════════════════════════════════
 //  BIORRÍTMOS — Mensajes para añadir a mensajes_astrologicos.js
 //  Autor: Sergiomancias Gnostic | sergiomanciasgnostic.online
