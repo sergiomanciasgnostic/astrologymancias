@@ -24608,53 +24608,86 @@ window.KB_DATA = [
 
 
 // ════════════════════════════════════════════════════════════════
-//  KABALAH — Numerología Kabbalística · Mensajes para mensajes_astrologicos.js
+//  KABALAH — Numerología Kabbalística · Mensajes
 //  Autor: Sergiomancias Gnostic | sergiomanciasgnostic.online
-//  Pegar este bloque DENTRO de mensajes_astrologicos.js
 // ════════════════════════════════════════════════════════════════
 
-// ── Mapa número → Sefirá (puede sobreescribir el inline del HTML) ──
 window.KB_NUM_MAP = {
-  1:  { sefiraIdx: 0, nota: 'El Uno resuena con Kether: la unidad primordial, la chispa antes de toda forma.' },
-  2:  { sefiraIdx: 2, nota: 'El Dos resuena con Binah: la dualidad sagrada, la matriz que da forma a lo que existe.' },
-  3:  { sefiraIdx: 1, nota: 'El Tres resuena con Chokmah: la sabiduría que irradia antes de tomar forma.' },
-  4:  { sefiraIdx: 9, nota: 'El Cuatro resuena con Malkuth: los cuatro elementos, la manifestación completa en la Tierra.' },
-  5:  { sefiraIdx: 4, nota: 'El Cinco resuena con Geburah: la fuerza que transforma, el corte necesario para crecer.' },
-  6:  { sefiraIdx: 5, nota: 'El Seis resuena con Tiphareth: el corazón del Árbol, equilibrio, belleza y amor solar.' },
-  7:  { sefiraIdx: 8, nota: 'El Siete resuena con Yesod: el fundamento oculto, los sueños y el mundo del inconsciente.' },
-  8:  { sefiraIdx: 3, nota: 'El Ocho resuena con Chesed: la expansión generosa del amor que todo lo sostiene.' },
-  9:  { sefiraIdx: 6, nota: 'El Nueve resuena con Netzach: la victoria de la emoción plena y la fuerza de la naturaleza.' },
-  11: { sefiraIdx: 7, nota: 'El Maestro 11 resuena con Hod: el esplendor de la mente que ve más allá del velo.' },
-  22: { sefiraIdx: 3, nota: 'El Maestro 22 resuena con Chesed: el constructor que edifica amor en forma duradera.' }
+  1:  {
+    sefiraIdx: 0,
+    nota_destino:   'El 1 como Número de Destino te coloca bajo la corona de Kether: viniste a iniciar, a abrir caminos donde no los había. Tu alma no llegó a seguir estructuras ajenas sino a construir las propias. El riesgo es el aislamiento; la misión, encender la primera chispa.',
+    nota_expresion: 'El 1 en tu Número de Expresión significa que tu nombre vibra con la frecuencia del origen. Cuando hablas, proyectas autoridad y singularidad. Las personas te perciben como alguien que sabe adónde va, aunque por dentro aún estés buscando. Esa percepción es también una responsabilidad.'
+  },
+  2:  {
+    sefiraIdx: 2,
+    nota_destino:   'El 2 como Número de Destino te vincula con Binah, la Gran Madre del Árbol. Viniste a aprender el arte de recibir, de escuchar antes de hablar, de tejer puentes entre opuestos. Tu camino no es el del héroe solitario sino el del diplomático del alma: quien une lo que estaba roto.',
+    nota_expresion: 'El 2 en tu Número de Expresión hace que tu nombre irradie sensibilidad y capacidad de contención. Quienes te rodean sienten que pueden confiar en ti sus secretos. El peligro es que absorbes tanto lo ajeno que olvidas lo propio. Tu nombre llama a sanar; cuida no perder tu centro en ese proceso.'
+  },
+  3:  {
+    sefiraIdx: 1,
+    nota_destino:   'El 3 como Número de Destino te conecta con Chokmah, la sabiduría que irradia sin filtro. Viniste a crear, a expresar, a traer belleza donde había vacío. Tu camino exige que aprendas a canalizar esa energía desbordante: el 3 sin disciplina se dispersa; el 3 con foco transforma el mundo.',
+    nota_expresion: 'El 3 en tu Número de Expresión imprime en tu nombre una energía creativa y magnética. Las personas te buscan para sentirse inspiradas. Tu palabra tiene poder de elevar o de herir con igual intensidad. Eres un comunicador nato; lo que eliges decir —y callar— define quién eres ante los demás.'
+  },
+  4:  {
+    sefiraIdx: 9,
+    nota_destino:   'El 4 como Número de Destino te ancla en Malkuth, el reino de la manifestación concreta. Viniste a construir algo que dure: una familia, una obra, un legado que otros puedan tocar con las manos. Tu alma aprendió en otras vidas a soñar; en esta, el cielo te pide que también ejecutes.',
+    nota_expresion: 'El 4 en tu Número de Expresión hace que tu nombre transmita solidez y confianza. Las personas te perciben como alguien en quien apoyarse. Tu desafío es no confundir estabilidad con rigidez: el nombre que vibra en 4 puede edificar grandes estructuras o levantarse muros que bloquean el crecimiento.'
+  },
+  5:  {
+    sefiraIdx: 4,
+    nota_destino:   'El 5 como Número de Destino te coloca bajo la fuerza transformadora de Geburah. Viniste a romper lo que ya no sirve, en tu vida y en la de quienes te rodean. El cambio no es tu enemigo: es tu lenguaje nativo. Tu alma vino equipada para la libertad; el aprendizaje es usar esa libertad con propósito.',
+    nota_expresion: 'El 5 en tu Número de Expresión proyecta un nombre que atrae y desestabiliza a partes iguales. Las personas sienten en ti una energía inquieta, imprevisible, viva. Eres quien recuerda a los demás que la vida puede ser de otra manera. Tu palabra moviliza; asegúrate de saber hacia dónde.'
+  },
+  6:  {
+    sefiraIdx: 5,
+    nota_destino:   'El 6 como Número de Destino te sitúa en Tiphareth, el corazón del Árbol de la Vida. Viniste a aprender el amor que no sofoca, la belleza que no necesita aprobación, el servicio que no se convierte en sacrificio. Tu camino es encontrar ese equilibrio entre dar y recibir sin perder tu sol interior.',
+    nota_expresion: 'El 6 en tu Número de Expresión irradia calidez y sentido de la responsabilidad. Tu nombre evoca hogar, cuidado, armonía. Las personas te buscan cuando necesitan apoyo emocional. El reto es aprender a decir no sin culpa: quien todo lo sostiene termina agotado si no tiene también quién lo sostenga a él.'
+  },
+  7:  {
+    sefiraIdx: 8,
+    nota_destino:   'El 7 como Número de Destino te lleva a Yesod, el fundamento invisible que sostiene todo lo que existe. Viniste a conocer lo que está detrás del velo: los patrones ocultos, las verdades que la mayoría no ve. Tu camino es profundo y a veces solitario, pero cada insight tuyo alcanza a muchos más de los que imaginas.',
+    nota_expresion: 'El 7 en tu Número de Expresión hace que tu nombre resuene con misterio e inteligencia. Las personas perciben en ti capas que no logran descifrar del todo, y eso las fascina o las incomoda. Eres un observador nato. Tu desafío: bajar lo que ves en lo alto al lenguaje que otros puedan recibir.'
+  },
+  8:  {
+    sefiraIdx: 3,
+    nota_destino:   'El 8 como Número de Destino te conecta con Chesed, la expansión generosa y el poder bien usado. Viniste a materializar grandes proyectos, a manejar recursos y a aprender que el verdadero poder no domina sino que eleva. Tu alma tiene una relación kármica con la abundancia: vine a sanarla, no a repetirla.',
+    nota_expresion: 'El 8 en tu Número de Expresión imprime en tu nombre una presencia que los demás sienten antes de que abras la boca. Proyectas autoridad, capacidad ejecutiva y determinación. El peligro es que esa misma fuerza puede volverse inflexible. Tu nombre llama al liderazgo; la pregunta es a qué tipo de liderazgo eliges responder.'
+  },
+  9:  {
+    sefiraIdx: 6,
+    nota_destino:   'El 9 como Número de Destino te une a Netzach, la victoria de la emoción y la belleza de la naturaleza en su forma más plena. Viniste a completar ciclos, a sanar heridas antiguas y a dejar algo mejor de lo que encontraste. El 9 es el número del que da sin esperar retorno: su recompensa viene de otra fuente.',
+    nota_expresion: 'El 9 en tu Número de Expresión hace que tu nombre lleve consigo una carga de humanidad profunda. Las personas sienten en ti compasión y amplitud de miras. Tu palabra tiene la capacidad de consolar, de abrir perspectivas, de nombrar lo que otros no saben cómo decir. Tu desafío: no cargar las heridas de todos como si fueran tuyas.'
+  },
+  11: {
+    sefiraIdx: 7,
+    nota_destino:   'El Maestro 11 como Número de Destino te coloca en el filo entre Hod y el rayo que baja de Kether. Viniste con una sensibilidad espiritual que puede ser tu mayor don o tu mayor vulnerabilidad. No eres como los demás y en algún nivel siempre lo supiste. Tu misión es canalizar esa visión elevada sin quemarte en el intento.',
+    nota_expresion: 'El Maestro 11 en tu Número de Expresión hace que tu nombre opere en dos frecuencias simultáneas. Hay momentos en que inspiras a multitudes sin proponértelo; otros en que la presión de esa vibración te agota. Eres un transmisor. Lo que dices tiene eco más profundo del que calculas: elige tus palabras como si fueran semillas.'
+  },
+  22: {
+    sefiraIdx: 3,
+    nota_destino:   'El Maestro 22 como Número de Destino es el arquitecto del Árbol. Chesed te da la visión expansiva; el 22 te da la capacidad de construirla en el plano físico. Viniste con planos para algo grande, algo que trasciende tu vida personal. El reto es no paralizarte ante la escala de lo que ves posible.',
+    nota_expresion: 'El Maestro 22 en tu Número de Expresión hace que tu nombre cargue una frecuencia de construcción y legado. Las personas sienten en ti alguien capaz de hacer real lo que para otros es solo idea. Eres el puente entre el sueño y la forma. Tu desafío es confiar en esa capacidad sin esperar que el mundo primero te valide.'
+  }
 };
 
-// ── Mensajes comparativos ──
 window.KB_NUM_MENSAJES = {
 
-  /* ══ COINCIDENCIA: número y Sefirá del cuestionario son la misma ══ */
   coincidencia: [
-    'Tu número de destino y la Sefirá que el cuestionario reveló convergen en el mismo punto del Árbol. Esto no es casualidad en la Kábalah: es señal de que tu esencia interior y tu camino de vida están profundamente alineados. Lo que eres en el alma ya es lo que manifiestas.',
-    'Cuando el número que porta tu nombre y fecha coincide con tu Sefirá dominante, el Árbol habla de unidad. Tus distintas dimensiones —la que sientes, la que piensas y la que el cosmos trazó en tu nacimiento— apuntan en la misma dirección. Estás en tu camino.',
-    'La tradición kabbalística llama "tikún" al proceso de corrección del alma. En tu caso, la numerología y el cuestionario apuntan al mismo sello. Significa que tu trabajo en esta vida tiene un foco claro, sin contradicciones fundamentales entre lo que fuiste destinado a ser y lo que eres.'
+    'Tu Número de Destino y la Sefirá que el cuestionario reveló apuntan al mismo lugar del Árbol. En la tradición kabbalística esto se llama tikún coherente: el alma que encarna sabe exactamente dónde trabajar y no se dispersa entre contradicciones. Tus distintas dimensiones hablan el mismo idioma. Aprovecha esa claridad: no siempre se tiene.',
+    'Hay personas que pasan décadas buscando coherencia entre lo que sienten que son y lo que el cosmos trazó en su nacimiento. Tu numerología y tu cuestionario coinciden en la misma Sefirá: eso significa que ya tienes la brújula alineada. El trabajo ahora no es encontrar el norte, sino caminar.'
   ],
 
-  /* ══ COMPLEMENTO: mismo pilar o energía relacionada ══ */
   complemento: [
-    'Tu número de destino señala una energía que complementa tu Sefirá dominante. En el Árbol de la Vida, la complementariedad no es debilidad: es la forma en que dos luces distintas se potencian. Tienes dos grandes fuerzas trabajando en ti, cada una enriqueciendo a la otra.',
-    'La diferencia entre tu Sefirá numerológica y la del cuestionario indica que transitas por dos corrientes del Árbol. Una es tu naturaleza más instintiva y vivida; la otra, el camino que el cielo inscribió en tu nacimiento. Integrar ambas es parte de tu crecimiento.',
-    'En la Kábalah, el alma raramente encarna una sola Sefirá. Tus dos resonancias —la del cuestionario y la del número— forman un arco: una es el maestro y la otra el aprendiz, y a lo largo de la vida van intercambiando roles. Esto habla de profundidad y riqueza espiritual.'
+    'Tu Número de Destino y tu Sefirá dominante no son iguales, pero se entienden. En el Árbol, la complementariedad entre Sefirot es la base de toda creación: ninguna trabaja sola. Lo que el número inscribió en tu nacimiento y lo que el cuestionario encontró en tu interior se potencian mutuamente. Tienes dos maestros internos; el arte es aprender cuándo escuchar a cada uno.',
+    'La Kábalah enseña que el alma encarna con múltiples resonancias, no con una sola. Tu número de destino y tu Sefirá vivida se complementan como el inhalar y el exhalar: distintos, necesarios, parte del mismo aliento. No intentes unificarlos a la fuerza; deja que conversen.'
   ],
 
-  /* ══ TENSIÓN CREATIVA: pilares distintos ══ */
   tension: [
-    'Existe una tensión creativa entre tu número de destino y tu Sefirá más activa. En la Kábalah, la tensión entre pilares es la fuente de toda creación: la chispa surge cuando dos fuerzas se rozan. Esta aparente contradicción es, en realidad, tu motor más poderoso.',
-    'Tu número y tu Sefirá dominante pertenecen a pilares distintos del Árbol. El Pilar de la Misericordia y el del Rigor nunca se anulan: se necesitan. Tu alma fue diseñada para vivir en ese umbral, aprendiendo a dar y a poner límites, a expandir y a condensar, a amar y a discernir.',
-    'La Kábalah enseña que el Árbol necesita los tres pilares para sostenerse. Cuando tu numerología y tu cuestionario señalan pilares diferentes, el Árbol mismo te está diciendo que eres un puente. No tengas prisa por resolver la tensión: vívela, que de ella nace tu obra.'
+    'Tu número de destino y tu Sefirá más activa pertenecen a corrientes distintas del Árbol. Eso genera tensión, sí, pero la Kábalah no teme la tensión: la abraza. El rayo que ilumina el Árbol no baja en línea recta, sino zigzagueando entre pilares opuestos. Esa oscilación es tu energía creativa. Úsala.',
+    'Entre tu número y tu Sefirá dominante existe una distancia real en el Árbol. No es un error del cosmos: es una invitación a crecer en dos direcciones a la vez. Las almas que viven en esa tensión rara vez tienen vidas cómodas, pero casi siempre tienen vidas profundas. Elige qué hacer con esa profundidad.'
   ],
 
-  /* ══ NOTA AL PIE ══ */
-  nota_pie: 'La numerología kabbalística es una llave, no una sentencia. Los números revelan patrones; tú decides qué hacer con ellos.'
-
+  nota_pie: 'Los números no dictan: iluminan. Lo que hagas con esa luz es siempre tuyo.'
 };
 
 
