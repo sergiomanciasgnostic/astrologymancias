@@ -3208,7 +3208,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 32px;
   gap: 28px;
   transition: opacity .5s ease;
   box-sizing: border-box;
@@ -3345,6 +3346,42 @@
 .sm-progress-glow.runa { background: linear-gradient(90deg, transparent, #f0a500, #ffd060); box-shadow: 0 0 12px #f0a500, 0 0 24px rgba(240,165,0,.5); }
 .sm-load-text.runa { color: rgba(240,165,0,0.85); }
 
+/* Kabbalah — violeta (Árbol de la Vida) */
+.sm-bar-track.kabalah { border-color: rgba(167,139,250,0.25); }
+.sm-bar-fill.kabalah  { background: linear-gradient(90deg, rgba(167,139,250,0.06), rgba(167,139,250,0.16)); }
+.sm-progress-glow.kabalah { background: linear-gradient(90deg, transparent, #a78bfa, #ddd6fe); box-shadow: 0 0 12px #a78bfa, 0 0 24px rgba(167,139,250,.5); }
+.sm-load-text.kabalah { color: rgba(167,139,250,0.9); }
+
+/* Feng Shui — verde jade (qi / naturaleza) */
+.sm-bar-track.fengshui { border-color: rgba(74,222,128,0.25); }
+.sm-bar-fill.fengshui  { background: linear-gradient(90deg, rgba(74,222,128,0.06), rgba(74,222,128,0.16)); }
+.sm-progress-glow.fengshui { background: linear-gradient(90deg, transparent, #4ade80, #bbf7d0); box-shadow: 0 0 12px #4ade80, 0 0 24px rgba(74,222,128,.5); }
+.sm-load-text.fengshui { color: rgba(74,222,128,0.9); }
+
+/* Biorrítmos — azul cielo (ciclos / ondas) */
+.sm-bar-track.biorritmos { border-color: rgba(96,165,250,0.25); }
+.sm-bar-fill.biorritmos  { background: linear-gradient(90deg, rgba(96,165,250,0.06), rgba(96,165,250,0.16)); }
+.sm-progress-glow.biorritmos { background: linear-gradient(90deg, transparent, #60a5fa, #bfdbfe); box-shadow: 0 0 12px #60a5fa, 0 0 24px rgba(96,165,250,.5); }
+.sm-load-text.biorritmos { color: rgba(96,165,250,0.9); }
+
+/* Orientación Espiritual — rosa cuarzo */
+.sm-bar-track.orientacion { border-color: rgba(249,168,212,0.25); }
+.sm-bar-fill.orientacion  { background: linear-gradient(90deg, rgba(249,168,212,0.06), rgba(249,168,212,0.16)); }
+.sm-progress-glow.orientacion { background: linear-gradient(90deg, transparent, #f9a8d4, #fce7f3); box-shadow: 0 0 12px #f9a8d4, 0 0 24px rgba(249,168,212,.5); }
+.sm-load-text.orientacion { color: rgba(249,168,212,0.9); }
+
+/* Astrología Morfológica — púrpura */
+.sm-bar-track.astromorf { border-color: rgba(192,132,252,0.25); }
+.sm-bar-fill.astromorf  { background: linear-gradient(90deg, rgba(192,132,252,0.06), rgba(192,132,252,0.16)); }
+.sm-progress-glow.astromorf { background: linear-gradient(90deg, transparent, #c084fc, #e9d5ff); box-shadow: 0 0 12px #c084fc, 0 0 24px rgba(192,132,252,.5); }
+.sm-load-text.astromorf { color: rgba(192,132,252,0.9); }
+
+/* Zodiaco Chino — dorado cálido */
+.sm-bar-track.zodiacoChino { border-color: rgba(240,165,0,0.25); }
+.sm-bar-fill.zodiacoChino  { background: linear-gradient(90deg, rgba(240,165,0,0.06), rgba(251,191,36,0.16)); }
+.sm-progress-glow.zodiacoChino { background: linear-gradient(90deg, transparent, #f59e0b, #fde68a); box-shadow: 0 0 12px #f59e0b, 0 0 24px rgba(245,158,11,.5); }
+.sm-load-text.zodiacoChino { color: rgba(245,158,11,0.9); }
+
 /* Signos — por signo */
 .sm-bar-track.sign-aries,.sm-bar-track.sign-leo,.sm-bar-track.sign-sagitario { border-color: rgba(249,115,22,0.28); }
 .sm-progress-glow.sign-aries,.sm-progress-glow.sign-leo,.sm-progress-glow.sign-sagitario { background: linear-gradient(90deg,transparent,#f97316,#ffb366); box-shadow:0 0 12px #f97316,0 0 24px rgba(249,115,22,.5); }
@@ -3425,6 +3462,16 @@
     cromancia: ['🔴','🟠','🟡','🟢','🔵','🟣','⚪','🟤','🔶','🔷'],
     chakras:   ['◉','◎','○','●','◉','◎','○'],
     zodiacoChino: ['🐀','🐂','🐅','🐇','🐉','🐍','🐎','🐐','🐒','🐓','🐕','🐖'],
+    // Kabbalah — letras hebreas + Árbol de la Vida
+    kabalah: ['א','ב','ג','ד','ה','ו','ז','ח','ט','י','כ','ל','מ','נ','ס'],
+    // Feng Shui — trigramas del I Ching + bagua
+    fengshui: ['☰','☱','☲','☳','☴','☵','☶','☷','☯','✦','☰','☱','☲','☳','☴'],
+    // Biorrítmos — ondas / ciclos
+    biorritmos: ['∿','〜','⌇','∾','≈','∿','〜','⌇','∾','≈','∿','〜','⌇','∾','≈'],
+    // Orientación espiritual — estrellas / puntos cardinales
+    orientacion: ['✦','★','☆','✧','✩','✪','✫','✬','✭','✮','✯','✰','⊕','⊙','✦'],
+    // Astrología Morfológica — planetas + formas geométricas
+    astromorf: ['△','▽','◇','□','○','☉','☽','♂','♀','☿','♃','♄','△','▽','◇'],
   };
 
   /* ── Colores de texto de símbolos por módulo ── */
@@ -3440,6 +3487,11 @@
     numerologia: '#facc15', cromancia: 'inherit',
     chakras: null, // multicolor
     zodiacoChino: '#f0a500',
+    kabalah:    '#a78bfa',
+    fengshui:   '#4ade80',
+    biorritmos: '#60a5fa',
+    orientacion:'#f9a8d4',
+    astromorf:  '#c084fc',
   };
 
   /* Colores de chakras por posición */
@@ -3567,11 +3619,17 @@
 
     // Detectar clase base de tema CSS
     var cssTheme = 'astro';
-    if (themeKey === 'chakras')     cssTheme = 'chakra';
+    if (themeKey === 'chakras')       cssTheme = 'chakra';
     else if (themeKey === 'numerologia') cssTheme = 'num';
     else if (themeKey === 'arcanos')     cssTheme = 'arc';
     else if (themeKey === 'cromancia')   cssTheme = 'crom';
     else if (themeKey === 'runas')       cssTheme = 'runa';
+    else if (themeKey === 'kabalah')     cssTheme = 'kabalah';
+    else if (themeKey === 'fengshui')    cssTheme = 'fengshui';
+    else if (themeKey === 'biorritmos')  cssTheme = 'biorritmos';
+    else if (themeKey === 'orientacion') cssTheme = 'orientacion';
+    else if (themeKey === 'astromorf')   cssTheme = 'astromorf';
+    else if (themeKey === 'zodiacoChino')cssTheme = 'zodiacoChino';
     else if (themeKey && themeKey.startsWith('sign-')) cssTheme = themeKey;
 
     // Limpiar clases previas
@@ -3631,7 +3689,9 @@
         var themeMap = {
           carta: 'astro', personalidad: 'astro', signos: 'signos', compat: 'astro',
           arcanos: 'arcanos', runas: 'runas', numerologia: 'numerologia',
-          cromancia: 'cromancia', chakras: 'chakras'
+          cromancia: 'cromancia', chakras: 'chakras',
+          kabalah: 'kabalah', fengshui: 'fengshui', biorritmos: 'biorritmos',
+          orientacion: 'orientacion', astromorf: 'astromorf', zodiacoChino: 'zodiacoChino'
         };
         var theme = themeMap[mod] || 'astro';
         smShowLoading(theme);
