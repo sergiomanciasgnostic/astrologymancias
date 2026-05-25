@@ -206,6 +206,14 @@
       from { opacity:0; transform:translateY(8px); }
       to   { opacity:1; transform:translateY(0); }
     }
+    @keyframes sinFadeIn {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes sinFadeOut {
+      from { opacity:1; transform:translateY(0); }
+      to   { opacity:0; transform:translateY(-8px); }
+    }
 
 
     /* ══════════════════════════════════════════════════
@@ -5641,6 +5649,7 @@
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
         <div id="fechasEspecialesTopbar" style="text-align:center;margin-bottom:8px;font-size:18px;color:#ffffff;line-height:1.7;"></div>
+        <!-- Botones Sinastría y Compuesta — movidos al panel de retornos -->
       </div>
     </div>
     <div class="res-grid">
@@ -5703,79 +5712,122 @@
           </select>
         </div>
 
-        <!-- ── DIVISOR: RETORNOS ── -->
-        <div class="mod-divider">
-          <div class="div-line"></div>
-          <span class="div-icon">☽ ☼ ☽</span>
-          <div class="div-label">Retornos</div>
-          <span class="div-icon">☽ ☼ ☽</span>
-          <div class="div-line"></div>
-        </div>
+        <!-- ── DOS COLUMNAS: RETORNOS | OPCIONALES ── -->
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;width:100%;margin:18px 0 14px;align-items:start;">
 
+          <!-- Columna izquierda: Retornos -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 18px;">
+            <div class="mod-divider" style="margin:0;width:100%;">
+              <div class="div-line"></div>
+              <span class="div-icon">☽ ☼ ☽</span>
+              <div class="div-label" style="white-space:nowrap;">Retornos</div>
+              <span class="div-icon">☽ ☼ ☽</span>
+              <div class="div-line"></div>
+            </div>
+            <!-- Dropdown Retornos inline en la columna -->
         <!-- RETORNOS PANEL bajo la rueda -->
-        <div id="retornosPanel" style="display:none;margin-top:18px;flex-direction:column;align-items:center;gap:0;">
-          <!-- FILA 1: Botones temporalmente desactivados — sin espacio visual -->
+        <div id="retornosPanel" style="display:none;margin-top:8px;flex-direction:column;align-items:center;gap:0;">
+          <!-- Botones ocultos legacy -->
           <div id="retornoFila1" style="display:none;margin:0;padding:0;height:0;overflow:hidden;">
             <button id="btnVolverNatal" onclick="volverCartaNatal()" style="display:none;">Volver</button>
             <button id="btnLeerSolar" onclick="abrirLecturaRetorno('solar')" style="display:none;">Leer Solar</button>
             <button id="btnLeerLunar" onclick="abrirLecturaRetorno('lunar')" style="display:none;">Leer Lunar</button>
             <button id="btnLeerMercury" onclick="abrirLecturaRetorno('mercury')" style="display:none;">Leer Mercury</button>
           </div>
-          <!-- FILA 2: Dropdown + campos + calcular -->
-          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;width:100%;">
-            <select id="retornoTipo" class="fselect" style="width:auto;min-width:180px;font-size:16px;padding:9px 8px;text-align:center;flex-shrink:0;" onchange="onRetornoTipoChange()">
-              <option value="" disabled selected>Retornos...</option>
-              <option value="solar">&#9737; Retorno Solar</option>
-              <option value="lunar">&#9789; Retorno Lunar</option>
-              <option value="mercury">&#9791; Retorno de Mercurio</option>
-              <option value="venus">&#9792; Retorno de Venus</option>
-              <option value="mars">&#9794; Retorno de Marte</option>
-              <option value="jupiter">&#9795; Retorno de Júpiter</option>
-              <option value="saturn">&#9796; Retorno de Saturno</option>
-            </select>
-            <div id="retornoSolarFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
-              <input id="retornoAnyo" type="number" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025" min="1" max="9999"/>
-              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9737;</button>
-            </div>
-            <div id="retornoLunarFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
-              <select id="retornoMes" class="fselect" style="width:130px;font-size:15px;padding:8px 4px;text-align:center;text-align-last:center;">
-                <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option>
-                <option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option>
-                <option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option>
-                <option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+
+          <!-- ══ RETORNOS (dos filas) ══ -->
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;">
+
+            <!-- FILA 1 — Dropdown + año  (para todos los retornos excepto Luna) -->
+            <!--          Mes + año        (solo para Luna) -->
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;width:100%;">
+              <!-- Dropdown siempre visible -->
+              <select id="retornoTipo" class="fselect" style="width:auto;min-width:180px;font-size:16px;padding:9px 8px;text-align:center;flex-shrink:0;" onchange="onRetornoTipoChange()">
+                <option value="" disabled selected>Retornos...</option>
+                <option value="solar">&#9737; Retorno Solar</option>
+                <option value="lunar">&#9789; Retorno Lunar</option>
+                <option value="mercury">&#9791; Retorno de Mercurio</option>
+                <option value="venus">&#9792; Retorno de Venus</option>
+                <option value="mars">&#9794; Retorno de Marte</option>
+                <option value="jupiter">&#9795; Retorno de Júpiter</option>
+                <option value="saturn">&#9796; Retorno de Saturno</option>
               </select>
-              <input id="retornoAnyoL" type="number" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025" min="1" max="9999"/>
-              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9789;</button>
+              <!-- Año — para todos menos Luna -->
+              <div id="retornoAnioFila1" style="display:none;align-items:center;gap:8px;">
+                <input id="retornoAnyo" type="number" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025" min="1" max="9999"/>
+              </div>
+              <!-- Mes + Año — solo Luna (fila 1) -->
+              <div id="retornoLunarFila1" style="display:none;align-items:center;gap:8px;">
+                <select id="retornoMes" class="fselect" style="width:130px;font-size:15px;padding:8px 4px;text-align:center;text-align-last:center;">
+                  <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option>
+                  <option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option>
+                  <option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option>
+                  <option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+                </select>
+                <input id="retornoAnyoL" type="number" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025" min="1" max="9999"/>
+              </div>
             </div>
-            <div id="retornoMercuryFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
-              <select id="retornoMesM" class="fselect" style="width:130px;font-size:15px;padding:8px 4px;text-align:center;text-align-last:center;">
-                <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option>
-                <option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option>
-                <option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option>
-                <option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
-              </select>
-              <input id="retornoAnyoM" type="number" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025" min="1" max="9999"/>
-              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9791;</button>
+
+            <!-- FILA 2 — Botón calcular (todos) · Luna: también muestra el dropdown de retorno aquí -->
+            <div id="retornoFila2Wrap" style="display:none;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;width:100%;">
+              <!-- Botón Solar -->
+              <button id="retornoBtnSolar"   onclick="calcularRetorno()" class="btn-retorno" style="display:none;font-size:14px;padding:9px 20px;">Calcular &#9737;</button>
+              <!-- Botón Lunar (fila 2 incluye el select de retorno ya elegido) -->
+              <button id="retornoBtnLunar"   onclick="calcularRetorno()" class="btn-retorno" style="display:none;font-size:14px;padding:9px 20px;">Calcular &#9789;</button>
+              <!-- Botones resto -->
+              <button id="retornoBtnMercury" onclick="calcularRetorno()" class="btn-retorno" style="display:none;font-size:14px;padding:9px 20px;">Calcular &#9791;</button>
+              <button id="retornoBtnVenus"   onclick="calcularRetorno()" class="btn-retorno" style="display:none;font-size:14px;padding:9px 20px;">Calcular &#9792;</button>
+              <button id="retornoBtnMars"    onclick="calcularRetorno()" class="btn-retorno" style="display:none;font-size:14px;padding:9px 20px;">Calcular &#9794;</button>
+              <button id="retornoBtnJupiter" onclick="calcularRetorno()" class="btn-retorno" style="display:none;font-size:14px;padding:9px 20px;">Calcular &#9795;</button>
+              <button id="retornoBtnSaturn"  onclick="calcularRetorno()" class="btn-retorno" style="display:none;font-size:14px;padding:9px 20px;">Calcular &#9796;</button>
             </div>
-            <div id="retornoVenusFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
-              <input id="retornoAnyoV" type="text" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025"/>
-              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9792;</button>
+
+            <!-- Campos ocultos legacy que el JS usa para leer valores (Mercury, Venus, Mars, Jupiter, Saturn) -->
+            <div style="display:none;">
+              <div id="retornoSolarFields"></div>
+              <div id="retornoLunarFields"></div>
+              <div id="retornoMercuryFields">
+                <select id="retornoMesM" class="fselect">
+                  <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option>
+                  <option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option>
+                  <option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option>
+                  <option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+                </select>
+                <input id="retornoAnyoM" type="number" value=""/>
+              </div>
+              <div id="retornoVenusFields">  <input id="retornoAnyoV"  type="text" value=""/></div>
+              <div id="retornoMarsFields">   <input id="retornoAnyoMr" type="text" value=""/></div>
+              <div id="retornoJupiterFields"><input id="retornoAnyoJ"  type="text" value=""/></div>
+              <div id="retornoSaturnFields"> <input id="retornoAnyoSa" type="text" value=""/></div>
             </div>
-            <div id="retornoMarsFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
-              <input id="retornoAnyoMr" type="text" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025"/>
-              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9794;</button>
-            </div>
-            <div id="retornoJupiterFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
-              <input id="retornoAnyoJ" type="text" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025"/>
-              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9795;</button>
-            </div>
-            <div id="retornoSaturnFields" style="display:none;align-items:center;justify-content:center;gap:8px;">
-              <input id="retornoAnyoSa" type="text" class="finput" style="width:100px;font-size:17px;text-align:center;padding:8px 4px;" placeholder="2025"/>
-              <button onclick="calcularRetorno()" class="btn-retorno" style="font-size:14px;padding:9px 16px;">Calcular &#9796;</button>
-            </div>
+
           </div>
           <div id="retornoStatus" style="font-size:14px;color:var(--acc);margin-top:6px;text-align:center;"></div>
         </div>
+          </div>
+
+          <!-- Separador vertical visible -->
+          <div style="width:1px;background:linear-gradient(180deg,transparent,rgba(0,200,255,0.6),rgba(0,200,255,0.6),transparent);min-height:70px;align-self:stretch;margin:0 6px;"></div>
+
+          <!-- Columna derecha: Sinastría / Compuesta -->
+          <div id="btnsSinComp" style="display:none;flex-direction:column;align-items:center;gap:10px;padding:0 18px;">
+            <div class="mod-divider" style="margin:0;width:100%;">
+              <div class="div-line"></div>
+              <span class="div-icon">♡ ✦ ♡</span>
+              <div class="div-label" style="white-space:nowrap;">Opcionales</div>
+              <span class="div-icon">♡ ✦ ♡</span>
+              <div class="div-line"></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;width:100%;">
+              <select class="fselect" style="width:auto;min-width:180px;font-size:16px;padding:9px 8px;text-align:center;flex-shrink:0;" onchange="(function(v){if(v==='sinastria')abrirSinastriaView();else if(v==='compuesta')abrirCompuestaView();this.value='';}).call(this,this.value)">
+                <option value="" disabled selected>♡ ✦ Sinastría / Compuesta</option>
+                <option value="sinastria">♡ Sinastría</option>
+                <option value="compuesta">✦ Compuesta</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
 
 
         <!-- ── DIVISOR: EMPRESAS ── -->
@@ -12083,6 +12135,17 @@ async function calculate() {
   _natalHouses  = houses;
   _natalAsc     = asc;
   _natalMc      = mc;
+  // Mostrar botones Sinastría / Compuesta
+  var _bsc = document.getElementById('btnsSinComp');
+  if (_bsc) _bsc.style.display = 'flex';
+  // Guardar datos de la carta principal para poder volver
+  window._cartaOriginalPlanets = planets;
+  window._cartaOriginalHouses  = houses;
+  window._cartaOriginalAsc     = asc;
+  window._cartaOriginalMc      = mc;
+  window._cartaOriginalUnknown = unknown;
+  window._cartaOriginalTitle   = document.getElementById('rTitle').innerHTML;
+  window._cartaOriginalSub     = document.getElementById('rSub').textContent;
   // Datos activos en pantalla
   _activePlanets = planets;
   _activeHouses  = houses;
@@ -12117,13 +12180,11 @@ async function calculate() {
     document.getElementById('retornoAnyoSa').value = new Date().getFullYear();
     // Reset tipo selector
     document.getElementById('retornoTipo').value = '';
-    document.getElementById('retornoSolarFields').style.display = 'none';
-    document.getElementById('retornoLunarFields').style.display = 'none';
-    document.getElementById('retornoMercuryFields').style.display = 'none';
-    document.getElementById('retornoVenusFields').style.display = 'none';
-    document.getElementById('retornoMarsFields').style.display = 'none';
-    document.getElementById('retornoJupiterFields').style.display = 'none';
-    document.getElementById('retornoSaturnFields').style.display = 'none';
+    ['retornoAnioFila1','retornoLunarFila1','retornoFila2Wrap',
+     'retornoBtnSolar','retornoBtnLunar','retornoBtnMercury','retornoBtnVenus',
+     'retornoBtnMars','retornoBtnJupiter','retornoBtnSaturn'].forEach(function(id){
+       var el = document.getElementById(id); if (el) el.style.display = 'none';
+     });
     var _rr = document.getElementById('retornoResult'); if (_rr) _rr.style.display = 'none';
     document.getElementById('retornoStatus').textContent = '';
   }
@@ -12165,31 +12226,52 @@ async function calculate() {
 function onRetornoTipoChange() {
   const tipo = document.getElementById('retornoTipo').value;
   if (tipo === 'volver') { volverCartaNatal(); return; }
-  document.getElementById('retornoSolarFields').style.display   = tipo === 'solar'   ? 'flex' : 'none';
-  document.getElementById('retornoLunarFields').style.display   = tipo === 'lunar'   ? 'flex' : 'none';
-  document.getElementById('retornoMercuryFields').style.display = tipo === 'mercury' ? 'flex' : 'none';
-  document.getElementById('retornoVenusFields').style.display   = tipo === 'venus'   ? 'flex' : 'none';
-  document.getElementById('retornoMarsFields').style.display    = tipo === 'mars'    ? 'flex' : 'none';
-  document.getElementById('retornoJupiterFields').style.display = tipo === 'jupiter' ? 'flex' : 'none';
-  document.getElementById('retornoSaturnFields').style.display  = tipo === 'saturn'  ? 'flex' : 'none';
+
+  // ── Helpers ──
+  function show(id, as) { var el = document.getElementById(id); if (el) el.style.display = as || 'flex'; }
+  function hide(id)      { var el = document.getElementById(id); if (el) el.style.display = 'none'; }
+
+  // Fila 1: año (no-luna) | mes+año (luna)
+  if (tipo === 'lunar') {
+    hide('retornoAnioFila1');
+    show('retornoLunarFila1');
+  } else {
+    show('retornoAnioFila1');
+    hide('retornoLunarFila1');
+  }
+
+  // Fila 2: mostrar contenedor + botón correcto
+  show('retornoFila2Wrap');
+  hide('retornoBtnSolar');
+  hide('retornoBtnLunar');
+  hide('retornoBtnMercury');
+  hide('retornoBtnVenus');
+  hide('retornoBtnMars');
+  hide('retornoBtnJupiter');
+  hide('retornoBtnSaturn');
+  const btnMap = {
+    solar:'retornoBtnSolar', lunar:'retornoBtnLunar', mercury:'retornoBtnMercury',
+    venus:'retornoBtnVenus', mars:'retornoBtnMars', jupiter:'retornoBtnJupiter', saturn:'retornoBtnSaturn'
+  };
+  if (btnMap[tipo]) show(btnMap[tipo]);
+
   document.getElementById('retornoStatus').textContent = '';
+
   // Auto-rellenar año y mes actuales si el campo está vacío
   var _now = new Date();
   var _anioActual = _now.getFullYear();
-  var _mesActual  = _now.getMonth() + 1; // 1-12
-  if (tipo === 'solar') {
-    var fa = document.getElementById('retornoAnyo');
-    if (fa && !fa.value) fa.value = _anioActual;
-  } else if (tipo === 'lunar') {
+  var _mesActual  = _now.getMonth() + 1;
+  if (tipo === 'lunar') {
     var fl = document.getElementById('retornoAnyoL');
     if (fl && !fl.value) fl.value = _anioActual;
     var fm = document.getElementById('retornoMes');
-    if (fm && fm.value === '1') fm.value = _mesActual; // solo si estaba en default
-  } else if (tipo === 'mercury') {
-    var fm2 = document.getElementById('retornoAnyoM');
-    if (fm2 && !fm2.value) fm2.value = _anioActual;
-    var fmm = document.getElementById('retornoMesM');
-    if (fmm && fmm.value === '1') fmm.value = _mesActual;
+    if (fm && !fm.value) fm.value = _mesActual;
+  } else {
+    // Para todos los demás, rellenar retornoAnyo (solar) o los campos alternativos
+    var anyoId = { solar:'retornoAnyo', mercury:'retornoAnyoM', venus:'retornoAnyoV',
+                   mars:'retornoAnyoMr', jupiter:'retornoAnyoJ', saturn:'retornoAnyoSa' };
+    var fa = document.getElementById(anyoId[tipo] || 'retornoAnyo');
+    if (fa && !fa.value) fa.value = _anioActual;
   }
 }
 
@@ -12589,13 +12671,11 @@ function volverCartaNatal() {
   document.getElementById('btnLeerLunar').style.display = 'none';
   document.getElementById('btnLeerMercury').style.display = 'none';
   document.getElementById('retornoTipo').value = '';
-  document.getElementById('retornoSolarFields').style.display = 'none';
-  document.getElementById('retornoLunarFields').style.display = 'none';
-  document.getElementById('retornoMercuryFields').style.display = 'none';
-  document.getElementById('retornoVenusFields').style.display = 'none';
-  document.getElementById('retornoMarsFields').style.display = 'none';
-  document.getElementById('retornoJupiterFields').style.display = 'none';
-  document.getElementById('retornoSaturnFields').style.display = 'none';
+  ['retornoAnioFila1','retornoLunarFila1','retornoFila2Wrap',
+   'retornoBtnSolar','retornoBtnLunar','retornoBtnMercury','retornoBtnVenus',
+   'retornoBtnMars','retornoBtnJupiter','retornoBtnSaturn'].forEach(function(id){
+     var el = document.getElementById(id); if (el) el.style.display = 'none';
+   });
   document.getElementById('retornoStatus').textContent = '';
   document.getElementById('retornoTitulo').style.display = 'none';
   document.getElementById('retornoTitulo').textContent = '';
@@ -12626,6 +12706,17 @@ async function calcularRetorno() {
   }
   const tipo = document.getElementById('retornoTipo').value;
   if (!tipo) return;
+
+  // Sincronizar el campo de año compartido (fila 1) hacia los campos legacy que cada rama lee
+  if (tipo !== 'lunar') {
+    var _anyoShared = (document.getElementById('retornoAnyo')||{}).value || '';
+    var _syncMap = { solar:'retornoAnyo', mercury:'retornoAnyoM', venus:'retornoAnyoV',
+                     mars:'retornoAnyoMr', jupiter:'retornoAnyoJ', saturn:'retornoAnyoSa' };
+    if (_syncMap[tipo] && _syncMap[tipo] !== 'retornoAnyo') {
+      var _tgt = document.getElementById(_syncMap[tipo]);
+      if (_tgt) _tgt.value = _anyoShared;
+    }
+  }
 
   const rstEl = document.getElementById('retornoStatus');
   rstEl.textContent = '⏳ Calculando...';
@@ -13472,10 +13563,12 @@ function showModule(mod) {
   if (_cm) { _cm.style.display='none'; _cm.style.pointerEvents='none'; }
   document.getElementById('homeView').classList.add('hidden');
   document.getElementById('app').classList.add('hidden');
-  ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView','zodiacoChinoView','fengshuiView','kabalahView','bioritmosView','astromorfView','orientacionView'].forEach(id => {
+  ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView','zodiacoChinoView','fengshuiView','kabalahView','bioritmosView','astromorfView','orientacionView','sinastriaView','compuestaView'].forEach(id => {
     const el = document.getElementById(id); if (el) el.style.display = 'none';
   });
   if (mod === 'carta') {
+    var _appEl2 = document.getElementById('app');
+    if (_appEl2) _appEl2.style.display = '';
     document.getElementById('app').classList.remove('hidden');
     // Reset completo del formulario — siempre limpio al entrar
     volverFormularioManual();
@@ -13587,7 +13680,7 @@ function volverASeccion(mod) {
     // Ocultar #app y vistas secundarias después de que homeView ya es visible
     document.getElementById('app').classList.add('hidden');
     requestAnimationFrame(function() {
-      ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView','zodiacoChinoView','fengshuiView','kabalahView','bioritmosView','astromorfView','orientacionView'].forEach(function(id){
+      ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView','zodiacoChinoView','fengshuiView','kabalahView','bioritmosView','astromorfView','orientacionView','sinastriaView','compuestaView'].forEach(function(id){
         var el = document.getElementById(id); if (el) el.style.display = 'none';
       });
     });
@@ -18319,14 +18412,20 @@ function cromReset() {
 (function(){
   let _editCampoActivo = null;
 
-  function abrirEditModal() {
-    // Ir al tope absoluto antes de abrir para que el modal quede bien centrado
-    var rv = document.getElementById('resultView');
-    if (rv) rv.scrollIntoView({behavior:'smooth', block:'start'});
-    setTimeout(function(){
+  window.abrirEditModal = function() {
+    var sinV = document.getElementById('sinastriaView');
+    var compV = document.getElementById('compuestaView');
+    var enSinComp = (sinV && sinV.style.display !== 'none') || (compV && compV.style.display !== 'none');
+    if (enSinComp) {
       _mostrarModal('editInfoOverlay','rgba(0,3,12,0.82)');
       editMostrarOpciones();
-    }, 300);
+    } else {
+      window.scrollTo({top:0, behavior:'smooth'});
+      setTimeout(function(){
+        _mostrarModal('editInfoOverlay','rgba(0,3,12,0.82)');
+        editMostrarOpciones();
+      }, 200);
+    }
   }
 
   function editMostrarOpciones() {
@@ -18726,10 +18825,22 @@ function cromReset() {
       const sg=document.getElementById('selGender');if(sg)sg.value=val;
     }
     // opcionales: los cambios ya se aplican en tiempo real
-    // Preservar estado de opcionales antes de recalcular
     var _gnosPreserve = typeof _gnosticoActivo !== 'undefined' ? _gnosticoActivo : false;
     var _menPreserve  = (document.getElementById('chkMenores')||{value:'0'}).value === '1';
-    // Recalcular con los nuevos datos
+    // En sin/comp solo cerrar — no recalcular (evita salir de la vista)
+    var _sinV = document.getElementById('sinastriaView');
+    var _compV = document.getElementById('compuestaView');
+    if ((_sinV && _sinV.style.display !== 'none') || (_compV && _compV.style.display !== 'none')) {
+      // Actualizar el resumen de carta principal en la vista activa
+      var _resHtml = typeof window._resumenCartaPrincipal === 'function' ? window._resumenCartaPrincipal() : '';
+      var _rSin = document.getElementById('sinResumenCartaPrincipal');
+      var _rComp = document.getElementById('compResumenCartaPrincipal');
+      if (_rSin) _rSin.innerHTML = _resHtml;
+      if (_rComp) _rComp.innerHTML = _resHtml;
+      // Volver a la pantalla de opciones (no cerrar — el botón Cerrar es el que cierra)
+      editMostrarOpciones();
+      return;
+    }
     if(typeof calculate==='function')calculate();
     // Si se editó la fecha, actualizar las fechas especiales en rSub
     if(_editCampoActivo==='fecha' && typeof window.actualizarFechasEspeciales==='function'){
@@ -18781,12 +18892,7 @@ function _mostrarModal(id, bgCss) {
   // Guardar posicion de scroll actual para restaurar al cerrar
   _modalScrollSaved[id] = window.scrollY || window.pageYOffset || 0;
 
-  // Bloquear scroll del body para que el fondo no se mueva en táctil
-  document.body.style.overflow = 'hidden';
-  document.body.style.position = 'fixed';
-  document.body.style.top = '-' + _modalScrollSaved[id] + 'px';
-  document.body.style.left = '0';
-  document.body.style.right = '0';
+  // Body lock eliminado — <dialog>.showModal() lo gestiona sin tocar body.style
 
   // Obtener o crear el <dialog> asociado a este id
   var dlg = _dialogMap[id];
@@ -18878,18 +18984,7 @@ function _cerrarModal(id) {
     var el = document.getElementById(id);
     if (el) el.style.display = 'none';
   }
-  // Restaurar body (bloqueado al abrir para evitar scroll táctil del fondo)
-  var saved = _modalScrollSaved[id];
-  document.body.style.position = '';
-  document.body.style.top      = '';
-  document.body.style.left     = '';
-  document.body.style.right    = '';
-  document.body.style.overflow = '';
-  // Restaurar scroll a la posicion exacta antes de abrir
-  if (saved != null) {
-    window.scrollTo({ top: saved, behavior: 'instant' });
-    delete _modalScrollSaved[id];
-  }
+  // Body unlock eliminado — no se bloqueó al abrir, nada que restaurar
 }
 
 // Tracker de posición del mouse para el toast
@@ -22468,14 +22563,14 @@ window.kbCalcAndRender = function() {
     <div class="mod-title" style="color:#c084fc;">Astromorfología</div>
   </div>
 
-  <div style="width:100%;max-width:1000px;padding:28px 20px 70px;">
+  <div style="width:100%;max-width:1000px;padding:20px 16px 70px;">
 
-    <!-- Selectores en una sola línea, centrados -->
-    <div id="amSelectGrid" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px;align-items:flex-end;justify-content:center;">
+    <!-- Selectores -->
+    <div id="amSelectGrid" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;align-items:flex-end;justify-content:center;">
 
-      <div style="background:rgba(192,132,252,0.05);border:1px solid rgba(192,132,252,0.2);padding:10px 14px;display:inline-flex;flex-direction:column;align-items:center;gap:6px;">
-        <div style="font-size:11px;letter-spacing:.18em;color:#c084fc;text-transform:uppercase;white-space:nowrap;">☉ Signo Solar</div>
-        <select id="amSolar" onchange="amRender()" style="background:#000d20;border:none;border-bottom:1px solid rgba(192,132,252,0.35);color:#fff;font-size:17px;font-weight:600;padding:4px 6px;outline:none;appearance:none;color-scheme:dark;cursor:pointer;width:auto;text-align:center;text-align-last:center;-webkit-text-align-last:center;direction:ltr;">
+      <div class="am-sel-box" style="border-color:rgba(192,132,252,0.2);">
+        <div class="am-sel-label" style="color:#c084fc;">☉ Signo Solar</div>
+        <select id="amSolar" onchange="amRender()" class="am-sel-select" style="border-bottom-color:rgba(192,132,252,0.35);">
           <option value="">— Signo —</option>
           <option value="aries">♈︎ Aries</option><option value="tauro">♉︎ Tauro</option>
           <option value="geminis">♊︎ Géminis</option><option value="cancer">♋︎ Cáncer</option>
@@ -22486,9 +22581,9 @@ window.kbCalcAndRender = function() {
         </select>
       </div>
 
-      <div style="background:rgba(192,132,252,0.05);border:1px solid rgba(192,132,252,0.2);padding:10px 14px;display:inline-flex;flex-direction:column;align-items:center;gap:6px;">
-        <div style="font-size:11px;letter-spacing:.18em;color:#c084fc;text-transform:uppercase;white-space:nowrap;">↑ Signo Ascendente</div>
-        <select id="amAsc" onchange="amRender()" style="background:#000d20;border:none;border-bottom:1px solid rgba(192,132,252,0.35);color:#fff;font-size:17px;font-weight:600;padding:4px 6px;outline:none;appearance:none;color-scheme:dark;cursor:pointer;width:auto;text-align:center;text-align-last:center;-webkit-text-align-last:center;direction:ltr;">
+      <div class="am-sel-box" style="border-color:rgba(167,139,250,0.2);">
+        <div class="am-sel-label" style="color:#a78bfa;">↑ Ascendente</div>
+        <select id="amAsc" onchange="amRender()" class="am-sel-select" style="border-bottom-color:rgba(167,139,250,0.35);">
           <option value="">— Ascendente —</option>
           <option value="aries">♈︎ Aries</option><option value="tauro">♉︎ Tauro</option>
           <option value="geminis">♊︎ Géminis</option><option value="cancer">♋︎ Cáncer</option>
@@ -22499,9 +22594,9 @@ window.kbCalcAndRender = function() {
         </select>
       </div>
 
-      <div id="amDolorWrap" style="background:rgba(232,121,249,0.05);border:1px solid rgba(232,121,249,0.2);padding:10px 14px;display:inline-flex;flex-direction:column;align-items:center;gap:6px;">
-        <div style="font-size:11px;letter-spacing:.18em;color:#e879f9;text-transform:uppercase;white-space:nowrap;">✦ ¿Dónde te duele a menudo?</div>
-        <select id="amDolor" onchange="amRender()" style="background:#000d20;border:none;border-bottom:1px solid rgba(232,121,249,0.35);color:#fff;font-size:17px;font-weight:600;padding:4px 6px;outline:none;appearance:none;color-scheme:dark;cursor:pointer;width:auto;text-align:center;text-align-last:center;-webkit-text-align-last:center;direction:ltr;">
+      <div id="amDolorWrap" class="am-sel-box" style="border-color:rgba(232,121,249,0.2);">
+        <div class="am-sel-label" style="color:#e879f9;">✦ ¿Dónde te duele?</div>
+        <select id="amDolor" onchange="amRender()" class="am-sel-select" style="border-bottom-color:rgba(232,121,249,0.35);">
           <option value="">— Zona —</option>
         </select>
       </div>
@@ -22513,104 +22608,280 @@ window.kbCalcAndRender = function() {
       Selecciona tu signo solar o ascendente para comenzar
     </div>
 
-    <!-- Layout principal: silueta + slider -->
-    <div style="display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start;" id="amMainLayout">
+    <!-- Layout principal -->
+    <div id="amMainLayout">
 
-      <!-- Silueta SVG -->
-      <div style="position:sticky;top:20px;">
-        <svg id="amSvg" viewBox="0 0 200 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:280px;display:block;margin:0 auto;">
-          <defs>
-            <filter id="amGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            <filter id="amGlowStrong"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <ellipse class="am-zone" data-zona="cabeza"   cx="100" cy="38"  rx="28" ry="32" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="cuello"   x="88" y="68" width="24" height="18" rx="4" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <ellipse class="am-zone" data-zona="hombros"  cx="100" cy="92"  rx="52" ry="14" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="pecho"    x="62" y="104" width="76" height="52" rx="6" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="brazos"   x="140" y="96" width="22" height="80" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="brazos"   x="38"  y="96" width="22" height="80" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <ellipse class="am-zone" data-zona="manos"    cx="156" cy="188" rx="12" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <ellipse class="am-zone" data-zona="manos"    cx="44"  cy="188" rx="12" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="abdomen"  x="66" y="154" width="68" height="44" rx="5" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <ellipse class="am-zone" data-zona="caderas"  cx="100" cy="214" rx="44" ry="22" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="muslos"   x="64"  y="234" width="30" height="60" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="muslos"   x="106" y="234" width="30" height="60" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <ellipse class="am-zone" data-zona="rodillas" cx="79"  cy="302" rx="14" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <ellipse class="am-zone" data-zona="rodillas" cx="121" cy="302" rx="14" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="piernas"  x="66"  y="310" width="26" height="70" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <rect    class="am-zone" data-zona="piernas"  x="108" y="310" width="26" height="70" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <ellipse class="am-zone" data-zona="pies"     cx="79"  cy="394" rx="18" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <ellipse class="am-zone" data-zona="pies"     cx="121" cy="394" rx="18" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
-          <text x="100" y="34"  text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="7" letter-spacing="1" font-family="Arial">CABEZA</text>
-          <text x="100" y="78"  text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">CUELLO</text>
-          <text x="100" y="96"  text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">HOMBROS</text>
-          <text x="100" y="133" text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">PECHO</text>
-          <text x="24"  y="138" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">BRAZOS</text>
-          <text x="176" y="138" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">BRAZOS</text>
-          <text x="100" y="178" text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">ABDOMEN</text>
-          <text x="100" y="216" text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">CADERAS</text>
-          <text x="79"  y="266" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">MUSLOS</text>
-          <text x="121" y="266" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">MUSLOS</text>
-          <text x="79"  y="303" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5" font-family="Arial">ROD.</text>
-          <text x="121" y="303" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5" font-family="Arial">ROD.</text>
-          <text x="79"  y="348" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">PIERNAS</text>
-          <text x="121" y="348" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">PIERNAS</text>
-          <text x="79"  y="395" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">PIES</text>
-          <text x="121" y="395" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">PIES</text>
-        </svg>
+      <!-- Fila silueta + slider (desktop: lado a lado / mobile: columna) -->
+      <div id="amContentRow" style="display:flex;gap:24px;align-items:flex-start;">
 
-        <!-- Leyenda activa -->
-        <div id="amLeyenda" style="margin-top:14px;display:none;">
-          <div style="font-size:11px;letter-spacing:.18em;color:rgba(192,132,252,0.6);text-transform:uppercase;margin-bottom:8px;text-align:center;">Selección activa</div>
-          <div id="amLeyendaItems" style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;"></div>
+        <!-- Silueta SVG -->
+        <div id="amSiluetaWrap">
+          <svg id="amSvg" viewBox="0 0 200 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;margin:0 auto;">
+            <defs>
+              <filter id="amGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="amGlowStrong"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <ellipse class="am-zone" data-zona="cabeza"   cx="100" cy="38"  rx="28" ry="32" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="cuello"   x="88" y="68" width="24" height="18" rx="4" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <ellipse class="am-zone" data-zona="hombros"  cx="100" cy="92"  rx="52" ry="14" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="pecho"    x="62" y="104" width="76" height="52" rx="6" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="brazos"   x="140" y="96" width="22" height="80" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="brazos"   x="38"  y="96" width="22" height="80" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <ellipse class="am-zone" data-zona="manos"    cx="156" cy="188" rx="12" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <ellipse class="am-zone" data-zona="manos"    cx="44"  cy="188" rx="12" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="abdomen"  x="66" y="154" width="68" height="44" rx="5" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <ellipse class="am-zone" data-zona="caderas"  cx="100" cy="214" rx="44" ry="22" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="muslos"   x="64"  y="234" width="30" height="60" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="muslos"   x="106" y="234" width="30" height="60" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <ellipse class="am-zone" data-zona="rodillas" cx="79"  cy="302" rx="14" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <ellipse class="am-zone" data-zona="rodillas" cx="121" cy="302" rx="14" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="piernas"  x="66"  y="310" width="26" height="70" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <rect    class="am-zone" data-zona="piernas"  x="108" y="310" width="26" height="70" rx="8" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <ellipse class="am-zone" data-zona="pies"     cx="79"  cy="394" rx="18" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <ellipse class="am-zone" data-zona="pies"     cx="121" cy="394" rx="18" ry="10" fill="rgba(192,132,252,0.06)" stroke="rgba(192,132,252,0.3)" stroke-width="1.2" style="transition:all .25s;"/>
+            <text x="100" y="34"  text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="7" letter-spacing="1" font-family="Arial">CABEZA</text>
+            <text x="100" y="78"  text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">CUELLO</text>
+            <text x="100" y="96"  text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">HOMBROS</text>
+            <text x="100" y="133" text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">PECHO</text>
+            <text x="24"  y="138" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">BRAZOS</text>
+            <text x="176" y="138" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">BRAZOS</text>
+            <text x="100" y="178" text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">ABDOMEN</text>
+            <text x="100" y="216" text-anchor="middle" fill="rgba(192,132,252,0.55)" font-size="6" letter-spacing="1" font-family="Arial">CADERAS</text>
+            <text x="79"  y="266" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">MUSLOS</text>
+            <text x="121" y="266" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">MUSLOS</text>
+            <text x="79"  y="303" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5" font-family="Arial">ROD.</text>
+            <text x="121" y="303" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5" font-family="Arial">ROD.</text>
+            <text x="79"  y="348" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">PIERNAS</text>
+            <text x="121" y="348" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">PIERNAS</text>
+            <text x="79"  y="395" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">PIES</text>
+            <text x="121" y="395" text-anchor="middle" fill="rgba(192,132,252,0.45)" font-size="5.5" letter-spacing="0.5" font-family="Arial">PIES</text>
+          </svg>
+
+          <!-- Leyenda activa -->
+          <div id="amLeyenda" style="margin-top:14px;display:none;">
+            <div style="font-size:11px;letter-spacing:.18em;color:rgba(192,132,252,0.6);text-transform:uppercase;margin-bottom:8px;text-align:center;">Selección activa</div>
+            <div id="amLeyendaItems" style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;"></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Slider de fichas estilo Personalidad -->
-      <div id="amSliderWrap" style="display:none;">
-        <div id="amSliderNav" class="am-slider-nav"></div>
-        <div style="overflow:hidden;width:100%;">
-          <div id="amTrack" style="display:flex;width:100%;transition:transform .32s cubic-bezier(.4,0,.2,1);"></div>
+        <!-- Slider de fichas -->
+        <div id="amSliderWrap" style="display:none;flex:1;min-width:0;">
+          <div id="amSliderNav" class="am-slider-nav"></div>
+          <div style="overflow:hidden;width:100%;">
+            <div id="amTrack" style="display:flex;width:100%;transition:transform .32s cubic-bezier(.4,0,.2,1);"></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Estado vacío -->
-      <div id="amEmpty" style="text-align:center;padding:60px 20px;color:#ffffff;">
-        <div style="font-size:48px;margin-bottom:12px;opacity:.4;">◎</div>
-        <div style="font-size:16px;letter-spacing:.08em;">Selecciona tu signo solar<br>o ascendente para comenzar</div>
-      </div>
+        <!-- Estado vacío -->
+        <div id="amEmpty" style="flex:1;text-align:center;padding:60px 20px;color:#ffffff;">
+          <div style="font-size:48px;margin-bottom:12px;opacity:.4;">◎</div>
+          <div style="font-size:16px;letter-spacing:.08em;">Selecciona tu signo solar<br>o ascendente para comenzar</div>
+        </div>
 
-    </div>
+      </div><!-- /amContentRow -->
+
+    </div><!-- /amMainLayout -->
   </div>
 </div><!-- /astromorfView -->
 
 <style>
+/* ── ASTROMORFOLOGÍA ── */
+.am-sel-box {
+  background:rgba(192,132,252,0.05);
+  border:1px solid rgba(192,132,252,0.2);
+  padding:8px 12px;
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  flex:0 0 auto;   /* no crecer — ajuste al contenido */
+}
+.am-sel-label {
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.am-sel-select {
+  background:#000d20;
+  border:none;
+  border-bottom:1px solid rgba(192,132,252,0.35);
+  color:#fff;
+  font-size:15px;
+  font-weight:600;
+  padding:3px 4px;
+  outline:none;
+  appearance:none;
+  -webkit-appearance:none;
+  color-scheme:dark;
+  cursor:pointer;
+  width:auto;
+  max-width:160px;
+  text-align:center;
+  text-align-last:center;
+  -webkit-text-align-last:center;
+}
+
+/* Fila selectores: siempre en una sola línea centrada */
+#amSelectGrid {
+  display:flex;
+  flex-direction:row !important;
+  flex-wrap:nowrap !important;
+  gap:10px;
+  justify-content:center;
+  align-items:flex-end;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:4px;
+}
+
+/* Silueta wrap: fijo en desktop */
+#amSiluetaWrap {
+  flex:0 0 180px;
+  width:180px;
+  position:sticky;
+  top:20px;
+  align-self:flex-start;
+}
+
+/* Content row: silueta izq + slider der — SIEMPRE horizontal */
+#amContentRow {
+  display:flex;
+  flex-direction:row !important;
+  gap:20px;
+  align-items:flex-start;
+}
+
+/* Slider: ocupa el resto */
+#amSliderWrap {
+  flex:1;
+  min-width:0;
+}
+
+#amEmpty {
+  flex:1;
+  min-width:0;
+}
+
 .am-zone.am-active  { fill:rgba(192,132,252,0.24) !important; stroke:#c084fc !important; stroke-width:2 !important; filter:url(#amGlowStrong); }
 .am-zone.am-dolor   { fill:rgba(232,121,249,0.28) !important; stroke:#e879f9 !important; stroke-width:2.2 !important; filter:url(#amGlowStrong); }
-.am-card  { background:rgba(192,132,252,0.05); border:1px solid rgba(192,132,252,0.15); padding:16px 18px; margin-bottom:10px; }
-.am-card-title { font-size:19px; font-weight:700; color:#c084fc; margin-bottom:8px; }
-.am-card-body  { font-size:17px; color:#ffffff; line-height:1.85; }
-.am-tag   { display:inline-block; font-size:13px; letter-spacing:.12em; text-transform:uppercase; border:1px solid rgba(192,132,252,0.3); color:#c084fc; padding:3px 10px; margin-right:4px; margin-bottom:4px; }
-.am-body-map { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
-.am-slide { flex:0 0 100%; box-sizing:border-box; padding:0 2px; }
+.am-card  { background:rgba(192,132,252,0.05); border:1px solid rgba(192,132,252,0.15); padding:14px 16px; margin-bottom:10px; }
+.am-card-title { font-size:17px; font-weight:700; color:#c084fc; margin-bottom:7px; }
+.am-card-body  { font-size:15px; color:#ffffff; line-height:1.8; }
+.am-tag   { display:inline-block; font-size:12px; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(192,132,252,0.3); color:#c084fc; padding:3px 8px; margin-right:4px; margin-bottom:4px; }
+.am-body-map { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+.am-slide { flex:0 0 100%; box-sizing:border-box; }
 
-/* Nav estilo Personalidad */
-.am-slider-nav { display:flex; align-items:center; justify-content:space-between; width:100%; margin-bottom:18px; gap:8px; }
-.am-slider-nav-label { font-size:19px; letter-spacing:.22em; text-transform:uppercase; font-weight:700; text-align:center; flex:1; padding:0 8px; }
-.am-slider-arrow { background:rgba(0,0,0,0.3); border:1px solid rgba(192,132,252,0.3); border-left-width:3px; color:#fff; cursor:pointer; display:flex; align-items:center; gap:8px; padding:12px 18px; font-size:20px; transition:all .25s; flex-shrink:0; width:auto; justify-content:flex-start; }
-.am-slider-arrow:hover { background:rgba(0,0,0,0.5); box-shadow:0 0 18px rgba(192,132,252,0.15); }
-.am-slider-arrow--right { justify-content:flex-end; border-left-width:1px; border-right-width:3px; }
+/* Nav slider */
+.am-slider-nav { display:flex; align-items:center; justify-content:space-between; width:100%; margin-bottom:14px; gap:6px; }
+.am-slider-nav-label { font-size:14px; letter-spacing:.15em; text-transform:uppercase; font-weight:700; text-align:center; flex:1; padding:0 4px; min-width:0; word-break:break-word; }
+.am-slider-arrow { background:rgba(0,0,0,0.3); border:1px solid rgba(192,132,252,0.3); border-left-width:3px; color:#fff; cursor:pointer; display:flex; align-items:center; gap:5px; padding:9px 12px; font-size:16px; transition:all .25s; flex-shrink:0; }
+.am-slider-arrow:hover { background:rgba(0,0,0,0.5); box-shadow:0 0 14px rgba(192,132,252,0.15); }
+.am-slider-arrow--right { border-left-width:1px; border-right-width:3px; }
 .am-slider-arrow:disabled { opacity:0; cursor:default; pointer-events:none; visibility:hidden; }
-.am-slider-arrow-lbl { font-size:17px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; line-height:1.3; }
+.am-slider-arrow-lbl { font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; line-height:1.2; }
 
-@media(max-width:640px){
-  #amMainLayout  { grid-template-columns:1fr !important; }
-  #amSelectGrid  { flex-wrap:wrap !important; }
-  #amSvg { max-width:200px !important; }
-  .am-slider-arrow-lbl { font-size:14px !important; }
-  .am-slider-arrow { padding:10px 10px !important; gap:5px !important; }
+/* ── MOBILE: silueta más pequeña, todo igual en fila ── */
+@media (max-width:600px) {
+  /* Selectores: scroll horizontal si no caben, nunca wrappean */
+  #amSelectGrid {
+    gap:7px;
+    padding:0 4px 6px;
+    justify-content:flex-start;
+  }
+  .am-sel-box { padding:7px 10px; }
+  .am-sel-label { font-size:9px; letter-spacing:.12em; }
+  .am-sel-select { font-size:13px; max-width:120px; }
+
+  /* Silueta más pequeña en mobile pero sigue a la izquierda */
+  #amSiluetaWrap {
+    flex:0 0 110px;
+    width:110px;
+    position:static;   /* no sticky en mobile */
+  }
+  #amSvg { width:110px !important; }
+
+  /* Cards más compactas */
+  .am-card { padding:10px 12px !important; }
+  .am-card-title { font-size:14px !important; }
+  .am-card-body  { font-size:13px !important; line-height:1.65 !important; }
+  .am-tag { font-size:10px !important; padding:2px 6px !important; }
+
+  /* Flechas mínimas */
+  .am-slider-arrow { padding:7px 8px !important; gap:3px !important; font-size:14px !important; }
+  .am-slider-arrow-lbl { display:none; }   /* en mobile muy estrecho, solo la flecha */
+  .am-slider-nav-label { font-size:12px !important; letter-spacing:.08em !important; }
 }
 </style>
+
+<script>
+window.ASTROMORF_DATA = {
+  signos: {
+    aries: { emoji:'\u2648\ufe0e', nombre:'Aries', elemento:'Fuego \u00b7 Cardinal', zonas:['cabeza'],
+      solar:{ texto:'Aries imprime en el cuerpo una energía marcial y directa. El rostro suele ser alargado o anguloso, con cejas prominentes y mirada intensa. La mandíbula firme y la frente alta son señas características. El cuerpo tiende a ser atlético y de movimientos rápidos, con tendencia a inclinar la cabeza hacia adelante al caminar, como si siempre fuera a embestir.', rasgos:['Frente alta','Cejas marcadas','Mirada directa','Mandíbula angular','Paso rápido','Porte combativo'] },
+      asc:{ texto:'El Ascendente Aries proyecta una presencia inmediata y directa. El rostro es la primera impresión: frente despejada, pómulos definidos y una expresión que no pide permiso. La energía que emana es de liderazgo espontáneo.', rasgos_asc:['Primera impresión fuerte','Porte decidido','Expresión directa','Energía impulsiva visible'], planeta_info:'Marte rige Aries y marca el cuerpo con vigor físico y un metabolismo acelerado. La inflamación y la fiebre son señales comunes cuando este planeta está activado.' }
+    },
+    tauro: { emoji:'\u2649\ufe0e', nombre:'Tauro', elemento:'Tierra \u00b7 Fijo', zonas:['cuello'],
+      solar:{ texto:'Tauro otorga una constitución sólida y sensual. El cuello suele ser ancho y corto, con una voz rica y resonante que es una de sus marcas más reconocibles. El cuerpo tiende a acumular masa muscular con facilidad. Los movimientos son lentos y deliberados, transmitiendo estabilidad y arraigo.', rasgos:['Cuello ancho','Voz resonante','Constitución sólida','Rasgos redondeados','Movimientos pausados','Piel suave'] },
+      asc:{ texto:'El Ascendente Tauro da una apariencia serena y tangible. El cuello y la garganta son zonas particularmente expresivas: la voz suena cálida desde el primer intercambio. La apariencia transmite confianza y permanencia.', rasgos_asc:['Presencia calmante','Voz atractiva','Apariencia sólida','Mirada tranquila'], planeta_info:'Venus rige Tauro e imprime belleza natural y una atracción casi magnética. Puede señalar tendencia a la retención hídrica cuando está tensionado.' }
+    },
+    geminis: { emoji:'\u264a\ufe0e', nombre:'Géminis', elemento:'Aire \u00b7 Mutable', zonas:['brazos','manos'],
+      solar:{ texto:'Géminis produce cuerpos ágiles, de constitución ligera y manos especialmente expresivas. Los brazos son largos y los gestos al hablar son parte esencial de su comunicación. El rostro es vivaz, de ojos rápidos y una sonrisa que aparece y desaparece con velocidad.', rasgos:['Manos expresivas','Ojos inquietos','Constitución ligera','Gestos al hablar','Apariencia variable','Agilidad física'] },
+      asc:{ texto:'El Ascendente Géminis proyecta juventud y curiosidad instantánea. Los ojos se mueven, brillan y procesan constantemente. Hay una ligereza en el cuerpo que hace que parezca que nunca está del todo quieto.', rasgos_asc:['Ojos brillantes','Aspecto juvenil','Energía nerviosa visible','Manos gesticulantes'], planeta_info:'Mercurio rige Géminis y activa el sistema nervioso, los pulmones y los brazos. Tensionado puede producir tensión en manos u hombros rígidos.' }
+    },
+    cancer: { emoji:'\u264b\ufe0e', nombre:'Cáncer', elemento:'Agua \u00b7 Cardinal', zonas:['pecho'],
+      solar:{ texto:'Cáncer confiere una complexión suave y redondeada, con el pecho como zona corporal más expresiva. Los ojos son grandes y lunares, con una profundidad emocional que se percibe de inmediato. Los movimientos son envolventes y protectores.', rasgos:['Ojos grandes y lunares','Pecho prominente','Complexión suave','Piel sensible','Movimientos envolventes','Expresión empática'] },
+      asc:{ texto:'El Ascendente Cáncer proyecta ternura y receptividad. El primer encuentro genera una sensación de calidez instintiva. El rostro refleja las emociones del entorno antes de que la persona hable.', rasgos_asc:['Expresión emotiva','Ojos profundos','Porte protector','Presencia cálida'], planeta_info:'La Luna rige Cáncer y gobierna los fluidos, el sistema digestivo y los ciclos del cuerpo. El estómago es el primer órgano que reacciona al estrés emocional.' }
+    },
+    leo: { emoji:'\u264c\ufe0e', nombre:'Leo', elemento:'Fuego \u00b7 Fijo', zonas:['pecho'],
+      solar:{ texto:'Leo imprime una presencia física que reclama espacio. El cabello es uno de sus rasgos más llamativos: abundante, con movimiento. La espalda y el pecho son zonas de orgullo físico. El porte es erguido y teatral, con una tendencia natural a ocupar el centro de cualquier habitación.', rasgos:['Cabello abundante','Espalda recta','Pecho abierto','Porte teatral','Gestos amplios','Mirada cálida'] },
+      asc:{ texto:'El Ascendente Leo se nota desde la entrada. El cabello, la postura y la forma de mirar definen la primera impresión. No busca atención — la atención lo encuentra de forma natural.', rasgos_asc:['Presencia magnética','Cabello distintivo','Postura erguida','Mirada cálida y segura'], planeta_info:'El Sol rige Leo y vitaliza el corazón, la circulación y la columna dorsal. Cuando la energía solar está baja, el cuerpo avisa con fatiga o tensión en la espalda.' }
+    },
+    virgo: { emoji:'\u264d\ufe0e', nombre:'Virgo', elemento:'Tierra \u00b7 Mutable', zonas:['abdomen'],
+      solar:{ texto:'Virgo produce cuerpos de constitución media y gestos contenidos. El rostro tiene rasgos finos y analíticos. La zona abdominal y el sistema digestivo son las áreas más sensibles. Los movimientos son precisos y económicos, la apariencia pulcra y ordenada.', rasgos:['Rasgos finos','Movimientos precisos','Abdomen sensible','Aspecto ordenado','Ojos analíticos','Constitución media'] },
+      asc:{ texto:'El Ascendente Virgo proyecta discernimiento y atención al detalle desde el primer segundo. La apariencia es cuidada sin ser ostentosa. Hay algo en la mirada que parece catalogar información constantemente.', rasgos_asc:['Apariencia ordenada','Mirada analítica','Porte discreto','Gestos medidos'], planeta_info:'Mercurio rige Virgo y activa el sistema digestivo y el sistema nervioso autónomo. El estrés se manifiesta primero en el vientre: náuseas, intolerancias o tensión abdominal.' }
+    },
+    libra: { emoji:'\u264e\ufe0e', nombre:'Libra', elemento:'Aire \u00b7 Cardinal', zonas:['caderas'],
+      solar:{ texto:'Libra confiere una simetría facial notable y una estética natural. Los rasgos son armónicos y equilibrados, con una sonrisa que desarma. Las caderas y la zona lumbar son los puntos de equilibrio del cuerpo. Los movimientos son elegantes y considerados.', rasgos:['Simetría facial','Caderas equilibradas','Sonrisa armoniosa','Movimientos elegantes','Estética natural','Porte diplomático'] },
+      asc:{ texto:'El Ascendente Libra produce la primera impresión más agradable del zodiaco. Hay algo inmediatamente atractivo en la persona, no solo por los rasgos sino por cómo los porta. La sonrisa llega antes que las palabras.', rasgos_asc:['Sonrisa disarmante','Apariencia armónica','Tono de voz agradable','Porte elegante'], planeta_info:'Venus rige Libra y actúa sobre los riñones, la piel y el equilibrio hormonal. El cuerpo responde con sensibilidad a la desarmonía del entorno.' }
+    },
+    escorpio: { emoji:'\u264f\ufe0e', nombre:'Escorpio', elemento:'Agua \u00b7 Fijo', zonas:['caderas'],
+      solar:{ texto:'Escorpio produce una intensidad física que se percibe antes de que la persona hable. Los ojos son su rasgo más poderoso: oscuros, fijos y penetrantes. La constitución suele ser robusta o atlética, con una densidad energética particular. Los movimientos son deliberados y controlados.', rasgos:['Mirada penetrante','Constitución densa','Movimientos controlados','Presencia intensa','Zona pélvica sensible','Rasgos marcados'] },
+      asc:{ texto:'El Ascendente Escorpio genera una primera impresión de profundidad y misterio que es difícil de ignorar. Hay algo en la mirada que hace que la gente sienta que está siendo leída. La presencia ocupa el espacio con peso.', rasgos_asc:['Mirada que penetra','Presencia densa','Porte misterioso','Intensidad contenida'], planeta_info:'Plutón y Marte corigen Escorpio, activando el sistema reproductivo y los mecanismos de transformación. Las crisis físicas suelen ser intensas pero seguidas de regeneraciones notables.' }
+    },
+    sagitario: { emoji:'\u2650\ufe0e', nombre:'Sagitario', elemento:'Fuego \u00b7 Mutable', zonas:['muslos','caderas'],
+      solar:{ texto:'Sagitario produce cuerpos largos y expansivos, con muslos y caderas como zonas físicas dominantes. El porte es optimista y abierto. El rostro tiene algo jovial y franco: la sonrisa es amplia y frecuente. Los movimientos son largos y entusiastas.', rasgos:['Muslos fuertes','Porte expansivo','Sonrisa amplia','Constitución larga','Movimientos entusiastas','Expresión franca'] },
+      asc:{ texto:'El Ascendente Sagitario proyecta optimismo y libertad desde el primer encuentro. Hay algo en el lenguaje corporal que dice que el mundo es grande y hay ganas de verlo todo. La primera impresión es de alguien honesto y entusiasta.', rasgos_asc:['Porte expansivo','Sonrisa franca','Energía viajera','Expresión directa'], planeta_info:'Júpiter rige Sagitario y actúa sobre el hígado, las caderas, los muslos y el nervio ciático. La tendencia al exceso es la principal advertencia cuando este planeta está tensionado.' }
+    },
+    capricornio: { emoji:'\u2651\ufe0e', nombre:'Capricornio', elemento:'Tierra \u00b7 Cardinal', zonas:['rodillas'],
+      solar:{ texto:'Capricornio confiere una estructura ósea prominente y un porte que transmite autoridad. Las rodillas y los huesos en general son sus zonas de mayor vulnerabilidad. El cuerpo tiende a fortalecer con la edad. Los rasgos faciales son angulares y definidos.', rasgos:['Estructura ósea prominente','Rasgos angulares','Porte de autoridad','Rodillas sensibles','Mejora con la edad','Movimientos eficientes'] },
+      asc:{ texto:'El Ascendente Capricornio produce una primera impresión seria y de alguien que sabe lo que hace. Puede parecer mayor en su juventud y notablemente joven en su madurez. La apariencia transmite responsabilidad antes de hablar.', rasgos_asc:['Apariencia seria','Porte de responsabilidad','Rasgos que mejoran con la edad','Expresión contenida'], planeta_info:'Saturno rige Capricornio y gobierna el esqueleto, las articulaciones y la piel. La rigidez y los problemas articulares aparecen cuando hay exceso de carga no procesada.' }
+    },
+    acuario: { emoji:'\u2652\ufe0e', nombre:'Acuario', elemento:'Aire \u00b7 Fijo', zonas:['piernas'],
+      solar:{ texto:'Acuario produce una apariencia difícil de encuadrar en categorías convencionales. Hay algo singular en los rasgos: los ojos suelen tener una mirada distante y visionaria. Las piernas y los tobillos son las zonas corporales más vulnerables.', rasgos:['Mirada visionaria','Apariencia singular','Piernas y tobillos sensibles','Porte independiente','Rasgos no convencionales','Energía eléctrica'] },
+      asc:{ texto:'El Ascendente Acuario proyecta originalidad y algo difícil de definir pero fácil de percibir. La primera impresión es de alguien distinto: puede ser la ropa, los ojos o la forma de moverse, pero hay algo que no encaja en ningún molde previo.', rasgos_asc:['Apariencia original','Mirada visionaria','Porte no convencional','Energía peculiar'], planeta_info:'Urano y Saturno corigen Acuario y activan el sistema circulatorio periférico y los tobillos. Los calambres y la mala circulación en piernas son sus señales más frecuentes.' }
+    },
+    piscis: { emoji:'\u2653\ufe0e', nombre:'Piscis', elemento:'Agua \u00b7 Mutable', zonas:['pies'],
+      solar:{ texto:'Piscis produce rasgos suaves y difuminados, con ojos grandes y acuosos que son su característica más reconocible. Los pies son su zona corporal más sensible. El cuerpo tiende a retener líquidos. Los movimientos son fluidos y ondulantes, con una cualidad etérea en la apariencia.', rasgos:['Ojos acuosos y grandes','Pies sensibles','Movimientos ondulantes','Constitución suave','Retención de líquidos','Apariencia etérea'] },
+      asc:{ texto:'El Ascendente Piscis produce la primera impresión más difusa del zodiaco y también la más mágica. Hay algo en la presencia que cambia según quién mire. Los ojos son el elemento que más impacta: profundos, empáticos, con algo de mar adentro.', rasgos_asc:['Ojos expresivos y profundos','Presencia cambiante','Apariencia etérea','Porte receptivo'], planeta_info:'Neptuno y Júpiter corigen Piscis y gobiernan los pies, el sistema linfático y la glándula pineal. La sensibilidad a sustancias y el agotamiento sistémico son señales frecuentes.' }
+    }
+  },
+  dolor: {
+    cabeza:   { titulo:'Cabeza · El impulso sin freno', texto:'El dolor recurrente en cabeza — migraña, tensión frontal, presión en sienes — suele relacionarse con energía ariana no procesada: impulsos reprimidos, ira contenida o exceso de actividad mental sin descanso.', consejo:'Explorar prácticas de descarga física y técnicas de liberación de la ira. El descanso obligado suele ser el mensaje más claro de este tipo de dolor.' },
+    cuello:   { titulo:'Cuello · La voz que no se dice', texto:'La tensión cervical y el dolor de garganta recurrente hablan de palabras que no se dijeron, necesidades que no se expresaron. El cuello es el puente entre lo que se piensa y lo que se dice.', consejo:'Revisar qué se está callando y por qué. Trabajar la expresión vocal o artística como práctica de liberación. La rigidez cervical puede mejorar notablemente al recuperar la propia voz.' },
+    hombros:  { titulo:'Hombros · El peso que se carga solo', texto:'Los hombros tensos o doloridos señalan una carga de responsabilidad asumida en exceso, o el hábito de sostener el mundo de otros sin pedir ayuda.', consejo:'Identificar qué cargas son propias y cuáles ajenas. Aprender a delegar. El masaje profundo en hombros y trapecios libera emocionalmente todo lo que se sostuvo sin apoyo.' },
+    pecho:    { titulo:'Pecho · Lo que el corazón guarda', texto:'El dolor en pecho o las dificultades respiratorias hablan de amor reprimido, duelos no elaborados o la sensación de que el corazón ha sido herido y cerrado como mecanismo de protección.', consejo:'Abrir espacios de expresión emocional genuina. La respiración profunda y consciente es el primer paso. El corazón físico responde con alivio cuando el emocional procesa lo que tiene guardado.' },
+    brazos:   { titulo:'Brazos · Lo que se alcanza y se suelta', texto:'Dolor en brazos, codos o muñecas habla de la relación con el dar y recibir, el alcanzar y soltar. Puede señalar sobrecarga en la comunicación o tensión en vínculos que no fluyen.', consejo:'Revisar la relación con el trabajo manual y la comunicación. Descansar los brazos conscientemente. Soltar lo que se sostiene con demasiada tensión.' },
+    manos:    { titulo:'Manos · El hacer bloqueado', texto:'Las manos doloridas o rígidas hablan de una creatividad bloqueada o sobreutilizada. Puede señalar también perfeccionismo excesivo en el trabajo manual o artístico.', consejo:'Alternar períodos de actividad manual con descanso real. Incorporar trabajo creativo sin presión de resultado. Las manos necesitan jugar, no solo producir.' },
+    abdomen:  { titulo:'Abdomen · Lo que no se digiere', texto:'El dolor o sensibilidad abdominal recurrente habla de lo que no se digiere, literal y emocionalmente. Las preocupaciones y la necesidad de control se alojan en el vientre antes que en ningún otro lugar.', consejo:'Incorporar relajación abdominal y respiración diafragmática. Preguntarse qué situación se está rumiando sin poder resolverla.' },
+    caderas:  { titulo:'Caderas · El movimiento detenido', texto:'La tensión en caderas o zona lumbar puede señalar conflicto entre lo que se quiere y lo que se hace, energía reprimida o falta de movimiento en algún área importante de la vida.', consejo:'El movimiento es la medicina: danza, yoga de caderas, caminatas. Las caderas son el centro del movimiento — cuando se bloquean, algo en la vida también está detenido.' },
+    muslos:   { titulo:'Muslos · El avanzar con fuerza', texto:'El dolor en muslos habla de la capacidad de avanzar con confianza. Puede señalar miedo a expandirse o exceso de actividad física sin recuperación adecuada.', consejo:'Escuchar el cuerpo en el ejercicio. Revisar qué expansión — viaje, estudio, aventura — se está postergando por miedo o duda.' },
+    rodillas: { titulo:'Rodillas · Flexibilidad y autoridad', texto:'Las rodillas hablan de la relación con la autoridad — propia y ajena —, la capacidad de ceder sin quebrarse y el peso de las expectativas. Dolor en rodillas puede señalar rigidez ante el cambio.', consejo:'Practicar la flexibilidad simbólica: aprender a ceder donde antes se resistía. Estiramientos de rodillas y trabajo con el control y la autoridad.' },
+    piernas:  { titulo:'Piernas · Circulación y avance', texto:'El dolor o pesadez en piernas y tobillos puede señalar circulación bloqueada, sedentarismo o un patrón de inmovilidad en algún área de la vida.', consejo:'Activar la circulación con movimiento regular. Elevar las piernas. Y revisar qué pasos de la vida se están posponiendo indefinidamente.' },
+    pies:     { titulo:'Pies · El contacto con la tierra', texto:'Los pies doloridos son la interfaz entre el ser y la tierra. Dolor en pies puede señalar desconexión del presente o dificultad para pisar la realidad cotidiana.', consejo:'Grounding: caminar descalzo, baños de pies, masaje plantar. Los pies necesitan tierra firme debajo — y a veces eso es también una tarea emocional.' }
+  }
+};
+</script>
 
 <script>
 (function(){
@@ -22657,7 +22928,6 @@ function amPoblarDolor() {
   });
   if (prev && excluir.indexOf(prev) === -1) sel.value = prev;
   else sel.value = '';
-  amActualizarLabel('amDolor', 'amDolorLabel', '— Zona —');
 }
 
 // ── CONSTRUCCIÓN DE SLIDES ──
@@ -22718,16 +22988,17 @@ function amBuildSlides() {
 
 // ── SLIDER ──
 function amRenderSlider(slides) {
-  var wrap = document.getElementById('amSliderWrap');
+  var wrap  = document.getElementById('amSliderWrap');
+  var empty = document.getElementById('amEmpty');
 
   if (!slides.length) {
-    wrap.style.display = 'none';
-    document.getElementById('amEmpty').style.display = 'block';
+    wrap.style.display  = 'none';
+    empty.style.display = 'block';
     return;
   }
 
-  document.getElementById('amEmpty').style.display = 'none';
-  wrap.style.display = 'block';
+  empty.style.display = 'none';
+  wrap.style.display  = 'block';
 
   // Construir slides en el track
   var track = document.getElementById('amTrack');
@@ -22809,15 +23080,6 @@ function amUpdateLeyenda(solar, asc, dolor) {
   if (dolor) html += '<span style="font-size:13px;background:rgba(232,121,249,0.1);border:1px solid rgba(232,121,249,0.3);color:#e879f9;padding:3px 10px;">✦ '+AM_ZONA_NOMBRES[dolor]+'</span>';
   items.innerHTML = html;
   ley.style.display = html ? 'block' : 'none';
-}
-
-// ── HELPER: actualizar label visible centrado ──
-function amActualizarLabel(selId, labelId, placeholder) {
-  var sel = document.getElementById(selId);
-  var lbl = document.getElementById(labelId);
-  if (!sel || !lbl) return;
-  var opt = sel.options[sel.selectedIndex];
-  lbl.textContent = opt && opt.value ? opt.textContent : placeholder;
 }
 
 // ── RENDER PRINCIPAL ──
@@ -24449,6 +24711,1697 @@ function brRenderMensajes(vals){
 
   window.orientacionInit = function() {
     oeReiniciar();
+  };
+
+})();
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     MÓDULO SINASTRÍA
+════════════════════════════════════════════════════════════ -->
+<div id="sinastriaView" style="display:none;position:fixed;inset:0;z-index:10;background:var(--bg);overflow-y:auto;flex-direction:column;align-items:center;padding:28px 32px 80px;box-sizing:border-box;">
+  <!-- Cabecera -->
+  <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--bord);flex-wrap:wrap;gap:10px;">
+    <button onclick="volverCartaOriginal()" class="btn-back" style="border-color:#f472b6;color:#f472b6;">← Carta original</button>
+    <div style="text-align:center;flex:1;">
+      <div style="font-size:22px;font-weight:700;letter-spacing:.12em;color:#f472b6;">♡ SINASTRÍA</div>
+      <div style="font-size:13px;letter-spacing:.18em;color:rgba(244,114,182,0.65);text-transform:uppercase;margin-top:4px;">Compatibilidad entre dos cartas</div>
+    </div>
+    <div style="width:160px;"></div>
+  </div>
+
+  <!-- Pestañas -->
+  <div id="sinTabs" style="display:flex;gap:0;margin-bottom:28px;border-bottom:2px solid rgba(244,114,182,0.2);width:100%;max-width:960px;">
+    <button id="sinTabEditar" onclick="sinMostrarTab('editar')" style="background:rgba(244,114,182,0.12);border:1px solid #f472b6;border-bottom:none;color:#f472b6;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:all .2s;">✎ Editar datos</button>
+    <button id="sinTabCarta" onclick="sinMostrarTab('carta')" style="background:transparent;border:1px solid rgba(244,114,182,0.25);border-bottom:none;color:rgba(244,114,182,0.5);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:all .2s;" disabled>♡ Ver carta</button>
+  </div>
+
+  <!-- Panel: Editar datos -->
+  <div id="sinPanelEditar" style="width:100%;max-width:960px;">
+
+    <!-- Botón Editar Carta Principal — encima del panel B, visible siempre -->
+    <div style="width:100%;display:flex;justify-content:flex-start;margin-bottom:14px;">
+      <button type="button" onclick="sinTogglePanelA('sin')"
+        style="background:transparent;border:1px solid rgba(244,114,182,0.5);color:#f472b6;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all .25s;"
+        onmouseover="this.style.boxShadow='0 0 20px rgba(244,114,182,.22)';this.style.borderColor='#f472b6'"
+        onmouseout="this.style.boxShadow='';this.style.borderColor='rgba(244,114,182,0.5)'">
+        ✎ Editar Información Carta Principal
+      </button>
+    </div>
+
+    <div id="sinFormWrap" style="width:100%;display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;">
+
+      <!-- ══ Carta Principal ══ (colapsado por defecto) -->
+      <div id="sinPanelA" style="display:none;">
+      <div class="form-panel" style="border-color:rgba(244,114,182,0.35);display:flex;flex-direction:column;align-items:center;gap:16px;padding:22px 24px;align-self:stretch;">
+        <div style="font-size:11px;letter-spacing:.22em;color:#f472b6;text-transform:uppercase;border-bottom:1px solid rgba(244,114,182,0.25);width:100%;text-align:center;padding-bottom:10px;">♡ Carta Principal</div>
+        <div id="sinResumenCartaPrincipal" style="font-size:15px;color:rgba(255,255,255,0.75);letter-spacing:.04em;line-height:2;text-align:center;min-height:40px;"></div>
+        <div id="sinSexoATexto" style="font-size:15px;color:rgba(255,255,255,0.75);letter-spacing:.04em;text-align:center;"></div>
+        <button type="button" onclick="abrirEditModal()"
+          style="background:transparent;border:1px solid rgba(244,114,182,0.5);color:#f472b6;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all .25s;width:100%;max-width:280px;"
+          onmouseover="this.style.boxShadow='0 0 20px rgba(244,114,182,.22)';this.style.borderColor='#f472b6'"
+          onmouseout="this.style.boxShadow='';this.style.borderColor='rgba(244,114,182,0.5)'">
+          ✎ Editar Información Carta Principal
+        </button>
+        <!-- Ubicación propia si no hay lat/lon en la carta natal -->
+        <div id="sinUbicAWrap" style="width:100%;display:none;">
+          <div style="font-size:11px;letter-spacing:.18em;color:rgba(244,114,182,0.7);text-transform:uppercase;text-align:center;margin-bottom:10px;">Ubicación de nacimiento</div>
+          <div class="field" id="sinTzWrapA">
+            <label style="color:#f472b6;">Selecciona el horario de país</label>
+            <div style="display:flex;gap:10px;align-items:stretch;">
+              <select id="sinTzA" class="fselect" style="flex:1;"></select>
+              <button type="button" class="btn-geo" onclick="sinWizardTz('sin','A')" style="white-space:nowrap;padding:10px 18px;font-size:20px;line-height:1;">➤</button>
+            </div>
+          </div>
+          <div class="field" id="sinEstadoWrapA" style="display:none;">
+            <label style="color:#f472b6;">Estado · Provincia · Departamento</label>
+            <div style="display:flex;gap:10px;align-items:stretch;">
+              <input id="sinEstadoA" class="finput" type="text" placeholder="ej: Buenos Aires · Madrid · California" style="flex:1;"/>
+              <button type="button" class="btn-geo" onclick="sinGeoStep2('sin','A')" style="padding:10px 18px;font-size:20px;line-height:1;">➤</button>
+            </div>
+          </div>
+          <div class="field" id="sinCiudadWrapA" style="display:none;">
+            <label style="color:#f472b6;">Ciudad</label>
+            <div style="display:flex;gap:10px;align-items:stretch;">
+              <input id="sinCiudadA" class="finput" type="text" placeholder="ej: La Plata · Sevilla · Guadalajara" style="flex:1;"/>
+              <button type="button" class="btn-geo" onclick="sinGeoStep3('sin','A')" style="padding:10px 18px;font-size:18px;font-weight:700;letter-spacing:.08em;">OK</button>
+            </div>
+            <div id="sinGeoMsgA" style="margin-top:6px;font-size:13px;color:rgba(0,200,255,0.6);min-height:18px;"></div>
+          </div>
+          <div class="field" id="sinResumenWrapA" style="display:none;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div id="sinGeoResA" style="font-size:15px;color:#f472b6;letter-spacing:.04em;line-height:1.9;flex:1;"></div>
+              <button type="button" onclick="sinGeoEditar('sin','A')"
+                style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;"
+                onmouseover="this.style.borderColor='var(--acc)';this.style.color='#fff'" onmouseout="this.style.borderColor='var(--bord)';this.style.color='var(--gray)'">✎ editar</button>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="sinLatA"/>
+        <input type="hidden" id="sinLonA"/>
+      </div>
+      </div><!-- /sinPanelA -->
+
+      <!-- ══ Segunda Persona (wizard idéntico a carta natal) ══ -->
+      <div class="form-panel" style="border-color:rgba(192,132,252,0.35);">
+        <div class="fp-title" style="color:#c084fc;border-color:rgba(192,132,252,0.25);">✦ Segunda Persona</div>
+
+        <!-- PASO 1: Nombre -->
+        <div class="field" id="sinNombreWrapB">
+          <label style="color:#c084fc;">Nombre</label>
+          <input id="sinNombreB" class="finput" type="text" placeholder="Nombre | Apellido" style="width:100%;text-align:center;font-size:19px;" autocomplete="off"
+            oninput="sinWizardNombre('sin','B')"/>
+        </div>
+
+        <div class="field" id="sinFechaWrapB" style="display:none;">
+          <label style="color:#c084fc;">Fecha de Nacimiento</label>
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;justify-content:center;">
+            <!-- Día -->
+            <select id="sinDiaB" style="display:none;" onchange="sinCdropNativeChange('sinDiaB')"></select>
+            <div class="cdrop-wrap" id="cdrop-sinDiaB-wrap">
+              <div class="cdrop-btn" id="cdrop-sinDiaB-btn" onclick="sinCdropToggle('sinDiaB')" style="width:70px;min-width:0;">
+                <span class="cdrop-label" id="cdrop-sinDiaB-label">Día</span>
+                <span class="cdrop-arrow">&#9660;</span>
+              </div>
+              <div class="cdrop-list" id="cdrop-sinDiaB-list"></div>
+            </div>
+            <!-- Mes -->
+            <div id="sinMesWrapB" style="display:none;">
+              <select id="sinMesB" style="display:none;" onchange="sinCdropNativeChange('sinMesB')"></select>
+              <div class="cdrop-wrap" id="cdrop-sinMesB-wrap">
+                <div class="cdrop-btn" id="cdrop-sinMesB-btn" onclick="sinCdropToggle('sinMesB')" style="min-width:140px;">
+                  <span class="cdrop-label" id="cdrop-sinMesB-label">Mes</span>
+                  <span class="cdrop-arrow">&#9660;</span>
+                </div>
+                <div class="cdrop-list" id="cdrop-sinMesB-list"></div>
+              </div>
+            </div>
+            <!-- Año -->
+            <div id="sinAnioWrapB" style="display:none;display:none;align-items:flex-end;gap:10px;">
+              <div class="anio-wrap">
+                <input id="sinAnioB" class="num-anio-input" type="text" inputmode="numeric" pattern="[0-9]*" min="1" max="9999" placeholder="Año" autocomplete="off"
+                  onfocus="if(this.value==='Año'){this.value='';this.style.color='#fff';}"
+                  onblur="if(!this.value){this.value='Año';this.style.color='#ffffff';}"
+                  oninput="this.value=this.value.replace(/[^0-9]/g,'');this.style.color='#fff';sinWizardAnio('sin','B')"/>
+                <div class="anio-dots" id="dots-sinAnioB"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASO 3: Hora -->
+        <div class="field" id="sinHoraWrapB" style="display:none;">
+          <label style="color:#c084fc;">Hora de Nacimiento</label>
+          <div id="sinHoraQuestionB" style="display:flex;gap:12px;align-items:center;padding:8px 0;justify-content:center;">
+            <span style="font-size:18px;color:var(--gray);">¿Conoces la hora de nacimiento?</span>
+            <button type="button" onclick="sinSetKnowHour('sin','B',true)" id="sinBtnHoraSiB"
+              style="background:transparent;border:1px solid #c084fc;color:#c084fc;font-size:15px;font-weight:700;letter-spacing:.12em;padding:8px 22px;cursor:pointer;transition:all .2s;text-transform:uppercase;">Sí</button>
+            <button type="button" onclick="sinSetKnowHour('sin','B',false)"
+              style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:15px;font-weight:700;letter-spacing:.12em;padding:8px 22px;cursor:pointer;transition:all .2s;text-transform:uppercase;">No</button>
+          </div>
+          <div id="sinHoraInputsB" style="display:none;">
+            <div id="sinHoraModeRowB" style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:12px;">
+              <button type="button" id="sinBtnModeAmPmB" onclick="sinSetHoraMode('sin','B','ampm')"
+                style="background:rgba(0,200,255,.15);border:1px solid var(--acc);color:var(--acc);font-size:13px;font-weight:700;letter-spacing:.12em;padding:7px 18px;cursor:pointer;transition:all .2s;text-transform:uppercase;">A.M./P.M.</button>
+              <span style="color:var(--gray);font-size:15px;padding:0 8px;">|</span>
+              <button type="button" id="sinBtnMode24hB" onclick="sinSetHoraMode('sin','B','24h')"
+                style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:13px;font-weight:700;letter-spacing:.12em;padding:7px 18px;cursor:pointer;transition:all .2s;text-transform:uppercase;">24 h</button>
+            </div>
+            <div class="time-row" style="justify-content:center;">
+              <div id="sinHoraAmPmGroupB" style="display:flex;align-items:flex-end;gap:6px;">
+                <select id="sinHoraB" class="fselect" style="width:72px;text-align:center;" onchange="sinWizardHora('sin','B')"></select>
+                <span style="font-size:28px;color:var(--acc);padding-bottom:10px;">:</span>
+                <select id="sinMinB" class="fselect" style="width:72px;" onchange="sinWizardHora('sin','B')"></select>
+                <div style="display:flex;gap:4px;align-items:flex-end;padding-bottom:2px;">
+                  <button type="button" id="sinBtnAMB" onclick="sinSetAmPm('sin','B','AM')"
+                    style="background:transparent;border:1px solid rgba(0,200,255,0.3);color:#ffffff;font-size:16px;font-weight:700;letter-spacing:.08em;padding:9px 12px;cursor:pointer;transition:all .18s;">AM</button>
+                  <button type="button" id="sinBtnPMB" onclick="sinSetAmPm('sin','B','PM')"
+                    style="background:transparent;border:1px solid rgba(0,200,255,0.3);color:#ffffff;font-size:16px;font-weight:700;letter-spacing:.08em;padding:9px 12px;cursor:pointer;transition:all .18s;">PM</button>
+                </div>
+                <span style="color:var(--gray);font-size:18px;padding:0 8px;align-self:center;">|</span>
+                <button type="button" onclick="sinSetKnowHour('sin','B',false)" style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:13px;font-weight:700;letter-spacing:.10em;padding:9px 14px;cursor:pointer;transition:all .2s;text-transform:uppercase;align-self:flex-end;">No sé</button>
+              </div>
+              <div id="sinHora24hGroupB" style="display:none;align-items:flex-end;gap:6px;">
+                <select id="sinHora24B" class="fselect" style="width:72px;text-align:center;" onchange="sinWizardHora('sin','B')"></select>
+                <span style="font-size:28px;color:var(--acc);padding-bottom:10px;">:</span>
+                <select id="sinMin24B" class="fselect" style="width:72px;" onchange="sinWizardHora('sin','B')"></select>
+                <span style="color:var(--gray);font-size:18px;padding:0 8px;align-self:center;">|</span>
+                <button type="button" onclick="sinSetKnowHour('sin','B',false)" style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:13px;font-weight:700;letter-spacing:.10em;padding:9px 14px;cursor:pointer;transition:all .2s;text-transform:uppercase;align-self:flex-end;">No sé</button>
+              </div>
+            </div>
+          </div>
+          <div id="sinHoraUnknownB" style="display:none;padding:10px 0;font-size:17px;color:var(--gray);text-align:center;">
+            Hora desconocida — se usará el mediodía como aproximación.
+            <button type="button" onclick="sinSetKnowHour('sin','B',true)" style="background:transparent;border:none;color:#c084fc;font-size:14px;cursor:pointer;margin-left:8px;text-decoration:underline;">Cambiar</button>
+          </div>
+          <input type="hidden" id="sinUnknownB" value="0"/>
+        </div>
+
+        <!-- PASO 4: Zona horaria -->
+        <div class="field" id="sinTzWrapB" style="display:none;">
+          <label style="color:#c084fc;">Selecciona el horario de país</label>
+          <div style="display:flex;gap:10px;align-items:stretch;">
+            <select id="sinTzB" class="fselect" style="flex:1;"></select>
+            <button type="button" class="btn-geo" onclick="sinWizardTz('sin','B')" style="white-space:nowrap;padding:10px 18px;font-size:20px;line-height:1;">➤</button>
+          </div>
+        </div>
+
+        <!-- PASO 5: Estado/Provincia -->
+        <div class="field" id="sinEstadoWrapB" style="display:none;">
+          <label style="color:#c084fc;">Estado · Provincia · Departamento</label>
+          <div style="display:flex;gap:10px;align-items:stretch;">
+            <input id="sinEstadoB" class="finput" type="text" placeholder="ej: Buenos Aires · Madrid · California" style="flex:1;"/>
+            <button type="button" class="btn-geo" onclick="sinGeoStep2('sin','B')" style="padding:10px 18px;font-size:20px;line-height:1;">➤</button>
+          </div>
+        </div>
+
+        <!-- PASO 6: Ciudad -->
+        <div class="field" id="sinCiudadWrapB" style="display:none;">
+          <label style="color:#c084fc;">Ciudad</label>
+          <div style="display:flex;gap:10px;align-items:stretch;">
+            <input id="sinCiudadB" class="finput" type="text" placeholder="ej: La Plata · Sevilla · Guadalajara" style="flex:1;"/>
+            <button type="button" class="btn-geo" onclick="sinGeoStep3('sin','B')" style="padding:10px 18px;font-size:18px;font-weight:700;letter-spacing:.08em;">OK</button>
+          </div>
+          <div id="sinGeoMsgB" style="margin-top:6px;font-size:13px;color:rgba(0,200,255,0.6);min-height:18px;"></div>
+        </div>
+
+        <!-- Resumen ubicación -->
+        <div class="field" id="sinResumenWrapB" style="display:none;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div id="sinGeoResB" style="font-size:15px;color:#c084fc;letter-spacing:.04em;line-height:1.9;flex:1;"></div>
+            <button type="button" onclick="sinGeoEditar('sin','B')"
+              style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;"
+              onmouseover="this.style.borderColor='var(--acc)';this.style.color='#fff'" onmouseout="this.style.borderColor='var(--bord)';this.style.color='var(--gray)'">✎ editar</button>
+          </div>
+        </div>
+
+        <!-- PASO final: Sexo -->
+        <div class="field" id="sinSexoWrapB" style="display:none;">
+          <label style="color:#c084fc;">Sexo</label>
+          <div style="text-align:center;">
+            <select id="sinSexoB" class="sel-gender" style="border-color:#c084fc;color:#c084fc;width:100%;max-width:220px;"
+              onchange="document.getElementById('sinSexoBHidden').value=this.value;">
+              <option value="" disabled selected>Elegir: ♂ | ♀</option>
+              <option value="M">♂ Hombre</option>
+              <option value="F">♀ Mujer</option>
+            </select>
+          </div>
+          <input type="hidden" id="sinSexoBHidden" value=""/>
+        </div>
+
+        <input type="hidden" id="sinLatB"/>
+        <input type="hidden" id="sinLonB"/>
+      </div>
+    </div>
+
+    <div id="sinErrorMsg" style="display:none;color:#f87171;font-size:14px;letter-spacing:.08em;margin-bottom:14px;text-align:center;"></div>
+    <button id="btnCalcSinastria" onclick="calcularSinastriaChart()" style="background:transparent;border:1px solid #f472b6;color:#f472b6;font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 40px;cursor:pointer;transition:all .25s;margin-bottom:32px;"
+      onmouseover="this.style.boxShadow='0 0 28px rgba(244,114,182,.3)'"
+      onmouseout="this.style.boxShadow=''">
+      ♡ Calcular Sinastría
+    </button>
+  </div>
+
+  <!-- Panel: Resultado (pestaña carta) -->
+  <div id="sinPanelCarta" style="display:none;width:100%;max-width:960px;">
+    <div id="sinResultWrap" style="width:100%;">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;">
+        <div class="chart-wrap" style="border-color:rgba(244,114,182,0.25);">
+          <div style="text-align:center;padding:8px 0 4px;font-size:13px;letter-spacing:.18em;color:#f472b6;text-transform:uppercase;" id="sinTituloChart"></div>
+          <canvas id="sinChart" width="780" height="780" style="width:100%;height:auto;display:block;"></canvas>
+          <div style="margin-top:14px;padding:12px 16px;background:rgba(0,8,20,0.7);border:1px solid rgba(244,114,182,0.2);font-size:13px;line-height:1.8;letter-spacing:.04em;">
+            <div style="color:#f472b6;font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:8px;">Leyenda</div>
+            <div><span style="color:#f472b6;font-family:'Noto Sans Symbols 2',sans-serif;">●</span> Planetas Persona A</div>
+            <div><span style="color:#c084fc;font-family:'Noto Sans Symbols 2',sans-serif;">●</span> Planetas Persona B</div>
+            <div style="margin-top:6px;color:rgba(255,255,255,0.55);font-size:12px;">Las líneas muestran aspectos cruzados entre ambas cartas</div>
+          </div>
+        </div>
+        <div class="asp-panel" style="border-color:rgba(244,114,182,0.25);">
+          <div class="pb-title" style="color:#f472b6;border-color:rgba(244,114,182,0.25);">Aspectos entre las cartas</div>
+          <div id="sinAspectosList" style="font-size:15px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     MÓDULO CARTA COMPUESTA
+════════════════════════════════════════════════════════════ -->
+<div id="compuestaView" style="display:none;position:fixed;inset:0;z-index:10;background:var(--bg);overflow-y:auto;flex-direction:column;align-items:center;padding:28px 32px 80px;box-sizing:border-box;">
+  <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--bord);flex-wrap:wrap;gap:10px;">
+    <button onclick="volverCartaOriginal()" class="btn-back" style="border-color:#a78bfa;color:#a78bfa;">← Carta original</button>
+    <div style="text-align:center;flex:1;">
+      <div style="font-size:22px;font-weight:700;letter-spacing:.12em;color:#a78bfa;">✦ CARTA COMPUESTA</div>
+      <div style="font-size:13px;letter-spacing:.18em;color:rgba(167,139,250,0.65);text-transform:uppercase;margin-top:4px;">Punto medio entre dos cartas</div>
+    </div>
+    <div style="width:160px;"></div>
+  </div>
+
+  <!-- Pestañas -->
+  <div id="compTabs" style="display:flex;gap:0;margin-bottom:28px;border-bottom:2px solid rgba(167,139,250,0.2);width:100%;max-width:960px;">
+    <button id="compTabEditar" onclick="compMostrarTab('editar')" style="background:rgba(167,139,250,0.12);border:1px solid #a78bfa;border-bottom:none;color:#a78bfa;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:all .2s;">✎ Editar datos</button>
+    <button id="compTabCarta" onclick="compMostrarTab('carta')" style="background:transparent;border:1px solid rgba(167,139,250,0.25);border-bottom:none;color:rgba(167,139,250,0.5);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:10px 28px;cursor:pointer;transition:all .2s;" disabled>✦ Ver carta</button>
+  </div>
+
+  <!-- Panel: Editar datos -->
+  <div id="compPanelEditar" style="width:100%;max-width:960px;">
+
+    <!-- Botón Editar Carta Principal — encima del panel B, visible siempre -->
+    <div style="width:100%;display:flex;justify-content:flex-start;margin-bottom:14px;">
+      <button type="button" onclick="sinTogglePanelA('comp')"
+        style="background:transparent;border:1px solid rgba(167,139,250,0.5);color:#a78bfa;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all .25s;"
+        onmouseover="this.style.boxShadow='0 0 20px rgba(167,139,250,.22)';this.style.borderColor='#a78bfa'"
+        onmouseout="this.style.boxShadow='';this.style.borderColor='rgba(167,139,250,0.5)'">
+        ✎ Editar Información Carta Principal
+      </button>
+    </div>
+
+    <div id="compFormWrap" style="width:100%;display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;">
+
+      <!-- ══ Carta Principal ══ (colapsado por defecto) -->
+      <div id="compPanelA" style="display:none;">
+      <div class="form-panel" style="border-color:rgba(167,139,250,0.35);display:flex;flex-direction:column;align-items:center;gap:16px;padding:22px 24px;align-self:stretch;">
+        <div style="font-size:11px;letter-spacing:.22em;color:#a78bfa;text-transform:uppercase;border-bottom:1px solid rgba(167,139,250,0.25);width:100%;text-align:center;padding-bottom:10px;">✦ Carta Principal</div>
+        <div id="compResumenCartaPrincipal" style="font-size:15px;color:rgba(255,255,255,0.75);letter-spacing:.04em;line-height:2;text-align:center;min-height:40px;"></div>
+        <div id="compSexoATexto" style="font-size:15px;color:rgba(255,255,255,0.75);letter-spacing:.04em;text-align:center;"></div>
+        <button type="button" onclick="abrirEditModal()"
+          style="background:transparent;border:1px solid rgba(167,139,250,0.5);color:#a78bfa;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:10px 22px;cursor:pointer;transition:all .25s;width:100%;max-width:280px;"
+          onmouseover="this.style.boxShadow='0 0 20px rgba(167,139,250,.22)';this.style.borderColor='#a78bfa'"
+          onmouseout="this.style.boxShadow='';this.style.borderColor='rgba(167,139,250,0.5)'">
+          ✎ Editar Información Carta Principal
+        </button>
+        <!-- Ubicación propia si no hay lat/lon en la carta natal -->
+        <div id="compUbicAWrap" style="width:100%;display:none;">
+          <div style="font-size:11px;letter-spacing:.18em;color:rgba(167,139,250,0.7);text-transform:uppercase;text-align:center;margin-bottom:10px;">Ubicación de nacimiento</div>
+          <div class="field" id="compTzWrapA">
+            <label style="color:#a78bfa;">Selecciona el horario de país</label>
+            <div style="display:flex;gap:10px;align-items:stretch;">
+              <select id="compTzA" class="fselect" style="flex:1;"></select>
+              <button type="button" class="btn-geo" onclick="sinWizardTz('comp','A')" style="white-space:nowrap;padding:10px 18px;font-size:20px;line-height:1;">➤</button>
+            </div>
+          </div>
+          <div class="field" id="compEstadoWrapA" style="display:none;">
+            <label style="color:#a78bfa;">Estado · Provincia · Departamento</label>
+            <div style="display:flex;gap:10px;align-items:stretch;">
+              <input id="compEstadoA" class="finput" type="text" placeholder="ej: Buenos Aires · Madrid · California" style="flex:1;"/>
+              <button type="button" class="btn-geo" onclick="sinGeoStep2('comp','A')" style="padding:10px 18px;font-size:20px;line-height:1;">➤</button>
+            </div>
+          </div>
+          <div class="field" id="compCiudadWrapA" style="display:none;">
+            <label style="color:#a78bfa;">Ciudad</label>
+            <div style="display:flex;gap:10px;align-items:stretch;">
+              <input id="compCiudadA" class="finput" type="text" placeholder="ej: La Plata · Sevilla · Guadalajara" style="flex:1;"/>
+              <button type="button" class="btn-geo" onclick="sinGeoStep3('comp','A')" style="padding:10px 18px;font-size:18px;font-weight:700;letter-spacing:.08em;">OK</button>
+            </div>
+            <div id="compGeoMsgA" style="margin-top:6px;font-size:13px;color:rgba(0,200,255,0.6);min-height:18px;"></div>
+          </div>
+          <div class="field" id="compResumenWrapA" style="display:none;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div id="compGeoResA" style="font-size:15px;color:#a78bfa;letter-spacing:.04em;line-height:1.9;flex:1;"></div>
+              <button type="button" onclick="sinGeoEditar('comp','A')"
+                style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;"
+                onmouseover="this.style.borderColor='var(--acc)';this.style.color='#fff'" onmouseout="this.style.borderColor='var(--bord)';this.style.color='var(--gray)'">✎ editar</button>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="compLatA"/>
+        <input type="hidden" id="compLonA"/>
+      </div>
+      </div><!-- /compPanelA -->
+
+      <!-- ══ Segunda Persona (wizard idéntico a carta natal) ══ -->
+      <div class="form-panel" style="border-color:rgba(96,165,250,0.35);">
+        <div class="fp-title" style="color:#60a5fa;border-color:rgba(96,165,250,0.25);">✦ Segunda Persona</div>
+
+        <!-- PASO 1: Nombre -->
+        <div class="field" id="compNombreWrapB">
+          <label style="color:#60a5fa;">Nombre</label>
+          <input id="compNombreB" class="finput" type="text" placeholder="Nombre | Apellido" style="width:100%;text-align:center;font-size:19px;" autocomplete="off"
+            oninput="sinWizardNombre('comp','B')"/>
+        </div>
+
+        <div class="field" id="compFechaWrapB" style="display:none;">
+          <label style="color:#60a5fa;">Fecha de Nacimiento</label>
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;justify-content:center;">
+            <select id="compDiaB" style="display:none;" onchange="sinCdropNativeChange('compDiaB')"></select>
+            <div class="cdrop-wrap" id="cdrop-compDiaB-wrap">
+              <div class="cdrop-btn" id="cdrop-compDiaB-btn" onclick="sinCdropToggle('compDiaB')" style="width:70px;min-width:0;">
+                <span class="cdrop-label" id="cdrop-compDiaB-label">Día</span>
+                <span class="cdrop-arrow">&#9660;</span>
+              </div>
+              <div class="cdrop-list" id="cdrop-compDiaB-list"></div>
+            </div>
+            <div id="compMesWrapB" style="display:none;">
+              <select id="compMesB" style="display:none;" onchange="sinCdropNativeChange('compMesB')"></select>
+              <div class="cdrop-wrap" id="cdrop-compMesB-wrap">
+                <div class="cdrop-btn" id="cdrop-compMesB-btn" onclick="sinCdropToggle('compMesB')" style="min-width:140px;">
+                  <span class="cdrop-label" id="cdrop-compMesB-label">Mes</span>
+                  <span class="cdrop-arrow">&#9660;</span>
+                </div>
+                <div class="cdrop-list" id="cdrop-compMesB-list"></div>
+              </div>
+            </div>
+            <div id="compAnioWrapB" style="display:none;align-items:flex-end;gap:10px;">
+              <div class="anio-wrap">
+                <input id="compAnioB" class="num-anio-input" type="text" inputmode="numeric" pattern="[0-9]*" min="1" max="9999" placeholder="Año" autocomplete="off"
+                  onfocus="if(this.value==='Año'){this.value='';this.style.color='#fff';}"
+                  onblur="if(!this.value){this.value='Año';this.style.color='#ffffff';}"
+                  oninput="this.value=this.value.replace(/[^0-9]/g,'');this.style.color='#fff';sinWizardAnio('comp','B')"/>
+                <div class="anio-dots" id="dots-compAnioB"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASO 3: Hora -->
+        <div class="field" id="compHoraWrapB" style="display:none;">
+          <label style="color:#60a5fa;">Hora de Nacimiento</label>
+          <div id="compHoraQuestionB" style="display:flex;gap:12px;align-items:center;padding:8px 0;justify-content:center;">
+            <span style="font-size:18px;color:var(--gray);">¿Conoces la hora de nacimiento?</span>
+            <button type="button" onclick="sinSetKnowHour('comp','B',true)"
+              style="background:transparent;border:1px solid #60a5fa;color:#60a5fa;font-size:15px;font-weight:700;letter-spacing:.12em;padding:8px 22px;cursor:pointer;transition:all .2s;text-transform:uppercase;">Sí</button>
+            <button type="button" onclick="sinSetKnowHour('comp','B',false)"
+              style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:15px;font-weight:700;letter-spacing:.12em;padding:8px 22px;cursor:pointer;transition:all .2s;text-transform:uppercase;">No</button>
+          </div>
+          <div id="compHoraInputsB" style="display:none;">
+            <div id="compHoraModeRowB" style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:12px;">
+              <button type="button" id="compBtnModeAmPmB" onclick="sinSetHoraMode('comp','B','ampm')"
+                style="background:rgba(0,200,255,.15);border:1px solid var(--acc);color:var(--acc);font-size:13px;font-weight:700;letter-spacing:.12em;padding:7px 18px;cursor:pointer;transition:all .2s;text-transform:uppercase;">A.M./P.M.</button>
+              <span style="color:var(--gray);font-size:15px;padding:0 8px;">|</span>
+              <button type="button" id="compBtnMode24hB" onclick="sinSetHoraMode('comp','B','24h')"
+                style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:13px;font-weight:700;letter-spacing:.12em;padding:7px 18px;cursor:pointer;transition:all .2s;text-transform:uppercase;">24 h</button>
+            </div>
+            <div class="time-row" style="justify-content:center;">
+              <div id="compHoraAmPmGroupB" style="display:flex;align-items:flex-end;gap:6px;">
+                <select id="compHoraB" class="fselect" style="width:72px;text-align:center;" onchange="sinWizardHora('comp','B')"></select>
+                <span style="font-size:28px;color:var(--acc);padding-bottom:10px;">:</span>
+                <select id="compMinB" class="fselect" style="width:72px;" onchange="sinWizardHora('comp','B')"></select>
+                <div style="display:flex;gap:4px;align-items:flex-end;padding-bottom:2px;">
+                  <button type="button" id="compBtnAMB" onclick="sinSetAmPm('comp','B','AM')"
+                    style="background:transparent;border:1px solid rgba(0,200,255,0.3);color:#ffffff;font-size:16px;font-weight:700;letter-spacing:.08em;padding:9px 12px;cursor:pointer;transition:all .18s;">AM</button>
+                  <button type="button" id="compBtnPMB" onclick="sinSetAmPm('comp','B','PM')"
+                    style="background:transparent;border:1px solid rgba(0,200,255,0.3);color:#ffffff;font-size:16px;font-weight:700;letter-spacing:.08em;padding:9px 12px;cursor:pointer;transition:all .18s;">PM</button>
+                </div>
+                <span style="color:var(--gray);font-size:18px;padding:0 8px;align-self:center;">|</span>
+                <button type="button" onclick="sinSetKnowHour('comp','B',false)" style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:13px;font-weight:700;letter-spacing:.10em;padding:9px 14px;cursor:pointer;transition:all .2s;text-transform:uppercase;align-self:flex-end;">No sé</button>
+              </div>
+              <div id="compHora24hGroupB" style="display:none;align-items:flex-end;gap:6px;">
+                <select id="compHora24B" class="fselect" style="width:72px;text-align:center;" onchange="sinWizardHora('comp','B')"></select>
+                <span style="font-size:28px;color:var(--acc);padding-bottom:10px;">:</span>
+                <select id="compMin24B" class="fselect" style="width:72px;" onchange="sinWizardHora('comp','B')"></select>
+                <span style="color:var(--gray);font-size:18px;padding:0 8px;align-self:center;">|</span>
+                <button type="button" onclick="sinSetKnowHour('comp','B',false)" style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:13px;font-weight:700;letter-spacing:.10em;padding:9px 14px;cursor:pointer;transition:all .2s;text-transform:uppercase;align-self:flex-end;">No sé</button>
+              </div>
+            </div>
+          </div>
+          <div id="compHoraUnknownB" style="display:none;padding:10px 0;font-size:17px;color:var(--gray);text-align:center;">
+            Hora desconocida — se usará el mediodía como aproximación.
+            <button type="button" onclick="sinSetKnowHour('comp','B',true)" style="background:transparent;border:none;color:#60a5fa;font-size:14px;cursor:pointer;margin-left:8px;text-decoration:underline;">Cambiar</button>
+          </div>
+          <input type="hidden" id="compUnknownB" value="0"/>
+        </div>
+
+        <!-- PASO 4: Zona horaria -->
+        <div class="field" id="compTzWrapB" style="display:none;">
+          <label style="color:#60a5fa;">Selecciona el horario de país</label>
+          <div style="display:flex;gap:10px;align-items:stretch;">
+            <select id="compTzB" class="fselect" style="flex:1;"></select>
+            <button type="button" class="btn-geo" onclick="sinWizardTz('comp','B')" style="white-space:nowrap;padding:10px 18px;font-size:20px;line-height:1;">➤</button>
+          </div>
+        </div>
+
+        <!-- PASO 5: Estado/Provincia -->
+        <div class="field" id="compEstadoWrapB" style="display:none;">
+          <label style="color:#60a5fa;">Estado · Provincia · Departamento</label>
+          <div style="display:flex;gap:10px;align-items:stretch;">
+            <input id="compEstadoB" class="finput" type="text" placeholder="ej: Buenos Aires · Madrid · California" style="flex:1;"/>
+            <button type="button" class="btn-geo" onclick="sinGeoStep2('comp','B')" style="padding:10px 18px;font-size:20px;line-height:1;">➤</button>
+          </div>
+        </div>
+
+        <!-- PASO 6: Ciudad -->
+        <div class="field" id="compCiudadWrapB" style="display:none;">
+          <label style="color:#60a5fa;">Ciudad</label>
+          <div style="display:flex;gap:10px;align-items:stretch;">
+            <input id="compCiudadB" class="finput" type="text" placeholder="ej: La Plata · Sevilla · Guadalajara" style="flex:1;"/>
+            <button type="button" class="btn-geo" onclick="sinGeoStep3('comp','B')" style="padding:10px 18px;font-size:18px;font-weight:700;letter-spacing:.08em;">OK</button>
+          </div>
+          <div id="compGeoMsgB" style="margin-top:6px;font-size:13px;color:rgba(0,200,255,0.6);min-height:18px;"></div>
+        </div>
+
+        <!-- Resumen ubicación -->
+        <div class="field" id="compResumenWrapB" style="display:none;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div id="compGeoResB" style="font-size:15px;color:#60a5fa;letter-spacing:.04em;line-height:1.9;flex:1;"></div>
+            <button type="button" onclick="sinGeoEditar('comp','B')"
+              style="background:transparent;border:1px solid var(--bord);color:var(--gray);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;"
+              onmouseover="this.style.borderColor='var(--acc)';this.style.color='#fff'" onmouseout="this.style.borderColor='var(--bord)';this.style.color='var(--gray)'">✎ editar</button>
+          </div>
+        </div>
+
+        <!-- PASO final: Sexo -->
+        <div class="field" id="compSexoWrapB" style="display:none;">
+          <label style="color:#60a5fa;">Sexo</label>
+          <div style="text-align:center;">
+            <select id="compSexoB" class="sel-gender" style="border-color:#60a5fa;color:#60a5fa;width:100%;max-width:220px;"
+              onchange="document.getElementById('compSexoBHidden').value=this.value;">
+              <option value="" disabled selected>Elegir: ♂ | ♀</option>
+              <option value="M">♂ Hombre</option>
+              <option value="F">♀ Mujer</option>
+            </select>
+          </div>
+          <input type="hidden" id="compSexoBHidden" value=""/>
+        </div>
+
+        <input type="hidden" id="compLatB"/>
+        <input type="hidden" id="compLonB"/>
+      </div>
+    </div>
+
+    <div id="compErrorMsg" style="display:none;color:#f87171;font-size:14px;letter-spacing:.08em;margin-bottom:14px;text-align:center;"></div>
+    <button id="btnCalcCompuesta" onclick="calcularCompuestaChart()" style="background:transparent;border:1px solid #a78bfa;color:#a78bfa;font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 40px;cursor:pointer;transition:all .25s;margin-bottom:32px;"
+      onmouseover="this.style.boxShadow='0 0 28px rgba(167,139,250,.3)'"
+      onmouseout="this.style.boxShadow=''">
+      ✦ Calcular Carta Compuesta
+    </button>
+  </div>
+
+  <!-- Panel: Resultado (pestaña carta) -->
+  <div id="compPanelCarta" style="display:none;width:100%;max-width:960px;">
+    <div id="compResultWrap" style="width:100%;">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;">
+        <div class="chart-wrap" style="border-color:rgba(167,139,250,0.25);">
+          <div style="text-align:center;padding:8px 0 4px;font-size:13px;letter-spacing:.18em;color:#a78bfa;text-transform:uppercase;" id="compTituloChart"></div>
+          <canvas id="compChart" width="780" height="780" style="width:100%;height:auto;display:block;"></canvas>
+          <div style="margin-top:14px;padding:12px 16px;background:rgba(0,8,20,0.7);border:1px solid rgba(167,139,250,0.2);font-size:13px;line-height:1.8;letter-spacing:.04em;color:rgba(255,255,255,0.7);">
+            Carta generada por el método de <strong style="color:#a78bfa;">puntos medios</strong> (mid-point): cada planeta se ubica en el punto medio de arco entre los planetas homólogos de ambas cartas.
+          </div>
+        </div>
+        <div class="asp-panel" style="border-color:rgba(167,139,250,0.25);">
+          <div class="pb-title" style="color:#a78bfa;border-color:rgba(167,139,250,0.25);">Aspectos de la Compuesta</div>
+          <div id="compAspectosList" style="font-size:15px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Responsive sinastría / compuesta */
+@media(max-width:700px){
+  #sinFormWrap,#compFormWrap{ grid-template-columns:1fr; }
+  #sinastriaView,#compuestaView{ padding:18px 14px 60px; }
+}
+</style>
+</style>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   SINASTRÍA & CARTA COMPUESTA — Motor completo
+   ══════════════════════════════════════════════════════════════ */
+(function(){
+
+  // ── Meses para los selects ──
+  var MESES_SIN = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  function poblarSelMes(id) {
+    var sel = document.getElementById(id);
+    if (!sel) return;
+    sel.innerHTML = '<option value="" disabled selected>Mes</option>';
+    MESES_SIN.forEach(function(m, i) {
+      var o = document.createElement('option');
+      o.value = String(i + 1).padStart(2, '0');
+      o.textContent = m;
+      sel.appendChild(o);
+    });
+  }
+
+  function poblarHoraMin(selId, max, pad) {
+    var sel = document.getElementById(selId);
+    if (!sel || sel.options.length > 1) return;
+    for (var i = 0; i <= max; i++) {
+      var o = document.createElement('option');
+      o.value = String(i).padStart(2,'0');
+      o.textContent = String(i).padStart(2,'0');
+      sel.appendChild(o);
+    }
+  }
+
+  function poblarTzSelect(id) {
+    var src = document.getElementById('tzSelect');
+    var dst = document.getElementById(id);
+    if (!src || !dst) return;
+    dst.innerHTML = src.innerHTML;
+  }
+
+  function initSelects() {
+    ['sinMesA','sinMesB','compMesA','compMesB'].forEach(poblarSelMes);
+    var tries = 0;
+    function tryTz() {
+      var src = document.getElementById('tzSelect');
+      if (!src || src.options.length < 2) {
+        if (++tries < 30) setTimeout(tryTz, 300);
+        return;
+      }
+      ['sinTzA','sinTzB','compTzA','compTzB'].forEach(poblarTzSelect);
+    }
+    tryTz();
+  }
+
+  document.addEventListener('DOMContentLoaded', initSelects);
+
+  // ══ WIZARD PASO A PASO para sinastría y compuesta ══
+
+  function sinShow(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.style.display = '';
+    el.style.animation = 'none';
+    void el.offsetWidth; // reflow
+    el.style.animation = 'sinFadeIn .32s ease forwards';
+  }
+  function sinHide(id) {
+    var el = document.getElementById(id);
+    if (!el || el.style.display === 'none') return;
+    el.style.animation = 'sinFadeOut .22s ease forwards';
+    setTimeout(function(){ if(el) el.style.display = 'none'; el.style.animation = ''; }, 220);
+  }
+
+  // Paso 1 → mostrar fecha al escribir nombre
+  // ── Estado AM/PM y modo hora por persona B ──
+  var _sinHoraModo = {}; // 'sin'/'comp' → 'ampm'|'24h'
+  var _sinAmPm = {};     // 'sin'/'comp' → 'AM'|'PM'
+  var _sinAmPmMovido = {};  // key → bool, igual que _ampmMovido del form principal
+  var _sinAmPmTimer  = {};  // key → timer id
+
+  // cdrop propio para día/mes de persona B (sin/comp)
+  window.sinCdropToggle = function(selId) {
+    var list = document.getElementById('cdrop-' + selId + '-list');
+    if (!list) return;
+    // Poblar si vacío
+    if (!list.querySelector('.cdrop-item')) {
+      var sel = document.getElementById(selId);
+      if (!sel) return;
+      // Poblar select si vacío
+      if (sel.options.length < 2) {
+        if (selId.indexOf('Dia') !== -1) {
+          for (var d = 1; d <= 31; d++) { var o = document.createElement('option'); o.value = d; o.textContent = d; sel.appendChild(o); }
+        } else {
+          var mn = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+          mn.forEach(function(m,i){ var o = document.createElement('option'); o.value = String(i+1).padStart(2,'0'); o.textContent = m; sel.appendChild(o); });
+        }
+      }
+      Array.from(sel.options).forEach(function(opt) {
+        if (!opt.value) return;
+        var item = document.createElement('div'); item.className = 'cdrop-item';
+        item.textContent = opt.textContent; item.dataset.val = opt.value;
+        item.onclick = function() { sinCdropSelect(selId, this.dataset.val, this.textContent); };
+        list.appendChild(item);
+      });
+    }
+    var isOpen = list.style.display !== 'none' && list.style.display !== '';
+    // Cerrar todos
+    document.querySelectorAll('.cdrop-list').forEach(function(l){ l.style.display='none'; });
+    if (!isOpen) list.style.display = 'block';
+  };
+  window.sinCdropSelect = function(selId, val, label) {
+    var sel = document.getElementById(selId);
+    if (sel) sel.value = val;
+    var lbl = document.getElementById('cdrop-' + selId + '-label');
+    if (lbl) lbl.textContent = label;
+    var list = document.getElementById('cdrop-' + selId + '-list');
+    if (list) list.style.display = 'none';
+    sinCdropNativeChange(selId);
+  };
+  window.sinCdropNativeChange = function(selId) {
+    // Detectar mod y letra desde el ID: sinDiaB → mod=sin, campo=Dia, letra=B
+    var m = selId.match(/^(sin|comp)(Dia|Mes)([AB])$/);
+    if (!m) return;
+    var mod = m[1], campo = m[2], letra = m[3];
+    if (campo === 'Dia') {
+      var dia = parseInt((document.getElementById(selId)||{}).value);
+      if (dia >= 1 && dia <= 31) {
+        sinShow(mod + 'MesWrap' + letra);
+        // Poblar mes si vacío
+        var mesId = mod + 'Mes' + letra;
+        var mesEl = document.getElementById(mesId);
+        if (mesEl && mesEl.options.length < 2) {
+          var mn2 = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+          mn2.forEach(function(nm,i){ var o=document.createElement('option');o.value=String(i+1).padStart(2,'0');o.textContent=nm;mesEl.appendChild(o); });
+        }
+      }
+    } else if (campo === 'Mes') {
+      var mes = (document.getElementById(selId)||{}).value;
+      if (mes) sinShow(mod + 'AnioWrap' + letra);
+    }
+  };
+
+  window.sinWizardNombre = function(mod, letra) {
+    var nombre = (document.getElementById(mod + 'NombreA') || {}).value;
+    if (letra === 'B') nombre = (document.getElementById(mod + 'NombreB') || {}).value;
+    if (nombre && nombre.trim().length > 0) {
+      sinShow(mod + 'FechaWrap' + letra);
+    } else {
+      sinHide(mod + 'SexoWrap' + letra);
+      sinHide(mod + 'FechaWrap' + letra);
+    }
+  };
+
+  // Seleccionar sexo en Carta B (sin/comp)
+  window.sinSelSexo = function(mod, letra, val) {
+    var hiddenId = mod + 'Sexo' + letra;
+    var el = document.getElementById(hiddenId);
+    if (el) el.value = val;
+    // Prefijos de los botones: mod + 'BtnSexo' + M/F + letra
+    var prefix = mod.charAt(0).toUpperCase() + mod.slice(1);
+    var bM = document.getElementById(mod + 'BtnSexoM' + letra) || document.getElementById(prefix + 'BtnSexoM' + letra);
+    var bF = document.getElementById(mod + 'BtnSexoF' + letra) || document.getElementById(prefix + 'BtnSexoF' + letra);
+    var accentColor = (mod === 'sin') ? '#c084fc' : '#60a5fa';
+    var accentRgba  = (mod === 'sin') ? 'rgba(192,132,252,0.18)' : 'rgba(96,165,250,0.18)';
+    if (bM) { bM.style.background = val==='M' ? accentRgba : 'transparent'; bM.style.borderColor = val==='M' ? accentColor : 'rgba(255,255,255,0.2)'; bM.style.color = val==='M' ? accentColor : '#fff'; }
+    if (bF) { bF.style.background = val==='F' ? accentRgba : 'transparent'; bF.style.borderColor = val==='F' ? accentColor : 'rgba(255,255,255,0.2)'; bF.style.color = val==='F' ? accentColor : '#fff'; }
+  };
+
+  // Toggle panel Carta Principal (A) en Sinastría/Compuesta
+  window.sinTogglePanelA = function(mod) {
+    var panelId = (mod === 'sin') ? 'sinPanelA' : 'compPanelA';
+    var panel = document.getElementById(panelId);
+    if (!panel) return;
+    var visible = panel.style.display !== 'none';
+    panel.style.display = visible ? 'none' : 'block';
+    if (!visible) {
+      // Rellenar texto de sexo
+      var val = (document.getElementById('selGender') || {}).value || '';
+      var textoId = (mod === 'sin') ? 'sinSexoATexto' : 'compSexoATexto';
+      var textoEl = document.getElementById(textoId);
+      if (textoEl) {
+        textoEl.textContent = val === 'M' ? '♂ Hombre' : val === 'F' ? '♀ Mujer' : '';
+      }
+    }
+  };
+
+  // Actualizar botones sexo Carta A al abrir el panel (refleja selGender)
+  window.sinActualizarSexoA = function(mod) {
+    var val = (document.getElementById('selGender') || {}).value || '';
+    var color = (mod === 'sin') ? '#f472b6' : '#a78bfa';
+    var rgba  = (mod === 'sin') ? 'rgba(244,114,182,0.18)' : 'rgba(167,139,250,0.18)';
+    var bM = document.getElementById(mod + 'SexoA_M');
+    var bF = document.getElementById(mod + 'SexoA_F');
+    if (bM) { bM.style.background = val==='M' ? rgba : 'transparent'; bM.style.borderColor = val==='M' ? color : 'rgba(0,200,255,0.3)'; bM.style.color = val==='M' ? color : '#fff'; }
+    if (bF) { bF.style.background = val==='F' ? rgba : 'transparent'; bF.style.borderColor = val==='F' ? color : 'rgba(0,200,255,0.3)'; bF.style.color = val==='F' ? color : '#fff'; }
+  };
+
+  // Paso 2a → el cdrop maneja día→mes→año
+  window.sinWizardDia = function(mod, letra) {
+    // legacy: llamado desde oninput del input numérico (ya no existe en B, pero se mantiene)
+    sinCdropNativeChange(mod + 'Dia' + letra);
+  };
+
+  // Paso 2b
+  window.sinWizardMes = function(mod, letra) {
+    sinCdropNativeChange(mod + 'Mes' + letra);
+  };
+
+  // Paso 2c → mostrar hora al tener año de 4 dígitos
+  window.sinWizardAnio = function(mod, letra) {
+    var anio = (document.getElementById(mod + 'Anio' + letra) || {}).value;
+    if (anio && anio.length === 4 && parseInt(anio) > 0) {
+      sinShow(mod + 'HoraWrap' + letra);
+    } else {
+      sinHide(mod + 'HoraWrap' + letra);
+      sinHide(mod + 'TzWrap' + letra);
+      sinHide(mod + 'EstadoWrap' + letra);
+      sinHide(mod + 'CiudadWrap' + letra);
+      sinHide(mod + 'ResumenWrap' + letra);
+    }
+  };
+
+  // Paso 3: Sí/No hora
+  window.sinSetKnowHour = function(mod, letra, sabe) {
+    sinHide(mod + 'HoraQuestion' + letra);
+    if (sabe) {
+      sinShow(mod + 'HoraInputs' + letra);
+      sinHide(mod + 'HoraUnknown' + letra);
+      // Poblar selects AM/PM (0-12) y min (0-59)
+      var hSel = document.getElementById(mod + 'Hora' + letra);
+      if (hSel && hSel.options.length < 2) { for(var h=1;h<=12;h++){var o=document.createElement('option');o.value=h;o.textContent=String(h).padStart(2,'0');hSel.appendChild(o);} }
+      var mSel = document.getElementById(mod + 'Min' + letra);
+      if (mSel && mSel.options.length < 2) { for(var mn=0;mn<=59;mn++){var o=document.createElement('option');o.value=mn;o.textContent=String(mn).padStart(2,'0');mSel.appendChild(o);} }
+      // Poblar selects 24h
+      var h24 = document.getElementById(mod + 'Hora24' + letra);
+      if (h24 && h24.options.length < 2) { for(var h2=0;h2<=23;h2++){var o=document.createElement('option');o.value=h2;o.textContent=String(h2).padStart(2,'0');h24.appendChild(o);} }
+      var m24 = document.getElementById(mod + 'Min24' + letra);
+      if (m24 && m24.options.length < 2) { for(var mn2=0;mn2<=59;mn2++){var o=document.createElement('option');o.value=mn2;o.textContent=String(mn2).padStart(2,'0');m24.appendChild(o);} }
+      // Modo AM/PM por defecto
+      _sinAmPmMovido[mod+letra] = false;
+      if (_sinAmPmTimer[mod+letra]) { clearTimeout(_sinAmPmTimer[mod+letra]); _sinAmPmTimer[mod+letra] = null; }
+      if (!_sinHoraModo[mod+letra]) sinSetHoraMode(mod, letra, 'ampm');
+      document.getElementById(mod + 'Unknown' + letra).value = '0';
+    } else {
+      sinHide(mod + 'HoraInputs' + letra);
+      sinShow(mod + 'HoraUnknown' + letra);
+      document.getElementById(mod + 'Unknown' + letra).value = '1';
+      sinActivarTz(mod, letra);
+    }
+  };
+
+  window.sinSetHoraMode = function(mod, letra, mode) {
+    _sinHoraModo[mod+letra] = mode;
+    // Al cambiar de modo, resetear flag AM/PM (igual que el form principal)
+    _sinAmPmMovido[mod+letra] = false;
+    if (_sinAmPmTimer[mod+letra]) { clearTimeout(_sinAmPmTimer[mod+letra]); _sinAmPmTimer[mod+letra] = null; }
+    var amPmGrp = document.getElementById(mod + 'HoraAmPmGroup' + letra);
+    var h24Grp  = document.getElementById(mod + 'Hora24hGroup' + letra);
+    var btnAP   = document.getElementById(mod.charAt(0).toUpperCase()+mod.slice(1)+'BtnModeAmPm'+letra);
+    var btn24   = document.getElementById(mod.charAt(0).toUpperCase()+mod.slice(1)+'BtnMode24h'+letra);
+    // Fallback IDs
+    if (!btnAP) btnAP = document.getElementById(mod + 'BtnModeAmPm' + letra);
+    if (!btn24) btn24 = document.getElementById(mod + 'BtnMode24h' + letra);
+    if (mode === 'ampm') {
+      if (amPmGrp) amPmGrp.style.display = 'flex';
+      if (h24Grp)  h24Grp.style.display  = 'none';
+      if (btnAP) { btnAP.style.background='rgba(0,200,255,.15)';btnAP.style.borderColor='var(--acc)';btnAP.style.color='var(--acc)'; }
+      if (btn24) { btn24.style.background='transparent';btn24.style.borderColor='var(--bord)';btn24.style.color='var(--gray)'; }
+    } else {
+      if (amPmGrp) amPmGrp.style.display = 'none';
+      if (h24Grp)  h24Grp.style.display  = 'flex';
+      if (btn24) { btn24.style.background='rgba(0,200,255,.15)';btn24.style.borderColor='var(--acc)';btn24.style.color='var(--acc)'; }
+      if (btnAP) { btnAP.style.background='transparent';btnAP.style.borderColor='var(--bord)';btnAP.style.color='var(--gray)'; }
+    }
+  };
+
+  window.sinSetAmPm = function(mod, letra, val) {
+    _sinAmPm[mod+letra] = val;
+    var key = mod + letra;
+    // Marcar que AM/PM fue movido (igual que el form principal)
+    _sinAmPmMovido[key] = true;
+    if (_sinAmPmTimer[key]) { clearTimeout(_sinAmPmTimer[key]); _sinAmPmTimer[key] = null; }
+    var bAM = document.getElementById(mod+'BtnAM'+letra);
+    var bPM = document.getElementById(mod+'BtnPM'+letra);
+    if (val === 'AM') {
+      if (bAM){bAM.style.background='rgba(0,200,255,0.12)';bAM.style.borderColor='var(--acc)';bAM.style.color='var(--acc)';}
+      if (bPM){bPM.style.background='transparent';bPM.style.borderColor='rgba(0,200,255,0.3)';bPM.style.color='#ffffff';}
+    } else {
+      if (bPM){bPM.style.background='rgba(0,200,255,0.12)';bPM.style.borderColor='var(--acc)';bPM.style.color='var(--acc)';}
+      if (bAM){bAM.style.background='transparent';bAM.style.borderColor='rgba(0,200,255,0.3)';bAM.style.color='#ffffff';}
+    }
+    // Al mover AM/PM → avanzar a TZ
+    sinActivarTz(mod, letra);
+  };
+
+  // Al cambiar minutos en modo ampm → esperar AM/PM (igual que form principal)
+  // Al cambiar minutos en modo 24h → avanzar directo a TZ
+  window.sinWizardHora = function(mod, letra) {
+    var modo = _sinHoraModo[mod+letra] || 'ampm';
+    var key = mod + letra;
+    if (modo === '24h') {
+      // En 24h: al seleccionar minuto → TZ directo
+      var hh = (document.getElementById(mod+'Hora24'+letra) || {}).value;
+      var mm = (document.getElementById(mod+'Min24'+letra)  || {}).value;
+      if (hh !== '' && hh !== undefined && mm !== '' && mm !== undefined) {
+        sinActivarTz(mod, letra);
+      }
+    } else {
+      // En ampm: al seleccionar minuto → si ya movió AM/PM avanza, si no espera 2s
+      var mm = (document.getElementById(mod+'Min'+letra) || {}).value;
+      if (mm === '' || mm === undefined) return;
+      if (_sinAmPmMovido[key]) {
+        sinActivarTz(mod, letra);
+        return;
+      }
+      if (_sinAmPmTimer[key]) clearTimeout(_sinAmPmTimer[key]);
+      _sinAmPmTimer[key] = setTimeout(function() {
+        if (!_sinAmPmMovido[key]) {
+          // Recordatorio visual: resaltar botones AM/PM
+          var bAM = document.getElementById(mod+'BtnAM'+letra);
+          var bPM = document.getElementById(mod+'BtnPM'+letra);
+          if (bAM) { bAM.style.animation='none'; bAM.style.boxShadow='0 0 10px rgba(0,200,255,0.5)'; setTimeout(function(){if(bAM)bAM.style.boxShadow='';},1500); }
+          if (bPM) { bPM.style.animation='none'; bPM.style.boxShadow='0 0 10px rgba(0,200,255,0.5)'; setTimeout(function(){if(bPM)bPM.style.boxShadow='';},1500); }
+        }
+      }, 2000);
+    }
+  };
+
+  function sinActivarTz(mod, letra) {
+    var tzEl = document.getElementById(mod + 'Tz' + letra);
+    if (tzEl && tzEl.options.length < 2) poblarTzSelect(mod + 'Tz' + letra);
+    sinShow(mod + 'TzWrap' + letra);
+  }
+
+  // Paso 4: botón ➤ de TZ → mostrar estado
+  window.sinWizardTz = function(mod, letra) {
+    var tz = (document.getElementById(mod + 'Tz' + letra) || {}).value;
+    if (tz) {
+      sinHide(mod + 'TzWrap' + letra);
+      setTimeout(function(){ sinShow(mod + 'EstadoWrap' + letra); }, 240);
+    }
+  };
+
+  // Paso 5: estado → mostrar ciudad
+  window.sinGeoStep2 = function(mod, letra) {
+    var estado = (document.getElementById(mod + 'Estado' + letra) || {}).value.trim();
+    if (!estado) { alert('Ingresa el estado o provincia.'); return; }
+    sinHide(mod + 'EstadoWrap' + letra);
+    setTimeout(function(){
+      sinShow(mod + 'CiudadWrap' + letra);
+      var cEl = document.getElementById(mod + 'Ciudad' + letra);
+      if (cEl) cEl.focus();
+    }, 240);
+  };
+
+  // Paso 6: ciudad → geocodificar
+  window.sinGeoStep3 = function(mod, letra) {
+    var estado = (document.getElementById(mod + 'Estado' + letra) || {}).value.trim();
+    var ciudad = (document.getElementById(mod + 'Ciudad' + letra) || {}).value.trim();
+    if (!ciudad) { alert('Ingresa la ciudad.'); return; }
+    var resEl = document.getElementById(mod + 'GeoRes' + letra);
+    var msgEl = document.getElementById(mod + 'GeoMsg' + letra);
+    if (msgEl) msgEl.textContent = '\uD83D\uDD0D Buscando\u2026';
+    var query = estado ? ciudad + ' ' + estado : ciudad;
+    fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(query), {headers:{'Accept-Language':'es'}})
+      .then(function(r){ return r.json(); })
+      .then(function(data) {
+        if (!data || !data[0]) {
+          if (msgEl) msgEl.textContent = 'No se encontr\u00f3. Intenta con otro nombre.';
+          return;
+        }
+        var lat = parseFloat(data[0].lat).toFixed(4);
+        var lon = parseFloat(data[0].lon).toFixed(4);
+        var latEl = document.getElementById(mod + 'Lat' + letra);
+        var lonEl = document.getElementById(mod + 'Lon' + letra);
+        if (latEl) latEl.value = lat;
+        if (lonEl) lonEl.value = lon;
+        var nombre = data[0].display_name.split(',').slice(0,3).join(', ');
+        if (resEl) resEl.textContent = '\uD83D\uDCCD ' + nombre;
+        if (msgEl) msgEl.textContent = '';
+        sinShow(mod + 'ResumenWrap' + letra);
+        sinHide(mod + 'EstadoWrap' + letra);
+        sinHide(mod + 'CiudadWrap' + letra);
+        // Si es Persona B, mostrar selector de sexo al final
+        if (letra === 'B') {
+          sinShow(mod + 'SexoWrap' + letra);
+        }
+        // Si es Persona A, actualizar también el resumen de texto de la carta principal
+        if (letra === 'A') {
+          var rMain = document.getElementById(mod + 'ResumenCartaPrincipal');
+          if (rMain && typeof _resumenCartaPrincipal === 'function') {
+            rMain.innerHTML = _resumenCartaPrincipal().replace(
+              /\u26A0[^<]*/,
+              '\uD83D\uDCCD Ubicaci\u00f3n registrada'
+            );
+          }
+        }
+      })
+      .catch(function(){ if (msgEl) msgEl.textContent = 'Error de conexi\u00f3n. Reintenta.'; });
+  };
+
+  window.sinGeoEditar = function(mod, letra) {
+    sinHide(mod + 'ResumenWrap' + letra);
+    // Volver a mostrar TZ → Estado → Ciudad en secuencia
+    sinShow(mod + 'TzWrap' + letra);
+    document.getElementById(mod + 'Lat' + letra).value = '';
+    document.getElementById(mod + 'Lon' + letra).value = '';
+    var estEl = document.getElementById(mod + 'Estado' + letra);
+    var ciuEl = document.getElementById(mod + 'Ciudad' + letra);
+    if (estEl) estEl.value = '';
+    if (ciuEl) ciuEl.value = '';
+    var msgEl = document.getElementById(mod + 'GeoMsg' + letra);
+    if (msgEl) msgEl.textContent = '';
+  };
+
+  // ── Pestañas ──
+  window.sinMostrarTab = function(tab) {
+    var pe = document.getElementById('sinPanelEditar');
+    var pc = document.getElementById('sinPanelCarta');
+    var tE = document.getElementById('sinTabEditar');
+    var tC = document.getElementById('sinTabCarta');
+    if (tab === 'editar') {
+      if (pe) pe.style.display = '';
+      if (pc) pc.style.display = 'none';
+      if (tE) { tE.style.background='rgba(244,114,182,0.12)';tE.style.borderColor='#f472b6';tE.style.color='#f472b6'; }
+      if (tC) { tC.style.background='transparent';tC.style.borderColor='rgba(244,114,182,0.25)';tC.style.color='rgba(244,114,182,0.5)'; }
+    } else {
+      if (pe) pe.style.display = 'none';
+      if (pc) pc.style.display = '';
+      if (tC) { tC.style.background='rgba(244,114,182,0.12)';tC.style.borderColor='#f472b6';tC.style.color='#f472b6';tC.disabled=false; }
+      if (tE) { tE.style.background='transparent';tE.style.borderColor='rgba(244,114,182,0.25)';tE.style.color='rgba(244,114,182,0.5)'; }
+    }
+  };
+  window.compMostrarTab = function(tab) {
+    var pe = document.getElementById('compPanelEditar');
+    var pc = document.getElementById('compPanelCarta');
+    var tE = document.getElementById('compTabEditar');
+    var tC = document.getElementById('compTabCarta');
+    if (tab === 'editar') {
+      if (pe) pe.style.display = '';
+      if (pc) pc.style.display = 'none';
+      if (tE) { tE.style.background='rgba(167,139,250,0.12)';tE.style.borderColor='#a78bfa';tE.style.color='#a78bfa'; }
+      if (tC) { tC.style.background='transparent';tC.style.borderColor='rgba(167,139,250,0.25)';tC.style.color='rgba(167,139,250,0.5)'; }
+    } else {
+      if (pe) pe.style.display = 'none';
+      if (pc) pc.style.display = '';
+      if (tC) { tC.style.background='rgba(167,139,250,0.12)';tC.style.borderColor='#a78bfa';tC.style.color='#a78bfa';tC.disabled=false; }
+      if (tE) { tE.style.background='transparent';tE.style.borderColor='rgba(167,139,250,0.25)';tE.style.color='rgba(167,139,250,0.5)'; }
+    }
+  };
+
+  // ── Abrir/cerrar vistas ──
+  // Genera texto resumen de la carta principal para mostrar en los paneles de sin/comp
+  window._resumenCartaPrincipal = function _resumenCartaPrincipal() {
+    var nombre = ((document.getElementById('nombre')||{}).value||'').trim();
+    var dia    = (document.getElementById('selDay')||{}).value;
+    var mesEl  = document.getElementById('selMonth');
+    var anioRaw= (document.getElementById('inYear')||{}).value;
+    var anio   = (anioRaw === 'A\u00f1o') ? '' : anioRaw;
+    var meses  = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    var mesStr = mesEl && mesEl.value ? (meses[parseInt(mesEl.value)-1]||mesEl.value) : '';
+    var lines = [];
+    if (nombre) lines.push('<strong>' + nombre + '</strong>');
+    if (dia && mesStr && anio) lines.push(dia + ' de ' + mesStr + ' de ' + anio);
+    // Hora: usar los IDs reales del form principal
+    var unknownHora = (document.getElementById('chkUnknown')||{value:'0'}).value === '1';
+    if (!unknownHora) {
+      var hh24 = 0, mm = 0;
+      var modo = window._horaMode || 'ampm';
+      if (modo === '24h') {
+        hh24 = parseInt((document.getElementById('inHour24')||{value:'0'}).value) || 0;
+        mm   = parseInt((document.getElementById('selMin24')||{value:'0'}).value)  || 0;
+      } else {
+        var h12 = parseInt((document.getElementById('inHour')||{value:'12'}).value) || 12;
+        mm      = parseInt((document.getElementById('selMin')||{value:'0'}).value)  || 0;
+        var ampm = window._ampmValue || 'AM';
+        if (ampm === 'AM') { hh24 = (h12 === 12) ? 0 : h12; }
+        else               { hh24 = (h12 === 12) ? 12 : h12 + 12; }
+      }
+      var hhStr = String(hh24).padStart(2,'0');
+      var mmStr = String(mm).padStart(2,'0');
+      lines.push('\uD83D\uDD50 ' + hhStr + ':' + mmStr + ' h');
+    } else {
+      lines.push('<span style="color:rgba(255,255,255,0.45);font-size:13px;">Hora desconocida</span>');
+    }
+    var lat = (document.getElementById('lat')||{}).value;
+    if (lat && !isNaN(parseFloat(lat))) {
+      lines.push('\uD83D\uDCCD Ubicaci\u00f3n registrada');
+    } else {
+      lines.push('<span style="color:#f87171;font-size:13px;">\u26A0 Sin ubicaci\u00f3n \u2014 comp\u00e9tala abajo</span>');
+    }
+    return lines.length ? lines.join('<br>') : '(Sin datos de carta principal)';
+  }
+
+  window.abrirSinastriaView = function() {
+    sinResetPersonaB('sin');
+    ocultarAppYOtros();
+    var v = document.getElementById('sinastriaView');
+    if (v) { v.style.display = 'flex'; v.scrollIntoView({behavior:'smooth',block:'start'}); }
+    var res = document.getElementById('sinResumenCartaPrincipal');
+    if (res) res.innerHTML = _resumenCartaPrincipal();
+    sinActualizarSexoA('sin');
+    // Poblar TZ selects
+    ['sinTzA','sinTzB','compTzA','compTzB'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el && el.options.length < 2) poblarTzSelect(id);
+    });
+    // Si la carta natal no tiene ubicación, mostrar el wizard de ubicación para Persona A
+    var latOrig = (document.getElementById('lat')||{}).value;
+    var sinUbicA = document.getElementById('sinUbicAWrap');
+    if (!latOrig || isNaN(parseFloat(latOrig))) {
+      if (sinUbicA) sinUbicA.style.display = '';
+      // Pre-llenar TZ del seleccionado en la carta principal si existe
+      var tzOrig = (document.getElementById('tzSelect')||{}).value;
+      var sinTzA = document.getElementById('sinTzA');
+      if (tzOrig && sinTzA) sinTzA.value = tzOrig;
+    } else {
+      if (sinUbicA) sinUbicA.style.display = 'none';
+      // Copiar lat/lon originales a los campos ocultos de Persona A
+      var sinLatA = document.getElementById('sinLatA');
+      var sinLonA = document.getElementById('sinLonA');
+      if (sinLatA) sinLatA.value = latOrig;
+      var lonOrig = (document.getElementById('lon')||{}).value;
+      if (sinLonA) sinLonA.value = lonOrig;
+    }
+  };
+
+  // Reset completo de Persona B (sin/comp) al volver a entrar
+  function sinResetPersonaB(mod) {
+    // Campos de texto
+    ['NombreB','EstadoB','CiudadB'].forEach(function(campo) {
+      var el = document.getElementById(mod + campo);
+      if (el) el.value = '';
+    });
+    // Reset select de sexo B
+    ['SexoB','SexoBHidden'].forEach(function(campo) {
+      var el = document.getElementById(mod + campo);
+      if (el) el.value = '';
+    });
+    // Inputs ocultos restantes
+    ['LatB','LonB','UnknownB'].forEach(function(campo) {
+      var el = document.getElementById(mod + campo);
+      if (el) el.value = '';
+    });
+    // Selects de hora
+    [mod+'HoraB', mod+'MinB', mod+'Hora24B', mod+'Min24B', mod+'TzB',
+     mod+'DiaB',  mod+'MesB'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.selectedIndex = 0;
+    });
+    // Año
+    var anioEl = document.getElementById(mod + 'AnioB');
+    if (anioEl) { anioEl.value = ''; anioEl.style.color = '#fff'; }
+    // Etiquetas cdrop
+    [mod+'DiaB', mod+'MesB'].forEach(function(base) {
+      var lbl = document.getElementById('cdrop-' + base + '-label');
+      if (lbl) lbl.textContent = base.indexOf('Dia') !== -1 ? 'Día' : 'Mes';
+    });
+    // Texto resumen geo
+    var geoRes = document.getElementById(mod + 'GeoResB');
+    if (geoRes) geoRes.textContent = '';
+    var geoMsg = document.getElementById(mod + 'GeoMsgB');
+    if (geoMsg) geoMsg.textContent = '';
+    // Ocultar todos los pasos de B salvo el nombre
+    ['SexoWrapB','FechaWrapB','HoraWrapB','TzWrapB','EstadoWrapB',
+     'CiudadWrapB','ResumenWrapB','MesWrapB','AnioWrapB'].forEach(function(id) {
+      var el = document.getElementById(mod + id);
+      if (el) el.style.display = 'none';
+    });
+    // Mostrar el campo nombre
+    var nomWrap = document.getElementById(mod + 'NombreWrapB');
+    if (nomWrap) nomWrap.style.display = '';
+    // Resetear modo hora y flags internos
+    if (window._sinHoraModo) { delete _sinHoraModo[mod+'B']; }
+    if (window._sinAmPmMovido) { delete _sinAmPmMovido[mod+'B']; }
+    if (window._sinAmPmTimer && _sinAmPmTimer[mod+'B']) { clearTimeout(_sinAmPmTimer[mod+'B']); delete _sinAmPmTimer[mod+'B']; }
+    // Restaurar grupo AM/PM y ocultar 24h, ocultar grupo inputs hora
+    var ampmGroup = document.getElementById(mod + 'HoraAmPmGroup' + 'B');
+    var h24Group  = document.getElementById(mod + 'Hora24hGroup' + 'B');
+    var hUnknown  = document.getElementById(mod + 'HoraUnknown' + 'B');
+    var hInputs   = document.getElementById(mod + 'HoraInputs'  + 'B');
+    var hQuestion = document.getElementById(mod + 'HoraQuestion'+ 'B');
+    if (ampmGroup) ampmGroup.style.display = '';
+    if (h24Group)  h24Group.style.display  = 'none';
+    if (hUnknown)  hUnknown.style.display  = 'none';
+    if (hInputs)   hInputs.style.display   = 'none';
+    if (hQuestion) hQuestion.style.display = 'flex';
+    // Ocultar resultado de carta anterior
+    var resultPanel = document.getElementById(mod + 'PanelCarta');
+    if (resultPanel) resultPanel.style.display = 'none';
+    // Resetear pestaña a "Editar datos"
+    var tabEditar = document.getElementById(mod + 'TabEditar');
+    var tabCarta  = document.getElementById(mod + 'TabCarta');
+    var panelEdit = document.getElementById(mod + 'PanelEditar');
+    if (tabEditar) { tabEditar.style.background = (mod==='sin'?'rgba(244,114,182,0.12)':'rgba(167,139,250,0.12)'); tabEditar.style.borderColor = (mod==='sin'?'#f472b6':'#a78bfa'); tabEditar.style.color = (mod==='sin'?'#f472b6':'#a78bfa'); }
+    if (tabCarta)  { tabCarta.style.background = 'transparent'; tabCarta.style.color = (mod==='sin'?'rgba(244,114,182,0.5)':'rgba(167,139,250,0.5)'); tabCarta.disabled = true; }
+    if (panelEdit) panelEdit.style.display = '';
+    // Colapsar panel A
+    var panelA = document.getElementById(mod + 'PanelA');
+    if (panelA) panelA.style.display = 'none';
+  }
+
+  window.abrirCompuestaView = function() {
+    sinResetPersonaB('comp');
+    ocultarAppYOtros();
+    var v = document.getElementById('compuestaView');
+    if (v) { v.style.display = 'flex'; v.scrollIntoView({behavior:'smooth',block:'start'}); }
+    var res = document.getElementById('compResumenCartaPrincipal');
+    if (res) res.innerHTML = _resumenCartaPrincipal();
+    sinActualizarSexoA('comp');
+    // Poblar TZ selects
+    ['sinTzA','sinTzB','compTzA','compTzB'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el && el.options.length < 2) poblarTzSelect(id);
+    });
+    // Si la carta natal no tiene ubicación, mostrar el wizard de ubicación para Persona A
+    var latOrig = (document.getElementById('lat')||{}).value;
+    var compUbicA = document.getElementById('compUbicAWrap');
+    if (!latOrig || isNaN(parseFloat(latOrig))) {
+      if (compUbicA) compUbicA.style.display = '';
+      var tzOrig = (document.getElementById('tzSelect')||{}).value;
+      var compTzA = document.getElementById('compTzA');
+      if (tzOrig && compTzA) compTzA.value = tzOrig;
+    } else {
+      if (compUbicA) compUbicA.style.display = 'none';
+      var compLatA = document.getElementById('compLatA');
+      var compLonA = document.getElementById('compLonA');
+      if (compLatA) compLatA.value = latOrig;
+      var lonOrig = (document.getElementById('lon')||{}).value;
+      if (compLonA) compLonA.value = lonOrig;
+    }
+  };
+
+  function ocultarAppYOtros() {
+    var app = document.getElementById('app');
+    if (app) app.style.display = 'none';
+    ['sinastriaView','compuestaView'].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.style.display = 'none';
+    });
+  }
+
+  // Pre-llenar Persona A con datos de la carta original
+  function preLlenarPersonaA(prefix) {
+    // nombre
+    var nombreOrig = document.getElementById('nombre');
+    if (nombreOrig && nombreOrig.value) {
+      var el = document.getElementById(prefix + 'NombreA');
+      if (el && !el.value) el.value = nombreOrig.value;
+    }
+    // fecha
+    var diaOrig = document.getElementById('selDay');
+    var mesOrig = document.getElementById('selMonth');
+    var anioOrig = document.getElementById('inYear');
+    if (diaOrig && diaOrig.value) {
+      var dEl = document.getElementById(prefix + 'DiaA');
+      if (dEl && !dEl.value) {
+        dEl.value = String(diaOrig.value).padStart(2,'0');
+        sinWizardNombre(prefix, 'A');
+        sinWizardDia(prefix, 'A');
+      }
+    }
+    if (mesOrig && mesOrig.value) {
+      var mEl = document.getElementById(prefix + 'MesA');
+      if (mEl) {
+        // poblar primero
+        poblarSelMes(prefix + 'MesA');
+        mEl.value = String(mesOrig.value).padStart(2,'0');
+        document.getElementById(prefix + 'AMesWrap') && (document.getElementById(prefix + 'AMesWrap').style.display = '');
+        document.getElementById(prefix + 'MesWrapA') && (document.getElementById(prefix + 'MesWrapA').style.display = '');
+        sinWizardMes(prefix, 'A');
+      }
+    }
+    if (anioOrig && anioOrig.value) {
+      var aEl = document.getElementById(prefix + 'AnioA');
+      if (aEl && !aEl.value) {
+        aEl.value = anioOrig.value;
+        sinWizardAnio(prefix, 'A');
+      }
+    }
+    // lat/lon (campos ocultos)
+    var latOrig = document.getElementById('lat');
+    var lonOrig = document.getElementById('lon');
+    if (latOrig && latOrig.value) {
+      var lEl = document.getElementById(prefix + 'LatA');
+      if (lEl && !lEl.value) lEl.value = latOrig.value;
+    }
+    if (lonOrig && lonOrig.value) {
+      var loEl = document.getElementById(prefix + 'LonA');
+      if (loEl && !loEl.value) loEl.value = lonOrig.value;
+    }
+    // tz
+    var tzOrig = document.getElementById('tzSelect');
+    if (tzOrig && tzOrig.value) {
+      var tzEl = document.getElementById(prefix + 'TzA');
+      if (tzEl) {
+        if (tzEl.options.length < 2) poblarTzSelect(prefix + 'TzA');
+        tzEl.value = tzOrig.value;
+      }
+    }
+    // Si ya hay lat/lon del original, mostrar el resumen directamente
+    if (latOrig && latOrig.value && lonOrig && lonOrig.value) {
+      var grEl = document.getElementById(prefix + 'GeoResA');
+      if (grEl && !grEl.textContent) grEl.textContent = '📍 (datos de la carta original)';
+      var resWrap = document.getElementById(prefix + 'AResumenWrap') || document.getElementById(prefix + 'ResumenWrapA');
+      if (resWrap) resWrap.style.display = '';
+      var tzWrap = document.getElementById(prefix + 'TzWrapA');
+      if (tzWrap) tzWrap.style.display = '';
+    }
+  }
+
+  window.volverCartaOriginal = function() {
+    // Ocultar pestañas
+    ['sinastriaView','compuestaView'].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.style.display = 'none';
+    });
+    // Mostrar app
+    var app = document.getElementById('app');
+    if (app) app.style.display = '';
+    // Mostrar resultView con la carta original
+    var fv = document.getElementById('formView');
+    if (fv) fv.style.display = 'none';
+    var rv = document.getElementById('resultView');
+    if (rv) rv.classList.add('active');
+    // Si había datos originales guardados, redibujar
+    if (window._cartaOriginalPlanets && typeof drawChart === 'function') {
+      drawChart(
+        window._cartaOriginalPlanets,
+        window._cartaOriginalAsc,
+        window._cartaOriginalMc,
+        window._cartaOriginalUnknown,
+        false, // minor
+        window._cartaOriginalHouses,
+        'chartCanvas',
+        null
+      );
+    }
+    if (window._cartaOriginalTitle) {
+      var rt = document.getElementById('rTitle');
+      if (rt) rt.innerHTML = window._cartaOriginalTitle;
+    }
+    setTimeout(function(){ if (rv) rv.scrollIntoView({behavior:'smooth',block:'start'}); }, 60);
+  };
+
+  // ── Leer datos del formulario ──
+  function leerDatosFormulario(prefix) {
+    var dia   = parseInt(document.getElementById(prefix+'Dia').value) || 0;
+    var mes   = parseInt(document.getElementById(prefix+'Mes').value) || 0;
+    var anio  = parseInt(document.getElementById(prefix+'Anio').value) || 0;
+    var hh    = parseInt(document.getElementById(prefix+'Hora').value);
+    var mm    = parseInt(document.getElementById(prefix+'Min').value);
+    var lat   = parseFloat(document.getElementById(prefix+'Lat').value);
+    var lon   = parseFloat(document.getElementById(prefix+'Lon').value);
+    var tz    = document.getElementById(prefix+'Tz').value;
+    var nombre= document.getElementById(prefix.replace(/[AB]$/,'Nombre') + prefix.slice(-1)).value.trim();
+    if (isNaN(hh)) hh = 12;
+    if (isNaN(mm)) mm = 0;
+    var unknown = (document.getElementById(prefix+'Hora').value.trim() === '');
+    if (unknown) { hh = 12; mm = 0; }
+    return { dia, mes, anio, hh, mm, lat, lon, tz, nombre, unknown };
+  }
+
+  // Nombre del input de nombre según convención prefix='sinA' → 'sinNombreA'
+  function getNombre(modulo, letra) {
+    var el = document.getElementById(modulo + 'NombreA');
+    if (letra === 'B') el = document.getElementById(modulo + 'NombreB');
+    return el ? el.value.trim() : '';
+  }
+
+  function leerPersona(modulo, letra) {
+    // Para Persona A (carta principal), leer datos de los campos originales de la carta natal
+    if (letra === 'A') {
+      var diaO  = parseInt((document.getElementById('selDay')||{}).value) || 0;
+      var mesO  = parseInt((document.getElementById('selMonth')||{}).value) || 0;
+      var anioRaw = (document.getElementById('inYear')||{}).value;
+      var anioO = (anioRaw === 'Año') ? 0 : (parseInt(anioRaw) || 0);
+      // Hora — usar getHour24/getMin si están disponibles, sino leer directamente
+      var unknownO = (document.getElementById('chkUnknown')||{value:'0'}).value === '1';
+      var hhO = 12, mmO = 0;
+      if (!unknownO) {
+        if (typeof getHour24 === 'function') {
+          hhO = getHour24();
+          mmO = typeof getMin === 'function' ? getMin() : 0;
+        } else {
+          var modo = window._horaMode || 'ampm';
+          if (modo === '24h') {
+            hhO = parseInt((document.getElementById('inHour24')||{value:'0'}).value) || 0;
+            mmO = parseInt((document.getElementById('selMin24')||{value:'0'}).value) || 0;
+          } else {
+            var h12 = parseInt((document.getElementById('inHour')||{value:'12'}).value) || 12;
+            mmO = parseInt((document.getElementById('selMin')||{value:'0'}).value) || 0;
+            var ampm = window._ampmValue || 'AM';
+            if (ampm === 'AM') { hhO = (h12 === 12) ? 0 : h12; }
+            else               { hhO = (h12 === 12) ? 12 : h12 + 12; }
+          }
+        }
+      }
+      // lat/lon: propios del panel sin/comp primero; si no, usar los originales
+      var latOwnEl = document.getElementById(modulo + 'LatA');
+      var lonOwnEl = document.getElementById(modulo + 'LonA');
+      var latO = (latOwnEl && latOwnEl.value) ? parseFloat(latOwnEl.value) : parseFloat((document.getElementById('lat')||{}).value);
+      var lonO = (lonOwnEl && lonOwnEl.value) ? parseFloat(lonOwnEl.value) : parseFloat((document.getElementById('lon')||{}).value);
+      // TZ: sinTzA/compTzA si tiene valor, sino el original
+      var tzOwnEl = document.getElementById(modulo + 'TzA');
+      var tzO = (tzOwnEl && tzOwnEl.value) ? tzOwnEl.value : ((document.getElementById('tzSelect')||{}).value || 'UTC');
+      var nombreO = ((document.getElementById('nombre')||{}).value||'').trim();
+      return { dia:diaO, mes:mesO, anio:anioO, hh:hhO, mm:mmO, lat:latO, lon:lonO, tz:tzO, nombre:nombreO, unknown:unknownO };
+    }
+    // IDs en el HTML siguen el patrón: mod + Campo + letra  (ej: sinDiaB, compMesB)
+    var pid = function(campo){ return modulo + campo + letra; };
+    var dia   = parseInt((document.getElementById(pid('Dia'))||{}).value) || 0;
+    var mes   = parseInt((document.getElementById(pid('Mes'))||{}).value) || 0;
+    var anio  = parseInt((document.getElementById(pid('Anio'))||{}).value) || 0;
+    // Hora: respetar modo ampm/24h del wizard
+    var modo  = (window._sinHoraModo && window._sinHoraModo[modulo+letra]) || 'ampm';
+    var hh, mm;
+    if (modo === '24h') {
+      hh = (document.getElementById(pid('Hora24'))||{}).value;
+      mm = (document.getElementById(pid('Min24'))||{}).value;
+    } else {
+      hh = (document.getElementById(pid('Hora'))||{}).value;
+      mm = (document.getElementById(pid('Min'))||{}).value;
+    }
+    var lat   = parseFloat((document.getElementById(pid('Lat'))||{}).value);
+    var lon   = parseFloat((document.getElementById(pid('Lon'))||{}).value);
+    var tz    = (document.getElementById(pid('Tz'))||{}).value || 'UTC';
+    var nombre= getNombre(modulo, letra);
+    var unknownEl = document.getElementById(pid('Unknown'));
+    var unknownHora = unknownEl ? (unknownEl.value === '1') : (!hh || hh === '' || hh === undefined);
+    var hInt, mInt;
+    if (unknownHora) {
+      hInt = 12; mInt = 0;
+    } else if (modo === '24h') {
+      hInt = parseInt(hh) || 0;
+      mInt = parseInt(mm) || 0;
+    } else {
+      // Convertir AM/PM → 24h correctamente
+      var h12 = parseInt(hh) || 12;
+      mInt = parseInt(mm) || 0;
+      var ampm = (_sinAmPm && _sinAmPm[modulo+letra]) || 'AM';
+      if (ampm === 'AM') { hInt = (h12 === 12) ? 0 : h12; }
+      else               { hInt = (h12 === 12) ? 12 : h12 + 12; }
+    }
+    return { dia, mes, anio, hh:hInt, mm:mInt, lat, lon, tz, nombre, unknown:unknownHora };
+  }
+
+  function validarPersona(d, label) {
+    if (!d.dia || !d.mes || !d.anio) return label + ': ingresa día, mes y año.';
+    if (d.anio < 1 || d.anio > 2100) return label + ': año inválido.';
+    if (isNaN(d.lat) || isNaN(d.lon)) return label + ': busca la ciudad con el botón ➤.';
+    return null;
+  }
+
+  function showSinError(msg) {
+    var el = document.getElementById('sinErrorMsg');
+    if (el) { el.textContent = msg; el.style.display = 'block'; }
+  }
+  function hideSinError() {
+    var el = document.getElementById('sinErrorMsg');
+    if (el) el.style.display = 'none';
+  }
+  function showCompError(msg) {
+    var el = document.getElementById('compErrorMsg');
+    if (el) { el.textContent = msg; el.style.display = 'block'; }
+  }
+  function hideCompError() {
+    var el = document.getElementById('compErrorMsg');
+    if (el) el.style.display = 'none';
+  }
+
+  // ── Calcular planetas de una persona ──
+  async function calcPlanetasPersona(d) {
+    if (!window.Astronomy) {
+      var ok = await (typeof loadAstronomy === 'function' ? loadAstronomy() : Promise.resolve(false));
+      if (!ok) throw new Error('No se pudo cargar el motor astronómico.');
+    }
+    var utc = loc2utc(d.tz, d.anio, d.mes, d.dia, d.hh, d.mm);
+    var asc = null, mc = null, houses = null;
+    if (!d.unknown) {
+      asc = ascLon(utc, d.lat, d.lon);
+      mc  = mcLon(utc, d.lon);
+    }
+    var planets;
+    try {
+      var swe = await loadSwephWasm();
+      if (swe && typeof swe.swe_calc_ut === 'function') {
+        planets = await compPlanetsSweph(utc, asc, d.lat, d.lon);
+      } else {
+        planets = compPlanets(utc, asc, d.lat, d.lon);
+      }
+    } catch(e) {
+      planets = compPlanets(utc, asc, d.lat, d.lon);
+    }
+    if (!d.unknown) {
+      houses = await fetchHousesAPI(d.anio, d.mes, d.dia, d.hh, d.mm, d.lat, d.lon, 'P');
+      if (!houses) houses = await getHousesLocal(utc, d.lat, d.lon);
+    }
+    return { planets, asc, mc, houses, utc, unknown: d.unknown };
+  }
+
+  // ── Aspectos cruzados (sinastría) ──
+  var ASP_DEF = [
+    { name:'Conjunción', g:'☌', ang:0,   orb:8,  color:'#facc15' },
+    { name:'Sextil',     g:'⚹', ang:60,  orb:5,  color:'#4ade80' },
+    { name:'Cuadratura', g:'□', ang:90,  orb:7,  color:'#f87171' },
+    { name:'Trígono',    g:'△', ang:120, orb:7,  color:'#60a5fa' },
+    { name:'Oposición',  g:'☍', ang:180, orb:8,  color:'#f472b6' },
+    { name:'Quincuncio', g:'⚻', ang:150, orb:3,  color:'#c084fc' },
+  ];
+
+  function calcAspectosCruzados(pA, pB) {
+    var _norm = function(d){ return ((d % 360) + 360) % 360; };
+    var aspectos = [];
+    var mainKeys = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto'];
+    pA.filter(function(p){ return mainKeys.indexOf(p.key) >= 0; }).forEach(function(pa) {
+      pB.filter(function(p){ return mainKeys.indexOf(p.key) >= 0; }).forEach(function(pb) {
+        var diff = Math.abs(_norm(pa.lon - pb.lon));
+        if (diff > 180) diff = 360 - diff;
+        ASP_DEF.forEach(function(asp) {
+          if (Math.abs(diff - asp.ang) <= asp.orb) {
+            var orbe = Math.abs(diff - asp.ang).toFixed(1);
+            aspectos.push({ pa, pb, asp, orbe });
+          }
+        });
+      });
+    });
+    // Ordenar por orbe
+    aspectos.sort(function(a,b){ return parseFloat(a.orbe) - parseFloat(b.orbe); });
+    return aspectos;
+  }
+
+  function calcAspectosNatales(planets) {
+    var _norm = function(d){ return ((d % 360) + 360) % 360; };
+    var keys = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto'];
+    var lista = planets.filter(function(p){ return keys.indexOf(p.key) >= 0; });
+    var aspectos = [];
+    for (var i=0;i<lista.length;i++) {
+      for (var j=i+1;j<lista.length;j++) {
+        var pa = lista[i], pb = lista[j];
+        var diff = Math.abs(_norm(pa.lon - pb.lon));
+        if (diff > 180) diff = 360 - diff;
+        ASP_DEF.forEach(function(asp) {
+          if (Math.abs(diff - asp.ang) <= asp.orb) {
+            var orbe = Math.abs(diff - asp.ang).toFixed(1);
+            aspectos.push({ pa, pb, asp, orbe });
+          }
+        });
+      }
+    }
+    aspectos.sort(function(a,b){ return parseFloat(a.orbe) - parseFloat(b.orbe); });
+    return aspectos;
+  }
+
+  function renderAspectosList(aspectos, containerId, colorA, colorB) {
+    var el = document.getElementById(containerId);
+    if (!el) return;
+    if (!aspectos.length) { el.innerHTML = '<div style="color:rgba(255,255,255,0.45);font-size:13px;padding:12px 0;">No se encontraron aspectos significativos.</div>'; return; }
+    var html = '';
+    aspectos.slice(0, 50).forEach(function(a) {
+      html += '<div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:9px 6px;border-bottom:1px solid rgba(255,255,255,0.06);">';
+      html += '<span style="text-align:right;font-size:15px;font-weight:600;color:' + (colorA||'#f472b6') + ';">' + a.pa.g + ' ' + a.pa.name + '</span>';
+      html += '<span style="text-align:center;padding:0 10px;font-size:19px;color:' + a.asp.color + ';font-family:\'Noto Sans Symbols 2\',sans-serif;">' + a.asp.g + '</span>';
+      html += '<span style="text-align:left;font-size:15px;font-weight:600;color:' + (colorB||'#c084fc') + ';">' + a.pb.g + ' ' + a.pb.name + '</span>';
+      html += '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  // ── Dibujar rueda de sinastría (planetas bicolor) ──
+  function drawSinastria(pA, ascA, mcA, pB, ascB, mcB, unknownA, unknownB, canvasId) {
+    // Usar ASC de A (o 0 si desconocido) como referencia de la rueda
+    var unknown = unknownA && unknownB;
+    // Dibujar la carta de A como base
+    if (typeof drawChart === 'function') {
+      drawChart(pA, ascA, mcA, unknownA, false, null, canvasId, null);
+    }
+    // Superponer planetas de B en magenta/púrpura sobre el mismo canvas
+    var cv = document.getElementById(canvasId);
+    if (!cv) return;
+    var ctx = cv.getContext('2d');
+    var W = cv.width, H = cv.height, cx = W/2, cy = H/2;
+    var Rplan = 178;
+    var h0 = unknownA ? 0 : (ascA || 0);
+    var _norm = function(d){ return ((d%360)+360)%360; };
+    var toA = function(rel){ return Math.PI - rel * Math.PI/180; };
+
+    var SIGN_GLYPHS = ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎'];
+
+    pB.filter(function(p){ return p.lon !== null && p.lon !== undefined && !p.special; }).forEach(function(p, idx) {
+      var rel = _norm(p.lon - h0);
+      var ang = toA(rel);
+      var r   = Rplan - 10; // un poco más al interior para distinguir
+      var x   = cx + r * Math.cos(ang);
+      var y   = cy + r * Math.sin(ang);
+
+      // Punto identificador
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI*2);
+      ctx.fillStyle = '#c084fc';
+      ctx.globalAlpha = 0.85;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // Glifo del planeta B
+      ctx.font = 'bold 13px "Noto Sans Symbols 2","Segoe UI Symbol",sans-serif';
+      ctx.fillStyle = '#e9d5ff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(p.g, x, y - 12);
+    });
+
+    // Líneas de aspectos cruzados (los más exactos)
+    var aspectos = calcAspectosCruzados(pA, pB);
+    aspectos.slice(0, 15).forEach(function(a) {
+      var relA = _norm(a.pa.lon - h0);
+      var relB = _norm(a.pb.lon - h0);
+      var angA = toA(relA);
+      var angB = toA(relB);
+      var xA = cx + (Rplan - 30) * Math.cos(angA);
+      var yA = cy + (Rplan - 30) * Math.sin(angA);
+      var xB = cx + (Rplan - 30) * Math.cos(angB);
+      var yB = cy + (Rplan - 30) * Math.sin(angB);
+      ctx.beginPath();
+      ctx.moveTo(xA, yA);
+      ctx.lineTo(xB, yB);
+      var alpha = Math.max(0.08, 0.32 - parseFloat(a.orbe) * 0.04);
+      ctx.strokeStyle = a.asp.color;
+      ctx.globalAlpha = alpha;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+  }
+
+  // ── Carta Compuesta: punto medio entre planetas ──
+  function calcCompuesta(pA, pB) {
+    var _norm = function(d){ return ((d%360)+360)%360; };
+    function midpoint(lonA, lonB) {
+      var diff = _norm(lonB - lonA);
+      var mid  = _norm(lonA + (diff <= 180 ? diff / 2 : diff / 2 + 180));
+      return mid;
+    }
+    var resultado = [];
+    pA.forEach(function(pa) {
+      var pb = pB.find(function(p){ return p.key === pa.key; });
+      if (!pb) return;
+      if (pa.lon === null || pb.lon === null) return;
+      var lonMid = midpoint(pa.lon, pb.lon);
+      var s = (typeof lonToSignO === 'function') ? lonToSignO(lonMid) : {sign:'?', deg:0, min:0};
+      resultado.push(Object.assign({}, pa, { lon: lonMid, sign: s, dig: (typeof dignidad === 'function' ? dignidad(pa.key, s) : '') }));
+    });
+    return resultado;
+  }
+
+  // ── CALCULAR SINASTRÍA ──
+  window.calcularSinastriaChart = async function() {
+    hideSinError();
+    var dA = leerPersona('sin','A');
+    var dB = leerPersona('sin','B');
+    var errA = validarPersona(dA, 'Carta Principal');
+    var errB = validarPersona(dB, 'Segunda Persona (✦)');
+    if (errA) { showSinError(errA); return; }
+    if (errB) { showSinError(errB); return; }
+
+    var btn = document.getElementById('btnCalcSinastria');
+    if (btn) { btn.textContent = 'Calculando...'; btn.disabled = true; }
+
+    try {
+      var resA = await calcPlanetasPersona(dA);
+      var resB = await calcPlanetasPersona(dB);
+
+      var titulo = document.getElementById('sinTituloChart');
+      if (titulo) titulo.textContent = (dA.nombre||'Carta Principal') + '  ♡  ' + (dB.nombre||'Segunda Persona');
+
+      // Cambiar a la pestaña de resultado
+      sinMostrarTab('carta');
+
+      // Dibujar
+      drawSinastria(
+        resA.planets, resA.asc, resA.mc,
+        resB.planets, resB.asc, resB.mc,
+        resA.unknown, resB.unknown,
+        'sinChart'
+      );
+
+      // Aspectos cruzados
+      var aspectos = calcAspectosCruzados(resA.planets, resB.planets);
+      renderAspectosList(aspectos, 'sinAspectosList', '#f472b6', '#c084fc');
+
+      var sinResultWrap = document.getElementById('sinResultWrap');
+      setTimeout(function(){ if (sinResultWrap) sinResultWrap.scrollIntoView({behavior:'smooth',block:'start'}); }, 120);
+    } catch(e) {
+      showSinError('Error al calcular: ' + e.message);
+    } finally {
+      if (btn) { btn.textContent = '♡ Calcular Sinastría'; btn.disabled = false; }
+    }
+  };
+
+  // ── CALCULAR COMPUESTA ──
+  window.calcularCompuestaChart = async function() {
+    hideCompError();
+    var dA = leerPersona('comp','A');
+    var dB = leerPersona('comp','B');
+    var errA = validarPersona(dA, 'Carta Principal');
+    var errB = validarPersona(dB, 'Segunda Persona');
+    if (errA) { showCompError(errA); return; }
+    if (errB) { showCompError(errB); return; }
+
+    var btn = document.getElementById('btnCalcCompuesta');
+    if (btn) { btn.textContent = 'Calculando...'; btn.disabled = true; }
+
+    try {
+      var resA = await calcPlanetasPersona(dA);
+      var resB = await calcPlanetasPersona(dB);
+
+      var compPlanets_midp = calcCompuesta(resA.planets, resB.planets);
+      var ascMid = null, mcMid = null;
+      if (resA.asc !== null && resB.asc !== null) {
+        // Punto medio del ASC
+        var _norm = function(d){ return ((d%360)+360)%360; };
+        var diffAsc = _norm(resB.asc - resA.asc);
+        ascMid = _norm(resA.asc + (diffAsc <= 180 ? diffAsc/2 : diffAsc/2+180));
+        var diffMc = _norm(resB.mc - resA.mc);
+        mcMid = _norm(resA.mc + (diffMc <= 180 ? diffMc/2 : diffMc/2+180));
+      }
+
+      var titulo = document.getElementById('compTituloChart');
+      if (titulo) titulo.textContent = 'Compuesta · ' + (dA.nombre||'Carta Principal') + ' & ' + (dB.nombre||'Segunda Persona');
+
+      // Cambiar a la pestaña de resultado
+      compMostrarTab('carta');
+
+      if (typeof drawChart === 'function') {
+        drawChart(compPlanets_midp, ascMid, mcMid, (ascMid===null), false, null, 'compChart', null);
+      }
+
+      // Aspectos internos de la compuesta
+      var aspectos = calcAspectosNatales(compPlanets_midp);
+      renderAspectosList(aspectos, 'compAspectosList', '#a78bfa', '#60a5fa');
+
+      var compResultWrap = document.getElementById('compResultWrap');
+      setTimeout(function(){ if (compResultWrap) compResultWrap.scrollIntoView({behavior:'smooth',block:'start'}); }, 120);
+    } catch(e) {
+      showCompError('Error al calcular: ' + e.message);
+    } finally {
+      if (btn) { btn.textContent = '✦ Calcular Carta Compuesta'; btn.disabled = false; }
+    }
   };
 
 })();
