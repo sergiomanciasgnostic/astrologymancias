@@ -25421,3 +25421,247 @@ window.OE_DATA = {
     }
   ]
 };
+
+// ================================================================================
+// CHAKRAS
+// ================================================================================
+
+let CK_CHAKRAS = [
+  {
+    idx: 0, symbol: '✦', name: 'Sahasrara', sanskrit: 'Corona',
+    color: '#9b59b6', rgb: '155,89,182',
+    img: 'https://static.wixstatic.com/media/0bac9e_6648ca6b0c1244308f83222affff6713~mv2.png',
+    tags: ['Espiritualidad','Conciencia','Iluminación','Propósito'],
+    closedText: 'Tu chakra corona puede estar limitado, lo que puede manifestarse como desconexión espiritual, falta de propósito o sensación de vacío. Trabajar este chakra te ayuda a reconectar con algo más grande que tú mismo.',
+    questions: [
+      { text: '¿Con qué frecuencia sientes una conexión profunda con algo más grande que tú mismo?', opts: ['Constantemente, es parte de mi vida','Con frecuencia, en momentos de calma','Rara vez, me cuesta encontrarla','Casi nunca, me parece difícil de alcanzar'] },
+      { text: '¿Cómo describes tu relación con la meditación o el silencio interior?', opts: ['Es una práctica esencial y regular','La busco cuando puedo','La intento pero me cuesta mantenerla','No la practico, mi mente no se detiene'] },
+      { text: '¿Sientes que tu vida tiene un propósito claro y significado profundo?', opts: ['Sí, lo siento con claridad','En su mayor parte, con alguna duda','A veces lo vislumbro, pero se escapa','No, me siento perdido o sin dirección'] }
+    ]
+  },
+  {
+    idx: 1, symbol: '◉', name: 'Ajna', sanskrit: '3er Ojo',
+    color: '#3f51b5', rgb: '63,81,181',
+    img: 'https://static.wixstatic.com/media/0bac9e_a001612b9f5a43e08d7322c5bf19eace~mv2.png',
+    tags: ['Intuición','Claridad','Percepción','Visión interior'],
+    closedText: 'Tu tercer ojo puede necesitar apertura. Esto puede manifestarse como dificultad para tomar decisiones, dudas constantes sobre tu intuición o falta de claridad mental. Confiar más en tu percepción interior es el camino.',
+    questions: [
+      { text: '¿Qué tan seguido confías en tu intuición para tomar decisiones importantes?', opts: ['Siempre, es mi guía principal','Con frecuencia, cuando la escucho','A veces, con mucha duda','Casi nunca, prefiero solo la lógica'] },
+      { text: '¿Tienes sueños vívidos o experiencias de insight o déjà vu con regularidad?', opts: ['Sí, con frecuencia y los recuerdo','Ocasionalmente','Raramente','Casi nunca'] },
+      { text: '¿Puedes visualizar escenarios futuros o mentales con claridad?', opts: ['Sí, mi imaginación visual es clara','Bastante bien','Con dificultad','No, me cuesta crear imágenes mentales'] }
+    ]
+  },
+  {
+    idx: 2, symbol: '◎', name: 'Vishuddha', sanskrit: 'Garganta',
+    color: '#00acc1', rgb: '0,172,193',
+    img: 'https://static.wixstatic.com/media/0bac9e_21268c7ed6d46e1e8a5a37e5e5b1ca4d~mv2.png',
+    tags: ['Comunicación','Expresión','Autenticidad','Escucha'],
+    closedText: 'Tu chakra garganta puede estar bloqueado. Esto se manifiesta como dificultad para hablar, miedo a ser juzgado o incapacidad de comunicar lo que sientes. Abrirlo libera tu voz.',
+    questions: [
+      { text: '¿Qué tan fácil te resulta expresar tus sentimientos y pensamientos?', opts: ['Muy fácil, hablo con libertad','Relativamente fácil','Me cuesta expresarme','Tengo grandes dificultades'] },
+      { text: '¿Tienes miedo de cómo otros reaccionarán a lo que digas?', opts: ['No, soy auténtico','A veces','Frecuentemente','Casi siempre'] },
+      { text: '¿Escuchas activamente cuando otros hablan, o tu mente se distrae?', opts: ['Escucho con plena atención','Escucho bien generalmente','Me distraigo a menudo','Casi nunca escucho completamente'] }
+    ]
+  },
+  {
+    idx: 3, symbol: '◉', name: 'Anahata', sanskrit: 'Corazón',
+    color: '#43a047', rgb: '67,160,71',
+    img: 'https://static.wixstatic.com/media/0bac9e_f81b88202f5c41b78d4f23e99e8b06ca~mv2.png',
+    tags: ['Amor','Compasión','Perdón','Conexión'],
+    closedText: 'Tu chakra corazón puede estar cerrado, manifestándose como dificultad para amar, desconexión emocional o resentimiento. Abrirlo te permite sanar relaciones y cultivar compasión.',
+    questions: [
+      { text: '¿Cómo describes tu capacidad para amar y conectar emocionalmente?', opts: ['Amoroso y abierto','Generalmente cálido','Un poco reservado','Bastante cerrado'] },
+      { text: '¿Tienes dificultad para perdonar, incluido perdonarte a ti mismo?', opts: ['No, perdono con facilidad','Generalmente puedo perdonar','Me cuesta, especialmente si fui herido','No puedo perdonar fácilmente'] },
+      { text: '¿Sientes compasión por otros, incluso por aquellos que te han lastimado?', opts: ['Sí, profundamente','La mayoría del tiempo','A veces','Rara vez o nunca'] }
+    ]
+  },
+  {
+    idx: 4, symbol: '◎', name: 'Manipura', sanskrit: 'Plexo Solar',
+    color: '#f9a825', rgb: '249,168,37',
+    img: 'https://static.wixstatic.com/media/0bac9e_55e3cf0ba87be8d9c3fdf4e2ba47b1f7~mv2.png',
+    tags: ['Confianza','Voluntad','Poder Personal','Autoestima'],
+    closedText: 'Tu chakra plexo solar puede estar debilitado, resultando en falta de confianza, indecisión y baja autoestima. Actuar desde el poder personal requiere que este chakra esté encendido.',
+    questions: [
+      { text: '¿Qué tan seguro eres de ti mismo y de tus capacidades?', opts: ['Muy seguro, conozco mis fortalezas','Bastante seguro','Inseguro a menudo','Muy inseguro de mis habilidades'] },
+      { text: '¿Tienes claridad en tus metas y la determinación para perseguirlas?', opts: ['Sí, muy clara','Generalmente sí','Incierto frecuentemente','Sin claridad de metas'] },
+      { text: '¿Tiendes a controlar situaciones o a permitir que otros decidan por ti?', opts: ['Equilibrado','Un poco controlador','Tiendo a ceder el poder','Pierdo el poder constantemente'] }
+    ]
+  },
+  {
+    idx: 5, symbol: '◉', name: 'Svadhisthana', sanskrit: 'Sacro',
+    color: '#ef6c00', rgb: '239,108,0',
+    img: 'https://static.wixstatic.com/media/0bac9e_3c8b2f919f9eda4e02ae5fc6b066f9fe~mv2.png',
+    tags: ['Creatividad','Placer','Emoción','Flujo'],
+    closedText: 'Tu chakra sacro puede estar bloqueado, sofocando tu creatividad y tu capacidad para disfrutar la vida. Esto afecta tanto tu expresión artística como tu relación con el placer.',
+    questions: [
+      { text: '¿Cómo describes tu creatividad: floreciente o bloqueada?', opts: ['Muy creativo y fluido','Creativo generalmente','Bloqueado a menudo','Creativamente atrapado'] },
+      { text: '¿Permites que el placer y la diversión sean parte de tu vida?', opts: ['Sí, equilibradamente','Frecuentemente','Rara vez','Me prohíbo el placer'] },
+      { text: '¿Cómo te relacionas con tus emociones: las sientes o las reprimes?', opts: ['Las siento plenamente','Las siento generalmente','Las reprimo a menudo','Las ignoro completamente'] }
+    ]
+  },
+  {
+    idx: 6, symbol: '◆', name: 'Muladhara', sanskrit: 'Raíz',
+    color: '#c62828', rgb: '198,40,40',
+    img: 'https://static.wixstatic.com/media/0bac9e_ab13e2a3143147d88391a749d04cdd18~mv2.png',
+    tags: ['Seguridad','Arraigo','Estabilidad','Supervivencia'],
+    closedText: 'Tu chakra raíz puede estar bloqueado, generando ansiedad, inseguridad y sensación de no tener base. Fortalecer este chakra es fundamental para construir toda tu vida sobre cimientos sólidos.',
+    questions: [
+      { text: '¿Qué tan seguro y estable te sientes en tu vida cotidiana (hogar, finanzas, rutina)?', opts: ['Muy seguro, tengo bases sólidas','Bastante estable, con algunos desafíos','Inestable, con bastante incertidumbre','Muy inseguro, siento el piso moverse'] },
+      { text: '¿Puedes estar presente en tu cuerpo y en el momento actual sin escaparte a preocupaciones?', opts: ['Sí, suelo vivir en el presente','La mayoría del tiempo','Me cuesta, mi mente está en el futuro o pasado','No, estoy casi siempre ansioso o desconectado'] },
+      { text: '¿Sientes que perteneces a un lugar, comunidad o familia que te sostiene?', opts: ['Sí, tengo un arraigo claro','En general sí','Solo parcialmente','No, me siento solo o sin raíces'] }
+    ]
+  }
+];
+
+// Hacer disponible globalmente
+window._CK_CHAKRAS = CK_CHAKRAS;
+
+
+// ================================================================================
+// ZODIACO CHINO - DATOS COMPLETOS
+// ================================================================================
+
+// Animales zodiacales
+var ZC_ANIMALES = [
+  { key:'rata',     emoji:'🐀', nombre:'Rata',     yin:false, trine:1, elemento_fijo:'Agua',   horas:[23,0],  descripcion:'Inteligente, adaptable, carismática. Sabe aprovechar las oportunidades y tiene gran memoria. A veces demasiado calculadora.' },
+  { key:'buey',     emoji:'🐂', nombre:'Buey',     yin:true,  trine:2, elemento_fijo:'Tierra',  horas:[1,2],   descripcion:'Trabajador, confiable, determinado. Su perseverancia lo lleva lejos aunque avance lento. Puede ser terco.' },
+  { key:'tigre',    emoji:'🐅', nombre:'Tigre',    yin:false, trine:3, elemento_fijo:'Madera',  horas:[3,4],   descripcion:'Valiente, apasionado, carismático. Natural líder que no teme los desafíos. Puede ser impulsivo.' },
+  { key:'conejo',   emoji:'🐇', nombre:'Conejo',   yin:true,  trine:1, elemento_fijo:'Madera',  horas:[5,6],   descripcion:'Diplomático, empático, artístico. Ama la armonía y la belleza. Puede evitar los conflictos en exceso.' },
+  { key:'dragon',   emoji:'🐉', nombre:'Dragón',   yin:false, trine:1, elemento_fijo:'Tierra',  horas:[7,8],   descripcion:'Poderoso, visionario, magnético. El único animal mítico: simboliza fuerza e inspiración divina. Puede ser arrogante.' },
+  { key:'serpiente',emoji:'🐍', nombre:'Serpiente',yin:true,  trine:2, elemento_fijo:'Fuego',   horas:[9,10],  descripcion:'Sabia, intuitiva, misteriosa. Percibe lo que otros no ven. Puede ser posesiva y celosa.' },
+  { key:'caballo',  emoji:'🐎', nombre:'Caballo',  yin:false, trine:3, elemento_fijo:'Fuego',   horas:[11,12], descripcion:'Libre, enérgico, sociable. Ama la aventura y la independencia. Puede dispersarse con facilidad.' },
+  { key:'cabra',    emoji:'🐐', nombre:'Cabra',    yin:true,  trine:2, elemento_fijo:'Tierra',  horas:[13,14], descripcion:'Creativa, sensible, generosa. Profundamente artística y empática. Puede ser insegura.' },
+  { key:'mono',     emoji:'🐒', nombre:'Mono',     yin:false, trine:1, elemento_fijo:'Metal',   horas:[15,16], descripcion:'Ingenioso, curioso, versátil. Aprende todo con velocidad asombrosa. Puede ser manipulador.' },
+  { key:'gallo',    emoji:'🐓', nombre:'Gallo',    yin:true,  trine:3, elemento_fijo:'Metal',   horas:[17,18], descripcion:'Perfeccionista, honesto, observador. Dice la verdad aunque duela. Puede ser demasiado crítico.' },
+  { key:'perro',    emoji:'🐕', nombre:'Perro',    yin:false, trine:3, elemento_fijo:'Tierra',  horas:[19,20], descripcion:'Leal, justo, protector. El más fiel de los animales. Puede ser ansioso y pesimista.' },
+  { key:'cerdo',    emoji:'🐖', nombre:'Cerdo',    yin:true,  trine:2, elemento_fijo:'Agua',   horas:[21,22], descripcion:'Generoso, sincero, compasivo. Disfruta la vida con plenitud. Puede ser ingenuo.' }
+];
+
+// Elementos
+var ZC_ELEMENTOS = ['Madera','Fuego','Tierra','Metal','Agua'];
+
+// Emojis de elementos
+var ZC_ELEM_EMOJI = { 'Madera':'🌿', 'Fuego':'🔥', 'Tierra':'🌍', 'Metal':'⚙️', 'Agua':'💧' };
+
+// COLORES DE ELEMENTOS (esto es lo que Sergio pidió específicamente)
+var ZC_ELEM_COLOR = { 'Madera':'#4ade80', 'Fuego':'#f97316', 'Tierra':'#d97706', 'Metal':'#94a3b8', 'Agua':'#38bdf8' };
+
+// Año base de referencia
+var ZC_ANIO_BASE = 1900; // Rata Yang Metal
+
+// Orden animales para el año (ciclo de 12 desde 1900 = Rata)
+var ZC_ORDEN_ANIMALES = ['rata','buey','tigre','conejo','dragon','serpiente','caballo','cabra','mono','gallo','perro','cerdo'];
+
+// Elementos del año en ciclo de 10 (cada uno dura 2 años, alternando Yang/Yin)
+var ZC_ELEMENTOS_CICLO = ['Metal','Metal','Agua','Agua','Madera','Madera','Fuego','Fuego','Tierra','Tierra'];
+
+// Ciclo de 12 animales por mes lunar (fijo)
+var ZC_MESES_ANIMAL = ['tigre','conejo','dragon','serpiente','caballo','cabra','mono','gallo','perro','cerdo','rata','buey'];
+
+// Compatibilidades Trine (grupos de 3)
+var ZC_TRINE = {
+  1: ['rata','dragon','mono'],
+  2: ['buey','serpiente','gallo'],
+  3: ['tigre','caballo','perro'],
+  2: ['conejo','cabra','cerdo']
+};
+
+// Opuestos (incompatibles)
+var ZC_OPUESTOS = {
+  'rata':'caballo', 'buey':'cabra', 'tigre':'mono', 'conejo':'gallo',
+  'dragon':'perro', 'serpiente':'cerdo', 'caballo':'rata', 'cabra':'buey',
+  'mono':'tigre', 'gallo':'conejo', 'perro':'dragon', 'cerdo':'serpiente'
+};
+
+// Afines (compatibles)
+var ZC_AFINES = {
+  'rata':['buey','dragon'], 'buey':['rata','serpiente'], 'tigre':['caballo','perro'],
+  'conejo':['cabra','cerdo'], 'dragon':['rata','mono'], 'serpiente':['buey','gallo'],
+  'caballo':['tigre','perro'], 'cabra':['conejo','cerdo'], 'mono':['dragon','rata'],
+  'gallo':['serpiente','buey'], 'perro':['tigre','caballo'], 'cerdo':['conejo','cabra']
+};
+
+// Hacer disponibles globalmente
+window._ZC_ANIMALES = ZC_ANIMALES;
+window._ZC_ELEMENTOS = ZC_ELEMENTOS;
+window._ZC_ELEM_EMOJI = ZC_ELEM_EMOJI;
+window._ZC_ELEM_COLOR = ZC_ELEM_COLOR;
+window._ZC_ANIO_BASE = ZC_ANIO_BASE;
+window._ZC_ORDEN_ANIMALES = ZC_ORDEN_ANIMALES;
+window._ZC_ELEMENTOS_CICLO = ZC_ELEMENTOS_CICLO;
+window._ZC_MESES_ANIMAL = ZC_MESES_ANIMAL;
+window._ZC_TRINE = ZC_TRINE;
+window._ZC_OPUESTOS = ZC_OPUESTOS;
+window._ZC_AFINES = ZC_AFINES;
+
+
+// ================================================================================
+// ASTROMORFOLOGÍA
+// ================================================================================
+
+window._ASTROMORF_DATA = {
+  signos: {
+    aries: { emoji:'♈', nombre:'Aries', elemento:'Fuego · Cardinal', zonas:['cabeza'],
+      solar:{ texto:'Aries imprime en el cuerpo una energía marcial y directa. El rostro suele ser alargado o anguloso, con cejas prominentes y mirada intensa. La mandíbula firme y la frente alta son señas características. El cuerpo tiende a ser atlético y de movimientos rápidos, con tendencia a inclinar la cabeza hacia adelante al caminar, como si siempre fuera a embestir.', rasgos:['Frente alta','Cejas marcadas','Mirada directa','Mandíbula angular','Paso rápido','Porte combativo'] },
+      asc:{ texto:'El Ascendente Aries proyecta una presencia inmediata y directa. El rostro es la primera impresión: frente despejada, pómulos definidos y una expresión que no pide permiso. La energía que emana es de liderazgo espontáneo.', rasgos_asc:['Primera impresión fuerte','Porte decidido','Expresión directa','Energía impulsiva visible'], planeta_info:'Marte rige Aries y marca el cuerpo con vigor físico y un metabolismo acelerado. La inflamación y la fiebre son señales comunes cuando este planeta está activado.' }
+    },
+    tauro: { emoji:'♉', nombre:'Tauro', elemento:'Tierra · Fijo', zonas:['cuello'],
+      solar:{ texto:'Tauro otorga una constitución sólida y sensual. El cuello suele ser ancho y corto, con una voz rica y resonante que es una de sus marcas más reconocibles. El cuerpo tiende a acumular masa muscular con facilidad. Los movimientos son lentos y deliberados, transmitiendo estabilidad y arraigo.', rasgos:['Cuello ancho','Voz resonante','Constitución sólida','Rasgos redondeados','Movimientos pausados','Piel suave'] },
+      asc:{ texto:'El Ascendente Tauro da una apariencia serena y tangible. El cuello y la garganta son zonas particularmente expresivas: la voz suena cálida desde el primer intercambio. La apariencia transmite confianza y permanencia.', rasgos_asc:['Presencia calmante','Voz atractiva','Apariencia sólida','Mirada tranquila'], planeta_info:'Venus rige Tauro e imprime belleza natural y una atracción casi magnética. Puede señalar tendencia a la retención hídrica cuando está tensionado.' }
+    },
+    geminis: { emoji:'♊', nombre:'Géminis', elemento:'Aire · Mutable', zonas:['brazos','manos'],
+      solar:{ texto:'Géminis produce cuerpos ágiles, de constitución ligera y manos especialmente expresivas. Los brazos son largos y los gestos al hablar son parte esencial de su comunicación. El rostro es vivaz, de ojos rápidos y una sonrisa que aparece y desaparece con velocidad.', rasgos:['Manos expresivas','Ojos inquietos','Constitución ligera','Gestos al hablar','Apariencia variable','Agilidad física'] },
+      asc:{ texto:'El Ascendente Géminis proyecta juventud y curiosidad instantánea. Los ojos se mueven, brillan y procesan constantemente. Hay una ligereza en el cuerpo que hace que parezca que nunca está del todo quieto.', rasgos_asc:['Ojos brillantes','Aspecto juvenil','Energía nerviosa visible','Manos gesticulantes'], planeta_info:'Mercurio rige Géminis y activa el sistema nervioso, los pulmones y los brazos. Tensionado puede producir tensión en manos u hombros rígidos.' }
+    },
+    cancer: { emoji:'♋', nombre:'Cáncer', elemento:'Agua · Cardinal', zonas:['pecho'],
+      solar:{ texto:'Cáncer confiere una complexión suave y redondeada, con el pecho como zona corporal más expresiva. Los ojos son grandes y lunares, con una profundidad emocional que se percibe de inmediato. Los movimientos son envolventes y protectores.', rasgos:['Ojos grandes y lunares','Pecho prominente','Complexión suave','Piel sensible','Movimientos envolventes','Expresión empática'] },
+      asc:{ texto:'El Ascendente Cáncer proyecta ternura y receptividad. El primer encuentro genera una sensación de calidez instintiva. El rostro refleja las emociones del entorno antes de que la persona hable.', rasgos_asc:['Expresión emotiva','Ojos profundos','Porte protector','Presencia cálida'], planeta_info:'La Luna rige Cáncer y gobierna los fluidos, el sistema digestivo y los ciclos del cuerpo. El estómago es el primer órgano que reacciona al estrés emocional.' }
+    },
+    leo: { emoji:'♌', nombre:'Leo', elemento:'Fuego · Fijo', zonas:['pecho'],
+      solar:{ texto:'Leo imprime una presencia física que reclama espacio. El cabello es uno de sus rasgos más llamativos: abundante, con movimiento. La espalda y el pecho son zonas de orgullo físico. El porte es erguido y teatral, con una tendencia natural a ocupar el centro de cualquier habitación.', rasgos:['Cabello abundante','Espalda recta','Pecho abierto','Porte teatral','Gestos amplios','Mirada cálida'] },
+      asc:{ texto:'El Ascendente Leo se nota desde la entrada. El cabello, la postura y la forma de mirar definen la primera impresión. No busca atención — la atención lo encuentra de forma natural.', rasgos_asc:['Presencia magnética','Cabello distintivo','Postura erguida','Mirada cálida y segura'], planeta_info:'El Sol rige Leo y vitaliza el corazón, la circulación y la columna dorsal. Cuando la energía solar está baja, el cuerpo avisa con fatiga o tensión en la espalda.' }
+    },
+    virgo: { emoji:'♍', nombre:'Virgo', elemento:'Tierra · Mutable', zonas:['abdomen'],
+      solar:{ texto:'Virgo produce cuerpos de constitución media y gestos contenidos. El rostro tiene rasgos finos y analíticos. La zona abdominal y el sistema digestivo son las áreas más sensibles. Los movimientos son precisos y económicos, la apariencia pulcra y ordenada.', rasgos:['Rasgos finos','Movimientos precisos','Abdomen sensible','Aspecto ordenado','Ojos analíticos','Constitución media'] },
+      asc:{ texto:'El Ascendente Virgo proyecta discernimiento y atención al detalle desde el primer segundo. La apariencia es cuidada sin ser ostentosa. Hay algo en la mirada que parece catalogar información constantemente.', rasgos_asc:['Apariencia ordenada','Mirada analítica','Porte discreto','Gestos medidos'], planeta_info:'Mercurio rige Virgo y activa el sistema digestivo y el sistema nervioso autónomo. El estrés se manifiesta primero en el vientre: náuseas, intolerancias o tensión abdominal.' }
+    },
+    libra: { emoji:'♎', nombre:'Libra', elemento:'Aire · Cardinal', zonas:['caderas'],
+      solar:{ texto:'Libra confiere una simetría facial notable y una estética natural. Los rasgos son armónicos y equilibrados, con una sonrisa que desarma. Las caderas y la zona lumbar son los puntos de equilibrio del cuerpo. Los movimientos son elegantes y considerados.', rasgos:['Simetría facial','Caderas equilibradas','Sonrisa armoniosa','Movimientos elegantes','Estética natural','Porte diplomático'] },
+      asc:{ texto:'El Ascendente Libra produce la primera impresión más agradable del zodiaco. Hay algo inmediatamente atractivo en la persona, no solo por los rasgos sino por cómo los porta. La sonrisa llega antes que las palabras.', rasgos_asc:['Sonrisa disarmante','Apariencia armónica','Tono de voz agradable','Porte elegante'], planeta_info:'Venus rige Libra y actúa sobre los riñones, la piel y el equilibrio hormonal. El cuerpo responde con sensibilidad a la desarmonía del entorno.' }
+    },
+    escorpio: { emoji:'♏', nombre:'Escorpio', elemento:'Agua · Fijo', zonas:['caderas'],
+      solar:{ texto:'Escorpio produce una intensidad física que se percibe antes de que la persona hable. Los ojos son su rasgo más poderoso: oscuros, fijos y penetrantes. La constitución suele ser robusta o atlética, con una densidad energética particular. Los movimientos son deliberados y controlados.', rasgos:['Mirada penetrante','Constitución densa','Movimientos controlados','Presencia intensa','Zona pélvica sensible','Rasgos marcados'] },
+      asc:{ texto:'El Ascendente Escorpio genera una primera impresión de profundidad y misterio que es difícil de ignorar. Hay algo en la mirada que hace que la gente sienta que está siendo leída. La presencia ocupa el espacio con peso.', rasgos_asc:['Mirada que penetra','Presencia densa','Porte misterioso','Intensidad contenida'], planeta_info:'Plutón y Marte corigen Escorpio, activando el sistema reproductivo y los mecanismos de transformación. Las crisis físicas suelen ser intensas pero seguidas de regeneraciones notables.' }
+    },
+    sagitario: { emoji:'♐', nombre:'Sagitario', elemento:'Fuego · Mutable', zonas:['muslos','caderas'],
+      solar:{ texto:'Sagitario produce cuerpos largos y expansivos, con muslos y caderas como zonas físicas dominantes. El porte es optimista y abierto. El rostro tiene algo jovial y franco: la sonrisa es amplia y frecuente. Los movimientos son largos y entusiastas.', rasgos:['Muslos fuertes','Porte expansivo','Sonrisa amplia','Constitución larga','Movimientos entusiastas','Expresión franca'] },
+      asc:{ texto:'El Ascendente Sagitario proyecta optimismo instantáneo. Hay algo en la forma de sonreír y hablar que abre espacios. El cuerpo no se contiene: los gestos son amplios, la risa es franca.', rasgos_asc:['Sonrisa abierta','Porte expansivo','Energía juvenil','Tono de voz alegre'], planeta_info:'Júpiter rige Sagitario y dilata todo lo que toca: metabolismo acelerado, tendencia a ganar peso, pero también optimismo natural. Inflamaciones ocasionales reflejan su tendencia expansiva.' }
+    },
+    capricornio: { emoji:'♑', nombre:'Capricornio', elemento:'Tierra · Cardinal', zonas:['rodillas','huesos'],
+      solar:{ texto:'Capricornio produce una constitución angular y un porte disciplinado. La estructura ósea es lo más evidente: pómulos altos, mandíbula fuerte, una cierta aspereza en los rasgos que refleja su naturaleza seria y responsable. El cuerpo es más bien enjuto, con músculos definidos por esfuerzo.', rasgos:['Estructura ósea definida','Pómulos altos','Mandíbula fuerte','Porte rígido','Gestos económicos','Apariencia seria'] },
+      asc:{ texto:'El Ascendente Capricornio transmite autoridad desde el primer segundo. No es calidez lo que proyecta, sino respeto y seriedad. El porte es vertical, la mirada directa y evaluadora.', rasgos_asc:['Porte erguido','Mirada seria','Presencia de autoridad','Gestos controlados'], planeta_info:'Saturno rige Capricornio y restringe, endurece y fortalece. Las articulaciones — especialmente rodillas — son su punto sensible. El envejecimiento es visible pero noble.' }
+    },
+    acuario: { emoji:'♒', nombre:'Acuario', elemento:'Aire · Fijo', zonas:['tobillos','pantorrillas'],
+      solar:{ texto:'Acuario produce cuerpos de constitución variable, frecuentemente altos y de estructura delicada. El rostro tiene algo andrógino o fuera de lo común: los rasgos no se ajustan a estándares típicos. Los ojos son penetrantes e inesperados. El movimiento es errático pero elegante.', rasgos:['Constitución variable','Rasgos andróginos','Ojos penetrantes','Movimiento impredecible','Apariencia inconvencional','Energía excéntrica'] },
+      asc:{ texto:'El Ascendente Acuario proyecta originalidad instantánea. No busca encajar: es obvio desde el primer vistazo que es diferente. Hay algo magnético pero alienígena en su presencia.', rasgos_asc:['Presencia única','Aspecto poco convencional','Energía magnética','Distancia inteligente'], planeta_info:'Urano rige Acuario y causa cambios súbitos e impredecibles en el cuerpo. Calambres, tensiones en pantorrillas, problemas circulatorios: el cuerpo refleja la electricidad de este planeta.' }
+    },
+    piscis: { emoji:'♓', nombre:'Piscis', elemento:'Agua · Mutable', zonas:['pies'],
+      solar:{ texto:'Piscis produce rasgos suaves y difuminados, con ojos grandes y acuosos que son su característica más reconocible. Los pies son su zona corporal más sensible. El cuerpo tiende a retener líquidos. Los movimientos son fluidos y ondulantes, con una cualidad etérea en la apariencia.', rasgos:['Ojos acuosos y grandes','Pies sensibles','Movimientos ondulantes','Constitución suave','Retención de líquidos','Apariencia etérea'] },
+      asc:{ texto:'El Ascendente Piscis produce la primera impresión más difusa del zodiaco y también la más mágica. Hay algo en la presencia que cambia según quién mire. Los ojos son el elemento que más impacta: profundos, empáticos, con algo de mar adentro.', rasgos_asc:['Ojos expresivos y profundos','Presencia cambiante','Apariencia etérea','Porte receptivo'], planeta_info:'Neptuno y Júpiter corigen Piscis y gobiernan los pies, el sistema linfático y la glándula pineal. La sensibilidad a sustancias y el agotamiento sistémico son señales frecuentes.' }
+    }
+  },
+  dolor: {
+    cabeza:   { titulo:'Cabeza · El impulso sin freno', texto:'El dolor recurrente en cabeza — migraña, tensión frontal, presión en sienes — suele relacionarse con energía ariana no procesada: impulsos reprimidos, ira contenida o exceso de actividad mental sin descanso.', consejo:'Explorar prácticas de descarga física y técnicas de liberación de la ira. El descanso obligado suele ser el mensaje más claro de este tipo de dolor.' },
+    cuello:   { titulo:'Cuello · La voz que no se dice', texto:'La tensión cervical y el dolor de garganta recurrente hablan de palabras que no se dijeron, necesidades que no se expresaron. El cuello es el puente entre lo que se piensa y lo que se dice.', consejo:'Revisar qué se está callando y por qué. Trabajar la expresión vocal o artística como práctica de liberación. La rigidez cervical puede mejorar notablemente al recuperar la propia voz.' },
+    hombros:  { titulo:'Hombros · El peso que se carga solo', texto:'Los hombros tensos o doloridos señalan una carga de responsabilidad asumida en exceso, o el hábito de sostener el mundo de otros sin pedir ayuda.', consejo:'Identificar qué cargas son propias y cuáles ajenas. Aprender a delegar. El masaje profundo en hombros y trapecios libera emocionalmente todo lo que se sostuvo sin apoyo.' },
+    pecho:    { titulo:'Pecho · Lo que el corazón guarda', texto:'El dolor en pecho o las dificultades respiratorias hablan de amor reprimido, duelos no elaborados o la sensación de que el corazón ha sido herido y cerrado como mecanismo de protección.', consejo:'Abrir espacios de expresión emocional genuina. La respiración profunda y consciente es el primer paso. El corazón físico responde con alivio cuando el emocional procesa lo que tiene guardado.' },
+    brazos:   { titulo:'Brazos · Lo que se alcanza y se suelta', texto:'Dolor en brazos, codos o muñecas habla de la relación con el dar y recibir, el alcanzar y soltar. Puede señalar sobrecarga en la comunicación o tensión en vínculos que no fluyen.', consejo:'Revisar la relación con el trabajo manual y la comunicación. Descansar los brazos conscientemente. Soltar lo que se sostiene con demasiada tensión.' },
+    manos:    { titulo:'Manos · El hacer bloqueado', texto:'Las manos doloridas o rígidas hablan de una creatividad bloqueada o sobreutilizada. Puede señalar también perfeccionismo excesivo en el trabajo manual o artístico.', consejo:'Alternar períodos de actividad manual con descanso real. Incorporar trabajo creativo sin presión de resultado. Las manos necesitan jugar, no solo producir.' },
+    abdomen:  { titulo:'Abdomen · Lo que no se digiere', texto:'El dolor o sensibilidad abdominal recurrente habla de lo que no se digiere, literal y emocionalmente. Las preocupaciones y la necesidad de control se alojan en el vientre antes que en ningún otro lugar.', consejo:'Incorporar relajación abdominal y respiración diafragmática. Preguntarse qué situación se está rumiando sin poder resolverla.' },
+    caderas:  { titulo:'Caderas · El movimiento detenido', texto:'La tensión en caderas o zona lumbar puede señalar conflicto entre lo que se quiere y lo que se hace, energía reprimida o falta de movimiento en algún área importante de la vida.', consejo:'El movimiento es la medicina: danza, yoga de caderas, caminatas. Las caderas son el centro del movimiento — cuando se bloquean, algo en la vida también está detenido.' },
+    muslos:   { titulo:'Muslos · El avanzar con fuerza', texto:'El dolor en muslos habla de la capacidad de avanzar con confianza. Puede señalar miedo a expandirse o exceso de actividad física sin recuperación adecuada.', consejo:'Escuchar el cuerpo en el ejercicio. Revisar qué expansión — viaje, estudio, aventura — se está postergando por miedo o duda.' },
+    rodillas: { titulo:'Rodillas · Flexibilidad y autoridad', texto:'Las rodillas hablan de la relación con la autoridad — propia y ajena —, la capacidad de ceder sin quebrarse y el peso de las expectativas. Dolor en rodillas puede señalar rigidez ante el cambio.', consejo:'Practicar la flexibilidad simbólica: aprender a ceder donde antes se resistía. Estiramientos de rodillas y trabajo con el control y la autoridad.' },
+    piernas:  { titulo:'Piernas · Circulación y avance', texto:'El dolor o pesadez en piernas y tobillos puede señalar circulación bloqueada, sedentarismo o un patrón de inmovilidad en algún área de la vida.', consejo:'Activar la circulación con movimiento regular. Elevar las piernas. Y revisar qué pasos de la vida se están posponiendo indefinidamente.' },
+    pies:     { titulo:'Pies · El contacto con la tierra', texto:'Los pies doloridos son la interfaz entre el ser y la tierra. Dolor en pies puede señalar desconexión del presente o dificultad para pisar la realidad cotidiana.', consejo:'Grounding: caminar descalzo, baños de pies, masaje plantar. Los pies necesitan tierra firme debajo — y a veces eso es también una tarea emocional.' }
+  }
+};
