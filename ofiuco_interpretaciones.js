@@ -412,10 +412,7 @@ window.OFIUCO_INTERP_PLANETAS_CASAS['SNode_casa13'] = `Has transformado sin cons
 
 const _OPH_SIGNOS_13 = ['Aries','Tauro','Géminis','Cáncer','Leo','Virgo','Libra','Escorpio','Ofiuco','Sagitario','Capricornio','Acuario','Piscis'];
 
-for (let casa = 1; casa <= 13; casa++) {
-  _OPH_SIGNOS_13.forEach(signo => {
-    const clave = `casa${casa}_${signo}`;
-   // ══════════════════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════════════════
 // ── CASAS EN SIGNOS (13 signos × 13 casas = 169 claves) ──────────────────────
 // ══════════════════════════════════════════════════════════════════════════════
 
@@ -613,8 +610,6 @@ window.OFIUCO_INTERP_CASAS['casa13_Capricornio'] = `La Gran Transmutación llega
 window.OFIUCO_INTERP_CASAS['casa13_Acuario']     = `La Gran Transmutación llega aquí como una revolución del ser, disolviendo todos los sistemas, paradigmas e identidades con la misma radicalidad con que siempre se cuestionaron los del mundo exterior. Lo que se libera en esta cámara final es la necesidad de ser diferente como posición, la identidad construida sobre la originalidad y la disrupción que también es una forma de ego aunque se disfrace de libertad. El renacimiento emerge libre de la necesidad de ser libre, con una autenticidad que ya no necesita demostrar su singularidad porque sencillamente la vive. El aprendizaje es descubrir que la transmutación más radical es la que disuelve también la identidad del revolucionario, permitiendo que lo que emerge no sea otra visión brillante sino una presencia que ya no necesita ser nada en particular para estar completamente en casa.`;
 window.OFIUCO_INTERP_CASAS['casa13_Piscis']      = `La Gran Transmutación se convierte aquí en disolución oceánica total, la rendición final al flujo que siempre se supo más grande que cualquier forma que el alma hubiera podido adoptar en el camino. Lo que se libera en esta cámara final es el último vestigio de la ilusión de separación, la delgada membrana que todavía distinguía entre el buscador y lo buscado, entre el alma y el océano del que nunca realmente se separó. El renacimiento no emerge como forma sino como corriente, como una presencia que habita sin resistencia cualquier recipiente que el mundo ofrece porque ya no hay apego a ninguna forma específica. El desafío es mantener un hilo de conciencia dentro de la disolución, para que la Gran Transmutación sea también una ofrenda consciente y no solo una rendición sin comprensión del proceso que se está completando.`;
 window.OFIUCO_INTERP_CASAS['casa13_Ofiuco']      = `La Gran Transmutación en su propio signo y en su propia casa es la alquimia absoluta, el proceso donde el transmutador y la transmutación se convierten en una sola cosa y la serpiente finalmente muerde su propia cola con plena conciencia de lo que ese acto significa. Lo que se libera aquí trasciende cualquier descripción posible, porque es la identidad misma del proceso de transformación la que se transforma, el patrón que organiza todos los patrones el que finalmente se disuelve en su propia profundidad. El renacimiento que emerge de esta configuración no tiene precedente en ningún ciclo anterior, porque lo que nace no es una versión mejorada de lo que fue sino algo cualitativamente diferente que no puede ser anticipado desde el lado de antes del umbral. El camino es atravesar este proceso con la máxima conciencia posible, sabiendo que lo que se pierde era ya una forma provisional y que lo que viene es demasiado vasto para ser nombrado antes de ser vivido completamente.`;
-  });
-}
 
 
 // ═══════════════════════════════════════════════════════════════════════════
