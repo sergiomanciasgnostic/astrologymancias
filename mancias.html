@@ -3194,7 +3194,7 @@
       #evResultContent div[style*="font-size:44px"] { font-size: 36px !important; }
     }
   </style>
-  <script src="https://sergiomanciasgnostic.github.io/astrologymancias/mensajes_astrologicos.js"></script>
+  <!-- mensajes_astrologicos.js cargado dinámicamente via fetch -->
 </head>
 <body style="position:relative;min-height:100vh;background:#000308;color:#ffffff;">
 
@@ -3675,6 +3675,11 @@
     var overlay = document.getElementById('smLoadingOverlay');
     if (!overlay) return;
     overlay.classList.add('fade-out');
+
+    // Asegurar que #app sea visible
+    var appEl = document.getElementById('app');
+    if (appEl) appEl.classList.remove('hidden');
+
     setTimeout(function(){
       overlay.classList.add('hidden');
       overlay.style.display = 'none';
@@ -3684,6 +3689,17 @@
 
   /* ── Mostrar loading inmediato al cargar la página ── */
   smShowLoading('astro');
+
+  /* ── FAILSAFE: si en 8s los datos no cargaron, forzar inicio ── */
+  var _smFailsafeTimer = setTimeout(function() {
+    if (!window._smDataReady) {
+      console.warn('[Sergiomancias] Failsafe loading — forzando inicio.');
+      window._smDataReady = true;
+      var appEl = document.getElementById('app');
+      if (appEl) appEl.classList.remove('hidden');
+      if (typeof smHideLoading === 'function') smHideLoading();
+    }
+  }, 8000);
 
   /* ── Hook en showModule para mostrar loading si datos aún no cargaron ── */
   // Se aplica después de DOMContentLoaded cuando showModule existe
@@ -7200,29 +7216,29 @@
 // DECLARACIONES VACÍAS — los valores llegan desde mensajes_astrologicos.js
 // ═══════════════════════════════════════════════════════════════
 const INTERPRETACIONES = { planets:{}, planetAspects:{}, aspects:{}, houses:{}, vertexHouses:{}, housesEmpresas:{}, planetasEmpresas:{}, regenteCasaII:{} };
-let INTERP_PARTES = {};
-let INTERP_ASTEROIDES = {};
-let TODAS_LAS_PARTES = [];
-let TODOS_LOS_ASTEROIDES = [];
-let SIGNOS_DATA = {};
-let SIGNOS_ETAPAS = {};
-let PERS_DATA = {};
-let DECAN_DATA = {};
-let COMPAT_PCT = {};
-let COMPAT_TEXTS = {};
-let TAROT_ARCANOS = {};
+var INTERP_PARTES = {};
+var INTERP_ASTEROIDES = {};
+var TODAS_LAS_PARTES = [];
+var TODOS_LOS_ASTEROIDES = [];
+var SIGNOS_DATA = {};
+var SIGNOS_ETAPAS = {};
+var PERS_DATA = {};
+var DECAN_DATA = {};
+var COMPAT_PCT = {};
+var COMPAT_TEXTS = {};
+var TAROT_ARCANOS = {};
 
 // Variables adicionales — Arcanos, Runas
-let ARCANO_PERSONAL        = {};
-let ARCANOS_MENORES        = {};
-let ARCANOS_TRANSITO_SINTESIS = {};
-let RUNAS                  = {};
-let LOCO_TRANSITO          = {};
-let ARCANOS_MAYOR_TRANSITO = {};
-let _datosListos           = false;
-let NUM_TEXTOS = {};
-let RETRO_INTERP = {};
-let DECAN_MESES = {};
+var ARCANO_PERSONAL        = {};
+var ARCANOS_MENORES        = {};
+var ARCANOS_TRANSITO_SINTESIS = {};
+var RUNAS                  = {};
+var LOCO_TRANSITO          = {};
+var ARCANOS_MAYOR_TRANSITO = {};
+var _datosListos           = false;
+var NUM_TEXTOS = {};
+var RETRO_INTERP = {};
+var DECAN_MESES = {};
 
 // ── Biorrítmos: mensajes inline (sobreescritos por mensajes_astrologicos.js si está disponible) ──
 window._BIORRIT_MENSAJES = window._BIORRIT_MENSAJES || {
@@ -7254,9 +7270,9 @@ window._BIORRIT_MENSAJES = window._BIORRIT_MENSAJES || {
   },
   nota_pie: "Los biorrítmos son ciclos matemáticos basados en tu fecha de nacimiento. Úsalos como referencia orientativa, no como verdad absoluta. Tu libre albedrío siempre es la fuerza más poderosa."
 };
-let DECAN_LIMITES = {};
-let CROMANCIA_DATA = {};
-let CKB_DATA = {
+var DECAN_LIMITES = {};
+var CROMANCIA_DATA = {};
+var CKB_DATA = {
   0: { // Sahasrara
     color_vestir: { hexes: ['#9b59b6','#ce93d8'], nombres: ['Violeta profundo','Lavanda'], texto: 'Vestir violeta o blanco abre el canal entre tu mente y el cosmos. Úsalo cuando busques claridad o inspiración espiritual.' },
     color_poner: 'Pon violeta en tu cabecera, en velas o en una tela sobre tu zona de meditación para potenciar la conexión con tu ser superior.',
@@ -7301,7 +7317,7 @@ let CKB_DATA = {
   }
 };
 
-let CK_CHAKRAS = [
+var CK_CHAKRAS = [
   {
     idx: 0, symbol: '✦', name: 'Sahasrara', sanskrit: 'Corona',
     color: '#9b59b6', rgb: '155,89,182',
@@ -7391,7 +7407,7 @@ let CK_CHAKRAS = [
 // ═══════════════════════════════════════════════════════════════
 // CARGA EXTERNA DE MENSAJES
 // ═══════════════════════════════════════════════════════════════
-let _mensajesListos = false;
+var _mensajesListos = false;
 
 function _aplicarDatosMensajes() {
     if (window._INTERPRETACIONES) {
@@ -7439,66 +7455,46 @@ function _aplicarDatosMensajes() {
     }
 }
 
-// Carga mensajes: fetch directo (compatible con iframe Wix) → JS primero, JSON como fallback
+// Carga mensajes: solo .js via fetch — sin fallback a .json (archivo eliminado)
 (function() {
-  var JS_URL   = 'https://sergiomanciasgnostic.github.io/astrologymancias/mensajes_astrologicos.js';
-  var JSON_URL = 'https://sergiomanciasgnostic.github.io/astrologymancias/mensajes_astrologicos.json';
+  var JS_URL = 'https://sergiomanciasgnostic.github.io/astrologymancias/mensajes_astrologicos.js';
 
-  // Ejecuta el texto del .js en contexto global (window) para que window._X quede asignado
-  function _ejecutarJS(text, onSuccess, onFail) {
-    try {
-      var geval = eval; // indirect eval → contexto global
-      geval(text);
-      onSuccess();
-    } catch(e) { onFail(e); }
+  function _liberarApp() {
+    window._smDataReady = true;
+    var appEl = document.getElementById('app');
+    if (appEl) appEl.classList.remove('hidden');
+    if (typeof smHideLoading === 'function') smHideLoading();
   }
 
-  // El archivo .json contiene código JS (window._X = ...), no JSON puro.
-  // Se ejecuta igual que el .js con eval en contexto global.
-  function _ejecutarJSON(text, onSuccess, onFail) {
-    try {
-      var geval = eval;
-      geval(text);
-      onSuccess();
-    } catch(e) { onFail(e); }
-  }
+  // Timeout duro: si en 7s no cargó nada, la app inicia igual sin mensajes
+  var _timeout = setTimeout(function() {
+    console.warn('[Sergiomancias] Timeout — iniciando app sin mensajes externos.');
+    _liberarApp();
+  }, 7000);
 
-  function _fetchTexto(url, cb, onFail) {
-    fetch(url, { cache: 'no-cache' })
-      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
-      .then(cb)
-      .catch(onFail);
-  }
-
-  function _cargarJSON() {
-    _fetchTexto(JSON_URL,
-      function(text) {
-        _ejecutarJSON(text,
-          function() { console.log('[Sergiomancias] .json cargado OK.'); _aplicarDatosMensajes(); },
-          function(e)  { console.error('[Sergiomancias] Error al parsear .json:', e); }
-        );
-      },
-      function(e) {
-        console.error('[Sergiomancias] AMBOS archivos fallaron.', e);
-        // Aunque fallen los mensajes externos, ocultar el overlay para que la app cargue igual
-        window._smDataReady = true;
-        if (typeof smHideLoading === 'function') {
-          setTimeout(function(){ smHideLoading(); }, 300);
-        }
+  fetch(JS_URL, { cache: 'no-cache' })
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function(text) {
+      try {
+        var geval = eval; // indirect eval → scope global
+        geval(text);
+        _aplicarDatosMensajes();
+        console.log('[Sergiomancias] mensajes_astrologicos.js cargado OK.');
+      } catch(e) {
+        console.error('[Sergiomancias] Error al ejecutar .js:', e);
+        _aplicarDatosMensajes(); // aplicar lo que haya cargado igual
       }
-    );
-  }
-
-  // Intenta primero el .js via fetch; si falla, cae al .json
-  _fetchTexto(JS_URL,
-    function(text) {
-      _ejecutarJS(text,
-        function() { console.log('[Sergiomancias] .js cargado OK.'); _aplicarDatosMensajes(); },
-        function(e) { console.warn('[Sergiomancias] .js ejecutó con error, probando .json…', e); _cargarJSON(); }
-      );
-    },
-    function(e) { console.warn('[Sergiomancias] .js no disponible, probando .json…', e); _cargarJSON(); }
-  );
+      clearTimeout(_timeout);
+      _liberarApp();
+    })
+    .catch(function(e) {
+      console.warn('[Sergiomancias] No se pudo cargar mensajes_astrologicos.js:', e);
+      clearTimeout(_timeout);
+      _liberarApp();
+    });
 
 })();
 
