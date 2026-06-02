@@ -7472,7 +7472,25 @@ function _aplicarDatosMensajes() {
     _liberarApp();
   }, 7000);
 
-  fetch(JS_URL, { cache: 'no-cache' })
+  // Intentar cargar via <script> tag — más compatible con iframes y CORS que fetch/eval
+  function _cargarViaScript() {
+    var s = document.createElement('script');
+    s.src = JS_URL + '?v=' + Date.now();
+    s.onload = function() {
+      console.log('[Sergiomancias] mensajes_astrologicos.js cargado via script tag.');
+      clearTimeout(_timeout);
+      _aplicarDatosMensajes();
+      _liberarApp();
+    };
+    s.onerror = function() {
+      console.warn('[Sergiomancias] Script tag también falló — iniciando sin mensajes.');
+      clearTimeout(_timeout);
+      _liberarApp();
+    };
+    document.head.appendChild(s);
+  }
+
+  fetch(JS_URL, { cache: 'no-cache', mode: 'cors' })
     .then(function(r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.text();
@@ -7482,18 +7500,18 @@ function _aplicarDatosMensajes() {
         var geval = eval; // indirect eval → scope global
         geval(text);
         _aplicarDatosMensajes();
-        console.log('[Sergiomancias] mensajes_astrologicos.js cargado OK.');
+        console.log('[Sergiomancias] mensajes_astrologicos.js cargado via fetch OK.');
       } catch(e) {
         console.error('[Sergiomancias] Error al ejecutar .js:', e);
-        _aplicarDatosMensajes(); // aplicar lo que haya cargado igual
+        _aplicarDatosMensajes();
       }
       clearTimeout(_timeout);
       _liberarApp();
     })
     .catch(function(e) {
-      console.warn('[Sergiomancias] No se pudo cargar mensajes_astrologicos.js:', e);
-      clearTimeout(_timeout);
-      _liberarApp();
+      // fetch bloqueado (CORS en iframe u otro) — intentar via <script> tag como fallback
+      console.warn('[Sergiomancias] fetch bloqueado, intentando via script tag…', e);
+      _cargarViaScript();
     });
 
 })();
