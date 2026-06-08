@@ -3981,6 +3981,8 @@
     if (!_origShowModule) { setTimeout(tryHook, 50); return; }
 
     window.showModule = function(mod) {
+      // carta natal no depende de datos externos — mostrar siempre directo
+      if (mod === 'carta') { _origShowModule(mod); return; }
       if (!window._smDataReady) {
         // Determinar tema según módulo
         var themeMap = {
@@ -6709,7 +6711,7 @@
 
     <!-- ══ Modal Partes Arábigas OFIUCO (independiente del natal) ══ -->
     <div id="oPartesModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.88);z-index:9997;overflow-y:auto;display:none;align-items:flex-start;justify-content:center;padding:24px 12px;">
-      <div style="max-width:700px;width:100%;margin:0 auto;background:#000c20;border:1px solid #f0a500;padding:24px 18px;max-height:88vh;overflow-y:auto;box-sizing:border-box;">
+      <div style="max-width:860px;width:100%;margin:0 auto;background:#000c20;border:1px solid #f0a500;padding:28px 22px;max-height:92vh;overflow-y:auto;box-sizing:border-box;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
           <div>
             <div style="font-size:11px;letter-spacing:.22em;color:rgba(240,165,0,0.6);text-transform:uppercase;margin-bottom:4px;">Ofiuco · Seleccionar</div>
@@ -6729,7 +6731,7 @@
 
     <!-- ══ Modal Asteroides OFIUCO (independiente del natal) ══ -->
     <div id="oAsteroidesModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.88);z-index:9997;overflow-y:auto;align-items:flex-start;justify-content:center;padding:24px 12px;">
-      <div style="max-width:700px;width:100%;margin:0 auto;background:#000c20;border:1px solid #c084fc;padding:24px 18px;max-height:88vh;overflow-y:auto;box-sizing:border-box;">
+      <div style="max-width:860px;width:100%;margin:0 auto;background:#000c20;border:1px solid #c084fc;padding:28px 22px;max-height:92vh;overflow-y:auto;box-sizing:border-box;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
           <div style="font-size:16px;letter-spacing:.2em;color:#c084fc;text-transform:uppercase;">⛎ Asteroides Ofiuco · Seleccionar</div>
           <button onclick="closeOAsteroidesModal()" style="background:transparent;border:none;color:#c084fc;font-size:24px;cursor:pointer;">&#10005;</button>
@@ -6747,7 +6749,7 @@
 
     <!-- Modal Partes Arabigas -->
     <div id="partesModal" style="display:none;">
-      <div style="max-width:700px;width:100%;margin:0 auto;background:#000c20;border:1px solid #f0a500;padding:24px 18px;max-height:88vh;overflow-y:auto;box-sizing:border-box;">
+      <div style="max-width:700px;width:100%;margin:0 auto;background:#000c20;border:1px solid #f0a500;padding:24px 18px;max-height:88vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
           <div>
             <div style="font-size:11px;letter-spacing:.22em;color:rgba(240,165,0,0.6);text-transform:uppercase;margin-bottom:4px;">Seleccionar</div>
@@ -6755,7 +6757,7 @@
           </div>
           <button onclick="closePartesModal()" style="background:transparent;border:none;color:#f0a500;font-size:24px;cursor:pointer;">&#10005;</button>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;max-height:55vh;overflow-y:auto;padding-right:4px;" id="partesCheckboxes"></div>
+        <div style="display:flex;flex-direction:column;gap:0;overflow:visible;" id="partesCheckboxes"></div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;justify-content:flex-end;">
           <button onclick="closePartesModal()" style="background:transparent;border:1px solid rgba(240,165,0,0.3);color:rgba(240,165,0,0.55);font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 14px;">Cerrar</button>
           <button onclick="selectAllPartes()" style="background:transparent;border:1px solid #f0a500;color:#f0a500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 14px;">Todas</button>
@@ -6766,12 +6768,12 @@
     </div>
     <!-- Modal Asteroides -->
     <div id="asteroidesModal" style="display:none;">
-      <div style="max-width:700px;width:100%;margin:0 auto;background:#000c20;border:1px solid #c084fc;padding:24px 18px;max-height:88vh;overflow-y:auto;box-sizing:border-box;">
+      <div style="max-width:700px;width:100%;margin:0 auto;background:#000c20;border:1px solid #c084fc;padding:24px 18px;max-height:88vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
           <div style="font-size:16px;letter-spacing:.2em;color:#c084fc;text-transform:uppercase;">Asteroides — Seleccionar</div>
           <button onclick="closeAsteroidesModal()" style="background:transparent;border:none;color:#c084fc;font-size:24px;cursor:pointer;">&#10005;</button>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;max-height:55vh;overflow-y:auto;padding-right:4px;" id="asteroidesCheckboxes"></div>
+        <div style="display:flex;flex-direction:column;gap:0;overflow:visible;" id="asteroidesCheckboxes"></div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;justify-content:flex-end;">
           <button onclick="closeAsteroidesModal()" style="background:transparent;border:1px solid rgba(192,132,252,0.3);color:rgba(192,132,252,0.55);font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 14px;">Cerrar</button>
           <button onclick="selectAllAsteroides()" style="background:transparent;border:1px solid #c084fc;color:#c084fc;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 14px;">Todos</button>
@@ -6815,7 +6817,7 @@
   <div class="pc-arc-select-wrap" id="pcArcSelectWrap">
     <select id="pcArcSelect" class="pc-arc-select" onchange="if(window.arcSwitchTab) arcSwitchTab(this.value)">
       <option value="personal">Arcano Personal</option>
-      <option value="decanato">Tu Decanato Personal</option>
+      <option value="decanato">Arcano Decanato Personal</option>
       <option value="anual">Arcano del Año</option>
       <option value="transito">Arcanos en Tránsito</option>
     </select>
@@ -6835,7 +6837,7 @@
     </div>
     <div class="arc-tabs-row" style="display:flex;gap:8px;flex-wrap:nowrap;justify-content:center;width:100%;max-width:900px;margin:0 auto 28px;padding:0 20px;">
       <button id="arcTab-personal" class="arc-tab arc-tab--active" onclick="arcSwitchTab('personal')">Arcano Personal</button>
-      <button id="arcTab-decanato" class="arc-tab"                 onclick="arcSwitchTab('decanato')">Tu Decanato Personal</button>
+      <button id="arcTab-decanato" class="arc-tab"                 onclick="arcSwitchTab('decanato')">Arcano Decanato Personal</button>
       <button id="arcTab-anual"    class="arc-tab"                 onclick="arcSwitchTab('anual')">Arcano del Año</button>
       <button id="arcTab-transito" class="arc-tab"                 onclick="arcSwitchTab('transito')">Arcanos en Tránsito</button>
     </div>
@@ -6911,7 +6913,7 @@
     </div>
     <div class="arc-tabs-row" style="display:flex;gap:8px;flex-wrap:nowrap;justify-content:center;width:100%;max-width:900px;margin:0 auto 28px;padding:0 20px;">
       <button id="arcTab-personal" class="arc-tab" onclick="arcSwitchTab('personal')">Arcano Personal</button>
-      <button id="arcTab-decanato" class="arc-tab" onclick="arcSwitchTab('decanato')">Tu Decanato Personal</button>
+      <button id="arcTab-decanato" class="arc-tab" onclick="arcSwitchTab('decanato')">Arcano Decanato Personal</button>
       <button id="arcTab-anual"    class="arc-tab arc-tab--active" onclick="arcSwitchTab('anual')">Arcano del Año</button>
       <button id="arcTab-transito" class="arc-tab" onclick="arcSwitchTab('transito')">Arcanos en Tránsito</button>
     </div>
@@ -6982,7 +6984,7 @@
     </div>
     <div class="arc-tabs-row" style="display:flex;gap:8px;flex-wrap:nowrap;justify-content:center;width:100%;max-width:900px;margin:0 auto 28px;padding:0 20px;">
       <button id="arcTab-personal" class="arc-tab" onclick="arcSwitchTab('personal')">Arcano Personal</button>
-      <button id="arcTab-decanato" class="arc-tab" onclick="arcSwitchTab('decanato')">Tu Decanato Personal</button>
+      <button id="arcTab-decanato" class="arc-tab" onclick="arcSwitchTab('decanato')">Arcano Decanato Personal</button>
       <button id="arcTab-anual"    class="arc-tab" onclick="arcSwitchTab('anual')">Arcano del Año</button>
       <button id="arcTab-transito" class="arc-tab arc-tab--active" onclick="arcSwitchTab('transito')">Arcanos en Tránsito</button>
     </div>
@@ -7040,7 +7042,7 @@
     </div>
     <div class="arc-tabs-row" style="display:flex;gap:8px;flex-wrap:nowrap;justify-content:center;width:100%;max-width:900px;margin:0 auto 28px;padding:0 20px;">
       <button id="arcTab-personal" class="arc-tab" onclick="arcSwitchTab('personal')">Arcano Personal</button>
-      <button id="arcTab-decanato" class="arc-tab arc-tab--active" onclick="arcSwitchTab('decanato')">Tu Decanato Personal</button>
+      <button id="arcTab-decanato" class="arc-tab arc-tab--active" onclick="arcSwitchTab('decanato')">Arcano Decanato Personal</button>
       <button id="arcTab-anual"    class="arc-tab" onclick="arcSwitchTab('anual')">Arcano del Año</button>
       <button id="arcTab-transito" class="arc-tab" onclick="arcSwitchTab('transito')">Arcanos en Tránsito</button>
     </div>
@@ -7780,7 +7782,7 @@
         <span class="num-sym" style="--d:0s">⑨</span>
       </div>
       <div class="num-deco-line"><span class="num-deco-dot"></span><span class="num-deco-rule"></span><span class="num-deco-dot"></span></div>
-      <p class="num-deco-phrase">El universo habla en números y en nombres. ¿Por cuál querés comenzar?</p>
+      <p class="num-deco-phrase">El universo habla en números y en nombres. ¿Por cuál quieres comenzar?</p>
       <div class="num-deco-line"><span class="num-deco-dot"></span><span class="num-deco-rule"></span><span class="num-deco-dot"></span></div>
     </div>
     <div class="num-home-wrap">
@@ -8037,6 +8039,7 @@
 
 // ═══════════════════════════════════════════════════════════════
 // DECLARACIONES VACÍAS — los valores llegan desde los módulos externos
+// Los mensajes que están aquí abajo son interpretaciones de Fallbacks en los Aspectos
 // ═══════════════════════════════════════════════════════════════
 const INTERPRETACIONES = { planets:{}, planetAspects:{}, aspects:{}, houses:{}, vertexHouses:{}, housesEmpresas:{}, planetasEmpresas:{}, regenteCasaII:{}, planetHouseAspects:{} };
 
@@ -8060,8 +8063,177 @@ const INTERPRETACIONES = { planets:{}, planetAspects:{}, aspects:{}, houses:{}, 
 })();
 let INTERP_PARTES = {};
 let INTERP_ASTEROIDES = {};
-let TODAS_LAS_PARTES = [];
-let TODOS_LOS_ASTEROIDES = [];
+let TODAS_LAS_PARTES = [
+  // Amor y Vínculos
+  { key:'Amor',         g:'❤',  name:'Amor',          short:'Amor',        cat:'amor',      tip:'El punto del amor y la atracción romántica. Indica dónde y cómo se expresan los afectos más profundos.' },
+  { key:'Matrimonio_H', g:'⚭',  name:'Matrimonio',     short:'Matrimonio',  cat:'amor',      genderH:true, tip:'Parte del matrimonio para nativos masculinos. Señala la naturaleza del vínculo conyugal.' },
+  { key:'Matrimonio_M', g:'⚭',  name:'Matrimonio',     short:'Matrimonio',  cat:'amor',      genderF:true, tip:'Parte del matrimonio para nativos femeninos. Señala la naturaleza del vínculo conyugal.' },
+  { key:'Boda_H',       g:'💍', name:'Boda',           short:'Boda',        cat:'amor',      genderH:true, tip:'Parte de la boda para nativos masculinos. Indica el tipo de unión formal y sus condiciones.' },
+  { key:'Boda_M',       g:'💍', name:'Boda',           short:'Boda',        cat:'amor',      genderF:true, tip:'Parte de la boda para nativos femeninos. Indica el tipo de unión formal y sus condiciones.' },
+  { key:'Copulacion',   g:'♀',  name:'Cópula',         short:'Cópula',      cat:'amor',      tip:'Impulso sexual y atracción física. Señala la energía erótica y los deseos corporales.' },
+  { key:'Adulterio',    g:'⚔',  name:'Adulterio',      short:'Adulterio',   cat:'amor',      tip:'Tensiones en los vínculos comprometidos. Señala vulnerabilidades en la fidelidad y la lealtad.' },
+  { key:'Homosexualidad',g:'🌈',name:'Homofilia',       short:'Homofilia',   cat:'amor',      tip:'Atracción hacia el mismo género. Señala la naturaleza del deseo y la orientación afectiva.' },
+  { key:'Hijos_H',      g:'👶', name:'Hijos',           short:'Hijos',       cat:'familia',   genderH:true, tip:'Fertilidad y descendencia para nativos masculinos.' },
+  { key:'Hijos_M',      g:'👶', name:'Hijos',           short:'Hijos',       cat:'familia',   genderF:true, tip:'Fertilidad y descendencia para nativos femeninos.' },
+  // Riqueza y Material
+  { key:'Fortuna',      g:'⊕',  name:'Fortuna',        short:'Fortuna',     cat:'riqueza',   tip:'La Parte de la Fortuna clásica. Indica las áreas de mayor prosperidad y flujo de bienestar material.' },
+  { key:'Dinero',       g:'💰', name:'Dinero',          short:'Dinero',      cat:'riqueza',   tip:'Flujo de dinero y recursos materiales. Señala la capacidad de generar y administrar el patrimonio.' },
+  { key:'Riqueza',      g:'💎', name:'Riqueza',         short:'Riqueza',     cat:'riqueza',   tip:'Acumulación de bienes y abundancia duradera. Indica el potencial de construir patrimonio sólido.' },
+  { key:'Prosperidad',  g:'🌿', name:'Prosperidad',     short:'Prosperidad', cat:'riqueza',   tip:'Expansión y crecimiento sostenido. Señala las condiciones para la floración material y vital.' },
+  { key:'Comercio',     g:'⚖',  name:'Comercio',        short:'Comercio',    cat:'riqueza',   tip:'Intercambios comerciales y negocios. Indica la habilidad para el trueque, la venta y los contratos.' },
+  { key:'Herencia',     g:'📜', name:'Herencia',        short:'Herencia',    cat:'familia',   tip:'Bienes recibidos y legados familiares. Señala lo que se hereda materialmente o simbólicamente.' },
+  { key:'Suerte',       g:'🍀', name:'Suerte',          short:'Suerte',      cat:'riqueza',   tip:'Golpes de fortuna y beneficios inesperados. Indica dónde la vida regala oportunidades sin esfuerzo.' },
+  { key:'Victoria',     g:'🏆', name:'Victoria',        short:'Victoria',    cat:'riqueza',   tip:'Éxito y triunfo en los proyectos. Señala la capacidad de lograr metas con resolución.' },
+  // Vocación y Reconocimiento
+  { key:'Profesion',    g:'⚒',  name:'Profesión',       short:'Profesión',   cat:'vocacion',  tip:'Vocación y carrera de vida. Señala el MC desde la perspectiva del destino profesional.' },
+  { key:'Fama',         g:'⭐', name:'Fama',            short:'Fama',        cat:'vocacion',  tip:'Reconocimiento público y reputación. Indica el potencial de destacar y ser visto por la sociedad.' },
+  { key:'Merito',       g:'🎖',  name:'Mérito',          short:'Mérito',      cat:'vocacion',  tip:'Reconocimiento por el esfuerzo propio. Señala las áreas donde el trabajo se convierte en logro.' },
+  { key:'Audacia',      g:'🔥', name:'Audacia',         short:'Audacia',     cat:'vocacion',  tip:'Iniciativa y valentía en la acción. Indica la disposición a arriesgarse y tomar la delantera.' },
+  { key:'Vuelo',        g:'🦅', name:'Vuelo',           short:'Vuelo',       cat:'vocacion',  tip:'Movilidad y ascenso rápido. Señala la capacidad de elevarse, escalar y cambiar de escenario.' },
+  // Salud y Cuerpo
+  { key:'Salud',        g:'💊', name:'Salud',           short:'Salud',       cat:'salud',     tip:'Vitalidad y fortaleza del cuerpo. Indica las condiciones de la salud física y el bienestar general.' },
+  { key:'Enfermedad',   g:'🤒', name:'Enfermedad',      short:'Enfermedad',  cat:'salud',     tip:'Vulnerabilidades físicas y tendencias patológicas. Señala áreas de mayor fragilidad orgánica.' },
+  { key:'Urgencia',     g:'⚡', name:'Urgencia',        short:'Urgencia',    cat:'salud',     tip:'Situaciones críticas y energía de emergencia. Indica los momentos de tensión máxima del organismo.' },
+  // Familia
+  { key:'Madre_H',      g:'🌙', name:'Madre',           short:'Madre',       cat:'familia',   genderH:true, tip:'El principio materno para nativos masculinos.' },
+  { key:'Madre_M',      g:'🌙', name:'Madre',           short:'Madre',       cat:'familia',   genderF:true, tip:'El principio materno para nativos femeninos.' },
+  { key:'Padre_H',      g:'☀',  name:'Padre',           short:'Padre',       cat:'familia',   genderH:true, tip:'El principio paterno para nativos masculinos.' },
+  { key:'Padre_M',      g:'☀',  name:'Padre',           short:'Padre',       cat:'familia',   genderF:true, tip:'El principio paterno para nativos femeninos.' },
+  // Mente y Conocimiento
+  { key:'Inteligencia', g:'🧠', name:'Inteligencia',    short:'Inteligencia',cat:'mente',     tip:'Agudeza mental y capacidad analítica. Indica la rapidez del pensamiento y el talento intelectual.' },
+  { key:'Sabiduria',    g:'📚', name:'Sabiduría',       short:'Sabiduría',   cat:'mente',     tip:'Comprensión profunda y síntesis del saber. Señala dónde la experiencia se convierte en sabiduría.' },
+  // Viajes y Expansión
+  { key:'Viajes',       g:'✈',  name:'Viajes',          short:'Viajes',      cat:'viajes',    tip:'Desplazamientos, mudanzas y exploraciones. Indica la vocación por el movimiento y el extranjero.' },
+  // Oscuro y Kármico
+  { key:'Espiritu',     g:'☯',  name:'Espíritu',        short:'Espíritu',    cat:'oculto',    tip:'La Parte del Espíritu. Contraria a la Fortuna; indica el destino espiritual y la misión del alma.' },
+  { key:'Destino',      g:'🌀', name:'Destino',         short:'Destino',     cat:'oculto',    tip:'Karma y propósito de vida. Señala la dirección nodal del alma hacia su realización.' },
+  { key:'Daemon',       g:'Δ',  name:'Dæmon',           short:'Dæmon',       cat:'oculto',    tip:'El guía interior y la voz del destino. Indica el llamado más profundo de la conciencia.' },
+  { key:'Oculto',       g:'🔮', name:'Oculto',          short:'Oculto',      cat:'oculto',    tip:'Lo escondido, los secretos y el inconsciente. Señala lo que permanece en la sombra.' },
+  { key:'Muerte',       g:'💀', name:'Muerte',          short:'Muerte',      cat:'oculto',    tip:'Transformaciones radicales e irreversibles. Indica los puntos de ruptura y regeneración profunda.' },
+  { key:'Ilusión',      g:'🌊', name:'Ilusión',         short:'Ilusión',     cat:'oculto',    tip:'Fantasías, engaños y disolución. Señala donde la realidad se vuelve borrosa y el ego se disuelve.' },
+  { key:'Liberacion',   g:'⛓',  name:'Liberación',      short:'Liberación',  cat:'oculto',    tip:'Rupturas y liberación de estructuras obsoletas. Indica el impulso hacia la originalidad y la libertad.' },
+  // Conflicto y Karma Negativo
+  { key:'Discordia',    g:'⚡', name:'Discordia',       short:'Discordia',   cat:'conflicto', tip:'Tensiones, peleas y fricciones relacionales. Señala áreas donde el conflicto aflora con facilidad.' },
+  { key:'Traicion',     g:'🗡',  name:'Traición',        short:'Traición',    cat:'conflicto', tip:'Decepciones y lealtades rotas. Indica las vulnerabilidades frente al engaño y la traición.' },
+  { key:'Peligro',      g:'⚠',  name:'Peligro',         short:'Peligro',     cat:'conflicto', tip:'Situaciones de riesgo y exposición al daño. Señala los puntos de mayor vulnerabilidad vital.' },
+  { key:'Infortuna',    g:'🌑', name:'Infortuna',       short:'Infortuna',   cat:'conflicto', tip:'Obstáculos y cargas kármicas. Señala las áreas donde la vida presenta mayor resistencia.' },
+  { key:'MalaSuerte',   g:'🪦', name:'Mala Suerte',     short:'Mala Suerte', cat:'conflicto', tip:'Coincidencias adversas y bloqueos recurrentes. Indica donde el azar actúa en contra.' },
+  { key:'Necesidad',    g:'🔗', name:'Necesidad',       short:'Necesidad',   cat:'conflicto', tip:'Carencias estructurales y dependencias. Señala lo que el nativo siente que le falta de forma crónica.' },
+  { key:'Cautiverio',   g:'⛓',  name:'Cautiverio',      short:'Cautiverio',  cat:'conflicto', tip:'Restricciones y limitaciones que aprisionan. Indica las trampas psicológicas o materiales.' },
+  { key:'Exilio',       g:'🏚', name:'Exilio',          short:'Exilio',      cat:'conflicto', tip:'Aislamiento y alejamiento del origen. Señala experiencias de marginalidad o destierro.' },
+  { key:'Adiccion',     g:'🌀', name:'Adicción',        short:'Adicción',    cat:'conflicto', tip:'Tendencias compulsivas y dependencias. Indica los puntos de mayor vulnerabilidad adictiva.' },
+  { key:'Amigos',       g:'🤝', name:'Amigos',          short:'Amigos',      cat:'social',    tip:'La red social y los vínculos de amistad. Señala la calidad y naturaleza de las relaciones fraternales.' },
+  { key:'Religion',     g:'✡',  name:'Religión',        short:'Religión',    cat:'oculto',    tip:'Fe, devoción y búsqueda de lo sagrado. Señala la relación con lo divino y las creencias profundas.' },
+  { key:'Valor',        g:'🛡',  name:'Valor',           short:'Valor',       cat:'vocacion',  tip:'Coraje y capacidad de enfrentar lo difícil. Indica la disposición a luchar por lo que importa.' },
+  // ── Grupo Hermético ──
+  { key:'Eros_P',       g:'♡',  name:'Eros',            short:'Eros',        cat:'hermetico', tip:'Parte hermética del deseo y la unión. Señala el impulso vital que mueve hacia el otro y hacia la creación.' },
+  { key:'Osiris',       g:'𓂀',  name:'Osiris',          short:'Osiris',      cat:'hermetico', tip:'Muerte, resurrección y regeneración. Señala los ciclos de pérdida y renacimiento en la vida del nativo.' },
+  { key:'Typhon_P',     g:'🌪',  name:'Typhon',          short:'Typhon',      cat:'hermetico', tip:'Caos primordial y fuerzas destructivas de la naturaleza. Señala los impulsos incontrolables y las pruebas extremas.' },
+  { key:'Auge',         g:'✦',  name:'Auge',            short:'Auge',        cat:'hermetico', tip:'El punto de mayor elevación y gloria. Indica el cenit de la fortuna personal y el momento de máximo esplendor.' },
+  // ── Grupo Abu Ma'shar ──
+  { key:'Vencimiento',  g:'🏅', name:'Vencimiento',     short:'Vencimiento', cat:'vocacion',  tip:'Superación de obstáculos y triunfo ganado con esfuerzo. Señala la capacidad de vencer adversidades.' },
+  { key:'Hermanos_H',   g:'👥', name:'Hermanos',         short:'Hermanos',    cat:'familia',   genderH:true, tip:'Vínculos fraternales para nativos masculinos.' },
+  { key:'Hermanos_M',   g:'👥', name:'Hermanos',         short:'Hermanos',    cat:'familia',   genderF:true, tip:'Vínculos fraternales para nativos femeninos.' },
+  { key:'Viudedad_H',   g:'🕯', name:'Viudedad',         short:'Viudedad',    cat:'familia',   genderH:true, tip:'Pérdida del vínculo conyugal para nativos masculinos.' },
+  { key:'Viudedad_M',   g:'🕯', name:'Viudedad',         short:'Viudedad',    cat:'familia',   genderF:true, tip:'Pérdida del vínculo conyugal para nativos femeninos.' },
+  { key:'Astrologia',   g:'⭐', name:'Astrología',       short:'Astrología',  cat:'mente',     tip:'Talento para las ciencias del cielo y la adivinación astral. Señala la aptitud para leer los cielos.' },
+  { key:'Adivinacion',  g:'🔮', name:'Adivinación',      short:'Adivinación', cat:'oculto',    tip:'Don profético y acceso a lo oculto. Señala la capacidad de percibir lo que está más allá de los sentidos.' },
+  { key:'Prision',      g:'⛓',  name:'Prisión',          short:'Prisión',     cat:'conflicto', tip:'Confinamiento físico o psicológico. Señala experiencias de encierro, restricción forzada o pérdida de libertad.' },
+  { key:'Coraje_H',     g:'⚔',  name:'Coraje',           short:'Coraje',      cat:'vocacion',  genderH:true, tip:'Valentía activa para nativos masculinos.' },
+  { key:'Coraje_M',     g:'⚔',  name:'Coraje',           short:'Coraje',      cat:'vocacion',  genderF:true, tip:'Valentía activa para nativos femeninos.' },
+  { key:'Engano',       g:'🎭', name:'Engaño',           short:'Engaño',      cat:'conflicto', tip:'Ilusiones, manipulaciones y falsedades. Señala la vulnerabilidad al engaño o la tendencia a engañar.' },
+  { key:'Odio',         g:'💢', name:'Odio',             short:'Odio',        cat:'conflicto', tip:'Aversión profunda y hostilidad acumulada. Señala los focos de rechazo visceral en la vida del nativo.' },
+  { key:'Juicio',       g:'⚖',  name:'Juicio',           short:'Juicio',      cat:'conflicto', tip:'Procesos legales, sentencias y veredictos. Señala la relación con la justicia formal y sus consecuencias.' },
+  { key:'Culpa',        g:'😔', name:'Culpa',            short:'Culpa',       cat:'conflicto', tip:'Carga de la responsabilidad moral y el remordimiento. Señala los nodos de culpa kármica o psicológica.' },
+  { key:'TesoroEscondido', g:'🗝', name:'Tesoro Escondido',  short:'Tesoro Escondido',      cat:'riqueza',   tip:'Recursos escondidos y riqueza no manifiesta. Señala lo que permanece latente esperando ser descubierto.' },
+  { key:'Pleitos',      g:'🗣',  name:'Pleitos',          short:'Pleitos',     cat:'conflicto', tip:'Disputas, litigios y conflictos formales. Señala la propensión a enfrentamientos legales o públicos.' },
+  { key:'Verdad',       g:'💡', name:'Verdad',           short:'Verdad',      cat:'mente',     tip:'Claridad, honestidad y acceso a lo real. Señala la relación del nativo con la veracidad y la transparencia.' },
+  { key:'Mentira',      g:'🌀', name:'Mentira',          short:'Mentira',     cat:'conflicto', tip:'Distorsión de la realidad y ocultamiento. Señala las áreas donde la falsedad o el autoengaño operan.' },
+  { key:'Venganza',     g:'🗡',  name:'Venganza',         short:'Venganza',    cat:'conflicto', tip:'Impulso de retribución y desquite. Señala los ciclos de resentimiento y la necesidad de reparación.' },
+  { key:'Esperanza',    g:'🌅', name:'Esperanza',        short:'Esperanza',   cat:'oculto',    tip:'Fe en el porvenir y visión optimista. Señala la capacidad del nativo de proyectarse hacia un futuro mejor.' },
+  { key:'Fe',           g:'🕊',  name:'Fe',               short:'Fe',          cat:'oculto',    tip:'Confianza en lo invisible y lo superior. Señala la relación con la creencia y el sostén espiritual profundo.' },
+  // ── Partes adicionales ──
+  { key:'Caridad',      g:'🤲', name:'Caridad',           short:'Caridad',     cat:'social',    tip:'Generosidad y entrega desinteresada. Señala la disposición del nativo a dar sin esperar retribución.' },
+  { key:'Perdon',       g:'🕊',  name:'Perdón',            short:'Perdón',      cat:'oculto',    tip:'Capacidad de soltar el agravio y sanar. Señala los procesos de liberación kármica a través del perdón.' },
+  { key:'Arrepentimiento', g:'😔', name:'Arrepentimiento', short:'Arrepentimiento', cat:'oculto', tip:'Reconocimiento del error y deseo de enmienda. Señala los ciclos de conciencia moral y transformación.' },
+  { key:'Viaje',        g:'🚢', name:'Viaje',             short:'Viaje',       cat:'viajes',    tip:'El viaje concreto y sus circunstancias. Señala los desplazamientos largos y su naturaleza particular.' },
+  { key:'Regreso',      g:'🏡', name:'Regreso a Casa',    short:'Regreso',     cat:'viajes',    tip:'El retorno al origen y al hogar. Señala las condiciones del regreso y el reencuentro con las raíces.' },
+  { key:'Servicio',     g:'🙏', name:'Servicio',          short:'Servicio',    cat:'vocacion',  tip:'Vocación de entrega y utilidad. Señala la disposición a servir a otros como expresión del propósito vital.' },
+  { key:'Nobleza',      g:'👑', name:'Nobleza',           short:'Nobleza',     cat:'vocacion',  tip:'Distinción, linaje y elevación moral. Señala el rango espiritual o social y la dignidad innata del nativo.' },
+  { key:'Reino',        g:'🏰', name:'Reino',             short:'Reino',       cat:'vocacion',  tip:'Dominio, autoridad y territorio propio. Señala la esfera de influencia y el poder de gobernar.' },
+  { key:'Ejercito',     g:'⚔',  name:'Ejército',          short:'Ejército',    cat:'conflicto', tip:'Fuerza colectiva y disciplina marcial. Señala la relación con el poder militar, la jerarquía y la guerra.' },
+  { key:'Enemistad',    g:'💀', name:'Enemistad',         short:'Enemistad',   cat:'conflicto', tip:'Hostilidad abierta y enemigos declarados. Señala los focos de oposición activa en la vida del nativo.' },
+  { key:'Separacion',   g:'💔', name:'Separación',        short:'Separación',  cat:'conflicto', tip:'Rupturas, alejamientos y distanciamientos. Señala los momentos de quiebre en vínculos significativos.' },
+  { key:'Union',        g:'💞', name:'Unión',             short:'Unión',       cat:'amor',      tip:'Fusión, alianza y confluencia. Señala los momentos de unificación profunda en vínculos o proyectos.' },
+];
+let TODOS_LOS_ASTEROIDES = [
+  // Los 4 Principales
+  { key:'Ceres',      g:'⚳', name:'Ceres',      cat:'principal',      tip:'Nutrición, maternidad y ciclos naturales. Rige la capacidad de cuidar, alimentar y sostener.' },
+  { key:'Pallas',     g:'⚴', name:'Pallas',      cat:'principal',      tip:'Sabiduría estratégica y creatividad intelectual. Vinculada al pensamiento analítico y el arte.' },
+  { key:'Juno',       g:'⚵', name:'Juno',        cat:'principal',      tip:'Compromisos y alianzas. Rige el matrimonio, la lealtad y los vínculos de igualdad.' },
+  { key:'Vesta',      g:'⚶', name:'Vesta',        cat:'principal',      tip:'Devoción, enfoque y pureza. Rige la llama interior, los rituales y la consagración.' },
+  // Centauros
+  { key:'Chiron',     g:'⚷', name:'Quirón',       cat:'centauro',       tip:'La herida primordial y el don de sanar. Señala el punto de mayor dolor y de mayor maestría.' },
+  { key:'Pholus',     g:'🜒', name:'Pholus',       cat:'centauro',       tip:'Reacciones en cadena y catalizadores transformadores. Pequeñas causas con grandes consecuencias.' },
+  { key:'Nessus',     g:'⊕', name:'Nessus',        cat:'centauro',       tip:'Karma, abuso de poder y ciclos de herencia emocional. Señala patrones que deben romperse.' },
+  { key:'Chariklo',   g:'♁', name:'Chariklo',      cat:'centauro',       tip:'Límites sagrados y contención amorosa. Rige la capacidad de sostener el espacio para otros.' },
+  { key:'Ixion',      g:'⊗', name:'Ixion',         cat:'centauro',       tip:'Transgresión de límites y consecuencias kármicas. Impulsos que ignoran las leyes morales.' },
+  // Relaciones y Deseo
+  { key:'Eros',       g:'♡', name:'Eros',          cat:'deseo',          tip:'Deseo erótico y pasión vital. Señala lo que enciende el impulso creador y la atracción profunda.' },
+  { key:'Psyche',     g:'🦋', name:'Psyche',        cat:'deseo',          tip:'El alma y su camino hacia la unión. Rige la sensibilidad psíquica y el amor incondicional.' },
+  { key:'Sappho',     g:'♀', name:'Sappho',         cat:'deseo',          tip:'Sensualidad poética y amor estético. Vinculado a la belleza, la expresión lírica y el placer.' },
+  { key:'Amor',       g:'❤', name:'Amor',           cat:'deseo',          tip:'Amor incondicional y compasión espiritual. Señala la capacidad de amar sin apego.' },
+  { key:'Aphrodite',  g:'♀', name:'Aphrodite',      cat:'deseo',          tip:'Atracción, seducción y belleza sensual. Rige el magnetismo personal y el placer estético.' },
+  { key:'Adonis',     g:'☿', name:'Adonis',         cat:'deseo',          tip:'Belleza efímera y deseo apasionado. Señala la atracción física intensa y su fragilidad.' },
+  // Salud y Sanación
+  { key:'Hygiea',     g:'⛎', name:'Hygeia',         cat:'salud',          tip:'Salud preventiva y hábitos vitales. Rige la conciencia del cuerpo y la higiene energética.' },
+  { key:'Panacea',    g:'✚', name:'Panacea',         cat:'salud',          tip:'Remedios universales y fe curativa. Señala la búsqueda de soluciones totales al sufrimiento.' },
+  { key:'Aesculapia', g:'⚕', name:'Aesculapia',     cat:'salud',          tip:'Arte médico y recuperación ante la enfermedad. Rige la capacidad de restaurar la vitalidad.' },
+  { key:'Meditrina',  g:'🍵', name:'Meditrina',      cat:'salud',          tip:'Medicina ancestral y uso ritual de plantas. Rige los remedios naturales y la sabiduría herbal.' },
+  // Arquetipos Femeninos
+  { key:'Cybele',     g:'🌍', name:'Cybele',          cat:'femenino',       tip:'Gran Madre y naturaleza salvaje. Rige la fertilidad de la tierra y los instintos primordiales.' },
+  { key:'Lilith',     g:'⚸', name:'Lilith',           cat:'femenino',       tip:'Independencia radical y sombra femenina. Rige lo reprimido, lo instintivo y la rebeldía.' },
+  { key:'Astraea',    g:'⚖', name:'Astraea',          cat:'femenino',       tip:'Justicia divina y pureza celestial. Señala los principios de equidad y el ideal de lo perfecto.' },
+  { key:'Diana',      g:'☽', name:'Diana',            cat:'femenino',       tip:'Cazadora, libertad y virginidad sagrada. Rige la independencia femenina y la conexión con la luna.' },
+  { key:'Minerva',    g:'🦉', name:'Minerva',          cat:'femenino',       tip:'Sabiduría práctica y artes de la guerra. Vinculada a la estrategia, la artesanía y la inteligencia.' },
+  { key:'Athena',     g:'⛡', name:'Athena',           cat:'femenino',       tip:'Inteligencia táctica y civilización. Rige la justicia, las artes marciales y el conocimiento.' },
+  // Relaciones y Deseo (ampliado)
+  { key:'Eros',       g:'♡', name:'Eros',          cat:'deseo',          tip:'Deseo erótico y pasión vital. Señala lo que enciende el impulso creador y la atracción profunda.' },
+  { key:'Psyche',     g:'🦋', name:'Psyche',        cat:'deseo',          tip:'El alma y su camino hacia la unión. Rige la sensibilidad psíquica y el amor incondicional.' },
+  { key:'Sappho',     g:'♀', name:'Sappho',         cat:'deseo',          tip:'Sensualidad poética y amor estético. Vinculado a la belleza, la expresión lírica y el placer.' },
+  { key:'Amor',       g:'❤', name:'Amor',           cat:'deseo',          tip:'Amor incondicional y compasión espiritual. Señala la capacidad de amar sin apego.' },
+  { key:'Aphrodite',  g:'♀', name:'Aphrodite',      cat:'deseo',          tip:'Atracción, seducción y belleza sensual. Rige el magnetismo personal y el placer estético.' },
+  { key:'Adonis',     g:'☿', name:'Adonis',         cat:'deseo',          tip:'Belleza efímera y deseo apasionado. Señala la atracción física intensa y su fragilidad.' },
+  { key:'Erotica',    g:'💋', name:'Erotica',        cat:'deseo',          tip:'Deseo físico exacerbado y seducción. Señala la dimensión más intensa del impulso erótico.' },
+  { key:'Hedone',     g:'🌸', name:'Hedone',         cat:'deseo',          tip:'Placer sensorial y hedonismo. Rige la búsqueda del goce, el deleite y la satisfacción inmediata.' },
+  { key:'Fortuna',    g:'⊕', name:'Fortuna',        cat:'deseo',          tip:'Destino y giros de la suerte. Señala los ciclos de abundancia, fortuna y oportunidad.' },
+  // Mitología y Arquetipos Olímpicos
+  { key:'Hermes',     g:'☿', name:'Hermes',           cat:'mitologia',      tip:'Mensajero entre mundos, astucia y engaño. Señala la fluidez entre realidades y el ingenio trickster.' },
+  { key:'Bacchus',    g:'🍇', name:'Bacchus',          cat:'mitologia',      tip:'Éxtasis, exceso y disolución del ego. Rige los estados alterados, la fiesta y la liberación dionisíaca.' },
+  { key:'Prometheus', g:'🔥', name:'Prometheus',       cat:'mitologia',      tip:'Rebeldía creadora y robo del fuego sagrado. Señala el impulso de traer lo divino a lo humano.' },
+  { key:'Epimetheus', g:'🪞', name:'Epimetheus',       cat:'mitologia',      tip:'Pensamiento retrospectivo y consecuencias imprevistas. Rige las decisiones que se comprenden tarde.' },
+  { key:'Atlas',      g:'🌐', name:'Atlas',            cat:'mitologia',      tip:'Carga titánica y responsabilidad extrema. Señala el peso de sostener estructuras que otros evitan.' },
+  { key:'Pandora',    g:'📦', name:'Pandora',          cat:'mitologia',      tip:'Curiosidad y liberación de lo no controlable. Rige los descubrimientos que cambian todo.' },
+  { key:'Persephone', g:'🌺', name:'Persephone',       cat:'mitologia',      tip:'Descenso al inframundo y retorno renovado. Rige los ciclos de muerte simbólica y renacimiento.' },
+  { key:'Hekate',     g:'🌙', name:'Hekate',           cat:'mitologia',      tip:'Magia, encrucijadas y mundos liminales. Rige la hechicería, los umbrales y la intuición oscura.' },
+  { key:'Hades',      g:'⛧', name:'Hades',            cat:'mitologia',      tip:'Profundidades del inconsciente y el reino de los muertos. Rige la transformación subterránea.' },
+  // Planetas Transpersonales y Enanos
+  { key:'Hybris',     g:'⚡', name:'Hybris',           cat:'oscuro',         tip:'Arrogancia desmedida y exceso. Señala donde el ego transgrede sus límites y desafía lo sagrado.' },
+  { key:'Dejanira',   g:'⚔', name:'Dejanira',         cat:'oscuro',         tip:'Victimización, traición y daño involuntario. Rige experiencias de abuso y su herencia emocional.' },
+  { key:'Pelion',     g:'⛰', name:'Pelion',           cat:'oscuro',         tip:'Carga y acumulación. Señala pesos kármicos heredados o responsabilidades que se acumulan.' },
+  { key:'Caronte',    g:'⛵', name:'Caronte',          cat:'oscuro',         tip:'Tránsito entre mundos y transformaciones irreversibles. Rige los umbrales y los finales.' },
+  { key:'Orcus',      g:'☠', name:'Orcus',            cat:'oscuro',         tip:'Juramentos, promesas y retribución. Señala el cumplimiento inexorable de compromisos sagrados.' },
+  { key:'Eris',       g:'⚡', name:'Eris',             cat:'oscuro',         tip:'Discordia, caos y revelación de la verdad. Rige las disrupciones que exponen lo oculto.' },
+  { key:'Sedna',      g:'❄', name:'Sedna',            cat:'transpersonal',  tip:'Abandono primordial y resurrección. Rige las heridas del rechazo y la redención a través del dolor.' },
+  { key:'Makemake',   g:'🐦', name:'Makemake',         cat:'transpersonal',  tip:'Recursos limitados y conciencia ecológica. Señala la relación con la escasez y la supervivencia.' },
+  { key:'Haumea',     g:'🥚', name:'Haumea',           cat:'transpersonal',  tip:'Fertilidad, renacimiento y creación cíclica. Rige las transformaciones regenerativas de la naturaleza.' },
+  { key:'Quaoar',     g:'🌀', name:'Quaoar',           cat:'transpersonal',  tip:'Creación a través del orden y la ley natural. Señala los ritmos cósmicos que estructuran la existencia.' },
+  { key:'Varuna',     g:'⚖', name:'Varuna',           cat:'transpersonal',  tip:'Ley cósmica y vigilancia divina. Rige la verdad universal, la ética y la rendición de cuentas.' },
+  { key:'Icarus',     g:'🌞', name:'Icarus',           cat:'transpersonal',  tip:'Impulso temerario e idealismo extremo. Señala ambiciones que desafían los límites y sus consecuencias.' },
+  { key:'Phaethon',   g:'☀', name:'Phaethon',         cat:'transpersonal',  tip:'Control perdido y catástrofe por exceso de ambición. Vinculado al ego solar y sus caídas.' },
+  { key:'Nemesis',    g:'⚖', name:'Nemesis',          cat:'transpersonal',  tip:'Retribución divina y karma equilibrador. Señala la justicia que corrige el exceso y la arrogancia.' },
+  { key:'Typhon',     g:'🌪', name:'Typhon',           cat:'transpersonal',  tip:'Caos primordial y fuerzas destructivas. Rige los impulsos incontrolables y la ira volcánica.' },
+];
 let SIGNOS_DATA = {};
 let SIGNOS_ETAPAS = {};
 let PERS_DATA = {};
@@ -8281,8 +8453,28 @@ function _aplicarDatosMensajes() {
     }
     if (window._INTERP_PARTES)        INTERP_PARTES        = window._INTERP_PARTES;
     if (window._INTERP_ASTEROIDES)    INTERP_ASTEROIDES    = window._INTERP_ASTEROIDES;
-    if (window._TODAS_LAS_PARTES)     TODAS_LAS_PARTES     = window._TODAS_LAS_PARTES;
-    if (window._TODOS_LOS_ASTEROIDES) TODOS_LOS_ASTEROIDES = window._TODOS_LOS_ASTEROIDES;
+    if (window._TODAS_LAS_PARTES) {
+      const _localPMap = {};
+      TODAS_LAS_PARTES.forEach(p => { _localPMap[p.key] = p; });
+      TODAS_LAS_PARTES = window._TODAS_LAS_PARTES.map(p => {
+        const loc = _localPMap[p.key] || {};
+        return Object.assign({}, loc, p, { cat: loc.cat || p.cat, tip: loc.tip || p.tip });
+      });
+      window._TODAS_LAS_PARTES.forEach(p => { delete _localPMap[p.key]; });
+      Object.values(_localPMap).forEach(p => TODAS_LAS_PARTES.push(p));
+    }
+    if (window._TODOS_LOS_ASTEROIDES) {
+      // Merge: usar lista externa pero conservar cat/tip de la lista local si existen
+      const _localMap = {};
+      TODOS_LOS_ASTEROIDES.forEach(a => { _localMap[a.key] = a; });
+      TODOS_LOS_ASTEROIDES = window._TODOS_LOS_ASTEROIDES.map(a => {
+        const loc = _localMap[a.key] || {};
+        return Object.assign({}, loc, a, { cat: loc.cat || a.cat, tip: loc.tip || a.tip });
+      });
+      // Agregar locales que no estén en la lista externa
+      window._TODOS_LOS_ASTEROIDES.forEach(a => { delete _localMap[a.key]; });
+      Object.values(_localMap).forEach(a => TODOS_LOS_ASTEROIDES.push(a));
+    }
     if (window._RETRO_INTERP)         RETRO_INTERP         = window._RETRO_INTERP;
     // ── tusigno.js ──
     if (window._SIGNOS_DATA)          SIGNOS_DATA          = window._SIGNOS_DATA;
@@ -8417,8 +8609,28 @@ function _aplicarDatosMensajes() {
     }
     if (window._INTERP_PARTES)        INTERP_PARTES        = window._INTERP_PARTES;
     if (window._INTERP_ASTEROIDES)    INTERP_ASTEROIDES    = window._INTERP_ASTEROIDES;
-    if (window._TODAS_LAS_PARTES)     TODAS_LAS_PARTES     = window._TODAS_LAS_PARTES;
-    if (window._TODOS_LOS_ASTEROIDES) TODOS_LOS_ASTEROIDES = window._TODOS_LOS_ASTEROIDES;
+    if (window._TODAS_LAS_PARTES) {
+      const _localPMap = {};
+      TODAS_LAS_PARTES.forEach(p => { _localPMap[p.key] = p; });
+      TODAS_LAS_PARTES = window._TODAS_LAS_PARTES.map(p => {
+        const loc = _localPMap[p.key] || {};
+        return Object.assign({}, loc, p, { cat: loc.cat || p.cat, tip: loc.tip || p.tip });
+      });
+      window._TODAS_LAS_PARTES.forEach(p => { delete _localPMap[p.key]; });
+      Object.values(_localPMap).forEach(p => TODAS_LAS_PARTES.push(p));
+    }
+    if (window._TODOS_LOS_ASTEROIDES) {
+      // Merge: usar lista externa pero conservar cat/tip de la lista local si existen
+      const _localMap = {};
+      TODOS_LOS_ASTEROIDES.forEach(a => { _localMap[a.key] = a; });
+      TODOS_LOS_ASTEROIDES = window._TODOS_LOS_ASTEROIDES.map(a => {
+        const loc = _localMap[a.key] || {};
+        return Object.assign({}, loc, a, { cat: loc.cat || a.cat, tip: loc.tip || a.tip });
+      });
+      // Agregar locales que no estén en la lista externa
+      window._TODOS_LOS_ASTEROIDES.forEach(a => { delete _localMap[a.key]; });
+      Object.values(_localMap).forEach(a => TODOS_LOS_ASTEROIDES.push(a));
+    }
     if (window._SIGNOS_DATA)          SIGNOS_DATA          = window._SIGNOS_DATA;
     if (window._SIGNOS_ETAPAS)        SIGNOS_ETAPAS        = window._SIGNOS_ETAPAS;
     if (window._PERS_DATA)            PERS_DATA            = window._PERS_DATA;
@@ -8593,6 +8805,12 @@ function _opcionalesCheckCalc() {
 
 function setGender(g) {
   document.getElementById('selGender').value = g;
+  // Limpiar partes del género contrario de _activatedPartes
+  if (g === 'M') {
+    TODAS_LAS_PARTES.filter(p => p.genderF).forEach(p => _activatedPartes.delete(p.key));
+  } else if (g === 'F') {
+    TODAS_LAS_PARTES.filter(p => p.genderH).forEach(p => _activatedPartes.delete(p.key));
+  }
   // refresh partes panel when gender changes
   if (_activatedPartes.size > 0) { renderPartesPanel(); refreshAspDropdown(); }
   // Mostrar opcionales solo cuando se elige un género válido
@@ -8742,39 +8960,71 @@ function calcularParteArabiga(parteDef, ascDeg, planetas, casas) {
   const ur = uranus||0, ne = neptune||0, pl = pluto||0;
 
   switch(parteDef.key) {
-    case 'Adiccion':      return ne ? nrm(a + m - ne) : null;
+    case 'Arrepentimiento': return (sa && pl) ? nrm(a + sa - pl) : null;
+    case 'Caridad':       return (ju && v) ? nrm(a + ju - v) : null;
+    case 'Ejercito':      return (mars && sa) ? nrm(a + mars_ - sa) : null;
+    case 'Enemistad':     return (mars && sa) ? nrm(a + sa - mars_) : null;
+    case 'Nobleza':       return (ju && s) ? nrm(a + ju - s) : null;
+    case 'Perdon':        return (ne && v) ? nrm(a + ne - sa) : null;
+    case 'Regreso':       return (m && casas) ? nrm(a + m - v) : null;
+    case 'Reino':         return (ju && mc) ? nrm(a + mc - sa) : null;
+    case 'Separacion':    return (sa && ur) ? nrm(a + sa - ur) : null;
+    case 'Servicio':      return (me && v) ? nrm(a + me - v) : null;
+    case 'Union':         return (v && ju) ? nrm(a + v - m) : null;
+    case 'Viaje':         return (sa && me) ? nrm(a + sa - me) : null;
+    case 'Adivinacion':   return (me && ne) ? nrm(a + me - ne) : null;
     case 'Adulterio':     return (v && mars) ? nrm(a + v - mars_) : null;
     case 'Amor':          return v ? nrm(a + v - s) : null;
     case 'Amigos':        return me ? nrm(a + m - me) : null;
+    case 'Astrologia':    return (ur && me) ? nrm(a + ur - me) : null;
     case 'Audacia':       return mars ? nrm(a + s - mars_) : null;
+    case 'Auge':          return (sa && me) ? nrm(a + me - sa) : null;
     case 'Boda_H':        return sa ? nrm(a + sa - v) : null;
     case 'Boda_M':        return sa ? nrm(a + sa - s) : null;
     case 'Cautiverio':    return sa ? nrm(a + sa - m) : null;
     case 'Comercio':      return me ? nrm(a + me - s) : null;
     case 'Copulacion':    return (v && mars) ? nrm(a + v - mars_) : null;
+    case 'Coraje_H':      return (mars && sa) ? nrm(a + mars_ - sa) : null;
+    case 'Coraje_M':      return (mars && sa) ? nrm(a + sa - mars_) : null;
+    case 'Culpa':         return (sa && pl) ? nrm(a + sa - pl) : null;
     case 'Destino':       return nrm(a + nn - s);
     case 'Dinero':        return (ju && sa) ? nrm(a + ju - sa) : null;
     case 'Discordia':     return (mars && v) ? nrm(a + mars_ - v) : null;
     case 'Enfermedad':    return (mars && sa) ? nrm(a + mars_ - sa) : null;
+    case 'Engano':        return (me && ne) ? nrm(a + ne - me) : null;
+    case 'Esperanza':     return ju ? nrm(a + ju - ne) : null;
     case 'Espiritu':      return nrm(a + s - m);
+    case 'Eros_P':        return v ? nrm(a + v - m) : null;
     case 'Exilio':        return (casas && sa) ? nrm(a + cusp12 - sa) : null;
     case 'Fama':          return ju ? nrm(a + s - ju) : null;
+    case 'Fe':            return (ju && ne) ? nrm(a + ju - ne) : null;
     case 'Fortuna':       return nrm(a + m - s);
-    case 'Hijos':         return ju ? nrm(a + ju - m) : null;
+    case 'Hermanos_H':    return me ? nrm(a + me - s) : null;
+    case 'Hermanos_M':    return me ? nrm(a + s - me) : null;
+    case 'Hijos_H':       return (ju && sa) ? nrm(a + ju - sa) : null;
+    case 'Hijos_M':       return (ju && sa) ? nrm(a + sa - ju) : null;
     case 'Homosexualidad':return (v && sa) ? nrm(a + v - sa) : null;
     case 'Ilusión':       return ne ? nrm(a + ne - m) : null;
     case 'Infortuna':     return sa ? nrm(a + sa - m) : null;
     case 'Inteligencia':  return me ? nrm(a + me - m) : null;
+    case 'Juicio':        return (sa && ju) ? nrm(a + sa - ju) : null;
     case 'Liberacion':    return ur ? nrm(a + ur - s) : null;
     case 'MalaSuerte':   return sa ? nrm(a + sa - m) : null;
-    case 'Madre':         return v ? nrm(a + m - v) : null;
+    case 'Madre_H':       return v ? nrm(a + m - v) : null;
+    case 'Madre_M':       return v ? nrm(a + v - m) : null;
     case 'Matrimonio_H':  return v ? nrm(a + dsc - v) : null;
     case 'Matrimonio_M':  return sa ? nrm(a + dsc - sa) : null;
+    case 'Mentira':       return (ne && me) ? nrm(a + ne - me) : null;
     case 'Muerte':        return casas ? nrm(a + cusp8 - m) : null;
     case 'Necesidad':     return (sa && me) ? nrm(a + sa - me) : null;
+    case 'Odio':          return (mars && sa) ? nrm(a + mars_ - v) : null;
+    case 'Osiris':        return pl ? nrm(a + pl - s) : null;
     case 'Oculto':        return pl ? nrm(a + pl - m) : null;
-    case 'Padre':         return sa ? nrm(a + s - sa) : null;
+    case 'Padre_H':       return sa ? nrm(a + s - sa) : null;
+    case 'Padre_M':       return sa ? nrm(a + sa - s) : null;
     case 'Peligro':       return (sa && mars) ? nrm(a + sa - mars_) : null;
+    case 'Pleitos':       return (mars && sa) ? nrm(a + mars_ - me) : null;
+    case 'Prision':       return (sa && casas) ? nrm(a + cusp12 - sa) : null;
     case 'Profesion':     return nrm(a + mc - s);
     case 'Prosperidad':   return (ju && v) ? nrm(a + ju - v) : null;
     case 'Religion':      return (ju && v) ? nrm(a + ju - v) : null;
@@ -8782,11 +9032,18 @@ function calcularParteArabiga(parteDef, ascDeg, planetas, casas) {
     case 'Sabiduria':     return (me && ju) ? nrm(a + me - ju) : null;
     case 'Salud':         return mars ? nrm(a + m - mars_) : null;
     case 'Suerte':        return ju ? nrm(a + ju - m) : null;
+    case 'TesoroEscondido': return (casas && ju) ? nrm(a + cusp8 - ju) : null;
     case 'Traicion':      return sa ? nrm(a + sa - s) : null;
+    case 'Typhon_P':      return (mars && pl) ? nrm(a + mars_ - pl) : null;
     case 'Urgencia':      return mars ? nrm(a + mars_ - s) : null;
     case 'Valor':         return (mars && ju) ? nrm(a + mars_ - ju) : null;
+    case 'Venganza':      return (mars && pl) ? nrm(a + pl - mars_) : null;
+    case 'Vencimiento':   return (ju && mars) ? nrm(a + ju - mars_) : null;
+    case 'Verdad':        return (me && ju) ? nrm(a + ju - me) : null;
     case 'Viajes':        return sa ? nrm(a + sa - s) : null;
     case 'Victoria':      return (ju && mars) ? nrm(a + ju - mars_) : null;
+    case 'Viudedad_H':    return (sa && v) ? nrm(a + sa - v) : null;
+    case 'Viudedad_M':    return (sa && v) ? nrm(a + v - sa) : null;
     case 'Vuelo':         return (me && mars) ? nrm(a + me - mars_) : null;
     default: return null;
   }
@@ -8832,6 +9089,34 @@ function calcularAsteroide(key, jd) {
     case 'Sappho':     return nrm(50.0  + 3.41 * d / 365.25);
     case 'Circe':      return nrm(230.0 + 2.37 * d / 365.25);
     case 'Medea':      return nrm(142.0 + 2.31 * d / 365.25);
+    // ── Nuevos asteroides ──
+    case 'Chariklo':   return nrm(175.0 + 0.527 * d / 365.25);
+    case 'Aphrodite':  return nrm(74.0  + 3.85 * d / 365.25);
+    case 'Adonis':     return nrm(317.0 + 6.12 * d / 365.25);
+    case 'Panacea':    return nrm(209.0 + 2.48 * d / 365.25);
+    case 'Aesculapia': return nrm(88.0  + 2.22 * d / 365.25);
+    case 'Cybele':     return nrm(130.0 + 1.41 * d / 365.25);
+    case 'Diana':      return nrm(25.0  + 3.09 * d / 365.25);
+    case 'Minerva':    return nrm(156.0 + 2.74 * d / 365.25);
+    case 'Athena':     return nrm(67.0  + 3.18 * d / 365.25);
+    case 'Hybris':     return nrm(312.0 + 3.30 * d / 365.25);
+    case 'Dejanira':   return nrm(190.0 + 3.41 * d / 365.25);
+    case 'Pelion':     return nrm(99.0  + 0.224 * d / 365.25);
+    case 'Caronte':    return nrm(341.0 + 1.54 * d / 365.25);
+    case 'Orcus':      return nrm(6.0   + 0.132 * d / 365.25);
+    case 'Icarus':     return nrm(147.0 + 7.73 * d / 365.25);
+    case 'Phaethon':   return nrm(288.0 + 6.38 * d / 365.25);
+    case 'Typhon':     return nrm(190.0 + 0.163 * d / 365.25);
+    case 'Hekate':     return nrm(22.0  + 2.50 * d / 365.25);
+    case 'Bacchus':    return nrm(62.0  + 4.06 * d / 365.25);
+    case 'Hermes':     return nrm(108.0 + 9.28 * d / 365.25);
+    case 'Prometheus': return nrm(222.0 + 3.02 * d / 365.25);
+    case 'Epimetheus': return nrm(231.0 + 3.13 * d / 365.25);
+    case 'Atlas':      return nrm(56.0  + 2.88 * d / 365.25);
+    case 'Erotica':    return nrm(33.0  + 3.94 * d / 365.25);
+    case 'Hedone':     return nrm(145.0 + 3.56 * d / 365.25);
+    case 'Meditrina':  return nrm(260.0 + 2.31 * d / 365.25);
+    case 'Persephone': return nrm(215.0 + 2.44 * d / 365.25);
     case 'BMLilith': {
       const Lm = nrm(218.3164477 + 481267.88123421*T);
       const Mm = nrm(134.9633964 + 477198.8675055*T);
@@ -8876,50 +9161,180 @@ function parteGlyphText(p) {
 }
 // ───────────────────────────────────────────────────────────────
 
+// ═══════════════════════════════════════════════════════════════
+// ACORDEÓN GENÉRICO — Partes Arábigas y Asteroides
+// ═══════════════════════════════════════════════════════════════
+function _buildAccordionModal(cont, items, activatedSet, accentColor, accentAlpha, onToggle) {
+  cont.innerHTML = '';
+  const catLabels = {
+    amor:          '💕 Amor y Relaciones',
+    riqueza:       '💰 Riqueza y Material',
+    vocacion:      '⭐ Vocación y Reconocimiento',
+    salud:         '🌿 Salud y Sanación',
+    familia:       '🏠 Familia',
+    mente:         '🧠 Mente y Conocimiento',
+    viajes:        '✈ Viajes',
+    oculto:        '🔮 Espiritualidad y Destino',
+    conflicto:     '⚡ Conflicto y Karma',
+    social:        '🤝 Vínculos Sociales',
+    hermetico:     '🜂 Grupo Hermético',
+    principal:     '⭐ Los 4 Principales',
+    centauro:      '🐎 Centauros',
+    deseo:         '💞 Relaciones y Deseo',
+    femenino:      '🌙 Arquetipos Femeninos',
+    mitologia:     '🏛 Mitología y Olímpicos',
+    transpersonal: '🌌 Planetas Transpersonales',
+    oscuro:        '🌑 Oscuros y Sombra',
+  };
+  const catOrder = [];
+  const grupos = {};
+  items.forEach(function(a) {
+    var c = a.cat || 'oscuro';
+    if (!grupos[c]) { grupos[c] = []; catOrder.push(c); }
+    grupos[c].push(a);
+  });
+  // Ordenar cada grupo alfabéticamente por nombre
+  Object.keys(grupos).forEach(function(c) {
+    grupos[c].sort(function(a, b) { return (a.name || a.key).localeCompare(b.name || b.key, 'es'); });
+  });
+  // Ordenar los acordeones (categorías) alfabéticamente por su label, ignorando emojis
+  catOrder.sort(function(a, b) {
+    var la = (catLabels[a] || a).replace(/[^\p{L}\p{N}\s]/gu, '').trim();
+    var lb = (catLabels[b] || b).replace(/[^\p{L}\p{N}\s]/gu, '').trim();
+    return la.localeCompare(lb, 'es');
+  });
+  if (!cont._openCats) cont._openCats = new Set();
+
+  catOrder.forEach(function(cat) {
+    var group = grupos[cat];
+    if (!group || !group.length) return;
+    var label = catLabels[cat] || cat;
+    var isOpen = cont._openCats.has(cat);
+
+    // Header
+    var hdr = document.createElement('button');
+    hdr.type = 'button';
+    hdr.dataset.cat = cat;
+    var activeCount = group.filter(function(a){ return activatedSet.has(a.key); }).length;
+    var baseStyle = 'display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 12px;margin-top:4px;border:1px solid rgba(' + accentAlpha + ',0.3);color:' + accentColor + ';font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:all .22s;border-radius:2px;box-sizing:border-box;';
+    var closedStyle = baseStyle + 'background:rgba(0,8,28,0.7);box-shadow:none;';
+    var openStyle   = baseStyle + 'background:rgba(0,8,28,0.85);border-color:' + accentColor + ';box-shadow:0 0 10px rgba(' + accentAlpha + ',0.45),inset 0 0 8px rgba(' + accentAlpha + ',0.12);';
+    hdr.style.cssText = isOpen ? openStyle : closedStyle;
+    var badge = activeCount > 0 ? '<span style="background:' + accentColor + ';color:#000;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700;margin-left:6px;">' + activeCount + '</span>' : '';
+    hdr.innerHTML = '<span>' + label + badge + '</span><span class="acc-arrow" style="font-size:10px;opacity:0.7;">' + (isOpen ? '▲' : '▼') + '</span>';
+
+    // Body
+    var body = document.createElement('div');
+    body.dataset.catBody = cat;
+    body.style.cssText = 'display:' + (isOpen ? 'grid' : 'none') + ';grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:6px;padding:6px 0 4px;overflow:visible;';
+
+    hdr.onclick = function(e) {
+      e.preventDefault();
+      this.blur();
+      var nowOpen = body.style.display !== 'none';
+      // Cerrar todos los demás acordeones
+      if (!nowOpen) {
+        cont.querySelectorAll('[data-cat-body]').forEach(function(b) {
+          if (b.dataset.catBody !== cat) {
+            b.style.display = 'none';
+            cont._openCats.delete(b.dataset.catBody);
+          }
+        });
+        cont.querySelectorAll('button[data-cat]').forEach(function(h) {
+          if (h.dataset.cat !== cat) {
+            var arrow = h.querySelector('.acc-arrow');
+            if (arrow) arrow.textContent = '▼';
+            h.style.cssText = closedStyle;
+          }
+        });
+      }
+      body.style.display = nowOpen ? 'none' : 'grid';
+      hdr.querySelector('.acc-arrow').textContent = nowOpen ? '▼' : '▲';
+      hdr.style.cssText = nowOpen ? closedStyle : openStyle;
+      if (nowOpen) cont._openCats.delete(cat); else cont._openCats.add(cat);
+    };
+
+    group.forEach(function(a) {
+      var active = activatedSet.has(a.key);
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.dataset.key = a.key;
+      btn.style.cssText = 'position:relative;display:flex;align-items:center;gap:8px;padding:9px 10px;background:rgba(' + accentAlpha + ',' + (active?'0.22':'0.05') + ');border:1px solid ' + (active ? accentColor : 'rgba(' + accentAlpha + ',0.25)') + ';color:' + (active ? accentColor : '#ffffff') + ';cursor:pointer;transition:all .18s;border-radius:2px;text-align:left;width:100%;box-sizing:border-box;';
+
+      var inner = document.createElement('span');
+      inner.style.cssText = 'display:flex;align-items:center;gap:7px;flex:1;min-width:0;pointer-events:none;';
+
+      var gSpan = document.createElement('span');
+      gSpan.style.cssText = 'font-size:18px;flex-shrink:0;line-height:1;';
+      if (typeof parteGlyphHtml === 'function' && a.g && a.g.length < 4) {
+        try { gSpan.innerHTML = parteGlyphHtml(a, 18); } catch(e) { gSpan.textContent = a.g || '◈'; }
+      } else {
+        gSpan.textContent = a.g || '◈';
+      }
+
+      var nSpan = document.createElement('span');
+      nSpan.style.cssText = 'font-size:12px;font-weight:' + (active?'700':'400') + ';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+      nSpan.textContent = a.short || a.name;
+
+      inner.appendChild(gSpan);
+      inner.appendChild(nSpan);
+      btn.appendChild(inner);
+
+      if (a.tip) {
+        var tip = document.createElement('div');
+        tip.className = 'oe-tooltip acc-tip';
+        tip.style.cssText = 'width:210px;font-size:11px;line-height:1.5;z-index:10300;top:calc(100% + 4px);bottom:auto;left:0;border-color:rgba(' + accentAlpha + ',0.4);';
+        tip.textContent = a.tip;
+        btn.appendChild(tip);
+        btn.classList.add('oe-tooltip-wrap');
+      }
+
+      btn.onclick = function() {
+        var isNow = activatedSet.has(a.key);
+        var ns = btn.querySelector('span span:last-child');
+        if (isNow) {
+          activatedSet.delete(a.key);
+          btn.style.background = 'rgba(' + accentAlpha + ',0.05)';
+          btn.style.border = '1px solid rgba(' + accentAlpha + ',0.25)';
+          btn.style.color = '#ffffff';
+          if (ns) ns.style.fontWeight = '400';
+        } else {
+          activatedSet.add(a.key);
+          btn.style.background = 'rgba(' + accentAlpha + ',0.22)';
+          btn.style.border = '1px solid ' + accentColor;
+          btn.style.color = accentColor;
+          if (ns) ns.style.fontWeight = '700';
+        }
+        // Actualizar badge del header
+        var newCount = group.filter(function(x){ return activatedSet.has(x.key); }).length;
+        var labelSpan = hdr.querySelector('span:first-child');
+        var badgeEl = labelSpan ? labelSpan.querySelector('span') : null;
+        if (newCount > 0) {
+          if (badgeEl) { badgeEl.textContent = newCount; }
+          else if (labelSpan) { labelSpan.insertAdjacentHTML('beforeend','<span style="background:' + accentColor + ';color:#000;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700;margin-left:6px;">' + newCount + '</span>'); }
+        } else {
+          if (badgeEl) badgeEl.remove();
+        }
+        if (onToggle) onToggle(a.key, !isNow, btn);
+      };
+
+      body.appendChild(btn);
+    });
+
+    cont.appendChild(hdr);
+    cont.appendChild(body);
+  });
+}
+
 function openPartesModal() {
   const cont = document.getElementById('partesCheckboxes');
   const gender = document.getElementById('selGender')?.value || 'M';
-  cont.innerHTML = '';
-
-  // Filtrar partes por género
   const partesVisible = TODAS_LAS_PARTES.filter(p => {
     if (p.genderH && gender !== 'M') return false;
     if (p.genderF && gender !== 'F') return false;
     return true;
   });
-
-  partesVisible.forEach(p => {
-    const active = _activatedPartes.has(p.key);
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.dataset.key = p.key;
-    btn.style.cssText = `display:flex;align-items:center;gap:10px;padding:10px 14px;
-      background:${active ? 'rgba(240,165,0,0.22)' : 'rgba(240,165,0,0.05)'};
-      border:1px solid ${active ? '#f0a500' : 'rgba(240,165,0,0.25)'};
-      color:${active ? '#f0a500' : '#ffffff'};
-      cursor:pointer;transition:all .18s;border-radius:2px;text-align:left;width:100%;`;
-    // Glyphs personalizados
-    const glyphHtml = parteGlyphHtml(p, 22);
-    btn.innerHTML = `${glyphHtml}<span style="font-size:14px;font-weight:${active?'700':'400'};">${p.short}</span>`;
-    btn.onclick = () => {
-      const isNow = _activatedPartes.has(p.key);
-      if (isNow) {
-        _activatedPartes.delete(p.key);
-        btn.style.background = 'rgba(240,165,0,0.05)';
-        btn.style.border = '1px solid rgba(240,165,0,0.25)';
-        btn.style.color = '#ffffff';
-        btn.querySelector('span:last-child').style.fontWeight = '400';
-      } else {
-        _activatedPartes.add(p.key);
-        btn.style.background = 'rgba(240,165,0,0.22)';
-        btn.style.border = '1px solid #f0a500';
-        btn.style.color = '#f0a500';
-        btn.querySelector('span:last-child').style.fontWeight = '700';
-      }
-    };
-    cont.appendChild(btn);
-  });
-
+  _buildAccordionModal(cont, partesVisible, _activatedPartes, '#f0a500', '240,165,0', null);
   _mostrarModal('partesModal','rgba(0,0,0,.85)');
 }
 function closePartesModal() {
@@ -8932,16 +9347,18 @@ function closePartesModal() {
 function selectAllPartes() {
   document.querySelectorAll('#partesCheckboxes button[data-key]').forEach(btn => {
     _activatedPartes.add(btn.dataset.key);
-    btn.style.background = 'rgba(240,165,0,0.22)'; btn.style.border = '1px solid #f0a500';
-    btn.style.color = '#f0a500'; btn.querySelector('span:last-child').style.fontWeight = '700';
+    btn.style.background='rgba(240,165,0,0.22)';btn.style.border='1px solid #f0a500';btn.style.color='#f0a500';
+    const ns=btn.querySelector('span span:last-child');if(ns)ns.style.fontWeight='700';
   });
+  openPartesModal(); // refresh badges
 }
 function clearAllPartes() {
   document.querySelectorAll('#partesCheckboxes button[data-key]').forEach(btn => {
     _activatedPartes.delete(btn.dataset.key);
-    btn.style.background = 'rgba(240,165,0,0.05)'; btn.style.border = '1px solid rgba(240,165,0,0.25)';
-    btn.style.color = '#ffffff'; btn.querySelector('span:last-child').style.fontWeight = '400';
+    btn.style.background='rgba(240,165,0,0.05)';btn.style.border='1px solid rgba(240,165,0,0.25)';btn.style.color='#ffffff';
+    const ns=btn.querySelector('span span:last-child');if(ns)ns.style.fontWeight='400';
   });
+  openPartesModal(); // refresh badges
 }
 function applyPartes() {
   closePartesModal();
@@ -8972,36 +9389,7 @@ function applyPartes() {
 
 function openAsteroidesModal() {
   const cont = document.getElementById('asteroidesCheckboxes');
-  cont.innerHTML = '';
-  TODOS_LOS_ASTEROIDES.forEach(a => {
-    const active = _activatedAsteroides.has(a.key);
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.dataset.key = a.key;
-    btn.style.cssText = `display:flex;align-items:center;gap:10px;padding:10px 14px;
-      background:${active ? 'rgba(192,132,252,0.22)' : 'rgba(192,132,252,0.05)'};
-      border:1px solid ${active ? '#c084fc' : 'rgba(192,132,252,0.25)'};
-      color:${active ? '#c084fc' : '#ffffff'};
-      cursor:pointer;transition:all .18s;border-radius:2px;text-align:left;width:100%;`;
-    btn.innerHTML = `<span style="font-size:22px;">${a.g}</span><span style="font-size:14px;font-weight:${active?'700':'400'};">${a.name}</span>`;
-    btn.onclick = () => {
-      const isNow = _activatedAsteroides.has(a.key);
-      if (isNow) {
-        _activatedAsteroides.delete(a.key);
-        btn.style.background = 'rgba(192,132,252,0.05)';
-        btn.style.border = '1px solid rgba(192,132,252,0.25)';
-        btn.style.color = '#ffffff';
-        btn.querySelector('span:last-child').style.fontWeight = '400';
-      } else {
-        _activatedAsteroides.add(a.key);
-        btn.style.background = 'rgba(192,132,252,0.22)';
-        btn.style.border = '1px solid #c084fc';
-        btn.style.color = '#c084fc';
-        btn.querySelector('span:last-child').style.fontWeight = '700';
-      }
-    };
-    cont.appendChild(btn);
-  });
+  _buildAccordionModal(cont, TODOS_LOS_ASTEROIDES, _activatedAsteroides, '#c084fc', '192,132,252', null);
   _mostrarModal('asteroidesModal','rgba(0,0,0,.85)');
 }
 function closeAsteroidesModal() {
@@ -9012,18 +9400,12 @@ function closeAsteroidesModal() {
   }, 80);
 }
 function selectAllAsteroides() {
-  document.querySelectorAll('#asteroidesCheckboxes button[data-key]').forEach(btn => {
-    _activatedAsteroides.add(btn.dataset.key);
-    btn.style.background = 'rgba(192,132,252,0.22)'; btn.style.border = '1px solid #c084fc';
-    btn.style.color = '#c084fc'; btn.querySelector('span:last-child').style.fontWeight = '700';
-  });
+  TODOS_LOS_ASTEROIDES.forEach(a => _activatedAsteroides.add(a.key));
+  openAsteroidesModal(); // refresh
 }
 function clearAllAsteroides() {
-  document.querySelectorAll('#asteroidesCheckboxes button[data-key]').forEach(btn => {
-    _activatedAsteroides.delete(btn.dataset.key);
-    btn.style.background = 'rgba(192,132,252,0.05)'; btn.style.border = '1px solid rgba(192,132,252,0.25)';
-    btn.style.color = '#ffffff'; btn.querySelector('span:last-child').style.fontWeight = '400';
-  });
+  _activatedAsteroides.clear();
+  openAsteroidesModal(); // refresh
 }
 function applyAsteroides() {
   closeAsteroidesModal();
@@ -17179,16 +17561,17 @@ function showModule(mod) {
     const el = document.getElementById(id); if (el) el.style.display = 'none';
   });
   if (mod === 'carta') {
-    // Para carta: NO ocultar #app antes de mostrarlo — evita flash negro
-    var _appEl2 = document.getElementById('app');
-    if (_appEl2) { _appEl2.style.display = ''; _appEl2.classList.remove('hidden'); }
+    // Primero preparar el contenido ANTES de mostrar #app — evita frame negro
+    document.getElementById('resultView').classList.remove('active');
+    var hdrLatin2 = document.querySelector('.hdr-latin');
+    if (hdrLatin2) hdrLatin2.style.display = 'none';
+    var fv2 = document.getElementById('formView');
+    if (fv2) fv2.style.display = '';
     // Reset completo del formulario — siempre limpio al entrar
     volverFormularioManual();
-    document.getElementById('resultView').classList.remove('active');
-    var hdrLatin = document.querySelector('.hdr-latin');
-    if (hdrLatin) hdrLatin.style.display = 'none';
-    var fv = document.getElementById('formView');
-    if (fv) fv.style.display = '';
+    // Ahora sí mostrar #app (ya tiene contenido visible)
+    var _appEl2 = document.getElementById('app');
+    if (_appEl2) { _appEl2.style.display = ''; _appEl2.classList.remove('hidden'); }
     var appEl = document.getElementById('app');
     if (appEl) appEl.scrollIntoView({behavior:'smooth', block:'nearest'});
     return;
@@ -17277,6 +17660,8 @@ function volverASeccion(mod) {
   var _hl = document.querySelector('.hdr-latin');
   if (_hl) _hl.style.display = 'none';
   function _finalizarVolverASeccion() {
+    // Resetear flag del hint para que aparezca en la próxima visita a carta natal
+    window._aspHintYaMostrado = false;
     // Mostrar homeView ANTES de ocultar #app para evitar flash negro
     document.getElementById('homeView').classList.remove('hidden');
     var landingEl  = document.getElementById('homeLanding');
@@ -17296,9 +17681,9 @@ function volverASeccion(mod) {
       if (typeof window.setMisticoActive === 'function') window.setMisticoActive(idxM);
       if (typeof homeShowSec === 'function') homeShowSec('mistico');
     }
-    // Ocultar #app y vistas secundarias después de que homeView ya es visible
-    document.getElementById('app').classList.add('hidden');
+    // Ocultar #app y vistas secundarias DESPUÉS de que el navegador pinte homeView (evita flash negro)
     requestAnimationFrame(function() {
+      document.getElementById('app').classList.add('hidden');
       ['signosView','personalidadView','compatView','arcanosView','runasView','numerologiaView','cromanciaView','chakrasView','zodiacoChinoView','fengshuiView','kabalahView','bioritmosView','astromorfView','orientacionView','sigilosView','aurasView','sinastriaView','compuestaView'].forEach(function(id){
         var el = document.getElementById(id); if (el) el.style.display = 'none';
       });
@@ -19557,6 +19942,11 @@ function retornoHintAbrir() {
 
 function showAspHint() {
   if (window._aspHintYaMostrado) return;
+  // No mostrar si el usuario ya salió de la carta natal
+  var _appChk = document.getElementById('app');
+  if (!_appChk || _appChk.classList.contains('hidden') || _appChk.style.display === 'none') return;
+  var _rvChk = document.getElementById('resultView');
+  if (!_rvChk || !_rvChk.classList.contains('active')) return;
   window._aspHintYaMostrado = true;
   var overlay = document.getElementById('aspHintOverlay');
   if (!overlay) return;
@@ -21493,6 +21883,8 @@ function cdropReset(selId, placeholder) {
 function cdropNativeChange(selId) {
   var sel = document.getElementById(selId);
   if (!sel) return;
+  // Evitar re-entrada infinita: si el evento fue disparado por nosotros, salir
+  if (sel._cdropFiring) return;
   var val = sel.value;
   // Actualizar label del cdrop-btn (por si se rota a escritorio)
   var lbl = document.getElementById('cdrop-' + selId + '-label');
@@ -21542,7 +21934,9 @@ function cdropNativeChange(selId) {
     }
   }
   // Disparar el onchange nativo del hidden select (para módulos que lo escuchan)
+  sel._cdropFiring = true;
   sel.dispatchEvent(new Event('change'));
+  sel._cdropFiring = false;
 }
 window.cdropNativeChange = cdropNativeChange;
 window.cdropToggle       = cdropToggle;
@@ -22481,25 +22875,26 @@ function cromReset() {
     var _gnosPreserve = typeof _gnosticoActivo !== 'undefined' ? _gnosticoActivo : false;
     var _menPreserve  = (document.getElementById('chkMenores')||{value:'0'}).value === '1';
     var _ofiucoPreserve = !!window._ofiucoActivo;
-    // En sin/comp solo cerrar — no recalcular (evita salir de la vista)
+    // ── FLUJO UNIFICADO: Aceptar siempre vuelve a opciones ──
+    // El modal solo se cierra con el botón "Cerrar" del panel principal.
     var _sinV = document.getElementById('sinastriaView');
     var _compV = document.getElementById('compuestaView');
-    if ((_sinV && _sinV.style.display !== 'none') || (_compV && _compV.style.display !== 'none')) {
+    var _enSinComp = (_sinV && _sinV.style.display !== 'none') || (_compV && _compV.style.display !== 'none');
+    if (_enSinComp) {
       // Actualizar el resumen de carta principal en la vista activa
       var _resHtml = typeof window._resumenCartaPrincipal === 'function' ? window._resumenCartaPrincipal() : '';
       var _rSin = document.getElementById('sinResumenCartaPrincipal');
       var _rComp = document.getElementById('compResumenCartaPrincipal');
       if (_rSin) _rSin.innerHTML = _resHtml;
       if (_rComp) _rComp.innerHTML = _resHtml;
-      // Volver a la pantalla de opciones (no cerrar — el botón Cerrar es el que cierra)
-      editMostrarOpciones();
-      return;
     }
-    // Cerrar el modal ANTES de calculate() para que no interfiera con la UI
-    cerrarEditModal();
+    // AMBOS CASOS: volver a opciones (datos guardados, modal sigue abierto)
+    editMostrarOpciones();
+    // Recalcular solo en carta natal (no en sinastría/compuesta)
+    var _recalcEnCarta = !_enSinComp;
     // Guardar flag para restaurar Ofiuco después de que calculate() termine
     if (_ofiucoPreserve) window._pendingRestoreOfiuco = true;
-    if(typeof calculate==='function') calculate().then(function() {
+    if(_recalcEnCarta && typeof calculate==='function') calculate().then(function() {
       if (window._pendingRestoreOfiuco) {
         window._pendingRestoreOfiuco = false;
         if (!window._ofiucoActivo && typeof window.toggleOfiuco === 'function') {
@@ -22636,6 +23031,15 @@ function _mostrarModal(id, bgCss) {
     }
   }
 
+  // Para asteroidesModal y partesModal: los acordeones manejan su propio scroll,
+  // el box padre maneja el scroll total → overflow-x hidden para evitar barra horizontal
+  if ((id === 'asteroidesModal' || id === 'partesModal') && box) {
+    box.style.overflowY = 'auto';
+    box.style.overflowX = 'hidden';
+    const grid = box.querySelector('#asteroidesCheckboxes, #partesCheckboxes');
+    if (grid) { grid.style.overflowX = 'hidden'; grid.style.maxHeight = 'none'; }
+  }
+
   if (!dlg.open) dlg.showModal();
 }
 
@@ -22724,7 +23128,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     var sel = makeSelect('mobArcSelect',
       [
         { value: 'personal',  label: 'Arcano Personal' },
-        { value: 'decanato',  label: 'Tu Decanato Personal' },
+        { value: 'decanato',  label: 'Arcano Decanato Personal' },
         { value: 'anual',     label: 'Arcano del Año' },
         { value: 'transito',  label: 'Arcanos en Tránsito' }
       ],
@@ -28026,6 +28430,20 @@ function brRenderMensajes(vals){
   text-transform: none;
 }
 .oe-tooltip-wrap:hover .oe-tooltip { visibility: visible; opacity: 1; }
+/* Tooltip en modal de asteroides */
+#asteroidesCheckboxes .oe-tooltip-wrap { display:flex; }
+#asteroidesCheckboxes .oe-tooltip { z-index:10100; border-color:rgba(192,132,252,0.4); bottom:calc(100% + 4px); }
+/* Tooltip abajo (ast-tip) para evitar corte en primera fila */
+#asteroidesCheckboxes .ast-tip { top:calc(100% + 4px); bottom:auto; z-index:10200; }
+#asteroidesCheckboxes .oe-tooltip-wrap:hover .ast-tip { visibility:visible; opacity:1; }
+/* Acordeón — tooltips y layout */
+#partesCheckboxes .oe-tooltip-wrap,
+#asteroidesCheckboxes .oe-tooltip-wrap { display:flex; overflow:visible; }
+.acc-tip { top:calc(100% + 4px) !important; bottom:auto !important; z-index:10300 !important; }
+.oe-tooltip-wrap:hover .acc-tip { visibility:visible !important; opacity:1 !important; }
+/* Acordeón header hover */
+#partesCheckboxes button:not([data-key]):hover,
+#asteroidesCheckboxes button:not([data-key]):hover { opacity:0.85; }
 /* ── Slider resultado ── */
 .oe-slider-wrap {
   position: relative;
