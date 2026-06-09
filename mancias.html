@@ -12,15 +12,7 @@
   <title>Sergiomancias Gnostic | Astrología · Artes Esotéricas</title>
   <style>
     /*
-    ╔══════════════════════════════════════════════════════════════╗
-    ║  REGLA ESTRICTA DE COLOR DE TEXTO                           ║
-    ║  — Todo texto de mensajes, descripciones, acordeones,       ║
-    ║    tooltips y contenido general: color:#ffffff SIEMPRE.     ║
-    ║  — PROHIBIDO usar rgba(255,255,255,0.5) o cualquier         ║
-    ║    variante con opacidad reducida en texto de contenido.    ║
-    ║  — Excepción permitida: colores propios de cada módulo      ║
-    ║    (accent --acc, bordes, glyphs, labels de categoría).     ║
-    ╚══════════════════════════════════════════════════════════════╝
+    
     */
     :root {
       --bg:    #000308;
@@ -8512,6 +8504,7 @@ let ARCANOS_TRANSITO_SINTESIS = {};
 let RUNAS                  = {};
 let LOCO_TRANSITO          = {};
 let ARCANOS_MAYOR_TRANSITO = {};
+let CONSEJO_MAYOR          = {};
 let _datosListos           = false;
 let NUM_TEXTOS = {};
 let NUM_NOMBRE = {};
@@ -8763,6 +8756,7 @@ function _aplicarDatosMensajes() {
     if (window._ARCANOS_TRANSITO_SINTESIS) ARCANOS_TRANSITO_SINTESIS = window._ARCANOS_TRANSITO_SINTESIS;
     if (window._ARCANOS_MAYOR_TRANSITO)  ARCANOS_MAYOR_TRANSITO = window._ARCANOS_MAYOR_TRANSITO;
     if (window._LOCO_TRANSITO)           LOCO_TRANSITO     = window._LOCO_TRANSITO;
+    if (window._CONSEJO_MAYOR)           CONSEJO_MAYOR     = window._CONSEJO_MAYOR;
     // ── runas.js ──
     if (window._RUNAS)                RUNAS                = window._RUNAS;
     // ── numerologia.js ──
@@ -8907,6 +8901,7 @@ function _aplicarDatosMensajes() {
     if (window._RUNAS)                   RUNAS                  = window._RUNAS;
     if (window._LOCO_TRANSITO)           LOCO_TRANSITO          = window._LOCO_TRANSITO;
     if (window._ARCANOS_MAYOR_TRANSITO)  ARCANOS_MAYOR_TRANSITO = window._ARCANOS_MAYOR_TRANSITO;
+    if (window._CONSEJO_MAYOR)           CONSEJO_MAYOR          = window._CONSEJO_MAYOR;
     _datosListos = true;
     if (window._RETRO_INTERP)         RETRO_INTERP         = window._RETRO_INTERP;
     if (window._DECAN_MESES)          DECAN_MESES          = window._DECAN_MESES;
@@ -21561,6 +21556,34 @@ function calcArcanoTransito() {
       _trSlideData.push({ label: _tSlides[si].titulo, color: pColor.label, html: cardHtml });
     }
   }
+
+  // ══════════════════════════════════════════════════════════
+  // CONSEJO DEL ARCANO MAYOR — dígito vibracional de la edad
+  // ══════════════════════════════════════════════════════════
+  var edadRed = edad;
+  while (edadRed > 9) {
+    edadRed = String(edadRed).split('').reduce(function(a,b){ return a + parseInt(b); }, 0);
+  }
+  if (edadRed < 1) edadRed = 1;
+
+  var _consejoDigito = CONSEJO_MAYOR[edadRed] || CONSEJO_MAYOR[String(edadRed)] || {};
+  var textoConsejo   = _consejoDigito[signo] || '';
+  console.log('[Consejo Mayor] edad:', edad, '| edadRed:', edadRed, '| signo:', signo, '| CONSEJO_MAYOR keys:', Object.keys(CONSEJO_MAYOR), '| texto:', textoConsejo ? textoConsejo.substring(0,40) : 'VACÍO');
+
+  var _consejoCard = _cardMayorEl(edadRed);
+  var consejoHtml = '<div style="display:flex;align-items:center;gap:16px;">'
+    + '<div style="flex-shrink:0;">' + _consejoCard.el.outerHTML + '</div>'
+    + '<div style="flex:1;min-width:0;background:rgba(240,165,0,0.05);border:1px solid rgba(240,165,0,0.35);padding:20px 18px;border-radius:2px;">'
+    + '<div style="font-size:24px;line-height:1.85;color:#ffffff;white-space:pre-wrap;">' + textoConsejo + '</div>'
+    + '</div>'
+    + '</div>';
+
+  _trSlideData.push({
+    label: 'Consejo · ' + _consejoCard.nombre,
+    color: 'rgba(240,165,0,0.9)',
+    html:  consejoHtml
+  });
+  // ═══════════════════════════════════════════════════════════
 
   window._trSlides = _trSlideData;
   window._trSlideIdx = 0;
