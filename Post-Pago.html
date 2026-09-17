@@ -416,8 +416,10 @@
   </div>
 
   <p class="nota-campos">* Completa todos los campos para habilitar el botón</p>
-  <a class="cta-btn disabled" id="whatsappBtn" href="#">
+  <a class="cta-btn disabled" id="whatsappBtn" href="#" target="_blank">
     <span>Coordinar mi Lectura por WhatsApp</span>
+    <br>
+ (CTRL+Clic en PC)
   </a>
 </div>
 
@@ -819,26 +821,6 @@
       btn.href = '#';
     }
   }
-
-  // --- Navegación en la MISMA pestaña (sin target="_blank") ---
-  // window.top.location asegura que, aunque este código esté dentro de
-  // un iframe (Wix suele hacerlo con el embed de HTML), la navegación
-  // se dispare sobre la pestaña completa del navegador y no quede
-  // atrapada dentro del iframe.
-  document.getElementById('whatsappBtn').addEventListener('click', function (e) {
-    if (this.classList.contains('disabled') || this.getAttribute('href') === '#') {
-      e.preventDefault();
-      return;
-    }
-    e.preventDefault();
-    const destino = this.getAttribute('href');
-    try {
-      window.top.location.href = destino;
-    } catch (err) {
-      window.location.href = destino;
-    }
-  });
-
   verificarCampos();
 </script>
 </body>
