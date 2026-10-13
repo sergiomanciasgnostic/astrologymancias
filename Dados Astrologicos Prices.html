@@ -461,7 +461,11 @@
         <button class="btn-mini no" onclick="respDesc(false)">✕</button>
       </div>
     </div>
-    <div class="tpago-btns">
+    <div class="tpago-btns" id="btnsPais">
+      <button class="btn-tipo" id="btnUruguay" onclick="elegirPais('uy')">Uruguay</button>
+      <button class="btn-tipo" id="btnOtroPais" onclick="elegirPais('otro')">Otro País</button>
+    </div>
+    <div class="tpago-btns" id="btnsPago" style="display:none">
       <button class="btn-tipo" id="btnPaypal"        onclick="elegirPago('paypal')">PayPal</button>
       <button class="btn-tipo" id="btnTransferencia" onclick="elegirPago('transferencia')">Transferencias</button>
     </div>
@@ -785,6 +789,14 @@
       el('notaDesc').style.display='block';
     } else { descuento=0; precioFinal = PRECIOS[duracion]; }
   }
+  let paisActual = '';
+  function elegirPais(pais) {
+    paisActual = pais;
+    el('btnsPais').style.display = 'none';
+    el('btnsPago').style.display = 'flex';
+    // Uruguay: PayPal + Transferencias | Otro País: solo PayPal
+    el('btnTransferencia').style.display = (pais === 'uy') ? '' : 'none';
+  }
   function elegirPago(tipo) {
     tipoPago=tipo;
     tog('btnPaypal','on',tipo==='paypal');
@@ -795,7 +807,7 @@
       show('paypalLogoWrap');
       if (descuento>0) { show('paypalDesc'); hide('paypalNormal'); }
       else             { show('paypalNormal'); hide('paypalDesc'); }
-      show('paypalCambiarPagos');
+      if (paisActual === 'uy') show('paypalCambiarPagos');
     } else {
       hide('paypalLogoWrap'); hide('paypalNormal'); hide('paypalDesc');
       resetTransf(); show('transferenciaBox');
@@ -806,7 +818,7 @@
     hide('paypalLogoWrap'); hide('paypalNormal'); hide('paypalDesc'); hide('paypalCambiarPagos');
     hide('transferenciaBox'); hide('finalizarBox');
     rem('btnPaypal','on'); rem('btnTransferencia','on');
-    resetTransf(); add('miniDesc','oculto'); show('tipoPagoBox');
+    resetTransf(); tog('miniDesc','oculto',descResuelto); show('tipoPagoBox');
   }
   function resetTransf() {
     ['PC','Mob'].forEach(s=>{

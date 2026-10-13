@@ -384,7 +384,11 @@
     <!-- Selección tipo de pago -->
     <div id="tipoPagoBox">
       <div class="tpago-header"><span class="tpago-label">Forma de Pago</span></div>
-      <div class="tpago-btns">
+      <div class="tpago-btns" id="btnsPais">
+        <button class="btn-tipo" id="btnUruguay" onclick="elegirPais('uy')">Uruguay</button>
+        <button class="btn-tipo" id="btnOtroPais" onclick="elegirPais('otro')">Otro País</button>
+      </div>
+      <div class="tpago-btns" id="btnsPago" style="display:none">
         <button class="btn-tipo" id="btnPaypal"        onclick="elegirPago('paypal')">PayPal</button>
         <button class="btn-tipo" id="btnTransferencia" onclick="elegirPago('transferencia')">Transferencias</button>
       </div>
@@ -640,6 +644,16 @@
     el('panelPago').classList.add('visible');
   }
 
+  /* ── Elegir país ── */
+  let paisActual = '';
+  function elegirPais(pais) {
+    paisActual = pais;
+    el('btnsPais').style.display = 'none';
+    el('btnsPago').style.display = 'flex';
+    // Uruguay: PayPal + Transferencias | Otro País: solo PayPal
+    el('btnTransferencia').style.display = (pais === 'uy') ? '' : 'none';
+  }
+
   /* ── Elegir tipo de pago ── */
   function elegirPago(tipo) {
     tipoPago = tipo;
@@ -648,6 +662,8 @@
     hide('tipoPagoBox'); hide('finalizarBox');
     if (tipo === 'paypal') {
       hide('transferenciaBox');
+      // "Cambiar de Pagos" solo para Uruguay
+      el('paypalCambiarPagos').style.display = (paisActual === 'uy') ? '' : 'none';
       show('paypalZona');
     } else {
       hide('paypalZona');
