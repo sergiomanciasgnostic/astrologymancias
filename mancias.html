@@ -3771,7 +3771,7 @@
   /* ── Definición de símbolos por módulo ── */
   var THEME_SYMBOLS = {
     // Carta natal + módulos astrológicos
-    astro: ['☉','☽','☿','♀','♂','♃','♄','♅','♆','♇','⊕','✦','★','⊛','⊙'],
+    astro: ['☉','☽','☿','♀','♂','♃','♄','♅','♆','♇','🃏','ᚠ','∞','◉','✧','❂','✡','〜','⬡','✦','◯'],
     carta: ['☉','☽','☿','♀','♂','♃','♄','♅','♆','♇','⊕','⊛','⊙','✦','♈︎'],
     personalidad: ['☉','☽','↑','♀','♂','☿','♃','♄','♅','♆','✦','⊕','★','⊛','⊙'],
     signos: ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎','☉','☽','✦'],
@@ -8101,7 +8101,7 @@
         </div>
         <div class="tarot-field tarot-field--anio">
           <div class="anio-wrap">
-            <input id="numAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'num')" onchange="calcNumerologia()"/>
+            <input id="numAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'num');numSyncFecha('fecha',true)" onchange="numSyncFecha('fecha')"/>
             <div class="anio-dots" id="dots-numAnio"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
           </div>
         </div>
@@ -8205,37 +8205,46 @@
     <div class="num-form-wrap" id="numNombreFormWrap" style="padding-bottom:10px;">
       <div class="mod-section-label">Ingresa tu nombre completo de nacimiento</div>
       <div class="num-inputs-row" style="flex-direction:column;align-items:center;gap:18px;">
-        <input
-          id="numNombreInput"
-          type="text"
-          maxlength="80"
-          placeholder="Nombre y apellido completo"
-          autocomplete="off"
-          style="width:100%;max-width:480px;background:#000d20;border:none;border-bottom:1px solid rgba(0,200,255,0.3);color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-size:20px;font-weight:600;padding:12px 8px;outline:none;text-align:center;letter-spacing:.04em;transition:border-color .2s;"
-          oninput="this.value=this.value.replace(/[^a-zA-ZÁÉÍÓÚáéíóúÜüÑñ\s]/g,'')"
-          onfocus="this.style.borderBottomColor='var(--acc)';this.style.background='#001820';"
-          onblur="this.style.borderBottomColor='rgba(0,200,255,0.3)';this.style.background='#000d20';"
-        />
-        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
-          <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,200,255,0.55);">Número de Vida <span style="color:#ffffff;font-size:10px;">(opcional · para el Número de Madurez)</span></span>
-          <input
-            id="numNombreVida"
-            type="text"
-            inputmode="numeric"
-            maxlength="2"
-            placeholder="Ej: 7"
-            autocomplete="off"
-            style="width:80px;background:#000d20;border:none;border-bottom:1px solid rgba(0,200,255,0.3);color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-size:20px;font-weight:600;padding:10px 6px;outline:none;text-align:center;transition:border-color .2s;"
-            oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-            onfocus="this.style.borderBottomColor='var(--acc)';this.style.background='#001820';"
-            onblur="this.style.borderBottomColor='rgba(0,200,255,0.3)';this.style.background='#000d20';"
-          />
+<div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;width:100%;max-width:700px;">
+          <div id="numNombreBlock" style="display:flex;align-items:stretch;flex:1 1 340px;max-width:520px;background:#000d20;border-bottom:1px solid rgba(0,200,255,0.3);transition:border-color .2s;">
+            <input id="numNombreInput" type="text" maxlength="40" placeholder="Nombre" autocomplete="off" style="flex:1 1 0;min-width:0;width:50%;background:transparent;border:none;color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-size:20px;font-weight:600;padding:12px 8px;outline:none;text-align:center;letter-spacing:.04em;"
+              oninput="numNombreCambioTexto(this)" onkeydown="numNombreEnter(event)" onfocus="var p=this.parentNode;p.style.borderBottomColor='var(--acc)';p.style.background='#001820';" onblur="var p=this.parentNode;p.style.borderBottomColor='rgba(0,200,255,0.3)';p.style.background='#000d20';"/>
+            <span style="width:1px;background:rgba(0,200,255,0.5);margin:8px 0;flex:none;"></span>
+            <input id="numApellidoInput" type="text" maxlength="40" placeholder="Apellido" autocomplete="off" style="flex:1 1 0;min-width:0;width:50%;background:transparent;border:none;color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-size:20px;font-weight:600;padding:12px 8px;outline:none;text-align:center;letter-spacing:.04em;"
+              oninput="numNombreCambioTexto(this)" onkeydown="numNombreEnter(event)" onfocus="var p=this.parentNode;p.style.borderBottomColor='var(--acc)';p.style.background='#001820';" onblur="var p=this.parentNode;p.style.borderBottomColor='rgba(0,200,255,0.3)';p.style.background='#000d20';"/>
+          </div>
+          <span id="numNombreHint" style="display:none;align-items:center;gap:6px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);white-space:nowrap;">↵ Pulsa Enter</span>
         </div>
-        <button
-          onclick="calcNumerologiaNombre()"
-          style="background:transparent;border:1px solid var(--acc);color:#ffffff;font-size:14px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:13px 40px;cursor:pointer;transition:all .25s;margin-top:4px;"
-          onmouseover="this.style.boxShadow='0 0 30px rgba(0,200,255,.22)'"
-          onmouseout="this.style.boxShadow=''">🔤 Calcular mi Nombre</button>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;">
+          <div class="num-inputs-row">
+            <div class="tarot-field">
+              <select id="numNomDia" style="display:none;" onchange="cdropNativeChange('numNomDia')"></select>
+              <div class="cdrop-wrap" id="cdrop-numNomDia-wrap">
+                <div class="cdrop-btn" id="cdrop-numNomDia-btn" onclick="cdropToggle('numNomDia')">
+                  <span class="cdrop-label" id="cdrop-numNomDia-label">Día</span>
+                  <span class="cdrop-arrow">&#9660;</span>
+                </div>
+                <div class="cdrop-list" id="cdrop-numNomDia-list"></div>
+              </div>
+            </div>
+            <div class="tarot-field">
+              <select id="numNomMes" style="display:none;" onchange="cdropNativeChange('numNomMes')"></select>
+              <div class="cdrop-wrap" id="cdrop-numNomMes-wrap">
+                <div class="cdrop-btn" id="cdrop-numNomMes-btn" onclick="cdropToggle('numNomMes')">
+                  <span class="cdrop-label" id="cdrop-numNomMes-label">Mes</span>
+                  <span class="cdrop-arrow">&#9660;</span>
+                </div>
+                <div class="cdrop-list" id="cdrop-numNomMes-list"></div>
+              </div>
+            </div>
+            <div class="tarot-field tarot-field--anio">
+              <div class="anio-wrap">
+                <input id="numNomAnio" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Año" class="num-anio-input" autocomplete="off" oninput="this.value=this.value.replace(/[^0-9]/g,'');anioInputHandler(this,'num-nombre');numSyncFecha('nombre',true)" onchange="numSyncFecha('nombre')" onkeydown="numNombreEnter(event)"/>
+                <div class="anio-dots" id="dots-numNomAnio"><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span><span class="anio-dot"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -8249,14 +8258,11 @@
         <div class="num-empty-card" style="--c:#e879f9"><span class="nec-num">K</span><span class="nec-lbl">Kármico del Nombre</span></div>
         <div class="num-empty-card" style="--c:#fbbf24"><span class="nec-num">M</span><span class="nec-lbl">Madurez</span></div>
       </div>
-      <p class="num-empty-hint">✦ Ingresa tu nombre completo para desbloquear el perfil numerológico de las letras ✦</p>
+      <p class="num-empty-hint" id="numNombreEmptyHint">✦ Ingresa tu nombre y apellido y pulsa Enter para desbloquear el perfil numerológico de las letras ✦</p>
     </div>
 
     <!-- Grilla de tarjetas nombre -->
     <div id="numNombreSelectorWrap" class="num-cards-grid" style="display:none;">
-      <div style="width:100%;text-align:center;margin-bottom:6px;">
-        <button class="num-btn-volver" onclick="numNombreRecalcular()">← Ingresar otro nombre</button>
-      </div>
       <div class="num-card-btn" style="--nc:#a78bfa" onclick="selectNumNombreCard('expresion')">
         <span class="ncb-bignum" id="ncnn_expresion">—</span><span class="ncb-bar"></span><span class="ncb-label">Número de Expresión</span>
       </div>
@@ -8278,8 +8284,8 @@
     </div>
 
     <!-- Vista de detalle nombre -->
-    <div id="numNombreDetailView" style="display:none;width:100%;max-width:960px;margin:0 auto;padding:0 20px 80px;">
-      <button class="num-btn-volver" onclick="cerrarNumNombreDetalle()">← Volver al perfil del nombre</button>
+    <div id="numNombreDetailView" style="display:none;width:100%;max-width:960px;margin:20px auto 0;padding:0 20px 80px;">
+      <button class="num-btn-volver" onclick="cerrarNumNombreDetalle()">← Volver al perfil</button>
       <div id="numNombreResultInner"></div>
     </div>
 
@@ -17483,7 +17489,9 @@ function resetAllUserData() {
   if (decoTop) decoTop.style.display = 'block';
   // Resetear panel nombre
   var _nnInput = document.getElementById('numNombreInput'); if (_nnInput) _nnInput.value = '';
-  var _nnVida  = document.getElementById('numNombreVida');  if (_nnVida)  _nnVida.value  = '';
+  var _nnApe = document.getElementById('numApellidoInput'); if (_nnApe) _nnApe.value = '';
+  var _nnHint = document.getElementById('numNombreHint'); if (_nnHint) _nnHint.style.display = 'none';
+  if (window.numNomLimpiarFecha) window.numNomLimpiarFecha();
   var _nnEmpty = document.getElementById('numNombreEmptyState'); if (_nnEmpty) _nnEmpty.style.display = 'block';
   var _nnSel   = document.getElementById('numNombreSelectorWrap'); if (_nnSel) _nnSel.style.display = 'none';
   var _nnDet   = document.getElementById('numNombreDetailView');   if (_nnDet) _nnDet.style.display = 'none';
@@ -18910,7 +18918,7 @@ function calcNumerologia() {
   const karmicoTextos  = window._KARMICONTEXTOS  || {};
   const karmicoDesc = ausentes.length === 0
     ? 'Tu fecha de nacimiento contiene todos los dígitos del 1 al 9. No tienes deudas kármicas específicas — tu alma viene en un ciclo de integración y síntesis de todo lo aprendido.'
-    : ausentes.map(n => n + ' — ' + karmicoTextos[n]).join('<br><br>');
+    : ausentes.map(n => n + ' — ' + (karmicoTextos[n] || '')).join('<br><br>');
   const karmicoNum = ausentes.length === 0 ? '✓' : ausentes.join(', ');
 
   // 7. Número de Generación: suma dígitos del año de nacimiento
@@ -18964,10 +18972,12 @@ function calcNumerologia() {
   const pinnacleTextos = window._PINNACLETEXTOS || {};
   pinnacleDesc = (pinnacleNombres[pinnacleActual] || '') + ' (' + (pinnacleEdades[pinnacleActual-1]||'') + ') — Número ' + pinnacleNum + '. ' + (pinnacleTextos[pinnacleNum] || pinnacleTextos[reducirSimple(pinnacleNum)] || '');
 
-  const txtCV   = NUM_TEXTOS.caminoVida[caminoVida]   || NUM_TEXTOS.caminoVida[reducirSimple(caminoVida)] || '';
-  const txtDia  = NUM_TEXTOS.diaNacimiento[diaNac]    || '';
-  const txtAP   = NUM_TEXTOS.anioPers[anioPers]       || '';
-  const txtAct  = NUM_TEXTOS.actitud[actitud]         || NUM_TEXTOS.actitud[reducirSimple(actitud)] || '';
+  const _NT = (typeof NUM_TEXTOS !== 'undefined' && NUM_TEXTOS) ? NUM_TEXTOS : {};
+  const _cv = _NT.caminoVida || {}, _dn = _NT.diaNacimiento || {}, _ap = _NT.anioPers || {}, _at = _NT.actitud || {};
+  const txtCV   = _cv[caminoVida]   || _cv[reducirSimple(caminoVida)] || '';
+  const txtDia  = _dn[diaNac]    || '';
+  const txtAP   = _ap[anioPers]       || '';
+  const txtAct  = _at[actitud]         || _at[reducirSimple(actitud)] || '';
 
   const accentColor = (n) => {
     const colors = ['','#ff6b6b','#4ecdc4','#ffe66d','#95e1d3','#f38181','#c084fc','#38bdf8','#fb923c','#a3e635','#818cf8','#f472b6'];
@@ -19361,7 +19371,7 @@ function renderEmpresasPanel() {
 function toggleNumDrop() {} // deprecated, kept for safety
 
 function filtrarGrupo(grupo) {
-  document.querySelectorAll('.num-card-btn').forEach(card => {
+  document.querySelectorAll('#numSelectorWrap .num-card-btn').forEach(card => {
     card.style.display = card.dataset.group === grupo ? 'flex' : 'none';
   });
 }
@@ -19468,16 +19478,126 @@ function cerrarNumDetalle() {
 // ══════════════════════════════════════════════════════════════
 // NUMEROLOGÍA: navegación entre Home / Fecha / Nombre
 // ══════════════════════════════════════════════════════════════
+// Sincroniza la fecha entre "Números" y "Nombre" (el usuario la escribe una sola vez)
+var _NUM_FECHA_IDS = {
+  fecha:  { d:'numDia',    m:'numMes',    a:'numAnio'    },
+  nombre: { d:'numNomDia', m:'numNomMes', a:'numNomAnio' }
+};
+function numSyncFecha(src, soloCampos) {
+  var S = _NUM_FECHA_IDS[src];
+  var D = _NUM_FECHA_IDS[src === 'fecha' ? 'nombre' : 'fecha'];
+  var g = function(id){ return document.getElementById(id); };
+  if (!g(S.d) || !g(D.d)) return;
+  var cambio = g(D.d).value !== g(S.d).value || g(D.m).value !== g(S.m).value || (g(D.a) && g(D.a).value !== g(S.a).value);
+  // Copiar valores al otro apartado
+  g(D.d).value = g(S.d).value;
+  g(D.m).value = g(S.m).value;
+  if (g(D.a)) g(D.a).value = g(S.a).value;
+  // Refrescar etiquetas de los dropdowns
+  [D.d, D.m].forEach(function(id){
+    if (g(id).value) cdropRefreshLabel(id); else cdropReset(id);
+  });
+  // Refrescar puntos del año en ambos
+  [S.a, D.a].forEach(function(id){
+    var len = String((g(id)||{}).value || '').length;
+    document.querySelectorAll('#dots-' + id + ' .anio-dot').forEach(function(dot, i){
+      dot.classList.remove('filled','ready');
+      if (i < len) dot.classList.add(len === 4 && i === 3 ? 'ready' : 'filled');
+    });
+  });
+  // Si había resultados del nombre en pantalla, ya no valen con otra fecha
+  var _keyNom = g(S.d).value + '|' + g(S.m).value + '|' + (g(S.a) ? g(S.a).value : '');
+  var _invalida = (src === 'nombre') ? (_keyNom !== window._numNombreFechaUsada) : cambio;
+  if (_invalida && typeof numNombreInvalidar === 'function') numNombreInvalidar();
+  if (soloCampos) return;
+  // Calcular (Números) si la fecha está completa
+  var dia = parseInt(g(S.d).value), mes = parseInt(g(S.m).value), anio = String(g(S.a).value || '');
+  var fechaCompleta = dia && mes && anio.length === 4 && parseInt(anio) > 0;
+  if (fechaCompleta && typeof calcNumerologia === 'function') calcNumerologia();
+}
+// Día / Mes de cualquiera de los dos apartados
+(function(){
+  [['numDia','fecha'],['numMes','fecha'],['numNomDia','nombre'],['numNomMes','nombre']].forEach(function(p){
+    var el = document.getElementById(p[0]);
+    if (el) el.addEventListener('change', function(){ numSyncFecha(p[1], false); if (p[1] === 'nombre') numNombreAutoEjecutar(); });
+  });
+})();
+
 function numSwitchTab(tab) {
   var home   = document.getElementById('numHomeView');
   var fecha  = document.getElementById('numPanel-fecha');
   var nombre = document.getElementById('numPanel-nombre');
+  var veniaDeNumeros = !!(fecha && fecha.style.display === 'flex');
   if (home)   home.style.display   = 'none';
   if (fecha)  fecha.style.display  = 'none';
   if (nombre) nombre.style.display = 'none';
   if (tab === 'fecha'  && fecha)  fecha.style.display  = 'flex';
   else if (tab === 'nombre' && nombre) nombre.style.display = 'flex';
   else if (home) home.style.display = 'flex';
+
+  if (tab === 'nombre' && nombre) {
+    if (veniaDeNumeros) {
+      // Desde Números: se trae la fecha de Números y se calcula con Enter
+      window._numNombreModo = 'numeros';
+      window._numNombreEnter = true;
+      if (typeof numSyncFecha === 'function') numSyncFecha('fecha', true);
+    } else {
+      // Entrada directa a Nombre: sin Enter; se autoejecuta al completar el año
+      window._numNombreModo = 'directo';
+      window._numNombreEnter = false;
+      if (typeof numNombreRecalcular === 'function') numNombreRecalcular(true);
+    }
+    numNombreActualizarHint();
+  }
+}
+
+// ── Modo de Numerología · Nombre ──
+// 'directo'  : se entró desde Inicio/Nombre → NO usa Enter; se autoejecuta al completar el año
+// 'numeros'  : se viene de Números → aparece "Pulsa Enter" y Enter calcula
+window._numNombreModo = 'directo';
+window._numNombreEnter = false; // true = se muestra "Pulsa Enter" y Enter calcula
+window._numNombreFechaUsada = null;
+
+var _NUM_NOMBRE_TXT_DIRECTO = '✦ Ingresa tu nombre, apellido y fecha de nacimiento para desbloquear el perfil numerológico de las letras ✦';
+var _NUM_NOMBRE_TXT_NUMEROS = '✦ Ingresa tu nombre y apellido y pulsa Enter para desbloquear el perfil numerológico de las letras ✦';
+
+// "↵ Pulsa Enter" y texto del estado vacío según el modo
+function numNombreActualizarHint() {
+  var modoNumeros = !!window._numNombreEnter;
+  var h  = document.getElementById('numNombreHint');
+  var n  = document.getElementById('numNombreInput');
+  var ap = document.getElementById('numApellidoInput');
+  if (h) {
+    var listo = modoNumeros && n && ap && n.value.trim() && ap.value.trim() && !window._numNombreData;
+    h.style.display = listo ? 'inline-flex' : 'none';
+  }
+  var eh = document.getElementById('numNombreEmptyHint');
+  if (eh) eh.textContent = modoNumeros ? _NUM_NOMBRE_TXT_NUMEROS : _NUM_NOMBRE_TXT_DIRECTO;
+}
+
+// Enter en los campos de Nombre/Apellido/Año: solo calcula si se viene de Números
+function numNombreEnter(e) {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  e.stopPropagation();
+  if (window._numNombreEnter) calcNumerologiaNombre();
+}
+
+// Al escribir en Nombre o Apellido
+function numNombreCambioTexto(el) {
+  el.value = el.value.replace(/[^a-zA-ZÁÉÍÓÚáéíóúÜüÑñ\s]/g, '');
+  // Al modificar nombre/apellido aparece "Pulsa Enter" y Enter pasa a calcular
+  window._numNombreEnter = true;
+  // Cualquier resultado anterior ya no corresponde al nombre escrito
+  if (typeof window.numNombreInvalidar === 'function') window.numNombreInvalidar();
+  numNombreActualizarHint();
+}
+
+// Autoejecuta el cálculo del nombre (entrada directa) cuando nombre, apellido y fecha están completos
+function numNombreAutoEjecutar() {
+  var a = String((document.getElementById('numNomAnio') || {}).value || '');
+  if (a.length !== 4 || !(parseInt(a) > 0)) return;
+  if (typeof window.calcNumerologiaNombre === 'function') window.calcNumerologiaNombre(true);
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -19541,13 +19661,17 @@ function numSwitchTab(tab) {
     return nombre.trim().split(/\s+/).map(function(p){ return p[0] || ''; });
   }
 
-  window.calcNumerologiaNombre = function() {
+  window.calcNumerologiaNombre = function(silent) {
     var input = document.getElementById('numNombreInput');
-    var vidaInput = document.getElementById('numNombreVida');
-    if (!input) return;
+    var apInput = document.getElementById('numApellidoInput');
+    if (!input || !apInput) return;
 
-    var nombreRaw = input.value.trim();
-    if (!nombreRaw) { alert('Ingresa tu nombre completo de nacimiento.'); return; }
+    var nomRaw = input.value.trim();
+    var apRaw  = apInput.value.trim();
+    if (!nomRaw) { if (!silent) alert('Ingresa tu nombre.'); input.focus(); return; }
+    if (!apRaw)  { if (!silent) alert('Ingresa tu apellido.'); apInput.focus(); return; }
+    // Nombre y apellido se escriben por separado pero se calculan juntos
+    var nombreRaw = nomRaw + ' ' + apRaw;
 
     var nombre = normalizar(nombreRaw);
     var letras = nombre.replace(/\s/g, '').split('');
@@ -19572,10 +19696,28 @@ function numSwitchTab(tab) {
     var ausentes = karmicoAusente(letras);
 
     // Madurez: necesita número de vida (opcional)
-    var vidaVal = vidaInput ? parseInt(vidaInput.value) : NaN;
+    var dN = parseInt((document.getElementById('numNomDia')  || {}).value);
+    var mN = parseInt((document.getElementById('numNomMes')  || {}).value);
+    var aN = parseInt((document.getElementById('numNomAnio') || {}).value);
+    var hayAlgunaFecha = !isNaN(dN) || !isNaN(mN) || !isNaN(aN);
     var madurezNombre = null;
-    if (!isNaN(vidaVal) && vidaVal > 0) {
-      madurezNombre = reducir(expresion + reducir(vidaVal));
+    if (hayAlgunaFecha) {
+      var anioOk = !isNaN(aN) && String(aN).length === 4 && aN > 0;
+      var _msgFecha = '';
+      if (isNaN(dN) || dN < 1 || dN > 31 || isNaN(mN) || mN < 1 || mN > 12 || !anioOk) {
+        _msgFecha = 'Fecha de nacimiento incompleta o no válida. Completa día, mes y año (4 dígitos), o déjala vacía.';
+      } else {
+        var fd = new Date(aN, mN - 1, dN);
+        if (fd.getFullYear() !== aN || fd.getMonth() !== mN - 1 || fd.getDate() !== dN) _msgFecha = 'La fecha de nacimiento no existe en el calendario.';
+      }
+      if (_msgFecha) {
+        // Manual (Enter): avisa. Automático (año): calcula igual, solo sin Madurez
+        if (!silent) { alert(_msgFecha); return; }
+      } else {
+        var sd = function(n){ return String(n).split('').reduce(function(a,b){ return a + parseInt(b); }, 0); };
+        var caminoVidaN = reducir(sd(dN) + sd(mN) + sd(aN));
+        madurezNombre = reducir(expresion + caminoVidaN);
+      }
     }
 
     // Guardar datos usando window._NUM_NOMBRE para los textos
@@ -19588,6 +19730,11 @@ function numSwitchTab(tab) {
       madurezNombre: madurezNombre ? { numero: madurezNombre, titulo: 'Número de Madurez', color: '#fbbf24' } : null
     };
 
+    // Recordar la fecha usada (para no invalidar los resultados si la fecha no cambió)
+    window._numNombreFechaUsada = ((document.getElementById('numNomDia')  || {}).value || '') + '|' +
+                                  ((document.getElementById('numNomMes')  || {}).value || '') + '|' +
+                                  ((document.getElementById('numNomAnio') || {}).value || '');
+
     // Actualizar tarjetas con números
     var ids = { expresion:'ncnn_expresion', alma:'ncnn_alma', personalidad:'ncnn_personalidad',
                 equilibrio:'ncnn_equilibrio', karmicoNombre:'ncnn_karmicoNombre', madurezNombre:'ncnn_madurezNombre' };
@@ -19598,19 +19745,17 @@ function numSwitchTab(tab) {
       el.textContent = d ? d.numero : '—';
     });
 
-    // Mostrar grilla, ocultar estado vacío y form
+    // Mostrar grilla debajo del formulario (el formulario se queda visible)
     document.getElementById('numNombreEmptyState').style.display = 'none';
-    var fw = document.getElementById('numNombreFormWrap');
-    if (fw) fw.style.display = 'none';
-    var dt = document.querySelector('#numPanel-nombre .num-deco-top');
-    if (dt) dt.style.display = 'none';
-    var sw = document.querySelector('#numPanel-nombre .num-switch-btn');
-    if (sw) sw.style.display = 'none';
+    var _hint = document.getElementById('numNombreHint'); if (_hint) _hint.style.display = 'none';
+    document.getElementById('numNombreDetailView').style.display = 'none';
+    document.getElementById('numNombreResultInner').innerHTML = '';
 
     var wrap = document.getElementById('numNombreSelectorWrap');
     wrap.style.display = 'flex';
 
     // Ocultar tarjeta madurez si no hay número de vida
+    document.querySelectorAll('#numNombreSelectorWrap .num-card-btn').forEach(function(c){ c.style.display = 'flex'; });
     var cardMad = document.querySelector('#numNombreSelectorWrap [onclick*="madurezNombre"]');
     if (cardMad) cardMad.style.display = madurezNombre ? 'flex' : 'none';
 
@@ -19635,11 +19780,14 @@ function numSwitchTab(tab) {
         }).join('<br><br>');
       }
     } else {
-      txt = (src && src[d.numero]) ? src[d.numero] : '';
+      txt = (src && (src[d.numero] || src[reducirSimple(d.numero)])) || '';
     }
+    if (!txt) txt = '<span style="opacity:.7">La interpretación de este número aún no se pudo cargar. Revisa tu conexión y vuelve a intentarlo.</span>';
 
-    // Ocultar grilla
+    // Ocultar: form, decoración y grilla (igual que en Números)
     document.getElementById('numNombreSelectorWrap').style.display = 'none';
+    var _fw = document.getElementById('numNombreFormWrap'); if (_fw) _fw.style.display = 'none';
+    var _dt = document.querySelector('#numPanel-nombre .num-deco-top'); if (_dt) _dt.style.display = 'none';
 
     // Renderizar detalle
     document.getElementById('numNombreResultInner').innerHTML =
@@ -19654,15 +19802,36 @@ function numSwitchTab(tab) {
     detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
 
+  window.numNomLimpiarFecha = function() {
+    if (typeof cdropReset === 'function') { cdropReset('numNomDia'); cdropReset('numNomMes'); }
+    var a = document.getElementById('numNomAnio'); if (a) a.value = '';
+    document.querySelectorAll('#dots-numNomAnio .anio-dot').forEach(function(d){ d.classList.remove('filled','ready'); });
+  };
+
   window.cerrarNumNombreDetalle = function() {
     document.getElementById('numNombreDetailView').style.display = 'none';
     document.getElementById('numNombreResultInner').innerHTML = '';
-    // Mostrar grilla y ocultar form/deco (ya calculado)
+    // Mostrar: form, decoración y grilla
+    var fw = document.getElementById('numNombreFormWrap'); if (fw) fw.style.display = 'block';
+    var dt = document.querySelector('#numPanel-nombre .num-deco-top'); if (dt) dt.style.display = 'block';
     document.getElementById('numNombreSelectorWrap').style.display = 'flex';
     document.getElementById('numNombreSelectorWrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
 
-  window.numNombreRecalcular = function() {
+  // Si cambia la fecha con resultados ya mostrados, vuelven al formulario (hay que pulsar Enter de nuevo)
+  window.numNombreInvalidar = function() {
+    if (!window._numNombreData) return;
+    document.getElementById('numNombreSelectorWrap').style.display = 'none';
+    document.getElementById('numNombreDetailView').style.display = 'none';
+    document.getElementById('numNombreResultInner').innerHTML = '';
+    document.getElementById('numNombreEmptyState').style.display = 'block';
+    var fw = document.getElementById('numNombreFormWrap'); if (fw) fw.style.display = 'block';
+    var dt = document.querySelector('#numPanel-nombre .num-deco-top'); if (dt) dt.style.display = 'block';
+    window._numNombreData = null;
+    if (typeof numNombreActualizarHint === 'function') numNombreActualizarHint();
+  };
+
+  window.numNombreRecalcular = function(sinFoco) {
     // Volver al formulario de nombre
     document.getElementById('numNombreSelectorWrap').style.display = 'none';
     document.getElementById('numNombreDetailView').style.display = 'none';
@@ -19670,8 +19839,10 @@ function numSwitchTab(tab) {
     var fw = document.getElementById('numNombreFormWrap'); if (fw) fw.style.display = 'block';
     var dt = document.querySelector('#numPanel-nombre .num-deco-top'); if (dt) dt.style.display = 'block';
     var sw = document.querySelector('#numPanel-nombre .num-switch-btn'); if (sw) sw.style.display = 'inline-flex';
-    var inp = document.getElementById('numNombreInput'); if (inp) { inp.value = ''; inp.focus(); }
-    var vida = document.getElementById('numNombreVida'); if (vida) vida.value = '';
+    var inp = document.getElementById('numNombreInput'); if (inp) { inp.value = ''; if (!sinFoco) inp.focus(); }
+    var ap = document.getElementById('numApellidoInput'); if (ap) ap.value = '';
+    var hn = document.getElementById('numNombreHint'); if (hn) hn.style.display = 'none';
+    if (window.numNomLimpiarFecha) window.numNomLimpiarFecha();
     window._numNombreData = null;
   };
 
@@ -19712,7 +19883,9 @@ function numSwitchTab(tab) {
     if (tarotView && tarotView.style.display !== 'none') {
       calcTarotAnio();
     } else if (numView && numView.style.display !== 'none') {
-      calcNumerologia();
+      const pNombre = document.getElementById('numPanel-nombre');
+      if (pNombre && pNombre.style.display !== 'none') { if (window._numNombreEnter) calcNumerologiaNombre(); }
+      else if (document.getElementById('numPanel-fecha').style.display !== 'none') calcNumerologia();
     }
   });
 
@@ -21888,7 +22061,8 @@ function anioInputHandler(input, modulo) {
       else if (modulo === 'arc-decanato') arcSyncFromField('decanato');
       else if (modulo === 'runa-pers')    runaSyncFromField('pers');
       else if (modulo === 'runa-nac')     runaSyncFromField('nac');
-      else if (modulo === 'num')          calcNumerologia();
+      else if (modulo === 'num')          numSyncFecha('fecha');
+      else if (modulo === 'num-nombre')   { numSyncFecha('nombre'); if (typeof numNombreAutoEjecutar === 'function') numNombreAutoEjecutar(); }
       else if (modulo === 'crom-pers')    calcColorPersonal();
       else if (modulo === 'fs')           fsAutoCalcular();
       else if (modulo === 'ev')           evCalcular();
@@ -22344,7 +22518,7 @@ document.addEventListener('click', function(e) {
 
 (function() {
   // Poblar días en hidden selects (para compatibilidad con código existente)
-  ['numDia','tarotDia','persArcDia','transDia','decArcDia','runaPersDia','runaAnualDia','runaNacDia'].forEach(id => {
+  ['numDia','numNomDia','tarotDia','persArcDia','transDia','decArcDia','runaPersDia','runaAnualDia','runaNacDia'].forEach(id => {
     const sel = document.getElementById(id);
     if (!sel) return;
     for (let d = 1; d <= 31; d++) {
@@ -22358,7 +22532,7 @@ document.addEventListener('click', function(e) {
 
   // Construir custom dropdowns de meses Y poblar hidden selects
   const _MESES_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  ['persArcMes','tarotMes','transMes','decArcMes','runaPersMes','runaAnualMes','runaNacMes','numMes'].forEach(id => {
+  ['persArcMes','tarotMes','transMes','decArcMes','runaPersMes','runaAnualMes','runaNacMes','numMes','numNomMes'].forEach(id => {
     const sel = document.getElementById(id);
     if (sel) {
       // Poblar hidden select con opciones
@@ -23070,7 +23244,7 @@ function cromReset() {
 
     } else if (campo === 'opcionales') {
       const menoresActivo=(document.getElementById('chkMenores')||{value:'0'}).value==='1';
-      const gnosActivo=typeof window._gnosticoActivo!=='undefined'?window._gnosticoActivo:false;
+      const gnosActivo=(typeof _gnosticoActivo!=='undefined')?_gnosticoActivo:false;
       contenido.innerHTML = `
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:6px;">
           <button id="edit-btn-menores" onclick="editToggleMenores()" style="background:${menoresActivo?'rgba(0,200,255,0.18)':'transparent'};border:1px solid ${menoresActivo?'var(--acc)':'rgba(0,200,255,0.25)'};color:${menoresActivo?'#00c8ff':'#ffffff'};font-size:15px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:13px;cursor:pointer;transition:all .2s;">${menoresActivo?'<span style="font-size:calc(1em + 13px);line-height:1;">⚻</span> Aspectos menores activos':'Incluir aspectos menores'}</button>
@@ -23162,15 +23336,30 @@ function cromReset() {
   window.editToggleMenores = function(){
     const chk=document.getElementById('chkMenores');if(!chk)return;
     const n=chk.value==='1'?'0':'1';chk.value=n;
+    const bm=document.getElementById('btnMenores');
+    if(bm){
+      bm.classList.toggle('active',n==='1');
+      bm.innerHTML=n==='1'
+        ?'<span style="display:inline-flex;align-items:center;gap:6px;"><span style="font-size:calc(1em + 15px);line-height:1;">⚻</span><span>Activado</span></span>'
+        :'<span style="color:var(--acc);text-shadow:0 0 10px rgba(0,200,255,0.8);">Desactivado</span>';
+    }
     const b=document.getElementById('edit-btn-menores');
     if(b){b.style.background=n==='1'?'rgba(0,200,255,0.18)':'transparent';b.style.borderColor=n==='1'?'var(--acc)':'rgba(0,200,255,0.25)';b.style.color=n==='1'?'#00c8ff':'#ffffff';b.innerHTML=n==='1'?'<span style="font-size:calc(1em + 13px);line-height:1;vertical-align:middle;">⚻</span> Aspectos menores activos':'Incluir aspectos menores';}
     if(typeof calculate==='function')calculate();
   };
   window.editToggleGnostico = function(){
-    const nv=!(typeof window._gnosticoActivo!=='undefined'?window._gnosticoActivo:false);
-    window._gnosticoActivo=nv;
-    const br=document.getElementById('btnGnostico')||document.querySelector('[data-toggle="gnostico"]');
-    if(br)br.click();
+    // Estado REAL: la variable global `let _gnosticoActivo` (la que usa el cálculo).
+    // Antes se usaba window._gnosticoActivo (otra variable distinta) y un .click() que no hace nada
+    // cuando btnGnostico está deshabilitado.
+    const nv=!_gnosticoActivo;
+    _gnosticoActivo=nv;
+    const br=document.getElementById('btnGnostico');
+    if(br){
+      br.classList.toggle('active',nv);
+      br.innerHTML=nv
+        ?'<span style="display:inline-flex;align-items:center;gap:6px;"><span style="font-size:calc(1em + 10px);line-height:1;">⚜</span><span>Activado</span></span>'
+        :'<span style="color:var(--acc);text-shadow:0 0 10px rgba(0,200,255,0.8);">Desactivado</span>';
+    }
     const b=document.getElementById('edit-btn-gnostico');
     if(b){b.style.background=nv?'rgba(192,132,252,0.18)':'transparent';b.style.borderColor=nv?'#c084fc':'rgba(0,200,255,0.25)';b.style.color=nv?'#c084fc':'#ffffff';b.innerHTML=nv?'<span style="font-size:calc(1em + 8px);line-height:1;vertical-align:middle;">⚜</span> Gnosticismo activo':'Activar Gnosticismo';}
     if(typeof calculate==='function')calculate();
@@ -25572,7 +25761,38 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     bz:  { border:'#f0a500', bg:'rgba(240,165,0,0.1)',    color:'#f0a500' }
   };
 
+  // Año compartido entre Kua y Estrellas Voladoras personales
+  var FENG_ANIO_IDS = { kua:'fsAnio', ev:'evAnio' };
+  function fengTabActual() {
+    for (var i = 0; i < FENG_TABS.length; i++) {
+      var pn = document.getElementById('fengPanel-' + FENG_TABS[i]);
+      if (pn && pn.style.display !== 'none') return FENG_TABS[i];
+    }
+    return null;
+  }
+  function fengLlevarAnio(desde, hacia) {
+    var a = document.getElementById(FENG_ANIO_IDS[desde]);
+    var b = document.getElementById(FENG_ANIO_IDS[hacia]);
+    if (!a || !b) return;
+    var v = String(a.value || '').replace(/\D/g, '');
+    if (!v || b.value === v) return;
+    b.value = v;
+    // Actualiza los puntitos del año y, si el año es válido, recalcula en la pestaña destino
+    var n = parseInt(v);
+    if (v.length === 4 && n >= 1900 && n <= 2100 && typeof anioInputHandler === 'function') {
+      anioInputHandler(b, hacia === 'kua' ? 'fs' : 'ev');
+    } else {
+      document.querySelectorAll('#dots-' + b.id + ' .anio-dot').forEach(function(d, i) {
+        d.classList.remove('filled','ready');
+        if (i < v.length) d.classList.add(v.length === 4 && i === 3 ? 'ready' : 'filled');
+      });
+    }
+  }
+
   window.fengSwitchTab = function(tab) {
+    // Kua ↔ Estrellas personales: el año se mantiene igual
+    var prev = fengTabActual();
+    if (prev && prev !== tab && FENG_ANIO_IDS[prev] && FENG_ANIO_IDS[tab]) fengLlevarAnio(prev, tab);
     FENG_TABS.forEach(function(t) {
       var panel = document.getElementById('fengPanel-' + t);
       if (!panel) return;
@@ -25603,7 +25823,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
 // MÓDULO FENG SHUI — Número Kua
 // ══════════════════════════════════════════════════════════════
 (function(){
-  var KUA_DATA = window.FENG_MENSAJES ? window.FENG_MENSAJES.kua : {};
+  function _fmGet(k) { return (window.FENG_MENSAJES && window.FENG_MENSAJES[k]) || {}; } // se lee al usarlo: fengshui.js carga después
 
   function calcKua(anio, sexo) {
     var suma = String(anio).split('').reduce(function(a,b){ return a+parseInt(b); },0);
@@ -25634,8 +25854,8 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     if (!anio || anio < 1900 || anio > 2100) { alert('Ingresa un año de nacimiento válido.'); return; }
     if (!sexo) { alert('Selecciona tu sexo.'); return; }
     var kua = calcKua(anio, sexo);
-    var d = KUA_DATA[kua];
-    if (!d) { alert('No se pudo calcular el Kua.'); return; }
+    var d = _fmGet('kua')[kua];
+    if (!d) { alert('Los datos de Feng Shui aún no se cargaron. Espera unos segundos e inténtalo de nuevo.'); return; }
     var acc = d.color;
     var html = '';
     html += '<div style="text-align:center;padding:28px 20px 20px;background:rgba(192,132,252,0.04);border:1px solid rgba(192,132,252,0.2);margin-bottom:20px;">';
@@ -25681,7 +25901,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
 // MÓDULO ESTRELLAS VOLADORAS — Lo Shu
 // ══════════════════════════════════════════════════════════════
 (function(){
-  var EV_ESTRELLAS = window.FENG_MENSAJES ? window.FENG_MENSAJES.ev : {};
+  function _fmGet(k) { return (window.FENG_MENSAJES && window.FENG_MENSAJES[k]) || {}; }
 
   var LO_SHU_BASE = [4,9,2,3,5,7,8,1,6];
   var SECTOR_NAMES = ['Sureste','Sur','Suroeste','Este','Centro','Oeste','Noreste','Norte','Noroeste'];
@@ -25702,7 +25922,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     var anio = parseInt(document.getElementById('evAnio').value);
     if(!anio||anio<1900||anio>2100){alert('Ingresa un año de nacimiento válido.');return;}
     var estrella = calcEstrellaNatal(anio);
-    var d = EV_ESTRELLAS[estrella];
+    var d = _fmGet('ev')[estrella];
     var grid = buildLoShu(estrella);
     var acc = d.color;
     var html = '';
@@ -25716,7 +25936,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     html += '<div style="font-size:13px;letter-spacing:.18em;color:#c084fc;text-transform:uppercase;margin-bottom:10px;">Cuadrado Lo Shu Personal</div>';
     html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px;">';
     grid.forEach(function(num,i){
-      var ed=EV_ESTRELLAS[num]||{};
+      var ed=_fmGet('ev')[num]||{};
       var isC=i===4;
       html+='<div style="padding:14px 6px;text-align:center;background:'+(isC?'rgba(192,132,252,0.12)':'#ffffff')+';border:1px solid '+(isC?'rgba(192,132,252,0.4)':'#ffffff')+';">';
       html+='<div style="font-size:28px;font-weight:900;color:'+(ed.color||'#fff')+';">'+num+'</div>';
@@ -25767,7 +25987,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     'Metal': {'Metal+':'Hermano Rob','Metal-':'Amigo Rob','Agua+':'Producción','Agua-':'Expresión','Madera+':'Riqueza','Madera-':'Riqueza Sutil','Fuego+':'Poder/Control','Fuego-':'Influencia','Tierra+':'Recurso','Tierra-':'Madre'},
     'Agua':  {'Agua+':'Hermano Rob','Agua-':'Amigo Rob','Madera+':'Producción','Madera-':'Expresión','Fuego+':'Riqueza','Fuego-':'Riqueza Sutil','Tierra+':'Poder/Control','Tierra-':'Influencia','Metal+':'Recurso','Metal-':'Madre'}
   };
-  var DIEZ_DESC = window.FENG_MENSAJES ? window.FENG_MENSAJES.diezDioses : {};
+  function _fmGet(k) { return (window.FENG_MENSAJES && window.FENG_MENSAJES[k]) || {}; }
 
   function calcDaYun(y,m,sexo){
     var ty=troncoAnio(y),esYang=ty%2===0,esH=sexo==='M';
@@ -25823,7 +26043,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
       var tc=p.sinHora?'—':TRONCOS_ES[p.tronco],rc=p.sinHora?'—':RAMAS_ES[p.rama];
       var eT=p.sinHora?null:ELEM_T[p.tronco],eR=p.sinHora?null:ELEM_R[p.rama];
       var cT=eT?EC[eT]:'#ffffff',cR=eR?EC[eR]:'#ffffff';
-      html+='<div style="background:'+(p.esDM?'rgba(240,165,0,0.08)':'#ffffff')+';border:1px solid '+(p.esDM?'rgba(240,165,0,0.35)':'#ffffff')+';padding:12px 6px;text-align:center;">';
+      html+='<div style="background:rgba(240,165,0,0.08);border:1px solid rgba(240,165,0,0.35);padding:12px 6px;text-align:center;">';
       html+='<div style="font-size:11px;letter-spacing:.14em;color:rgba(240,165,0,0.7);text-transform:uppercase;margin-bottom:8px;">'+p.pilar+'</div>';
       html+='<div style="font-size:11px;color:'+cT+';font-weight:700;margin-bottom:4px;line-height:1.3;">'+(p.sinHora?'Sin hora':tc)+'</div>';
       html+='<div style="width:100%;height:1px;background:rgba(255,255,255,0.06);margin:6px 0;"></div>';
@@ -25849,7 +26069,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
       if(p.sinHora||p.tronco===null)return;
       var key=ELEM_T[p.tronco]+POL_T[p.tronco];
       if(!diosesVisto[key]){diosesVisto[key]=true;
-        var dios=diosesMapa[key]||'—',desc=DIEZ_DESC[dios]||'',col=EC[ELEM_T[p.tronco]];
+        var dios=diosesMapa[key]||'—',desc=_fmGet('diezDioses')[dios]||'',col=EC[ELEM_T[p.tronco]];
         html+='<div style="display:grid;grid-template-columns:130px 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);">';
         html+='<div style="font-size:13px;font-weight:700;color:'+col+';">'+dios+'<br><span style="font-size:11px;color:#ffffff;font-weight:400;">(Pilar del '+p.pilar+')</span></div>';
         html+='<div style="font-size:14px;color:#ffffff;line-height:1.6;">'+desc+'</div></div>';}
@@ -25976,7 +26196,6 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
         <option value="sombra">⚠ Sombra y Áreas a Trabajar</option>
         <option value="sec">◉ También Resuenan Contigo</option>
         <option value="pilar">⚖ Pilar Dominante en tu Árbol</option>
-        <option value="num">🔢 Numerología Kabbalística</option>
       </select>
       <div id="kbSecPanel" style="margin-top:8px;padding:20px 18px 22px;background:rgba(0,0,0,0.18);border:1px solid rgba(212,175,55,0.22);display:none;">
         <div id="kbContentDesc" style="display:none;"></div>
@@ -25988,7 +26207,6 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
         <div id="kbContentSombra" style="display:none;"></div>
         <div id="kbContentSec" style="display:none;"></div>
         <div id="kbContentPilar" style="display:none;"></div>
-        <div id="kbContentNum" style="display:none;"></div>
       </div>
     </div>
 
@@ -26132,6 +26350,33 @@ var kbScores=[0,0,0,0,0,0,0,0,0,0];
 var kbQuestions=[];
 var kbCurrentQ=0;
 
+// kabalah.js se carga de forma asíncrona DESPUÉS de este script: los datos se toman al usarlos
+function kbSyncData(){
+  if(window.KB_DATA&&window.KB_DATA.length)KB_SEFIROTH=window.KB_DATA;
+  if(window.KB_NUM_MAP)KB_NUM_MAP=window.KB_NUM_MAP;
+  if(window.KB_NUM_MENSAJES)KB_NUM_MENSAJES=window.KB_NUM_MENSAJES;
+}
+// Prepara y muestra el cuestionario; si los datos aún no llegaron, espera y reintenta
+function kbEnsureQuiz(n){
+  if(!kbQuestions.length){kbSyncData();buildKbQuestions();if(kbQuestions.length)kbBuildTree();}
+  if(!kbQuestions.length){
+    var qt=document.getElementById('kbQText');
+    var op=document.getElementById('kbOptions');
+    if(op)op.innerHTML='';
+    if(n<40){
+      if(qt)qt.textContent='Cargando preguntas…';
+      setTimeout(function(){
+        var q=document.getElementById('kbPanelQuiz');
+        if(q&&q.style.display!=='none')kbEnsureQuiz(n+1);
+      },500);
+    }else if(qt){
+      qt.textContent='No se pudieron cargar las preguntas. Revisa tu conexión y vuelve a entrar.';
+    }
+    return;
+  }
+  kbRenderQuestion();
+}
+
 // ── Utilidades numerológicas ──
 function kbReduceNum(n){
   if(n===11||n===22)return n;
@@ -26199,6 +26444,7 @@ function kbLightNode(idx,on,color,rgb){
 }
 
 window.kabalahInit=function(){
+  kbSyncData();
   kbScores=[0,0,0,0,0,0,0,0,0,0];
   kbCurrentQ=0;
   buildKbQuestions();
@@ -26210,6 +26456,10 @@ window.kabalahInit=function(){
     var el=document.getElementById(id);
     if(el)el.style.display='none';
   });
+  // Restaurar el cuestionario (kbShowResult lo deja oculto al terminar)
+  var _qi=document.getElementById('kbQuizItem'); if(_qi)_qi.style.display='';
+  var _t1=document.getElementById('kbTab1Content'); if(_t1)_t1.style.display='block';
+  var _lay=document.getElementById('kbLayout'); if(_lay)_lay.style.display='grid';
   // Resetear numerología standalone
   var saCont=document.getElementById('kbNumStandaloneContent');
   if(saCont){saCont.innerHTML='';delete saCont.dataset.rendered;}
@@ -26230,7 +26480,7 @@ window.kbSwitchMain=function(tab){
     // Iniciar el cuestionario si no ha empezado
     var layout=document.getElementById('kbLayout');
     if(layout)layout.style.display='grid';
-    kbRenderQuestion();
+    kbEnsureQuiz(0);
   }
   if(tab==='num'&&num){
     num.style.display='block';
@@ -26270,6 +26520,7 @@ window.kbAccToggle=function(bodyId,btn){
 };
 
 function kbRenderQuestion(){
+  if(!kbQuestions.length){kbEnsureQuiz(0);return;}
   if(kbCurrentQ>=kbQuestions.length){kbShowResult();return;}
   var item=kbQuestions[kbCurrentQ];
   var sefira=KB_SEFIROTH[item.sefiraIdx];
@@ -28116,7 +28367,7 @@ function brRenderMensajes(vals){
       // Encontrar posición del anillo, rotar
       var ringPos = RING_CW.indexOf(i);
       if (ringPos === -1) { displayOrder.push(i); continue; }
-      var newRingPos = (ringPos + rot) % 8;
+      var newRingPos = (ringPos - rot + 8) % 8; // sentido horario (izquierda → derecha por arriba)
       displayOrder.push(RING_CW[newRingPos]);
     }
 
@@ -28131,7 +28382,7 @@ function brRenderMensajes(vals){
       var wc = STAR_COLORS[wStar] || '#fff';
       var mc = STAR_COLORS[mStar] || '#fff';
 
-      html += '<div style="background:' + (isCenter ? 'rgba(0,200,255,0.09)' : '#ffffff') + ';border:1px solid ' + (isCenter ? 'rgba(0,200,255,0.35)' : '#ffffff') + ';padding:10px 8px 8px;text-align:center;min-height:110px;display:flex;flex-direction:column;justify-content:space-between;">';
+      html += '<div style="background:rgba(0,200,255,0.09);border:1px solid rgba(0,200,255,0.35);padding:10px 8px 8px;text-align:center;min-height:110px;display:flex;flex-direction:column;justify-content:space-between;">';
       // Fila superior: Montaña (izq) + Agua (der)
       html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;">';
       html += '<span style="font-size:15px;font-weight:700;color:' + mc + ';line-height:1;" title="Estrella Montaña">' + mStar + '</span>';
@@ -28140,7 +28391,7 @@ function brRenderMensajes(vals){
       // Centro: Período grande
       html += '<div style="font-size:28px;font-weight:900;color:' + pc + ';line-height:1;margin:2px 0;" title="Estrella Período">' + pStar + '</div>';
       // Nombre palacio abajo
-      html += '<div style="font-size:9px;color:#ffffff;letter-spacing:.05em;text-transform:uppercase;">' + PALACIO_NOMBRES[i] + ' · ' + PALACIO_PUNTOS[i] + '</div>';
+      html += '<div style="font-size:12px;font-weight:700;color:#00c8ff;letter-spacing:.08em;text-transform:uppercase;line-height:1.2;">' + PALACIO_NOMBRES[i] + ' <span style="color:#ffffff;">· ' + PALACIO_PUNTOS[i] + '</span></div>';
       html += '</div>';
     }
     gridEl.innerHTML = html;
@@ -28701,11 +28952,35 @@ function brRenderMensajes(vals){
 .oe-opcion[data-corriente="sincretista"] { --oe-color: var(--oe-sincretista); }
 /* ── Nav siguiente ── */
 .oe-nav {
-  display: flex;
+  display: none; /* el botón Siguiente ahora aparece bajo la respuesta elegida */
   justify-content: flex-end;
   margin-top: 28px;
   gap: 12px;
 }
+/* ── Acciones bajo la respuesta elegida ── */
+.oe-accion {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  animation: oeFadeIn .3s ease;
+}
+.oe-btn-otra {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: border-color .3s, box-shadow .3s, background .3s;
+}
+.oe-btn-otra:hover { border-color: #ffffff; background: rgba(255,255,255,0.08); }
+.oe-opcion.selected:hover { transform: none; }
 .oe-btn-next {
   background: transparent;
   border: 1px solid rgba(255,255,255,0.3);
@@ -28812,7 +29087,33 @@ function brRenderMensajes(vals){
 /* Acordeón header hover */
 #partesCheckboxes button:not([data-key]):hover,
 #asteroidesCheckboxes button:not([data-key]):hover { opacity:0.85; }
-/* ── Slider resultado ── */
+/* ── Acordeones del resultado ── */
+.oe-acc-item { margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.12); }
+.oe-acc-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(255,255,255,0.03);
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  padding: 16px 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: background .2s, color .2s;
+}
+.oe-acc-btn:hover { background: rgba(255,255,255,0.08); }
+.oe-acc-btn.open { background: rgba(255,255,255,0.08); color: var(--oe-acc, #c084fc); }
+.oe-acc-arrow { font-size: 12px; transition: transform .3s; flex-shrink: 0; }
+.oe-acc-btn.open .oe-acc-arrow { transform: rotate(180deg); }
+.oe-acc-body { padding: 20px 18px 8px; animation: oeFadeIn .3s ease; }
+.oe-acc-body .oe-result-card { margin-bottom: 12px; }
+/* ── Slider resultado (ya no se usa) ── */
 .oe-slider-wrap {
   position: relative;
   overflow: hidden;
@@ -29031,18 +29332,39 @@ function brRenderMensajes(vals){
         'style="--oe-color:' + OE_COLORES[op.corriente] + '" ' +
         'onclick="oeSeleccionar(this)">' + op.texto + '</button>';
     });
-    html += '</div></div>';
+    html += '</div>';
+    html += '<div class="oe-accion" id="oeAccion" style="display:none;">' +
+      '<button class="oe-btn-next visible lit" id="oeBtnNextInline" onclick="oeNextPregunta()">' +
+      ((_oeIdx === preguntas.length - 1) ? 'Ver mi resultado →' : 'Siguiente →') + '</button>' +
+      '<button class="oe-btn-otra" onclick="oeElegirOtra()">Elegir otra respuesta</button>' +
+      '</div>';
+    html += '</div>';
     document.getElementById('oePreguntaWrap').innerHTML = html;
   }
 
   window.oeSeleccionar = function(el) {
-    document.querySelectorAll('.oe-opcion').forEach(function(b){ b.classList.remove('selected'); });
+    document.querySelectorAll('.oe-opcion').forEach(function(b){
+      b.classList.remove('selected');
+      if (b !== el) b.style.display = 'none';   // se ocultan las demás respuestas
+    });
     el.classList.add('selected');
     _oeSeleccion = el.getAttribute('data-corriente');
-    var btn = document.getElementById('oeBtnNext');
     var color = OE_COLORES[_oeSeleccion] || '#c084fc';
-    btn.style.setProperty('--oe-btn-color', color);
-    btn.classList.add('visible', 'lit');
+    var acc = document.getElementById('oeAccion');
+    var nx  = document.getElementById('oeBtnNextInline');
+    if (nx) nx.style.setProperty('--oe-btn-color', color);
+    if (acc) acc.style.display = 'flex';          // Siguiente + Elegir otra respuesta, bajo la elegida
+  };
+
+  // Volver a mostrar todas las respuestas para elegir otra
+  window.oeElegirOtra = function() {
+    _oeSeleccion = null;
+    document.querySelectorAll('.oe-opcion').forEach(function(b){
+      b.classList.remove('selected');
+      b.style.display = '';
+    });
+    var acc = document.getElementById('oeAccion');
+    if (acc) acc.style.display = 'none';
   };
 
   function oeScrollTop(targetId) {
@@ -29058,20 +29380,13 @@ function brRenderMensajes(vals){
     if (_oeIdx >= getData().preguntas.length) { oeShowResultado(); } else { oeRenderPregunta(); }
   };
 
-  // ── Slider ──
-  window.oeGoSlide = function(dir) {
-    var track = document.getElementById('oeSliderTrack');
-    var slides = track ? track.querySelectorAll('.oe-slide') : [];
-    var total = slides.length;
-    _oeSlide = Math.max(0, Math.min(total - 1, _oeSlide + dir));
-    track.style.transform = 'translateX(-' + (_oeSlide * 100) + '%)';
-    document.getElementById('oeArrowPrev').disabled = (_oeSlide === 0);
-    document.getElementById('oeArrowNext').disabled = (_oeSlide === total - 1);
-    // etiqueta central
-    var labels = ['Tu resultado', 'También resuena en ti'];
-    var lbl = document.getElementById('oeSliderLabel');
-    if (lbl) lbl.textContent = labels[_oeSlide] || '';
-    oeScrollTop('oeResultadoInner');
+  // ── Acordeones del resultado ──
+  window.oeAccToggle = function(btn) {
+    var body = btn.nextElementSibling;
+    if (!body) return;
+    var abrir = body.style.display === 'none';
+    body.style.display = abrir ? 'block' : 'none';
+    btn.classList.toggle('open', abrir);
   };
 
   function oeShowResultado() {
@@ -29110,7 +29425,6 @@ function brRenderMensajes(vals){
     var slide1 = '<div class="oe-slide">';
     slide1 += '<div class="oe-result-card" style="border-color:' + color + ';color:' + color + '">';
     slide1 += '<span class="oe-result-simbolo">' + cp.simbolo + '</span>';
-    slide1 += '<div class="oe-result-titulo-label">Tu corriente dominante</div>';
     slide1 += '<div class="oe-result-titulo" style="color:' + color + '">' + cp.titulo_resultado + '</div>';
     slide1 += '<div class="oe-result-subtitulo">' + cp.subtitulo + '</div>';
     slide1 += '<div class="oe-result-desc">' + cp.descripcion + '</div>';
@@ -29121,7 +29435,6 @@ function brRenderMensajes(vals){
     // ── Slide 2: corrientes secundarias ──
     var slide2 = '<div class="oe-slide">';
     if (segundas.length > 0) {
-      slide2 += '<div class="oe-sec-titulo">También resuena en ti</div>';
       segundas.slice(0, 2).forEach(function(c) {
         var cs = corrientes[c.key];
         var sc = OE_COLORES[c.key];
@@ -29140,13 +29453,15 @@ function brRenderMensajes(vals){
     slide2 += '</div>';
 
     var html = mapaHtml;
-    html += '<div class="oe-slider-wrap">';
-    html += '<div class="oe-slider-track" id="oeSliderTrack">' + slide1 + slide2 + '</div>';
-    html += '</div>';
-    html += '<div class="oe-slider-arrows">';
-    html += '<button class="oe-arrow" id="oeArrowPrev" onclick="oeGoSlide(-1)" disabled>&#8592;</button>';
-    html += '<span class="oe-slider-label" id="oeSliderLabel">Tu resultado</span>';
-    html += '<button class="oe-arrow" id="oeArrowNext" onclick="oeGoSlide(1)">&#8594;</button>';
+    html += '<div class="oe-acc">';
+    html += '<div class="oe-acc-item">' +
+      '<button class="oe-acc-btn open" style="--oe-acc:' + color + '" onclick="oeAccToggle(this)">' +
+      '<span>Tu corriente dominante</span><span class="oe-acc-arrow">▼</span></button>' +
+      '<div class="oe-acc-body">' + slide1 + '</div></div>';
+    html += '<div class="oe-acc-item">' +
+      '<button class="oe-acc-btn" onclick="oeAccToggle(this)">' +
+      '<span>También resuena en ti</span><span class="oe-acc-arrow">▼</span></button>' +
+      '<div class="oe-acc-body" style="display:none;">' + slide2 + '</div></div>';
     html += '</div>';
 
     document.getElementById('oeResultadoInner').innerHTML = html;
