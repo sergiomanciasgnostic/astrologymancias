@@ -331,4 +331,6 @@ let CK_CHAKRAS = [
 ];
 
 // Hacer disponible globalmente
-window._CK_CHAKRAS = CK_CHAKRAS;
+// (Desactivado) Esta línea pisaba el bloque completo de la línea 2 con esta versión antigua,
+// que no tiene openText y causaba "undefined" en Chakras abiertos.
+// window._CK_CHAKRAS = CK_CHAKRAS;
