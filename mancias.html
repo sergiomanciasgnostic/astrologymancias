@@ -17972,6 +17972,9 @@ function showModule(mod) {
   if (mod === 'sigilos') {
     if (typeof sigilosInit === 'function') sigilosInit();
   }
+  if (mod === 'zodiacoChino') {
+    if (typeof window.zcInit === 'function') window.zcInit();
+  }
   if (mod === 'fengshui') {
     // Resetear sub-forms al entrar
     if (typeof fsReset === 'function') fsReset();
@@ -25060,8 +25063,12 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
   };
 
   // ── CÁLCULO ANIMAL DEL AÑO ───────────────────────────────────
+  // Año efectivo: el año chino (Ba Zi) empieza ~4 de febrero (Li Chun)
+  function zcAnioEfectivo(anio, mes, dia) {
+    return (mes < 2 || (mes === 2 && dia < 4)) ? anio - 1 : anio;
+  }
+
   function zcAnimalAnio(anio) {
-    // El año chino empieza en Feb aprox; simplificación: usamos 4 Feb como corte
     var idx = ((anio - ZC_ANIO_BASE) % 12 + 12) % 12;
     return ZC_ANIMALES[idx];
   }
@@ -25075,21 +25082,23 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
 
   // ── CÁLCULO ANIMAL DEL MES ───────────────────────────────────
   // El mes chino empieza el 4-8 de cada mes gregoriano; simplificación estándar
+  // Cada mes del Ba Zi empieza en un término solar (~4-8 del mes gregoriano).
+  // Febrero (desde el 4) = Tigre, Marzo = Conejo ... Enero (desde el 6) = Buey
+  var ZC_CORTE_MES = [6,4,6,5,6,6,7,8,8,8,7,7]; // día de inicio para ene..dic
   function zcAnimalMes(mes, dia) {
-    // Mes lunar chino comienza ~4-8 del mes solar
-    var mesIdx = mes - 1; // 0-based
-    if (dia < 6) mesIdx = (mesIdx - 1 + 12) % 12;
-    return ZC_ANIMALES[ZC_ORDEN_ANIMALES.indexOf(ZC_MESES_ANIMAL[mesIdx])];
+    var m = mes;                                  // 1-12
+    if (dia < ZC_CORTE_MES[mes - 1]) m = mes - 1; // aún pertenece al mes anterior
+    var idx = (((m - 2) % 12) + 12) % 12;         // feb → 0 (Tigre)
+    return ZC_ANIMALES[ZC_ORDEN_ANIMALES.indexOf(ZC_MESES_ANIMAL[idx])];
   }
 
   // ── CÁLCULO ANIMAL DEL DÍA ───────────────────────────────────
-  // Ciclo de 60 días desde fecha base conocida: 1 Ene 1900 = Rata (idx=0)
+  // Ciclo de 60 días. Referencia: 1 Ene 1900 = día Jia-Xu → rama Perro (idx 10)
   function zcAnimalDia(anio, mes, dia) {
-    // Calcular días desde 1 Ene 1900
-    var base = new Date(1900, 0, 1);
-    var fecha = new Date(anio, mes - 1, dia);
-    var diff = Math.round((fecha - base) / 86400000);
-    var idx  = ((diff % 12) + 12) % 12;
+    var base  = Date.UTC(1900, 0, 1);
+    var fecha = Date.UTC(anio, mes - 1, dia);
+    var diff  = Math.round((fecha - base) / 86400000);
+    var idx   = (((diff + 10) % 12) + 12) % 12;
     return ZC_ANIMALES[idx];
   }
 
@@ -25123,9 +25132,10 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
   var ZC_MENSAJES = (typeof window.ZC_MENSAJES !== 'undefined') ? window.ZC_MENSAJES : null;
 
   function zcGetMsg(animal, tipo) {
-    if (ZC_MENSAJES && ZC_MENSAJES[animal] && ZC_MENSAJES[animal][tipo]) {
+    if (ZC_MENSAJES && ZC_MENSAJES[animal] && typeof ZC_MENSAJES[animal][tipo] === 'string' && ZC_MENSAJES[animal][tipo]) {
       return ZC_MENSAJES[animal][tipo];
     }
+    if (tipo === 'combinada') return '';
     // Fallback: usa descripcion base
     var a = ZC_ANIMALES.find(function(x){ return x.key === animal; });
     return a ? a.descripcion : '';
@@ -25309,6 +25319,12 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
       alert('Por favor ingresa una fecha de nacimiento válida.');
       return;
     }
+    var _chk = new Date(anio, mes - 1, dia);
+    if (_chk.getMonth() !== mes - 1 || _chk.getDate() !== dia) {
+      alert('Esa fecha no existe. Revisa el día y el mes.');
+      return;
+    }
+    var anioEf = zcAnioEfectivo(anio, mes, dia);
 
     var horaAnimal = null;
     if (!zcHoraDesconocida && horaVal !== '') {
@@ -25316,11 +25332,11 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     }
 
     var data = {
-      anioAnimal: zcAnimalAnio(anio),
+      anioAnimal: zcAnimalAnio(anioEf),
       mesAnimal:  zcAnimalMes(mes, dia),
       diaAnimal:  zcAnimalDia(anio, mes, dia),
       horaAnimal: horaAnimal,
-      anioElem:   zcElementoAnio(anio)
+      anioElem:   zcElementoAnio(anioEf)
     };
 
     // Header
@@ -25330,7 +25346,7 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     header.innerHTML =
       '<div style="font-size:36px;letter-spacing:8px;margin-bottom:6px;">'+animalesHeader.map(function(a){return a.emoji;}).join('')+'</div>'+
       '<div style="font-size:12px;color:rgba(240,165,0,0.7);letter-spacing:.14em;text-transform:uppercase;">'+
-        data.anioAnimal.nombre+' · '+data.mesAnimal.nombre+' · '+data.diaAnimal.nombre+(data.horaAnimal?' · '+data.horaAnimal.nombre:'· —')+
+        data.anioAnimal.nombre+' · '+data.mesAnimal.nombre+' · '+data.diaAnimal.nombre+(data.horaAnimal?' · '+data.horaAnimal.nombre:' · —')+
       '</div>'+
       '<div style="font-size:13px;color:'+ZC_ELEM_COLOR[data.anioElem.elemento]+';margin-top:4px;">'+
         ZC_ELEM_EMOJI[data.anioElem.elemento]+' '+data.anioElem.elemento+' · '+data.anioElem.polaridad+
@@ -25342,7 +25358,9 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     zcRenderSlides();
 
     // Mostrar resultado
-    document.getElementById('zcResult').style.display = 'block';
+    var _res = document.getElementById('zcResult');
+    _res.style.display = 'block';
+    try { _res.scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e) {}
   };
 
   function zcRenderSlides() {
@@ -25409,8 +25427,12 @@ document.addEventListener('touchstart', function(e){ if(e.touches[0]){ window._m
     zcInitSelects();
     zcReset();
     // Recargar mensajes externos si ya están disponibles
-    if (typeof window.ZC_MENSAJES !== 'undefined') ZC_MENSAJES = window.ZC_MENSAJES;
+    var ext = window._ZC_MENSAJES || window.ZC_MENSAJES;
+    if (ext && typeof ext === 'object') ZC_MENSAJES = ext;
   };
+
+  // Poblar los selectores de inmediato (antes dependía de un zcInit que nunca se ejecutaba a tiempo)
+  try { zcInitSelects(); } catch (e) { console.warn('[ZC] init selects:', e); }
 
 })();
 </script>
