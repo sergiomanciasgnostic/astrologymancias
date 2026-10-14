@@ -8425,6 +8425,112 @@ let TODAS_LAS_PARTES = [
   { key:'Enemistad',    g:'💀', name:'Enemistad',         short:'Enemistad',   cat:'conflicto', tip:'Hostilidad abierta y enemigos declarados. Señala los focos de oposición activa en la vida del nativo.' },
   { key:'Separacion',   g:'💔', name:'Separación',        short:'Separación',  cat:'conflicto', tip:'Rupturas, alejamientos y distanciamientos. Señala los momentos de quiebre en vínculos significativos.' },
   { key:'Union',        g:'💞', name:'Unión',             short:'Unión',       cat:'amor',      tip:'Fusión, alianza y confluencia. Señala los momentos de unificación profunda en vínculos o proyectos.' },
+  // ── Partes añadidas (mente / espíritu / sombra) ──
+  { key:'Conocimiento',   g:'📖', name:'Conocimiento',        short:'Conocimiento',  cat:'mente',     tip:'Saber adquirido y comprensión de las cosas. Señala cómo y dónde el nativo aprende, estudia y acumula entendimiento.' },
+  { key:'Memoria',        g:'🗂', name:'Memoria',             short:'Memoria',       cat:'mente',     tip:'Capacidad de recordar y conservar la experiencia. Indica la relación del nativo con su pasado y con lo aprendido.' },
+  { key:'Imaginacion',    g:'🎨', name:'Imaginación',         short:'Imaginación',   cat:'mente',     tip:'Fantasía creadora y capacidad de visualizar lo que aún no existe. Señala el terreno de la creatividad mental.' },
+  { key:'Inspiracion',    g:'✨', name:'Inspiración',         short:'Inspiración',   cat:'mente',     tip:'Chispa creativa e intuición súbita. Señala dónde llegan las ideas luminosas y el impulso artístico o espiritual.' },
+  { key:'Sueno',          g:'🌙', name:'Sueño',               short:'Sueño',         cat:'oculto',    tip:'El mundo onírico y el inconsciente. Señala la vida de los sueños, el descanso y los mensajes que llegan desde dentro.' },
+  { key:'Magia',          g:'🪄', name:'Magia',               short:'Magia',         cat:'oculto',    tip:'Poder de transformar la realidad con la voluntad y el símbolo. Señala la aptitud para lo esotérico y lo ritual.' },
+  { key:'Redencion',      g:'🕯', name:'Redención',           short:'Redención',     cat:'oculto',    tip:'Liberación de cargas y deudas del pasado. Señala el camino de reparación y de renacimiento interior.' },
+  { key:'AngelGuarda',    g:'👼', name:'Ángel de la Guarda',  short:'Ángel Guarda',  cat:'oculto',    tip:'Protección invisible y ayuda providencial. Señala dónde el nativo recibe amparo y guía en los momentos difíciles.' },
+  { key:'CausaMayor',     g:'🌌', name:'Causa Mayor',         short:'Causa Mayor',   cat:'oculto',    tip:'El propósito profundo y la causa superior a la que se orienta la vida. Señala el sentido mayor del recorrido del nativo.' },
+  { key:'Veneno',         g:'☠',  name:'Veneno',              short:'Veneno',        cat:'conflicto', tip:'Aquello que intoxica o corroe: personas, hábitos o emociones tóxicas. Señala el punto donde hay que cuidarse de lo nocivo.' },
+  { key:'Demonio',        g:'😈', name:'Demonio',             short:'Demonio',       cat:'conflicto', tip:'La sombra personal y las pulsiones oscuras. Señala los impulsos que tientan al nativo y que debe integrar con consciencia.' },
+  // ── Partes añadidas (lote 2) ──
+  { key:'Abundancia', g:'🌾', name:'Abundancia', short:'Abundancia', cat:'riqueza', tip:'Plenitud y desbordamiento de recursos. Señala dónde la vida da más de lo necesario y el nativo recibe en abundancia.' },
+  { key:'Afliccion', g:'🥀', name:'Aflicción', short:'Aflicción', cat:'conflicto', tip:'Dolor sostenido y sufrimiento del ánimo. Señala los terrenos donde el nativo carga penas que debe aprender a transformar.' },
+  { key:'Aniquilacion', g:'💥', name:'Aniquilación', short:'Aniquilación', cat:'conflicto', tip:'Destrucción total de lo establecido. Señala los puntos de ruptura radical donde algo termina por completo para dar paso a lo nuevo.' },
+  { key:'Ansiedad', g:'😰', name:'Ansiedad', short:'Ansiedad', cat:'conflicto', tip:'Inquietud nerviosa y temor anticipado. Señala dónde la mente se adelanta y el nativo necesita calma y confianza.' },
+  { key:'Apoyo', g:'🤝', name:'Apoyo', short:'Apoyo', cat:'social', tip:'Ayuda recibida de otros y respaldo en los momentos clave. Señala quiénes y desde dónde llega el sostén.' },
+  { key:'Ascendencia', g:'🌳', name:'Ascendencia', short:'Ascendencia', cat:'familia', tip:'Linaje, antepasados y herencia de sangre. Señala lo que el nativo trae de sus raíces familiares.' },
+  { key:'Ausencia', g:'🕳', name:'Ausencia', short:'Ausencia', cat:'conflicto', tip:'Vacío, pérdida y falta de presencia. Señala lo que falta o se aleja y dónde el nativo siente carencia.' },
+  { key:'Belleza', g:'🌸', name:'Belleza', short:'Belleza', cat:'amor', tip:'Armonía estética y atractivo personal. Señala el tipo de gracia que el nativo irradia y lo que valora como bello.' },
+  { key:'Busqueda', g:'🔎', name:'Búsqueda', short:'Búsqueda', cat:'viajes', tip:'Impulso de indagar, explorar y encontrar. Señala hacia dónde se dirige la inquietud del nativo.' },
+  { key:'Captura', g:'🪤', name:'Captura', short:'Captura', cat:'conflicto', tip:'Quedar atrapado o sometido a otro. Señala situaciones en que la libertad se ve limitada por circunstancias o personas.' },
+  { key:'Catastrofe', g:'🌋', name:'Catástrofe', short:'Catástrofe', cat:'conflicto', tip:'Eventos súbitos y de gran impacto. Señala los momentos de crisis que alteran el rumbo de la vida de golpe.' },
+  { key:'Cambio', g:'🔄', name:'Cambio', short:'Cambio', cat:'oculto', tip:'Transformación y renovación de la vida. Señala dónde el nativo muta, se adapta y deja atrás lo viejo.' },
+  { key:'Ceguera', g:'🙈', name:'Ceguera', short:'Ceguera', cat:'conflicto', tip:'Lo que no se ve o se prefiere no ver. Señala puntos ciegos, ilusiones y autoengaños que conviene iluminar.' },
+  { key:'Colaboracion', g:'🧩', name:'Colaboración', short:'Colaboración', cat:'social', tip:'Trabajo conjunto y suma de esfuerzos. Señala cómo coopera el nativo y con quiénes construye mejor.' },
+  { key:'ComercioInternacional', g:'🚢', name:'Comercio Internacional', short:'Comercio Intern.', cat:'riqueza', tip:'Intercambio con tierras y culturas lejanas. Señala negocios, contactos y beneficios que llegan del extranjero.' },
+  { key:'Comprension', g:'💡', name:'Comprensión', short:'Comprensión', cat:'mente', tip:'Entender a fondo, con empatía y claridad. Señala cómo el nativo capta el sentido de las personas y de las cosas.' },
+  { key:'Confianza', g:'🛡', name:'Confianza', short:'Confianza', cat:'social', tip:'Seguridad en uno mismo y fe en los demás. Señala dónde el nativo se siente firme y dónde confía con razón.' },
+  { key:'Convalecencia', g:'🩹', name:'Convalecencia', short:'Convalecencia', cat:'salud', tip:'Recuperación tras la enfermedad o la crisis. Señala cómo se repone el nativo y qué le devuelve las fuerzas.' },
+  { key:'Corrupcion', g:'🕸', name:'Corrupción', short:'Corrupción', cat:'conflicto', tip:'Degradación moral y desvío de lo recto. Señala dónde el nativo puede ser tentado o rodeado por lo turbio.' },
+  { key:'Cuidado', g:'🤱', name:'Cuidado', short:'Cuidado', cat:'salud', tip:'Atención amorosa hacia otros y hacia uno mismo. Señala la forma de proteger, nutrir y cuidar.' },
+  { key:'Decision', g:'⚖', name:'Decisión', short:'Decisión', cat:'vocacion', tip:'Capacidad de elegir y comprometerse con una dirección. Señala cómo y cuándo el nativo toma las riendas.' },
+  { key:'Derrota', g:'🏳', name:'Derrota', short:'Derrota', cat:'conflicto', tip:'Pérdida, fracaso y revés. Señala las áreas donde el nativo puede caer para aprender a levantarse con más sabiduría.' },
+  { key:'Deseo', g:'🔥', name:'Deseo', short:'Deseo', cat:'amor', tip:'Anhelo, apetito y fuerza de querer. Señala lo que el nativo persigue con mayor intensidad.' },
+  // ── Partes añadidas (lote 3) ──
+  { key:'Desprecio', g:'😒', name:'Desprecio', short:'Desprecio', cat:'conflicto', tip:'Menosprecio hacia otros o recibido de ellos. Señala dónde el nativo puede sentirse desvalorizado o caer en la soberbia.' },
+  { key:'Desventaja', g:'📉', name:'Desventaja', short:'Desventaja', cat:'conflicto', tip:'Posición desfavorable y obstáculos de partida. Señala las áreas donde el nativo debe esforzarse más que el resto.' },
+  { key:'Duda', g:'🤔', name:'Duda', short:'Duda', cat:'mente', tip:'Vacilación e incertidumbre del juicio. Señala dónde el nativo se cuestiona y necesita más claridad antes de decidir.' },
+  { key:'Eficacia', g:'⚙', name:'Eficacia', short:'Eficacia', cat:'vocacion', tip:'Capacidad de lograr resultados con buen uso de la energía. Señala dónde el nativo rinde y resuelve con precisión.' },
+  { key:'Egoismo', g:'🪞', name:'Egoísmo', short:'Egoísmo', cat:'conflicto', tip:'Centrarse en el propio interés por encima del de los demás. Señala dónde el yo domina y debe aprender a compartir.' },
+  { key:'Ejecucion', g:'🎯', name:'Ejecución', short:'Ejecución', cat:'vocacion', tip:'Llevar a la práctica lo planeado. Señala cómo el nativo concreta proyectos y cierra lo que empieza.' },
+  { key:'Elevacion', g:'⬆', name:'Elevación', short:'Elevación', cat:'oculto', tip:'Ascenso moral, espiritual o social. Señala dónde el nativo se eleva por encima de lo cotidiano.' },
+  { key:'Ensenanza', g:'🎓', name:'Enseñanza', short:'Enseñanza', cat:'mente', tip:'Transmitir lo aprendido y guiar a otros. Señala el talento para educar, explicar y formar.' },
+  { key:'Envidia', g:'💚', name:'Envidia', short:'Envidia', cat:'conflicto', tip:'Resentimiento ante lo que otros poseen. Señala dónde el nativo la siente o la despierta en los demás.' },
+  { key:'Equitacion', g:'🐎', name:'Equitación', short:'Equitación', cat:'vocacion', tip:'Dominio del caballo y del movimiento. Señala la aptitud para la monta, el control del impulso y la destreza física.' },
+  { key:'Esclavitud', g:'⛓', name:'Esclavitud', short:'Esclavitud', cat:'conflicto', tip:'Sometimiento a personas, hábitos o circunstancias. Señala las ataduras que limitan la libertad del nativo.' },
+  { key:'Especulacion', g:'🎲', name:'Especulación', short:'Especulación', cat:'riqueza', tip:'Apuestas y riesgo calculado en busca de ganancia. Señala la relación del nativo con la audacia financiera.' },
+  { key:'Esposa', g:'👰', name:'Esposa', short:'Esposa', cat:'amor', tip:'La pareja femenina y la imagen de la esposa. Señala el carácter de la mujer con quien el nativo se une.' },
+  { key:'Exaltacion', g:'🏆', name:'Exaltación', short:'Exaltación', cat:'vocacion', tip:'Elogio, honor y realce público. Señala dónde el nativo es reconocido y ensalzado.' },
+  { key:'Expiacion', g:'🙇', name:'Expiación', short:'Expiación', cat:'oculto', tip:'Reparación de faltas mediante el sacrificio. Señala deudas kármicas que el nativo salda con esfuerzo y humildad.' },
+  { key:'Exito', g:'🥇', name:'Éxito', short:'Éxito', cat:'vocacion', tip:'Logro de lo propuesto y buen término de las empresas. Señala dónde las metas se cumplen con mayor facilidad.' },
+  { key:'Familia', g:'👪', name:'Familia', short:'Familia', cat:'familia', tip:'El núcleo familiar y los lazos de sangre. Señala el clima del hogar y la relación del nativo con los suyos.' },
+  { key:'Fin', g:'🏁', name:'Fin', short:'Fin', cat:'oculto', tip:'Cierre de ciclos y desenlace de las cosas. Señala cómo y dónde terminan las etapas importantes de la vida.' },
+  { key:'Fraude', g:'🎭', name:'Fraude', short:'Fraude', cat:'conflicto', tip:'Engaño deliberado y estafa. Señala dónde el nativo puede ser engañado o tentado a engañar.' },
+  { key:'Hambre', g:'🍞', name:'Hambre', short:'Hambre', cat:'salud', tip:'Carencia de alimento y necesidad vital. Señala la relación del nativo con la nutrición, la escasez y el apetito.' },
+  { key:'Herida', g:'🩸', name:'Herida', short:'Herida', cat:'salud', tip:'Daño físico o emocional. Señala los puntos sensibles donde el nativo se lastima y puede sanar.' },
+  { key:'Humanidad', g:'🌍', name:'Humanidad', short:'Humanidad', cat:'social', tip:'Compasión y sentido de lo colectivo. Señala el vínculo del nativo con la sociedad y su vocación de servicio al prójimo.' },
+  { key:'Inicio', g:'🌱', name:'Inicio', short:'Inicio', cat:'oculto', tip:'Comienzo de empresas y de etapas vitales. Señala cómo arranca el nativo lo nuevo y con qué impulso.' },
+  { key:'Injusticia', g:'🚫', name:'Injusticia', short:'Injusticia', cat:'conflicto', tip:'Trato desigual y abuso de poder. Señala dónde el nativo enfrenta o ejerce lo injusto.' },
+  { key:'Inocencia', g:'🤍', name:'Inocencia', short:'Inocencia', cat:'oculto', tip:'Pureza, candidez y ausencia de malicia. Señala dónde el nativo conserva su frescura y confianza original.' },
+  { key:'Interes', g:'💹', name:'Interés', short:'Interés', cat:'riqueza', tip:'Ganancia sobre lo invertido y atención que despierta algo. Señala dónde el nativo obtiene rédito de sus esfuerzos.' },
+  { key:'Intruso', g:'🚪', name:'Intruso', short:'Intruso', cat:'conflicto', tip:'Presencia no invitada que invade el espacio propio. Señala dónde los límites del nativo son traspasados.' },
+  { key:'Inundacion', g:'🌊', name:'Inundación', short:'Inundación', cat:'conflicto', tip:'Desborde emocional o material. Señala dónde algo supera al nativo y debe aprender a contener y canalizar.' },
+  { key:'Ira', g:'😡', name:'Ira', short:'Ira', cat:'conflicto', tip:'Cólera y estallido del enojo. Señala los detonantes del temperamento y cómo se descarga la furia.' },
+  { key:'Ladron', g:'🦹', name:'Ladrón', short:'Ladrón', cat:'conflicto', tip:'Pérdida por hurto o apropiación ajena. Señala dónde el nativo puede ser despojado y debe proteger lo suyo.' },
+  { key:'Liderazgo', g:'🧭', name:'Liderazgo', short:'Liderazgo', cat:'vocacion', tip:'Capacidad de guiar e inspirar a otros. Señala el modo en que el nativo toma la dirección y es seguido.' },
+  { key:'Libertad', g:'🗽', name:'Libertad', short:'Libertad', cat:'oculto', tip:'Independencia y ausencia de ataduras. Señala dónde el nativo se siente libre y cómo defiende su autonomía.' },
+  // ── Partes añadidas (lote 4) ──
+  { key:'Locura', g:'🤪', name:'Locura', short:'Locura', cat:'conflicto', tip:'Desequilibrio de la razón y pérdida del control mental. Señala dónde la mente se desborda y el nativo necesita anclaje y cordura.' },
+  { key:'Lugar', g:'📍', name:'Lugar', short:'Lugar', cat:'viajes', tip:'El sitio, el entorno y el lugar de residencia. Señala dónde el nativo se siente en su sitio y qué lugares lo favorecen.' },
+  { key:'Matrimonio2', g:'💒', name:'Matrimonio (segundo método)', short:'Matrim. 2º mét.', cat:'amor', tip:'Variante del cálculo del matrimonio. Señala la naturaleza de la unión conyugal según este segundo método.' },
+  { key:'Misericordia', g:'💗', name:'Misericordia', short:'Misericordia', cat:'oculto', tip:'Compasión ante el sufrimiento ajeno. Señala dónde el nativo perdona, ayuda y se ablanda ante el dolor.' },
+  { key:'MisericordiaDivina', g:'☁', name:'Misericordia Divina', short:'Misericordia Div.', cat:'oculto', tip:'Gracia y clemencia que vienen de lo alto. Señala dónde el nativo recibe amparo y perdón inmerecido.' },
+  { key:'Monarca', g:'🤴', name:'Monarca', short:'Monarca', cat:'vocacion', tip:'Soberanía y mando supremo. Señala la aptitud del nativo para gobernar, decidir y ocupar un lugar de autoridad.' },
+  { key:'Monje', g:'🧘', name:'Monje', short:'Monje', cat:'oculto', tip:'Vida contemplativa, retiro y renuncia. Señala la inclinación del nativo por la soledad y la disciplina espiritual.' },
+  { key:'Nacimiento', g:'🐣', name:'Nacimiento', short:'Nacimiento', cat:'familia', tip:'El hecho de venir al mundo y las circunstancias de la llegada. Señala el carácter del comienzo de la vida.' },
+  { key:'NacimientoHijos', g:'🍼', name:'Nacimiento de los Hijos', short:'Nac. Hijos', cat:'familia', tip:'Momento y circunstancias en que llegan los hijos. Señala cuándo y cómo se manifiesta la descendencia.' },
+  { key:'Negacion', g:'🚷', name:'Negación', short:'Negación', cat:'conflicto', tip:'Rechazo y resistencia a aceptar. Señala lo que el nativo evita ver o admitir y le conviene afrontar.' },
+  { key:'Ocultacion', g:'🕶', name:'Ocultación', short:'Ocultación', cat:'oculto', tip:'Encubrimiento y secreto. Señala lo que se guarda en la sombra y los asuntos que el nativo prefiere mantener ocultos.' },
+  { key:'Oracion', g:'📿', name:'Oración', short:'Oración', cat:'oculto', tip:'Plegaria y diálogo con lo sagrado. Señala la forma y el terreno en que el nativo se comunica con lo trascendente.' },
+  { key:'Parto', g:'🤰', name:'Parto', short:'Parto', cat:'salud', tip:'Alumbramiento y trabajo de dar a luz. Señala las condiciones del nacimiento de lo nuevo, en lo físico y lo creativo.' },
+  { key:'Pasado', g:'⏪', name:'Pasado', short:'Pasado', cat:'oculto', tip:'Raíces, memoria y lo ya vivido. Señala la huella que el pasado deja en el presente del nativo.' },
+  { key:'Perdida', g:'😢', name:'Pérdida', short:'Pérdida', cat:'conflicto', tip:'Lo que se pierde, material o afectivo. Señala dónde el nativo puede perder algo y aprende a soltar.' },
+  { key:'Perjurio', g:'🤥', name:'Perjurio', short:'Perjurio', cat:'conflicto', tip:'Falso testimonio y juramento roto. Señala dónde la palabra dada puede traicionarse o ser traicionada.' },
+  { key:'Persuasion', g:'🧲', name:'Persuasión', short:'Persuasión', cat:'mente', tip:'Poder de convencer y atraer voluntades. Señala el talento del nativo para influir con la palabra.' },
+  { key:'Peso', g:'🏋', name:'Peso', short:'Peso', cat:'salud', tip:'Carga, gravedad y responsabilidad que se lleva. Señala dónde el nativo siente el peso de sus obligaciones o de su cuerpo.' },
+  { key:'Poder', g:'⚡', name:'Poder', short:'Poder', cat:'vocacion', tip:'Capacidad de influir y de imponer la propia voluntad. Señala dónde el nativo concentra su fuerza e influencia.' },
+  { key:'Prestigio', g:'🎖', name:'Prestigio', short:'Prestigio', cat:'vocacion', tip:'Buena reputación y estima pública. Señala dónde el nativo es respetado y admirado por su trayectoria.' },
+  { key:'Proposito', g:'🌠', name:'Propósito', short:'Propósito', cat:'oculto', tip:'El sentido y la meta que orientan la vida. Señala hacia dónde apunta la dirección profunda del nativo.' },
+  { key:'Racionalidad', g:'🧮', name:'Racionalidad', short:'Racionalidad', cat:'mente', tip:'Pensamiento lógico y juicio sereno. Señala cómo razona el nativo y dónde su mente es más ordenada y objetiva.' },
+  { key:'Ruptura', g:'✂', name:'Ruptura', short:'Ruptura', cat:'conflicto', tip:'Quiebre brusco de vínculos o situaciones. Señala dónde algo se corta y obliga a reorganizar la vida.' },
+  { key:'Satisfaccion', g:'😊', name:'Satisfacción', short:'Satisfacción', cat:'social', tip:'Plenitud y contento con lo logrado. Señala dónde el nativo se siente realizado y en paz.' },
+  { key:'Sequia', g:'🏜', name:'Sequía', short:'Sequía', cat:'conflicto', tip:'Escasez prolongada y aridez. Señala períodos o áreas donde falta el flujo y hay que esperar o ingeniárselas.' },
+  { key:'Sexo', g:'⚤', name:'Sexo', short:'Sexo', cat:'amor', tip:'Energía sexual y vitalidad erótica. Señala cómo vive el nativo la sexualidad y dónde se expresa su deseo físico.' },
+  { key:'Soldado', g:'💂', name:'Soldado', short:'Soldado', cat:'vocacion', tip:'Disciplina, servicio armado y obediencia a una causa. Señala la aptitud del nativo para la lucha organizada.' },
+  { key:'Sorpresa', g:'😲', name:'Sorpresa', short:'Sorpresa', cat:'oculto', tip:'Lo inesperado y los giros imprevistos. Señala dónde la vida del nativo cambia de golpe y exige flexibilidad.' },
+  { key:'Sotana', g:'⛪', name:'Sotana', short:'Sotana', cat:'oculto', tip:'Vida sacerdotal y vocación religiosa. Señala la inclinación del nativo hacia el ministerio y el servicio sagrado.' },
+  { key:'Tiempo', g:'⏳', name:'Tiempo', short:'Tiempo', cat:'oculto', tip:'Ritmo, madurez y paso de los ciclos. Señala cómo se relaciona el nativo con la espera y los momentos oportunos.' },
+  { key:'Trabajo', g:'🛠', name:'Trabajo', short:'Trabajo', cat:'vocacion', tip:'Esfuerzo diario y ocupación. Señala la forma en que el nativo trabaja y dónde su labor da frutos.' },
+  { key:'Transmutacion', g:'⚗', name:'Transmutación', short:'Transmutación', cat:'oculto', tip:'Cambio profundo de la naturaleza de algo. Señala los procesos alquímicos de transformación interior del nativo.' },
+  { key:'ViajeMar', g:'⛵', name:'Viaje por Mar', short:'Viaje por Mar', cat:'viajes', tip:'Travesías por agua y desplazamientos marítimos. Señala los viajes largos por mar y los vínculos con tierras lejanas.' },
+  { key:'Violencia', g:'👊', name:'Violencia', short:'Violencia', cat:'conflicto', tip:'Fuerza bruta y agresión. Señala dónde se desatan los impulsos más duros y cómo se manifiestan los conflictos.' },
+  { key:'Virtud', g:'😇', name:'Virtud', short:'Virtud', cat:'oculto', tip:'Rectitud moral y excelencia del carácter. Señala dónde el nativo muestra su mejor cualidad ética.' },
+  { key:'Vision', g:'👁', name:'Visión', short:'Visión', cat:'mente', tip:'Clarividencia y capacidad de ver más allá. Señala la intuición y la mirada de largo alcance del nativo.' }
 ];
 let TODOS_LOS_ASTEROIDES = [
   // Los 4 Principales
@@ -9216,6 +9322,12 @@ function calcularParteArabiga(parteDef, ascDeg, planetas, casas) {
   const mc = _savedMc || 0;
   const cusp8  = casas ? (casas[7]?.lon ?? 0) : 0;
   const cusp12 = casas ? (casas[11]?.lon ?? 0) : 0;
+  const cusp2  = casas ? (casas[1]?.lon ?? 0) : 0;
+  const cusp4  = casas ? (casas[3]?.lon ?? 0) : 0;
+  const cusp5  = casas ? (casas[4]?.lon ?? 0) : 0;
+  const cusp6  = casas ? (casas[5]?.lon ?? 0) : 0;
+  const cusp9  = casas ? (casas[8]?.lon ?? 0) : 0;
+  const cusp11 = casas ? (casas[10]?.lon ?? 0) : 0;
   const gender = document.getElementById('selGender')?.value || 'M';
 
   if (sun === null || moon === null) return null;
@@ -9305,6 +9417,108 @@ function calcularParteArabiga(parteDef, ascDeg, planetas, casas) {
     case 'Verdad':        return (me && ju) ? nrm(a + ju - me) : null;
     case 'Viajes':        return sa ? nrm(a + sa - s) : null;
     case 'Victoria':      return (ju && mars) ? nrm(a + ju - mars_) : null;
+    case 'Conocimiento':  return ur ? nrm(a + ur - m) : null;
+    case 'Memoria':       return sa ? nrm(a + m - sa) : null;
+    case 'Imaginacion':   return ne ? nrm(a + ne - s) : null;
+    case 'Inspiracion':   return (ne && ju) ? nrm(a + ne - ju) : null;
+    case 'Sueno':         return ne ? nrm(a + m - ne) : null;
+    case 'Magia':         return pl ? nrm(a + pl - me) : null;
+    case 'Redencion':     return (ju && pl) ? nrm(a + ju - pl) : null;
+    case 'AngelGuarda':   return ju ? nrm(a + ju - nn) : null;
+    case 'CausaMayor':    return sa ? nrm(a + nn - sa) : null;
+    case 'Veneno':        return (mars && ne) ? nrm(a + mars_ - ne) : null;
+    case 'Demonio':       return (pl && sa) ? nrm(a + pl - sa) : null;
+    case 'Abundancia':    return (ju && ur) ? nrm(a + ju - ur) : null;
+    case 'Afliccion':     return (sa && ne) ? nrm(a + sa - ne) : null;
+    case 'Aniquilacion':  return (pl && v) ? nrm(a + pl - v) : null;
+    case 'Ansiedad':      return ur ? nrm(a + m - ur) : null;
+    case 'Apoyo':         return (v && ju) ? nrm(a + v - ju) : null;
+    case 'Ascendencia':   return nrm(a + nn - m);
+    case 'Ausencia':      return pl ? nrm(a + m - pl) : null;
+    case 'Belleza':       return (v && me) ? nrm(a + v - me) : null;
+    case 'Busqueda':      return (ur && ju) ? nrm(a + ur - ju) : null;
+    case 'Captura':       return mars ? nrm(a + mars_ - m) : null;
+    case 'Catastrofe':    return (ur && sa) ? nrm(a + ur - sa) : null;
+    case 'Cambio':        return (ur && v) ? nrm(a + ur - v) : null;
+    case 'Ceguera':       return (ne && mars) ? nrm(a + ne - mars_) : null;
+    case 'Colaboracion':  return v ? nrm(a + s - v) : null;
+    case 'ComercioInternacional':return (me && ur) ? nrm(a + me - ur) : null;
+    case 'Comprension':   return ju ? nrm(a + m - ju) : null;
+    case 'Confianza':     return nrm(a + s - nn);
+    case 'Convalecencia': return ur ? nrm(a + s - ur) : null;
+    case 'Corrupcion':    return (pl && ju) ? nrm(a + pl - ju) : null;
+    case 'Cuidado':       return (v && ne) ? nrm(a + v - ne) : null;
+    case 'Decision':      return pl ? nrm(a + s - pl) : null;
+    case 'Derrota':       return (mars && ur) ? nrm(a + mars_ - ur) : null;
+    case 'Deseo':         return (v && pl) ? nrm(a + v - pl) : null;
+    case 'Desprecio':     return ne ? nrm(a + s - ne) : null;
+    case 'Desventaja':    return nrm(a + s - mc);
+    case 'Duda':          return nrm(a + s - dsc);
+    case 'Eficacia':      return casas ? nrm(a + s - cusp8) : null;
+    case 'Egoismo':       return casas ? nrm(a + s - cusp12) : null;
+    case 'Ejecucion':     return nrm(a + m - nn);
+    case 'Elevacion':     return nrm(a + m - mc);
+    case 'Ensenanza':     return nrm(a + m - dsc);
+    case 'Envidia':       return casas ? nrm(a + m - cusp8) : null;
+    case 'Equitacion':    return mars ? nrm(a + mars_ - mc) : null;
+    case 'Esclavitud':    return casas ? nrm(a + m - cusp12) : null;
+    case 'Especulacion':  return (v && ur) ? nrm(a + v - ur) : null;
+    case 'Esposa':        return v ? nrm(a + v - dsc) : null;
+    case 'Exaltacion':    return ju ? nrm(a + ju - mc) : null;
+    case 'Expiacion':     return sa ? nrm(a + sa - nn) : null;
+    case 'Exito':         return v ? nrm(a + v - nn) : null;
+    case 'Familia':       return v ? nrm(a + v - mc) : null;
+    case 'Fin':           return casas ? nrm(a + cusp8 - s) : null;
+    case 'Fraude':        return (me && pl) ? nrm(a + me - pl) : null;
+    case 'Hambre':        return (v && casas) ? nrm(a + v - cusp8) : null;
+    case 'Herida':        return (v && casas) ? nrm(a + v - cusp12) : null;
+    case 'Humanidad':     return me ? nrm(a + me - nn) : null;
+    case 'Inicio':        return mars ? nrm(a + mars_ - nn) : null;
+    case 'Injusticia':    return me ? nrm(a + me - mc) : null;
+    case 'Inocencia':     return me ? nrm(a + me - dsc) : null;
+    case 'Interes':       return (me && casas) ? nrm(a + me - cusp8) : null;
+    case 'Intruso':       return mars ? nrm(a + mars_ - dsc) : null;
+    case 'Inundacion':    return (me && casas) ? nrm(a + me - cusp12) : null;
+    case 'Ira':           return (mars && casas) ? nrm(a + mars_ - cusp8) : null;
+    case 'Ladron':        return (mars && casas) ? nrm(a + mars_ - cusp12) : null;
+    case 'Liderazgo':     return mars ? nrm(a + mc - mars_) : null;
+    case 'Libertad':      return ju ? nrm(a + ju - dsc) : null;
+    case 'Locura':            return casas ? nrm(a + s - cusp2) : null;
+    case 'Lugar':             return casas ? nrm(a + m - cusp4) : null;
+    case 'Matrimonio2':       return nrm(a + dsc - m);
+    case 'Misericordia':      return casas ? nrm(a + s - cusp4) : null;
+    case 'MisericordiaDivina':return casas ? nrm(a + s - cusp5) : null;
+    case 'Monarca':           return ju ? nrm(a + mc - ju) : null;
+    case 'Monje':             return casas ? nrm(a + cusp12 - m) : null;
+    case 'Nacimiento':        return casas ? nrm(a + s - cusp6) : null;
+    case 'NacimientoHijos':   return (casas && ju) ? nrm(a + cusp5 - ju) : null;
+    case 'Negacion':          return casas ? nrm(a + s - cusp9) : null;
+    case 'Ocultacion':        return (pl && ne) ? nrm(a + pl - ne) : null;
+    case 'Oracion':           return casas ? nrm(a + s - cusp11) : null;
+    case 'Parto':             return casas ? nrm(a + cusp5 - m) : null;
+    case 'Pasado':            return (casas && sa) ? nrm(a + cusp4 - sa) : null;
+    case 'Perdida':           return (casas && v) ? nrm(a + cusp8 - v) : null;
+    case 'Perjurio':          return casas ? nrm(a + m - cusp2) : null;
+    case 'Persuasion':        return casas ? nrm(a + m - cusp5) : null;
+    case 'Peso':              return sa ? nrm(a + sa - mc) : null;
+    case 'Poder':             return casas ? nrm(a + m - cusp6) : null;
+    case 'Prestigio':         return v ? nrm(a + mc - v) : null;
+    case 'Proposito':         return nrm(a + mc - nn);
+    case 'Racionalidad':      return casas ? nrm(a + m - cusp9) : null;
+    case 'Ruptura':           return casas ? nrm(a + m - cusp11) : null;
+    case 'Satisfaccion':      return (v && casas) ? nrm(a + v - cusp2) : null;
+    case 'Sequia':            return (v && casas) ? nrm(a + v - cusp4) : null;
+    case 'Sexo':              return (v && casas) ? nrm(a + v - cusp5) : null;
+    case 'Soldado':           return (v && casas) ? nrm(a + v - cusp6) : null;
+    case 'Sorpresa':          return (v && casas) ? nrm(a + v - cusp9) : null;
+    case 'Sotana':            return (ju && casas) ? nrm(a + ju - cusp9) : null;
+    case 'Tiempo':            return (v && casas) ? nrm(a + v - cusp11) : null;
+    case 'Trabajo':           return casas ? nrm(a + cusp6 - s) : null;
+    case 'Transmutacion':     return (pl && ur) ? nrm(a + pl - ur) : null;
+    case 'ViajeMar':          return (ne && casas) ? nrm(a + ne - cusp9) : null;
+    case 'Violencia':         return (me && casas) ? nrm(a + me - cusp2) : null;
+    case 'Virtud':            return (me && casas) ? nrm(a + me - cusp4) : null;
+    case 'Vision':            return (ur && ne) ? nrm(a + ur - ne) : null;
     case 'Viudedad_H':    return (sa && v) ? nrm(a + sa - v) : null;
     case 'Viudedad_M':    return (sa && v) ? nrm(a + v - sa) : null;
     case 'Vuelo':         return (me && mars) ? nrm(a + me - mars_) : null;
