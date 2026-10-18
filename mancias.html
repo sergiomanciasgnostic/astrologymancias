@@ -3761,6 +3761,15 @@
   </div>
 </div>
 
+<style id="transitosFechaCss">
+.tr-fecha-inp{background:transparent;border:1px solid rgba(0,200,255,0.45);border-bottom:2px solid rgba(0,200,255,0.8);color:#fff;font-size:17px;padding:7px 4px;text-align:center;box-sizing:border-box;outline:none;border-radius:2px;}
+.tr-fecha-inp:focus{border-color:var(--acc);box-shadow:0 0 10px rgba(0,200,255,0.3);}
+.tr-mini-btn{background:transparent;border:1px solid rgba(0,200,255,0.45);color:rgba(255,255,255,0.85);font-size:10px;letter-spacing:.08em;padding:4px 9px;cursor:pointer;text-transform:uppercase;border-radius:2px;white-space:nowrap;transition:box-shadow .2s,border-color .2s,color .2s,opacity .2s;}
+.tr-mini-btn:hover:not(:disabled){border-color:var(--acc);color:#fff;box-shadow:0 0 8px rgba(0,200,255,0.7),0 0 16px rgba(0,200,255,0.35),inset 0 0 6px rgba(0,200,255,0.2);}
+.tr-mini-btn:disabled{opacity:.3;cursor:default;}
+.tr-calc-btn,#btnCalc{transition:box-shadow .2s,border-color .2s,background .2s;}
+.tr-calc-btn:hover,#btnCalc:hover{border-color:var(--acc)!important;box-shadow:0 0 10px rgba(0,200,255,0.75),0 0 24px rgba(0,200,255,0.4),inset 0 0 10px rgba(0,200,255,0.18)!important;}
+</style>
 <script>
 /* ══════════════════════════════════════════════
    SISTEMA DE LOADING TEMÁTICO — Sergiomancias
@@ -5757,7 +5766,7 @@
     <div class="form-panel" style="position:relative;">
     <button class="btn-sm" id="btnNow" onclick="activarAquiYAhora()"
       style="position:absolute;top:-1px;right:0;display:inline-block;width:auto;background:rgba(0,200,255,0.12);border:1px solid var(--acc);color:var(--acc);font-size:11px;font-weight:700;letter-spacing:.16em;cursor:pointer;padding:7px 16px;text-transform:uppercase;transition:all .25s;box-shadow:0 0 14px rgba(0,200,255,0.15);z-index:10;"
-      onmouseover="this.style.background='rgba(0,200,255,0.22)';this.style.boxShadow='0 0 24px rgba(0,200,255,0.35)'"
+      onmouseover="this.style.background='rgba(0,200,255,0.22)';this.style.boxShadow='0 0 10px rgba(0,200,255,0.75),0 0 24px rgba(0,200,255,0.4)'"
       onmouseout="this.style.background='rgba(0,200,255,0.12)';this.style.boxShadow='0 0 14px rgba(0,200,255,0.15)'">
       <span style="vertical-align:middle;line-height:1;font-size:13px;">◎</span> Calcular el presente
     </button>
@@ -6059,6 +6068,12 @@
             onmouseout="this.style.boxShadow=''">
             ← Volver a la carta natal
           </button>
+          <button id="btnActivarLineasNatal" onclick="toggleLineasRetornoOTransitos()"
+            style="background:transparent;border:1px solid rgba(255,165,0,0.5);color:rgba(255,165,0,0.85);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:9px 18px;cursor:pointer;transition:all .22s;white-space:nowrap;"
+            onmouseover="this.style.boxShadow='0 0 20px rgba(255,165,0,.25)'"
+            onmouseout="if(!window._btnLineasNatalActivo)this.style.boxShadow=''">
+            ⟳ Activar Líneas de Retornos
+          </button>
           <select id="selVistaRetorno" onchange="window.cambiarVistaRetorno(this.value)"
             style="background:#000d20;border:1px solid rgba(255,165,0,0.6);border-radius:2px;color:rgba(255,165,0,0.95);font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 36px 10px 16px;cursor:pointer;transition:all .22s;appearance:none;-webkit-appearance:none;outline:none;text-align:left;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255%2C165%2C0%2C0.85)' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 12px center;min-width:220px;">
             <option value="natal"   style="background:#000d20;color:#e0e0e0;font-size:15px;letter-spacing:0;text-transform:none;font-weight:400;">⟳ Mostrar carta natal</option>
@@ -6286,6 +6301,32 @@
                 <option value="compuesta">✦ Compuesta</option>
                 <option value="transitos">✦ Tránsitos Planetarios</option>
               </select>
+            </div>
+            <!-- Cálculo de tránsito: solo visible con Tránsitos Planetarios activo -->
+            <div id="transitosFechaBox" style="display:none;flex-direction:column;align-items:center;gap:8px;width:100%;margin-top:6px;">
+              <div style="font-size:12px;letter-spacing:.14em;color:rgba(0,200,255,0.75);text-transform:uppercase;">Fecha</div>
+              <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;">
+                <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Día
+                  <input id="trDia" type="text" inputmode="numeric" maxlength="2" placeholder="DD" style="width:52px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_actualizarBotonesTransitos()"></label>
+                <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Mes
+                  <input id="trMes" type="text" inputmode="numeric" maxlength="2" placeholder="MM" style="width:52px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_actualizarBotonesTransitos()"></label>
+                <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Año
+                  <input id="trAnio" type="text" inputmode="numeric" maxlength="4" placeholder="AAAA" style="width:74px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_actualizarBotonesTransitos()"></label>
+              </div>
+              <div style="font-size:12px;letter-spacing:.14em;color:rgba(0,200,255,0.75);text-transform:uppercase;margin-top:4px;">Horario</div>
+              <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;">
+                <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Hora
+                  <input id="trHora" type="text" inputmode="numeric" maxlength="2" placeholder="HH" style="width:52px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_actualizarBotonesTransitos()"></label>
+                <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Minuto
+                  <input id="trMin" type="text" inputmode="numeric" maxlength="2" placeholder="MM" style="width:52px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_actualizarBotonesTransitos()"></label>
+              </div>
+              <button type="button" class="tr-calc-btn" onclick="aplicarFechaTransitos('calcular')" style="margin-top:6px;background:transparent;border:1px solid var(--acc);color:var(--acc);font-size:13px;font-weight:700;letter-spacing:.12em;padding:8px 16px;cursor:pointer;text-transform:uppercase;">Calcular tránsito</button>
+              <div id="trSep" style="display:none;width:100%;height:0;border-top:1px solid rgba(0,200,255,0.25);margin:4px 0;"></div>
+              <div id="trBtnsFila" style="display:none;gap:8px;flex-wrap:nowrap;justify-content:center;align-items:center;">
+                <button id="trBtnAhora" type="button" class="tr-mini-btn" onclick="aplicarFechaTransitos('ahora')">Ahora</button>
+                <button id="trBtnAnterior" type="button" class="tr-mini-btn" onclick="aplicarFechaTransitos('anterior')">Tránsito anterior</button>
+              </div>
+              <div id="trFechaMsg" style="font-size:13px;color:#f87171;min-height:16px;text-align:center;"></div>
             </div>
 
           </div>
@@ -6536,6 +6577,7 @@
             </button>
           </div>
 
+          <div id="oOtraCartaTitulo" style="display:none;text-align:center;padding:4px 0 8px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#48c878;"></div>
           <!-- Canvas principal -->
           <canvas id="ofiucoCanvas" width="780" height="780"
                   style="width:100%;height:auto;display:block;"></canvas>
@@ -6554,6 +6596,12 @@
               onmouseout="if(!window._lineasOfiucoActivas)this.style.boxShadow=''">
               ⟳ Activar Líneas de Retornos
             </button>
+            <select id="oSelVistaRetorno" onchange="window.cambiarVistaOfiuco(this.value)"
+            style="background:#000d20;border:1px solid rgba(255,165,0,0.6);border-radius:2px;color:rgba(255,165,0,0.95);font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 36px 10px 16px;cursor:pointer;transition:all .22s;appearance:none;-webkit-appearance:none;outline:none;text-align:left;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255%2C165%2C0%2C0.85)' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E&quot;);background-repeat:no-repeat;background-position:right 12px center;min-width:220px;">
+            <option value="natal"   style="background:#000d20;color:#e0e0e0;font-size:15px;letter-spacing:0;text-transform:none;font-weight:400;">⟳ Mostrar carta natal</option>
+            <option value="retorno" style="background:#000d20;color:#e0e0e0;font-size:15px;letter-spacing:0;text-transform:none;font-weight:400;">⟳ Mostrar carta retorno</option>
+            <option value="ambas"   style="background:#000d20;color:#e0e0e0;font-size:15px;letter-spacing:0;text-transform:none;font-weight:400;">⟳ Mostrar ambas cartas</option>
+          </select>
           </div>
 
           <!-- ── Divisor filtros de aspectos ── -->
@@ -6768,38 +6816,55 @@
                         rgba(72,200,120,0.5),rgba(72,200,120,0.5),transparent);
                         min-height:70px;align-self:stretch;margin:0 6px;"></div>
 
-            <!-- ── Columna derecha: Partes / Asteroides opcionales ── -->
-            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 18px;">
+            <!-- ── Columna derecha: Otras Cartas (idéntica a la natal) ── -->
+            <div id="oBtnsOtrasCartas" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 18px;">
               <div class="mod-divider" style="margin:0;width:100%;">
-                <div class="div-line"
-                     style="background:linear-gradient(90deg,transparent,rgba(72,200,120,0.5),transparent);"></div>
-                <span class="div-icon" style="color:rgba(72,200,120,0.8);">✦ ⛎︎</span>
-                <div class="div-label" style="color:rgba(72,200,120,0.8);white-space:nowrap;">Opcionales</div>
-                <span class="div-icon" style="color:rgba(72,200,120,0.8);">⛎︎ ✦</span>
-                <div class="div-line"
-                     style="background:linear-gradient(90deg,transparent,rgba(72,200,120,0.5),transparent);"></div>
+                <div class="div-line" style="background:linear-gradient(90deg,transparent,rgba(72,200,120,0.7),transparent);"></div>
+                <span class="div-icon" style="color:rgba(72,200,120,0.9);text-shadow:0 0 10px rgba(72,200,120,0.6);">✦ ⛎︎</span>
+                <div class="div-label" style="color:rgba(72,200,120,0.9);white-space:nowrap;">Otras Cartas</div>
+                <span class="div-icon" style="color:rgba(72,200,120,0.9);text-shadow:0 0 10px rgba(72,200,120,0.6);">⛎︎ ✦</span>
+                <div class="div-line" style="background:linear-gradient(90deg,transparent,rgba(72,200,120,0.7),transparent);"></div>
               </div>
-              <div style="display:flex;flex-direction:row;gap:8px;justify-content:center;
-                          flex-wrap:wrap;margin-top:6px;">
-                <button onclick="openOfiucoPartesModal()"
-                  style="background:rgba(240,165,0,0.1);border:1px solid #f0a500;color:#f0a500;
-                         font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
-                         padding:9px 16px;transition:all .2s;"
-                  onmouseover="this.style.boxShadow='0 0 16px rgba(240,165,0,0.25)'"
-                  onmouseout="this.style.boxShadow=''">
-                  ✦ Partes Arábigas
-                </button>
-                <button onclick="openOfiucoAsteroidesModal()"
-                  style="background:rgba(192,132,252,0.1);border:1px solid #c084fc;color:#c084fc;
-                         font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
-                         padding:9px 16px;transition:all .2s;"
-                  onmouseover="this.style.boxShadow='0 0 16px rgba(192,132,252,0.25)'"
-                  onmouseout="this.style.boxShadow=''">
-                  ✦ Asteroides
-                </button>
+              <div style="display:flex;align-items:center;justify-content:center;width:100%;">
+                <select id="oOtraCartaSel" class="fselect" style="width:auto;min-width:180px;font-size:16px;padding:9px 8px;text-align:center;flex-shrink:0;" onchange="oOtraCartaOnChange(this)">
+                  <option value="" disabled selected>✦ Otras Cartas</option>
+                  <option value="sinastria">♡ Sinastría</option>
+                  <option value="compuesta">✦ Compuesta</option>
+                  <option value="transitos">✦ Tránsitos Planetarios</option>
+                </select>
+              </div>
+              <div id="oTransitosFechaBox" style="display:none;flex-direction:column;align-items:center;gap:8px;width:100%;margin-top:6px;">
+                <div style="font-size:12px;letter-spacing:.14em;color:rgba(72,200,120,0.85);text-transform:uppercase;">Fecha</div>
+                <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;">
+                  <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Día <input id="oTrDia" type="text" inputmode="numeric" maxlength="2" placeholder="DD" style="width:52px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_oActualizarBotonesTransitos()"></label>
+                  <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Mes <input id="oTrMes" type="text" inputmode="numeric" maxlength="2" placeholder="MM" style="width:52px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_oActualizarBotonesTransitos()"></label>
+                  <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Año <input id="oTrAnio" type="text" inputmode="numeric" maxlength="4" placeholder="AAAA" style="width:74px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_oActualizarBotonesTransitos()"></label>
+                </div>
+                <div style="font-size:12px;letter-spacing:.14em;color:rgba(72,200,120,0.85);text-transform:uppercase;margin-top:4px;">Horario</div>
+                <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;">
+                  <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Hora <input id="oTrHora" type="text" inputmode="numeric" maxlength="2" placeholder="HH" style="width:52px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_oActualizarBotonesTransitos()"></label>
+                  <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,0.65);text-transform:uppercase;">Minuto <input id="oTrMin" type="text" inputmode="numeric" maxlength="2" placeholder="MM" style="width:52px;" class="tr-fecha-inp" oninput="this.value=this.value.replace(/[^0-9]/g,'');_oActualizarBotonesTransitos()"></label>
+                </div>
+                <button type="button" class="tr-calc-btn" onclick="oAplicarFechaTransitos('calcular')" style="margin-top:6px;background:transparent;border:1px solid #48c878;color:#48c878;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:9px 22px;cursor:pointer;transition:all .2s;" onmouseover="this.style.boxShadow='0 0 10px rgba(72,200,120,0.75),0 0 24px rgba(72,200,120,0.4),inset 0 0 10px rgba(72,200,120,0.18)'" onmouseout="this.style.boxShadow=''">Calcular tránsito</button>
+                <div id="oTrSep" style="display:none;width:100%;height:0;border-top:1px solid rgba(72,200,120,0.25);margin:4px 0;"></div>
+                <div id="oTrBtnsFila" style="display:none;gap:8px;flex-wrap:nowrap;justify-content:center;align-items:center;">
+                  <button id="oTrBtnAhora" type="button" class="tr-mini-btn" onclick="oAplicarFechaTransitos('ahora')">Ahora</button>
+                  <button id="oTrBtnAnterior" type="button" class="tr-mini-btn" onclick="oAplicarFechaTransitos('anterior')">Tránsito anterior</button>
+                </div>
+                <div id="oTrFechaMsg" style="font-size:13px;color:#f87171;min-height:16px;text-align:center;"></div>
               </div>
             </div>
           </div><!-- fin zona controles -->
+          <!-- ── Partes Arábigas | Asteroides (fila inferior, como en la natal) ── -->
+          <div style="display:flex;flex-direction:row;gap:10px;margin:0 0 14px;width:100%;align-items:stretch;">
+            <button onclick="openOfiucoPartesModal()"
+              style="flex:1;background:rgba(240,165,0,0.1);border:1px solid #f0a500;color:#f0a500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:10px 8px;transition:all .2s;"
+              onmouseover="this.style.boxShadow='0 0 16px rgba(240,165,0,0.25)'" onmouseout="this.style.boxShadow=''">✦ Partes Arábigas</button>
+            <button onclick="openOfiucoAsteroidesModal()"
+              style="flex:1;background:rgba(192,132,252,0.1);border:1px solid #c084fc;color:#c084fc;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:10px 8px;transition:all .2s;"
+              onmouseover="this.style.boxShadow='0 0 16px rgba(192,132,252,0.25)'" onmouseout="this.style.boxShadow=''">✦ Asteroides</button>
+          </div>
+
 
         </div><!-- fin columna izquierda -->
 
@@ -6884,6 +6949,18 @@
           <div id="oPanelPlanetas">
             <div id="oPbGrid" class="pb-grid-side"></div>
           </div>
+          <!-- Vista de interpretación de Planetas Ofiuco (inicialmente oculta) -->
+          <div id="oPlanetInterpView" style="display:none;padding:20px 0;">
+            <button onclick="backToOfiucoPlanets()" style="background:transparent;border:1px solid rgba(72,200,120,0.3);color:rgba(72,200,120,0.8);padding:8px 16px;font-size:14px;text-transform:uppercase;cursor:pointer;margin-bottom:20px;border-radius:2px;">← Volver a la lista</button>
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+              <span id="opl-glyph" style="font-size:48px;"></span>
+              <div>
+                <div id="opl-title" style="font-size:24px;font-weight:700;color:#48c878;"></div>
+                <div id="opl-dig" style="font-size:16px;color:rgba(72,200,120,0.7);margin-top:6px;text-transform:uppercase;"></div>
+              </div>
+            </div>
+            <div id="opl-interp" style="font-size:20px;line-height:2;color:#ffffff;padding:16px;background:rgba(72,200,120,0.06);border-left:3px solid rgba(72,200,120,0.4);border-radius:2px;"></div>
+          </div>
 
           <!-- ── Panel Casas Ofiuco (13 casas) ──
                Click en cada casa → interpretación via window.OFIUCO_INTERP_CASAS
@@ -6915,6 +6992,19 @@
             <div id="oPartesGrid"></div>
           </div>
 
+          <!-- Vista de interpretación de Partes Ofiuco (inicialmente oculta, FUERA del panel) -->
+          <div id="oParteInterpView" style="display:none;padding:20px 0;">
+            <button onclick="backToOfiucoPartes()" style="background:transparent;border:1px solid rgba(240,165,0,0.3);color:rgba(240,165,0,0.8);padding:8px 16px;font-size:14px;text-transform:uppercase;cursor:pointer;margin-bottom:20px;border-radius:2px;">← Volver a la lista</button>
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+              <span id="opt-glyph" style="font-size:48px;color:#f0a500;"></span>
+              <div>
+                <div id="opt-title" style="font-size:24px;font-weight:700;color:#f0a500;"></div>
+                <div id="opt-dig" style="font-size:16px;color:rgba(240,165,0,0.7);margin-top:6px;text-transform:uppercase;"></div>
+              </div>
+            </div>
+            <div id="opt-interp" style="font-size:20px;line-height:2;color:#ffffff;padding:16px;background:rgba(240,165,0,0.06);border-left:3px solid rgba(240,165,0,0.4);border-radius:2px;"></div>
+          </div>
+
           <!-- ── Panel Asteroides Ofiuco ──
                Click en cada asteroide → interpretación via window.OFIUCO_INTERP_ASTEROIDES
                Clave: "{AsteKey}_{SignName}"   Ej: "Ceres_Ofiuco", "Juno_Sagitario"
@@ -6937,6 +7027,19 @@
             <div id="oAsteroidesGrid"></div>
           </div>
 
+          <!-- Vista de interpretación de Asteroides Ofiuco (inicialmente oculta, FUERA del panel) -->
+          <div id="oAsteroidInterpView" style="display:none;padding:20px 0;">
+            <button onclick="backToOfiucoAsteroides()" style="background:transparent;border:1px solid rgba(192,132,252,0.3);color:rgba(192,132,252,0.8);padding:8px 16px;font-size:14px;text-transform:uppercase;cursor:pointer;margin-bottom:20px;border-radius:2px;">← Volver a la lista</button>
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+              <span id="oast-glyph" style="font-size:48px;color:#c084fc;"></span>
+              <div>
+                <div id="oast-title" style="font-size:24px;font-weight:700;color:#c084fc;"></div>
+                <div id="oast-dig" style="font-size:16px;color:rgba(192,132,252,0.7);margin-top:6px;text-transform:uppercase;"></div>
+              </div>
+            </div>
+            <div id="oast-interp" style="font-size:20px;line-height:2;color:#ffffff;padding:16px;background:rgba(192,132,252,0.06);border-left:3px solid rgba(192,132,252,0.4);border-radius:2px;"></div>
+          </div>
+
           <!-- ── Panel Aspectos Ofiuco ──
                Click en cada aspecto → interpretación via window.OFIUCO_INTERP_ASPECTOS
                Clave: "{PlanetA}_{tipo}_{PlanetB}"  Ej: "Sun_con_Moon", "Mars_cua_Saturn"
@@ -6944,6 +7047,19 @@
           -->
           <div id="oPanelAspectos" style="display:none;">
             <div id="oAspList" style="margin-top:4px;"></div>
+          </div>
+          <!-- Vista de interpretación de Aspectos Ofiuco (inicialmente oculta) -->
+          <div id="oAspInterpView" style="display:none;padding:20px 0;">
+            <button onclick="backToOfiucoAspects()" style="background:transparent;border:1px solid rgba(72,200,120,0.3);color:rgba(72,200,120,0.8);padding:8px 16px;font-size:14px;text-transform:uppercase;cursor:pointer;margin-bottom:20px;border-radius:2px;">← Volver a la lista</button>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+              <span id="oasp-glyph-a" style="font-size:40px;"></span>
+              <span id="oasp-glyph-asp" style="font-size:36px;color:#48c878;"></span>
+              <span id="oasp-glyph-b" style="font-size:40px;"></span>
+              <div>
+                <div id="oasp-title" style="font-size:24px;font-weight:700;color:#48c878;"></div>
+              </div>
+            </div>
+            <div id="oasp-interp" style="font-size:20px;line-height:2;color:#ffffff;padding:16px;background:rgba(72,200,120,0.06);border-left:3px solid rgba(72,200,120,0.4);border-radius:2px;"></div>
           </div>
 
           <!-- ── Panel Signos Ofiuco (distribución en 13 signos) ── -->
@@ -6965,7 +7081,7 @@
 
     <!-- ══ Modal Partes Arábigas OFIUCO (independiente del natal) ══ -->
     <div id="oPartesModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.88);z-index:9997;overflow-y:auto;display:none;align-items:flex-start;justify-content:center;padding:24px 12px;">
-      <div style="max-width:860px;width:100%;margin:0 auto;background:#000c20;border:1px solid #f0a500;padding:28px 22px;max-height:92vh;overflow-y:auto;box-sizing:border-box;">
+      <div style="max-width:700px;width:100%;margin:0 auto;background:#000c20;border:1px solid #f0a500;padding:24px 18px;max-height:88vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
           <div>
             <div style="font-size:11px;letter-spacing:.22em;color:rgba(240,165,0,0.6);text-transform:uppercase;margin-bottom:4px;">Ofiuco · Seleccionar</div>
@@ -6973,7 +7089,7 @@
           </div>
           <button onclick="closeOPartesModal()" style="background:transparent;border:none;color:#f0a500;font-size:24px;cursor:pointer;">&#10005;</button>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;max-height:55vh;overflow-y:auto;padding-right:4px;" id="oPartesCheckboxes"></div>
+        <div style="display:flex;flex-direction:column;gap:0;overflow:visible;" id="oPartesCheckboxes"></div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;justify-content:flex-end;">
           <button onclick="closeOPartesModal()" style="background:transparent;border:1px solid rgba(240,165,0,0.3);color:rgba(240,165,0,0.55);font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 14px;">Cerrar</button>
           <button onclick="oSelectAllPartes()" style="background:transparent;border:1px solid #f0a500;color:#f0a500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 14px;">Todas</button>
@@ -6985,12 +7101,15 @@
 
     <!-- ══ Modal Asteroides OFIUCO (independiente del natal) ══ -->
     <div id="oAsteroidesModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.88);z-index:9997;overflow-y:auto;align-items:flex-start;justify-content:center;padding:24px 12px;">
-      <div style="max-width:860px;width:100%;margin:0 auto;background:#000c20;border:1px solid #c084fc;padding:28px 22px;max-height:92vh;overflow-y:auto;box-sizing:border-box;">
+      <div style="max-width:700px;width:100%;margin:0 auto;background:#000c20;border:1px solid #c084fc;padding:24px 18px;max-height:88vh;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-          <div style="font-size:16px;letter-spacing:.2em;color:#c084fc;text-transform:uppercase;">⛎ Asteroides Ofiuco · Seleccionar</div>
+          <div>
+            <div style="font-size:11px;letter-spacing:.22em;color:rgba(192,132,252,0.6);text-transform:uppercase;margin-bottom:4px;">Ofiuco · Seleccionar</div>
+            <div style="font-size:28px;font-weight:700;color:#c084fc;letter-spacing:.1em;">⛎ Asteroides</div>
+          </div>
           <button onclick="closeOAsteroidesModal()" style="background:transparent;border:none;color:#c084fc;font-size:24px;cursor:pointer;">&#10005;</button>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;max-height:55vh;overflow-y:auto;padding-right:4px;" id="oAsteroidesCheckboxes"></div>
+        <div style="display:flex;flex-direction:column;gap:0;overflow:visible;" id="oAsteroidesCheckboxes"></div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;justify-content:flex-end;">
           <button onclick="closeOAsteroidesModal()" style="background:transparent;border:1px solid rgba(192,132,252,0.3);color:rgba(192,132,252,0.55);font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 14px;">Cerrar</button>
           <button onclick="oSelectAllAsteroides()" style="background:transparent;border:1px solid #c084fc;color:#c084fc;font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 14px;">Todos</button>
@@ -9310,6 +9429,19 @@ function toggleGnosticoOp() { toggleGnostico(); }
 // ═══════════════════════════════════════════════════════════════
 // FUNCIONES DE CÁLCULO DE PARTES ARÁBIGAS
 // ═══════════════════════════════════════════════════════════════
+// Alias: claves sin sufijo de género / sin tilde que llegan desde la lista externa
+const _PARTE_GENERO_BASE = ['Hijos','Madre','Padre','Hermanos','Coraje','Boda','Matrimonio','Viudedad'];
+function _resolverClaveParte(key) {
+  if (key === 'Ilusion') return 'Ilusi\u00f3n';
+  if (_PARTE_GENERO_BASE.indexOf(key) !== -1) {
+    const g = document.getElementById('selGender')?.value || 'M';
+    return key + (g === 'F' ? '_M' : '_H');
+  }
+  return key;
+}
+function _esAliasParte(key) {
+  return key === 'Ilusion' || _PARTE_GENERO_BASE.indexOf(key) !== -1;
+}
 function calcularParteArabiga(parteDef, ascDeg, planetas, casas) {
   const nrm = x => ((x % 360) + 360) % 360;
   const get = key => { const p = planetas.find(x => x.key === key); return p ? p.lon : null; };
@@ -9334,7 +9466,7 @@ function calcularParteArabiga(parteDef, ascDeg, planetas, casas) {
   const a = ascDeg, s = sun, m = moon, v = venus||0, ju = jupiter||0, sa = saturn||0, me = mercury||0;
   const ur = uranus||0, ne = neptune||0, pl = pluto||0;
 
-  switch(parteDef.key) {
+  switch(_resolverClaveParte(parteDef.key)) {
     case 'Arrepentimiento': return (sa && pl) ? nrm(a + sa - pl) : null;
     case 'Caridad':       return (ju && v) ? nrm(a + ju - v) : null;
     case 'Ejercito':      return (mars && sa) ? nrm(a + mars_ - sa) : null;
@@ -9522,6 +9654,10 @@ function calcularParteArabiga(parteDef, ascDeg, planetas, casas) {
     case 'Viudedad_H':    return (sa && v) ? nrm(a + sa - v) : null;
     case 'Viudedad_M':    return (sa && v) ? nrm(a + v - sa) : null;
     case 'Vuelo':         return (me && mars) ? nrm(a + me - mars_) : null;
+    case 'Herencia':      return (sa && casas) ? nrm(a + cusp8 - sa) : null;
+    case 'Merito':        return sa ? nrm(a + s - sa) : null;
+    case 'Daemon':        return nrm(a + s - m);
+    case 'Adiccion':      return (ne && v) ? nrm(a + ne - v) : null;
     default: return null;
   }
 }
@@ -9530,6 +9666,9 @@ function calcularParteArabiga(parteDef, ascDeg, planetas, casas) {
 // CÁLCULO DE ASTEROIDES (aproximación por fecha juliana)
 // ═══════════════════════════════════════════════════════════════
 function calcularAsteroide(key, jd) {
+  // Alias: nombres alternativos de los asteroides oscuros (por si la lista externa usa otra clave)
+  const _AST_ALIAS = { Hubris:'Hybris', Deianira:'Dejanira', Deyanira:'Dejanira', Charon:'Caronte', Pelio:'Pelion', Orco:'Orcus' };
+  if (_AST_ALIAS[key]) key = _AST_ALIAS[key];
   const nrm = x => ((x % 360) + 360) % 360;
   const T = (jd - 2451545.0) / 36525.0;
   const d = jd - 2451545.0; // días desde J2000
@@ -9641,9 +9780,8 @@ function parteGlyphText(p) {
 // ═══════════════════════════════════════════════════════════════
 // ACORDEÓN GENÉRICO — Partes Arábigas y Asteroides
 // ═══════════════════════════════════════════════════════════════
-function _buildAccordionModal(cont, items, activatedSet, accentColor, accentAlpha, onToggle) {
-  cont.innerHTML = '';
-  const catLabels = {
+// ── Etiquetas de categorías (compartidas por modal y resumen del panel) ──
+const _ACC_CAT_LABELS = {
     amor:          '💕 Amor y Relaciones',
     riqueza:       '💰 Riqueza y Material',
     vocacion:      '⭐ Vocación y Reconocimiento',
@@ -9663,6 +9801,79 @@ function _buildAccordionModal(cont, items, activatedSet, accentColor, accentAlph
     transpersonal: '🌌 Planetas Transpersonales',
     oscuro:        '🌑 Oscuros y Sombra',
   };
+
+// ── Resumen de secciones activadas (debajo del ⚙ en el panel) ──
+function _renderResumenSecciones(elId, items, activatedSet, accentColor, accentAlpha) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  el.innerHTML = '';
+  const grupos = {};
+  items.forEach(function(a) {
+    if (!activatedSet.has(a.key)) return;
+    const c = a.cat || 'oscuro';
+    grupos[c] = (grupos[c] || 0) + 1;
+  });
+  const limpia = function(c) { return (_ACC_CAT_LABELS[c] || c).replace(/[^\p{L}\p{N}\s]/gu, '').trim(); };
+  const cats = Object.keys(grupos).sort(function(a, b) { return limpia(a).localeCompare(limpia(b), 'es'); });
+  cats.forEach(function(c) {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 12px;margin-top:4px;border:1px solid rgba(' + accentAlpha + ',0.3);color:' + accentColor + ';font-size:12px;letter-spacing:.14em;text-transform:uppercase;background:rgba(0,8,28,0.7);border-radius:2px;box-sizing:border-box;';
+    row.innerHTML = '<span>' + (_ACC_CAT_LABELS[c] || c) + '</span><span style="background:' + accentColor + ';color:#000;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700;margin-left:6px;">' + grupos[c] + '</span>';
+    el.appendChild(row);
+  });
+  el.style.marginBottom = cats.length ? '14px' : '0';
+}
+// ── Acordeón del panel: agrupa filas por sección (mismo estilo que el modal) ──
+function _buildPanelAcordeon(entries, store, accentColor, accentAlpha) {
+  const root = document.createElement('div');
+  window._panelAccOpen = window._panelAccOpen || {};
+  const groups = {};
+  entries.forEach(function(e) { (groups[e.cat] = groups[e.cat] || []).push(e.row); });
+  const limpia = function(c) { return (_ACC_CAT_LABELS[c] || c).replace(/[^\p{L}\p{N}\s]/gu, '').trim(); };
+  const cats = Object.keys(groups).sort(function(a, b) { return limpia(a).localeCompare(limpia(b), 'es'); });
+  const base = 'display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 12px;margin-top:4px;border:1px solid rgba(' + accentAlpha + ',0.3);color:' + accentColor + ';font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:all .22s;border-radius:2px;box-sizing:border-box;';
+  const closedStyle = base + 'background:rgba(0,8,28,0.7);box-shadow:none;';
+  const openStyle = base + 'background:rgba(0,8,28,0.85);border-color:' + accentColor + ';box-shadow:0 0 10px rgba(' + accentAlpha + ',0.45),inset 0 0 8px rgba(' + accentAlpha + ',0.12);';
+  cats.forEach(function(cat) {
+    const isOpen = window._panelAccOpen[store] === cat;
+    const hdr = document.createElement('button');
+    hdr.type = 'button';
+    hdr.dataset.pcat = cat;
+    hdr.style.cssText = isOpen ? openStyle : closedStyle;
+    hdr.innerHTML = '<span>' + (_ACC_CAT_LABELS[cat] || cat) + '<span style="background:' + accentColor + ';color:#000;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700;margin-left:6px;">' + groups[cat].length + '</span></span><span class="acc-arrow" style="font-size:10px;opacity:0.7;">' + (isOpen ? '\u25B2' : '\u25BC') + '</span>';
+    const body = document.createElement('div');
+    body.dataset.pbody = cat;
+    body.style.cssText = 'display:' + (isOpen ? 'block' : 'none') + ';padding:4px 0 2px;';
+    groups[cat].forEach(function(r) { body.appendChild(r); });
+    hdr.onclick = function(e) {
+      e.preventDefault(); this.blur();
+      const abrir = body.style.display === 'none';
+      root.querySelectorAll('[data-pbody]').forEach(function(b) { b.style.display = 'none'; });
+      root.querySelectorAll('button[data-pcat]').forEach(function(h) {
+        h.style.cssText = closedStyle;
+        h.querySelector('.acc-arrow').textContent = '\u25BC';
+      });
+      if (abrir) {
+        body.style.display = 'block';
+        hdr.style.cssText = openStyle;
+        hdr.querySelector('.acc-arrow').textContent = '\u25B2';
+        window._panelAccOpen[store] = cat;
+      } else {
+        window._panelAccOpen[store] = null;
+      }
+    };
+    root.appendChild(hdr);
+    root.appendChild(body);
+  });
+  return root;
+}
+
+function _nombreOrden(x) { return (x.short || x.name || x.key || '').toString(); }
+function _ordenAlfa(a, b) { return _nombreOrden(a).localeCompare(_nombreOrden(b), 'es'); }
+
+function _buildAccordionModal(cont, items, activatedSet, accentColor, accentAlpha, onToggle) {
+  cont.innerHTML = '';
+  const catLabels = _ACC_CAT_LABELS;
   const catOrder = [];
   const grupos = {};
   items.forEach(function(a) {
@@ -9736,7 +9947,7 @@ function _buildAccordionModal(cont, items, activatedSet, accentColor, accentAlph
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.dataset.key = a.key;
-      btn.style.cssText = 'position:relative;display:flex;align-items:center;gap:8px;padding:9px 10px;background:rgba(' + accentAlpha + ',' + (active?'0.22':'0.05') + ');border:1px solid ' + (active ? accentColor : 'rgba(' + accentAlpha + ',0.25)') + ';color:' + (active ? accentColor : '#ffffff') + ';cursor:pointer;transition:all .18s;border-radius:2px;text-align:left;width:100%;box-sizing:border-box;';
+      btn.style.cssText = 'position:relative;display:flex;align-items:center;gap:8px;padding:9px 10px;background:rgba(' + accentAlpha + ',' + '0' + ');border:1px solid ' + (active ? accentColor : 'rgba(' + accentAlpha + ',0.25)') + ';color:' + (active ? accentColor : '#ffffff') + ';cursor:pointer;transition:all .18s;border-radius:2px;text-align:left;width:100%;box-sizing:border-box;';
 
       var inner = document.createElement('span');
       inner.style.cssText = 'display:flex;align-items:center;gap:7px;flex:1;min-width:0;pointer-events:none;';
@@ -9771,13 +9982,13 @@ function _buildAccordionModal(cont, items, activatedSet, accentColor, accentAlph
         var ns = btn.querySelector('span span:last-child');
         if (isNow) {
           activatedSet.delete(a.key);
-          btn.style.background = 'rgba(' + accentAlpha + ',0.05)';
+          btn.style.background = 'transparent';
           btn.style.border = '1px solid rgba(' + accentAlpha + ',0.25)';
           btn.style.color = '#ffffff';
           if (ns) ns.style.fontWeight = '400';
         } else {
           activatedSet.add(a.key);
-          btn.style.background = 'rgba(' + accentAlpha + ',0.22)';
+          btn.style.background = 'transparent';
           btn.style.border = '1px solid ' + accentColor;
           btn.style.color = accentColor;
           if (ns) ns.style.fontWeight = '700';
@@ -9807,6 +10018,7 @@ function openPartesModal() {
   const cont = document.getElementById('partesCheckboxes');
   const gender = document.getElementById('selGender')?.value || 'M';
   const partesVisible = TODAS_LAS_PARTES.filter(p => {
+    if (_esAliasParte(p.key) && TODAS_LAS_PARTES.some(q => q.key === _resolverClaveParte(p.key))) return false;
     if (p.genderH && gender !== 'M') return false;
     if (p.genderF && gender !== 'F') return false;
     return true;
@@ -9824,7 +10036,7 @@ function closePartesModal() {
 function selectAllPartes() {
   document.querySelectorAll('#partesCheckboxes button[data-key]').forEach(btn => {
     _activatedPartes.add(btn.dataset.key);
-    btn.style.background='rgba(240,165,0,0.22)';btn.style.border='1px solid #f0a500';btn.style.color='#f0a500';
+    btn.style.background='transparent';btn.style.border='1px solid #f0a500';btn.style.color='#f0a500';
     const ns=btn.querySelector('span span:last-child');if(ns)ns.style.fontWeight='700';
   });
   openPartesModal(); // refresh badges
@@ -9832,7 +10044,7 @@ function selectAllPartes() {
 function clearAllPartes() {
   document.querySelectorAll('#partesCheckboxes button[data-key]').forEach(btn => {
     _activatedPartes.delete(btn.dataset.key);
-    btn.style.background='rgba(240,165,0,0.05)';btn.style.border='1px solid rgba(240,165,0,0.25)';btn.style.color='#ffffff';
+    btn.style.background='transparent';btn.style.border='1px solid rgba(240,165,0,0.25)';btn.style.color='#ffffff';
     const ns=btn.querySelector('span span:last-child');if(ns)ns.style.fontWeight='400';
   });
   openPartesModal(); // refresh badges
@@ -10083,6 +10295,11 @@ function showExtraInterp(key, type, lon) {
 function renderPartesPanel() {
   // En modo "ambas", _renderPanelDualAmbas maneja el panel directamente
   if (window._vistaAmbasActiva && window._lineasRetornoActivas) return;
+  if (window._transitosActivos && window._vistaAmbasActiva && window._lineasTransitosActivas && _activatedPartes.size > 0) {
+    try { _renderPanelDualAmbas(_natalPlanets || _savedPlanets, _natalHouses || _savedHouses, window._transitosPlanets, _savedHouses, _savedAsc, true); }
+    catch (e) { console.error('Panel dual tránsitos:', e); }
+    return;
+  }
   const grid = document.getElementById('partesGrid');
   if (!grid) return;
   if (_activatedPartes.size === 0) {
@@ -10096,7 +10313,8 @@ function renderPartesPanel() {
   const RNUMS_P = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
   const listEl = document.createElement('div');
   listEl.style.cssText = 'display:flex;flex-direction:column;gap:1px;';
-  TODAS_LAS_PARTES.filter(p => _activatedPartes.has(p.key)).forEach(p => {
+  const _ent = [];
+  TODAS_LAS_PARTES.filter(p => _activatedPartes.has(p.key)).sort(_ordenAlfa).forEach(p => {
     const lon = calcularParteArabiga(p, _ctxAsc, _ctxPlanets, _ctxHouses);
     if (lon === null) return;
     const sign = Math.floor(lon / 30) % 12;
@@ -10109,9 +10327,9 @@ function renderPartesPanel() {
     const isAngular = axisLabel !== '';
 
     const row = document.createElement('div');
-    row.style.cssText = `display:grid;grid-template-columns:36px 1fr 36px 1fr 46px;align-items:center;padding:9px 4px;border-bottom:1px solid rgba(240,165,0,0.12);cursor:pointer;transition:background .2s;${isAngular ? 'background:rgba(240,165,0,0.06);' : ''}`;
-    row.onmouseover = () => row.style.background = 'rgba(240,165,0,0.1)';
-    row.onmouseout  = () => row.style.background = isAngular ? 'rgba(240,165,0,0.06)' : '';
+    row.style.cssText = `display:grid;grid-template-columns:36px 1fr 36px 1fr 46px;align-items:center;padding:9px 4px;border-bottom:1px solid rgba(240,165,0,0.12);cursor:pointer;transition:background .2s;`;
+    row.onmouseover = null;
+    row.onmouseout = null;
     row.onclick = () => {
       const container = document.createElement('div');
       showExtraInterpInPanel(p.key, 'parte', lon, container);
@@ -10149,8 +10367,9 @@ function renderPartesPanel() {
     row.appendChild(colCasa);
     row.appendChild(colSigno);
     row.appendChild(colAxis);
-    listEl.appendChild(row);
+    _ent.push({cat: p.cat || 'oscuro', row: row});
   });
+  listEl.appendChild(_buildPanelAcordeon(_ent, 'partes', '#f0a500', '240,165,0'));
   grid.innerHTML = '';
   grid.appendChild(listEl);
 }
@@ -10158,6 +10377,11 @@ function renderPartesPanel() {
 function renderAsteroidesPanel() {
   // En modo "ambas", _renderPanelDualAmbas maneja el panel directamente
   if (window._vistaAmbasActiva && window._lineasRetornoActivas) return;
+  if (window._transitosActivos && window._vistaAmbasActiva && window._lineasTransitosActivas && _activatedAsteroides.size > 0) {
+    try { _renderPanelDualAmbas(_natalPlanets || _savedPlanets, _natalHouses || _savedHouses, window._transitosPlanets, _savedHouses, _savedAsc, true); }
+    catch (e) { console.error('Panel dual tránsitos:', e); }
+    return;
+  }
   const grid = document.getElementById('asteroidesGrid');
   if (!grid) return;
   if (_activatedAsteroides.size === 0) {
@@ -10169,11 +10393,13 @@ function renderAsteroidesPanel() {
   const listEl = document.createElement('div');
   listEl.style.cssText = 'display:flex;flex-direction:column;gap:1px;';
   // JD: usar el del retorno activo si el panel está en contexto retorno
-  const _useRetJd = !!(window._panelHousesActivo && window._retornoUtcActivo);
+  const _utcCtx = window._transitosActivos ? window._transitosUtc : window._retornoUtcActivo;
+  const _useRetJd = !!(window._panelHousesActivo && _utcCtx);
   const jd = _useRetJd
-    ? jdUTC(window._retornoUtcActivo instanceof Date ? window._retornoUtcActivo : new Date(window._retornoUtcActivo))
+    ? jdUTC(_utcCtx instanceof Date ? _utcCtx : new Date(_utcCtx))
     : (_savedUtc ? jdUTC(_savedUtc) : jdUTC(new Date()));
-  TODOS_LOS_ASTEROIDES.filter(a => _activatedAsteroides.has(a.key)).forEach(a => {
+  const _ent = [];
+  TODOS_LOS_ASTEROIDES.filter(a => _activatedAsteroides.has(a.key)).sort(_ordenAlfa).forEach(a => {
     const lon = calcularAsteroide(a.key, jd);
     if (lon === null) return;
     const sign = Math.floor(lon / 30) % 12;
@@ -10221,8 +10447,9 @@ function renderAsteroidesPanel() {
     row.appendChild(colCasa);
     row.appendChild(colSigno);
     row.appendChild(colAxis);
-    listEl.appendChild(row);
+    _ent.push({cat: a.cat || 'oscuro', row: row});
   });
+  listEl.appendChild(_buildPanelAcordeon(_ent, 'asteroides', '#c084fc', '192,132,252'));
   grid.innerHTML = '';
   grid.appendChild(listEl);
 }
@@ -10237,13 +10464,73 @@ let _signosSubFiltro = null;    // índice numérico del signo/elemento seleccio
 
 function onSignosFiltroChange(val) {
   _signosFiltro    = val;
+  if (window._accState) delete window._accState.signos;
   _signosSubFiltro = null; // resetear subfiltro al cambiar modo
   renderSignosPanel();
 }
 
 function onSignosSubFiltroChange(val) {
   _signosSubFiltro = val === '' ? null : parseInt(val, 10);
+  if (window._accState) delete window._accState.signos;
   renderSignosPanel();
+}
+
+// ── Acordeones para pestañas Signos y Elem + Cual (todo cerrado + botón expandir todos) ──
+window._accState = window._accState || {};
+function _accordionize(container, store, accentColor, accentAlpha) {
+  const st = window._accState[store] = window._accState[store] || { open: {} };
+  const items = Array.prototype.slice.call(container.querySelectorAll('.acc-item'));
+  const toolbar = container.querySelector('#accToolbar-' + store);
+  let btnAll = null;
+  function actualizarBoton() {
+    if (!btnAll) return;
+    const todos = items.length > 0 && items.every(function(it) { return it._abierto; });
+    btnAll.textContent = todos ? 'Contraer todos' : 'Expandir todos';
+  }
+  function poner(it, abrir) {
+    it._abierto = abrir;
+    it._body.style.display = abrir ? 'block' : 'none';
+    it._arrow.textContent = abrir ? '\u25B2' : '\u25BC';
+    it._head.style.borderColor = abrir ? accentColor : 'rgba(' + accentAlpha + ',0.3)';
+    it._head.style.boxShadow = abrir ? '0 0 10px rgba(' + accentAlpha + ',0.45),inset 0 0 8px rgba(' + accentAlpha + ',0.12)' : 'none';
+    st.open[it._key] = abrir;
+  }
+  items.forEach(function(it, idx) {
+    const head = it.firstElementChild;
+    if (!head) return;
+    it._key = (head.textContent || '').replace(/\s+/g, ' ').trim().split(' ')[0] + '|' + idx;
+    const body = document.createElement('div');
+    body.style.cssText = 'display:none;padding:8px 0 4px;';
+    while (head.nextSibling) body.appendChild(head.nextSibling);
+    it.appendChild(body);
+    head.style.marginBottom = '0';
+    head.style.padding = '9px 12px';
+    head.style.border = '1px solid rgba(' + accentAlpha + ',0.3)';
+    head.style.background = 'rgba(0,8,28,0.7)';
+    head.style.borderRadius = '2px';
+    head.style.cursor = 'pointer';
+    head.style.transition = 'all .22s';
+    head.style.boxSizing = 'border-box';
+    const arrow = document.createElement('span');
+    arrow.style.cssText = 'font-size:10px;opacity:0.7;margin-left:10px;color:' + accentColor + ';';
+    head.appendChild(arrow);
+    it._head = head; it._body = body; it._arrow = arrow;
+    head.onclick = function() { poner(it, !it._abierto); actualizarBoton(); };
+    poner(it, st.open[it._key] === true);
+  });
+  if (toolbar && items.length) {
+    toolbar.style.cssText = 'margin:0 0 12px;text-align:center;';
+    btnAll = document.createElement('button');
+    btnAll.type = 'button';
+    btnAll.style.cssText = 'background:transparent;border:1px solid ' + accentColor + ';color:' + accentColor + ';font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:8px 16px;border-radius:2px;';
+    btnAll.onclick = function() {
+      const abrir = !items.every(function(it) { return it._abierto; });
+      items.forEach(function(it) { poner(it, abrir); });
+      actualizarBoton();
+    };
+    toolbar.appendChild(btnAll);
+    actualizarBoton();
+  }
 }
 
 function renderSignosPanel() {
@@ -10369,7 +10656,7 @@ function renderSignosPanel() {
       const sg = SIGN_FULL[idx];
       const dim = group.length===0 ? 'opacity:0.3;' : '';
       const borderC = group.length ? 'rgba(251,146,60,0.15)' : '#ffffff';
-      bodyHTML += '<div style="margin-bottom:11px;' + dim + '">' +
+      bodyHTML += '<div class="acc-item" style="margin-bottom:11px;' + dim + '">' +
         '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">' +
         '<span style="font-size:21px;font-family:\'Noto Sans Symbols 2\',\'Segoe UI Symbol\',sans-serif;color:' + sg.col + ';">' + sg.g + '</span>' +
         '<span style="font-size:13px;font-weight:700;color:' + sg.col + ';letter-spacing:.07em;min-width:90px;">' + sg.name + '</span>' +
@@ -10389,7 +10676,7 @@ function renderSignosPanel() {
       const signRow = signs.map(function(si){
         return '<span style="font-size:13px;font-family:\'Noto Sans Symbols 2\',\'Segoe UI Symbol\',sans-serif;color:' + SIGN_FULL[si].col + ';">' + SIGN_FULL[si].g + '</span><span style="font-size:11px;color:#ffffff;"> ' + SIGN_FULL[si].name + '</span>';
       }).join('<span style="color:#ffffff;margin:0 5px;">\u00b7</span>');
-      bodyHTML += '<div style="margin-bottom:20px;">' +
+      bodyHTML += '<div class="acc-item" style="margin-bottom:20px;">' +
         '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
         '<span style="font-size:19px;">' + el.glyph + '</span>' +
         '<span style="font-size:24px;font-weight:700;color:' + el.col + ';letter-spacing:.08em;min-width:56px;">' + el.name + '</span>' +
@@ -10407,7 +10694,8 @@ function renderSignosPanel() {
   const total = allAstros.length;
   container.innerHTML = filterHTML +
     '<div style="font-size:11px;color:#ffffff;letter-spacing:.07em;margin-bottom:12px;text-align:right;">' +
-    total + ' punto' + (total!==1?'s':'') + ' \u00b7 pasa el cursor para ver</div>' + bodyHTML;
+    total + ' punto' + (total!==1?'s':'') + ' \u00b7 pasa el cursor para ver</div>' + '<div id="accToolbar-signos"></div>' + bodyHTML;
+  _accordionize(container, 'signos', '#fb923c', '251,146,60');
 
   const sel = document.getElementById('signosFiltroSel');
   if (sel) sel.value = _signosFiltro;
@@ -10432,6 +10720,7 @@ const _QUAL_GLYPHS = ['⬆','■','〜'];
 
 function onCualModoChange(val) {
   _cualModo = val;
+  if (window._accState) delete window._accState.cual;
   renderCualidadesPanel();
 }
 
@@ -10476,7 +10765,7 @@ function renderCualidadesPanel() {
     groups.forEach((group, i) => {
       const pct = total > 0 ? Math.round((group.length / total) * 100) : 0;
       const barW = Math.round((group.length / maxCount) * 100);
-      html += `<div style="margin-bottom:14px;">
+      html += `<div class="acc-item" style="margin-bottom:14px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
           <span style="font-size:18px;width:24px;text-align:center;">${glyphs[i]}</span>
           <span style="font-size:14px;font-weight:700;color:${colors[i]};letter-spacing:.06em;min-width:72px;">${names[i]}</span>
@@ -10542,6 +10831,7 @@ function renderCualidadesPanel() {
     container.innerHTML =
       dropdownHTML +
       `<div style="font-size:11px;color:#ffffff;letter-spacing:.08em;margin-bottom:14px;text-align:right;">${total} punto${total!==1?'s':''} · pasa el cursor para ver</div>` +
+      '<div id="accToolbar-cual"></div>' +
       buildSection('Elementos', elemGroups, total, _ELEM_NAMES, _ELEM_COLORS, _ELEM_GLYPHS) +
       buildSection('Cualidades', qualGroups, total, _QUAL_NAMES, _QUAL_COLORS, _QUAL_GLYPHS);
 
@@ -10572,6 +10862,7 @@ function renderCualidadesPanel() {
     container.innerHTML =
       dropdownHTML +
       `<div style="font-size:11px;color:#ffffff;letter-spacing:.08em;margin-bottom:14px;text-align:right;">12 casas · pasa el cursor para ver</div>` +
+      '<div id="accToolbar-cual"></div>' +
       buildSection('Elementos', elemGroups, total, _ELEM_NAMES, _ELEM_COLORS, _ELEM_GLYPHS) +
       buildSection('Cualidades', qualGroups, total, _QUAL_NAMES, _QUAL_COLORS, _QUAL_GLYPHS);
   }
@@ -10579,6 +10870,7 @@ function renderCualidadesPanel() {
   // Restaurar el modo en el dropdown después de redibujar
   const sel = document.getElementById('cualModoSel');
   if (sel) sel.value = _cualModo;
+  _accordionize(container, 'cual', '#4ade80', '74,222,128');
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -10713,6 +11005,41 @@ function backToListPlanets() {
 
 function backToListAspects() {
   volverDesdeInterpretacion();
+}
+
+function backToOfiucoPlanets() {
+  const interpView = document.getElementById('oPlanetInterpView');
+  const listGrid = document.getElementById('oPbGrid');
+  if (interpView) interpView.style.display = 'none';
+  if (listGrid) listGrid.style.display = '';
+}
+
+function backToOfiucoPartes() {
+  const interpView = document.getElementById('oParteInterpView');
+  const listGrid = document.getElementById('oPartesGrid');
+  if (interpView) interpView.style.display = 'none';
+  if (listGrid) listGrid.style.display = '';
+}
+
+function backToOfiucoAsteroides() {
+  const interpView = document.getElementById('oAsteroidInterpView');
+  const listGrid = document.getElementById('oAsteroidesGrid');
+  if (interpView) interpView.style.display = 'none';
+  if (listGrid) listGrid.style.display = '';
+}
+
+function backToOfiucoAspects() {
+  const interpView = document.getElementById('oAspInterpView');
+  const listGrid = document.getElementById('oAspList');
+  if (interpView) interpView.style.display = 'none';
+  if (listGrid) listGrid.style.display = '';
+}
+
+function backToOfiucoHouses() {
+  const interpView = document.getElementById('oHouseInterpView');
+  const listGrid = document.getElementById('oHouseListView');
+  if (interpView) interpView.style.display = 'none';
+  if (listGrid) listGrid.style.display = '';
 }
 
 function handleAspectClick(idx) {
@@ -13579,8 +13906,8 @@ function initChartTooltip() {
   const tip = document.getElementById('chartTooltip');
   if (!tip) return;
 
-  function onCanvasMove(e) {
-    const cv = e.currentTarget;
+  function onCanvasMove(e, cvArg) {
+    const cv = cvArg || e.currentTarget;
     const rect = cv.getBoundingClientRect();
     const mx = (e.clientX - rect.left) * (cv.width  / rect.width);
     const my = (e.clientY - rect.top)  * (cv.height / rect.height);
@@ -13644,14 +13971,34 @@ function initChartTooltip() {
     tip.style.top  = tTop  + 'px';
   }
 
-  ['chartCanvas','decoCanvas','chartCanvasModal'].forEach(id => {
-    const cv = document.getElementById(id);
-    if (cv) {
-      cv.addEventListener('mousemove', onCanvasMove);
-      cv.addEventListener('mouseleave', () => tip.classList.remove('visible'));
+  // Delegación de eventos: funciona aunque el canvas (p. ej. el del modal "Ampliar carta")
+  // se cree después de ejecutar este script.
+  const _TT_IDS = ['chartCanvas', 'decoCanvas', 'chartCanvasModal'];
+  let _ttHideTimer = null;
+  document.addEventListener('mousemove', function(e) {
+    const cv = e.target;
+    if (cv && _TT_IDS.indexOf(cv.id) !== -1) onCanvasMove(e, cv);
+  });
+  document.addEventListener('mouseout', function(e) {
+    if (e.target && _TT_IDS.indexOf(e.target.id) !== -1) tip.classList.remove('visible');
+  });
+  // Táctil: en el modal ampliado un toque muestra el tooltip unos segundos
+  document.addEventListener('click', function(e) {
+    const cv = e.target;
+    if (cv && cv.id === 'chartCanvasModal') {
+      onCanvasMove(e, cv);
+      clearTimeout(_ttHideTimer);
+      _ttHideTimer = setTimeout(function() { tip.classList.remove('visible'); }, 2500);
     }
   });
-  // En el modal el tooltip debe tener z-index mayor al modal
+  // Adaptar el tamaño del tooltip a la pantalla para que no se vea exagerado
+  function _ajustarTooltipPantalla() {
+    const w = window.innerWidth;
+    tip.style.maxWidth = 'calc(100vw - 16px)';
+    tip.style.zoom = w < 420 ? '0.82' : (w < 700 ? '0.9' : '1');
+  }
+  _ajustarTooltipPantalla();
+  window.addEventListener('resize', _ajustarTooltipPantalla);
   tip.style.zIndex = '99999';
 }
 
@@ -16291,8 +16638,10 @@ window._actualizarLabelsVistaRetorno = function() {
 // ══════════════════════════════════════════════════════════════════════════
 // PANEL DUAL — Natal | Retorno — se activa en modo "Ambas cartas"
 // ══════════════════════════════════════════════════════════════════════════
-window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc) {
-  const rt   = window._retornoTipoActivo || {};
+window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc, soloExtras) {
+  const rt   = window._transitosActivos
+    ? { icono: '\u2726', color: '#00c8ff', label: 'Tr\u00e1nsito' }
+    : (window._retornoTipoActivo || {});
   const rGlyph = rt.icono || '⟳';
   const rColor = rt.color || '#00c8ff';
   const rLabel = rt.label || 'Retorno';
@@ -16362,7 +16711,7 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc) {
   // 1. PANEL PLANETAS
   // ═══════════════════════════════
   const pbGrid = document.getElementById('pbGrid');
-  if (pbGrid) {
+  if (pbGrid && !soloExtras) {
     pbGrid.innerHTML = '';
     const wrap = document.createElement('div');
     wrap.id = 'planetListView';
@@ -16407,7 +16756,7 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc) {
   // 2. PANEL CASAS
   // ═══════════════════════════════
   const housesEl = document.getElementById('housesListView');
-  if (housesEl) {
+  if (housesEl && !soloExtras) {
     housesEl.innerHTML = '';
     const wrap = document.createElement('div');
     wrap.id = 'houseListView';
@@ -16459,7 +16808,8 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc) {
     wrap.appendChild(hint);
     wrap.appendChild(makeHeader('Natal', `${rGlyph} ${rLabel}`));
 
-    TODAS_LAS_PARTES.filter(p => _activatedPartes.has(p.key)).forEach(p => {
+    const _ent = [];
+    TODAS_LAS_PARTES.filter(p => _activatedPartes.has(p.key)).sort(_ordenAlfa).forEach(p => {
       const nLon = calcularParteArabiga(p, _savedAsc ?? 0, nPl, nHouses);
       const rLon = (rAsc != null && rPl && rPl.length)
         ? calcularParteArabiga(p, rAsc, rPl, rHouses || [])
@@ -16476,12 +16826,13 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc) {
                 <span style="color:rgba(0,200,255,0.75);font-size:12px;">${fmtDeg(lon)}</span>
                 ${hRom ? `<span style="color:var(--acc);font-size:11px;"> ${hRom}</span>` : ''}`;
       }
-      wrap.appendChild(makeRow(
+      _ent.push({cat: p.cat || 'oscuro', row: makeRow(
         parteCell(nLon, nHouses, '#f0a500'),
         parteCell(rLon, rHouses, rColor),
         false
-      ));
+      )});
     });
+    wrap.appendChild(_buildPanelAcordeon(_ent, 'partes', '#f0a500', '240,165,0'));
     partesEl.appendChild(wrap);
   }
 
@@ -16502,12 +16853,14 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc) {
     wrap.appendChild(makeHeader('Natal', `${rGlyph} ${rLabel}`));
 
     const jdN = _savedUtc  ? jdUTC(_savedUtc)  : null;
-    const jdR = window._retornoUtcActivo
-      ? jdUTC(window._retornoUtcActivo instanceof Date
-          ? window._retornoUtcActivo : new Date(window._retornoUtcActivo))
+    const _utcR = window._transitosActivos ? window._transitosUtc : window._retornoUtcActivo;
+    const jdR = _utcR
+      ? jdUTC(_utcR instanceof Date
+          ? _utcR : new Date(_utcR))
       : null;
 
-    TODOS_LOS_ASTEROIDES.filter(a => _activatedAsteroides.has(a.key)).forEach(a => {
+    const _ent = [];
+    TODOS_LOS_ASTEROIDES.filter(a => _activatedAsteroides.has(a.key)).sort(_ordenAlfa).forEach(a => {
       const nLon = jdN ? calcularAsteroide(a.key, jdN) : null;
       const rLon = jdR ? calcularAsteroide(a.key, jdR) : null;
 
@@ -16522,12 +16875,13 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc) {
                 <span style="color:rgba(0,200,255,0.75);font-size:12px;">${fmtDeg(lon)}</span>
                 ${hRom ? `<span style="color:var(--acc);font-size:11px;"> ${hRom}</span>` : ''}`;
       }
-      wrap.appendChild(makeRow(
+      _ent.push({cat: a.cat || 'oscuro', row: makeRow(
         astCell(nLon, nHouses, '#c084fc'),
         astCell(rLon, rHouses, rColor),
         false
-      ));
+      )});
     });
+    wrap.appendChild(_buildPanelAcordeon(_ent, 'asteroides', '#c084fc', '192,132,252'));
     astEl.appendChild(wrap);
   }
 
@@ -16811,6 +17165,9 @@ function _calcularYMostrarAspectosTransitos() {
   }
   window._crossTransitosAspectos = crossList;
   _mostrarAspectosTransitosEnPanel(crossList);
+  // Partes Arábigas y Asteroides en modo dual Natal | Tránsito
+  try { _renderPanelDualAmbas(nPlanets, nHouses, tPlanets, _savedHouses, _savedAsc, true); }
+  catch (e) { console.error('Panel dual tránsitos:', e); }
 }
 
 window._mostrarAspectosTransitosEnPanel = function(crossList) {
@@ -17258,34 +17615,99 @@ window._restaurarAspectosNatalesEnPanel = function() {
 };
 
 window._lineasOfiucoActivas = false;
-window.toggleLineasOfiuco = function() {
-  window._lineasOfiucoActivas = !window._lineasOfiucoActivas;
+// ── Textos/estilos dinámicos de Líneas y Vista (Retornos · Tránsitos · Sinastría · Compuesta) ──
+window._oTipoNombre = function() {
+  const t = (window._ofiucoRetornoTipoActivo || {}).tipo;
+  return t === 'transitos' ? 'Tránsitos' : t === 'sinastria' ? 'Sinastría' : t === 'compuesta' ? 'Compuesta' : 'Retornos';
+};
+window._oEstiloBtnLineas = function(act) {
   const btn = document.getElementById('btnActivarLineasOfiuco');
-  if (btn) {
-    if (window._lineasOfiucoActivas) {
-      btn.style.background  = 'rgba(255,165,0,0.15)';
-      btn.style.borderColor = 'rgba(255,165,0,0.9)';
-      btn.style.color       = '#ffd166';
-      btn.style.boxShadow   = '0 0 18px rgba(255,165,0,.28)';
-      btn.textContent       = '⟳ Desactivar Líneas de Retornos';
-    } else {
-      btn.style.background  = 'transparent';
-      btn.style.borderColor = 'rgba(255,165,0,0.5)';
-      btn.style.color       = 'rgba(255,165,0,0.85)';
-      btn.style.boxShadow   = '';
-      btn.textContent       = '⟳ Activar Líneas de Retornos';
-    }
+  if (!btn) return;
+  if (act) {
+    btn.style.background  = 'rgba(255,165,0,0.15)';
+    btn.style.borderColor = 'rgba(255,165,0,0.9)';
+    btn.style.color       = '#ffd166';
+    btn.style.boxShadow   = '0 0 18px rgba(255,165,0,.28)';
+  } else {
+    btn.style.background  = 'transparent';
+    btn.style.borderColor = 'rgba(255,165,0,0.5)';
+    btn.style.color       = 'rgba(255,165,0,0.85)';
+    btn.style.boxShadow   = '';
   }
+  btn.textContent = '⟳ ' + (act ? 'Desactivar' : 'Activar') + ' Líneas de ' + window._oTipoNombre();
+};
+window._oActualizarLabelsVista = function() {
+  const t = (window._ofiucoRetornoTipoActivo || {}).tipo;
+  const sel = document.getElementById('oSelVistaRetorno');
+  if (sel && sel.options.length >= 3) {
+    const L = t === 'transitos' ? ['✦ Mostrar carta tránsitos','✦ Mostrar ambas (natal + tránsitos)']
+            : t === 'sinastria' ? ['♡ Mostrar carta de la segunda persona','♡ Mostrar ambas (natal + sinastría)']
+            : t === 'compuesta' ? ['✦ Mostrar carta compuesta','✦ Mostrar ambas (natal + compuesta)']
+            :                     ['⟳ Mostrar carta retorno','⟳ Mostrar ambas (natal + retorno)'];
+    sel.options[0].textContent = '⟳ Mostrar carta natal';
+    sel.options[1].textContent = L[0];
+    sel.options[2].textContent = L[1];
+    sel.value = window._oVistaNatalSolo ? 'natal' : (window._lineasOfiucoActivas ? 'ambas' : 'retorno');
+  }
+  window._oEstiloBtnLineas(!!window._lineasOfiucoActivas);
+};
+// Restaura la carta externa si estaba oculta por la vista "solo natal"
+window._oRestoreOverlay = function() {
+  const s = window._oOvStash;
+  if (s) {
+    window._ofiucoRetornoPlanets = s.planets;
+    window._ofiucoRetornoAsc     = s.asc;
+    window._ofiucoRetornoUtc     = s.utc;
+    window._ofiucoRetornoHouses  = s.houses;
+    window._oOvStash = null;
+  }
+  window._oVistaNatalSolo = false;
+};
+window.cambiarVistaOfiuco = function(val) {
+  const sel = document.getElementById('oSelVistaRetorno');
+  const hay = !!(window._oOvStash || (window._ofiucoRetornoPlanets && window._ofiucoRetornoPlanets.length));
+  if (!hay) { if (sel) sel.value = 'retorno'; return; }
+  if (val === 'natal') {
+    if (!window._oOvStash) {
+      window._oOvStash = { planets: window._ofiucoRetornoPlanets, asc: window._ofiucoRetornoAsc,
+                           utc: window._ofiucoRetornoUtc, houses: window._ofiucoRetornoHouses };
+      window._ofiucoRetornoPlanets = null; window._ofiucoRetornoAsc = null;
+      window._ofiucoRetornoUtc = null;     window._ofiucoRetornoHouses = null;
+    }
+    window._oVistaNatalSolo = true;
+    window._lineasOfiucoActivas = false;
+    window._oCrossAspects = [];
+    try { renderOfiucoChart(); } catch(e) { console.error('Ofiuco vista natal:', e); }
+    if (typeof window._restaurarAspectosNatalesOfiucoEnPanel === 'function') window._restaurarAspectosNatalesOfiucoEnPanel();
+  } else if (val === 'retorno') {
+    window._oRestoreOverlay();
+    window._lineasOfiucoActivas = false;
+    window._oCrossAspects = [];
+    try { renderOfiucoChart(); } catch(e) { console.error('Ofiuco vista retorno:', e); }
+    if (typeof window._restaurarAspectosNatalesOfiucoEnPanel === 'function') window._restaurarAspectosNatalesOfiucoEnPanel();
+  } else {
+    window._oRestoreOverlay();
+    window._lineasOfiucoActivas = false;   // el toggle la pasa a true y dibuja ambas
+    window.toggleLineasOfiuco();
+    return;
+  }
+  window._oActualizarLabelsVista();
+};
+
+window.toggleLineasOfiuco = function() {
+  if (window._oOvStash || window._oVistaNatalSolo) window._oRestoreOverlay();
+  window._lineasOfiucoActivas = !window._lineasOfiucoActivas;
+  window._oEstiloBtnLineas(window._lineasOfiucoActivas);
   try { renderOfiucoChart(); } catch(e) { console.error('Ofiuco toggle:', e); }
 
   // ── Actualizar panel de aspectos Ofiuco según estado ──
   // No cambiamos de pestaña: el usuario permanece donde está (planetas por defecto).
-  // El panel de aspectos cruzados quedará listo cuando el usuario vaya a esa pestaña.
   if (window._lineasOfiucoActivas) {
     window._mostrarAspectosRetornoOfiucoEnPanel();
   } else {
     window._restaurarAspectosNatalesOfiucoEnPanel();
   }
+  window._oActualizarLabelsVista();
 };
 
 // ── Muestra los aspectos cruzados retorno⇔Ofiuco en el panel oAspList ──
@@ -17340,7 +17762,7 @@ window._mostrarAspectosRetornoOfiucoEnPanel = function() {
   filterDiv.id = 'oRetAspFilterView';
   filterDiv.innerHTML = `
     <div style="padding:10px 0 6px;font-size:12px;letter-spacing:.18em;color:rgba(255,165,0,0.75);text-transform:uppercase;font-weight:700;text-align:center;">
-      ⟳ Aspectos del Retorno Activo — Ofiuco
+      ${(window._ofiucoRetornoTipoActivo && window._ofiucoRetornoTipoActivo.aspLabel) || '⟳ Aspectos del Retorno Activo'} — Ofiuco
     </div>
     <div class="asp-filter-row" style="border-color:rgba(255,165,0,0.2);">
       <span class="asp-filter-label" style="color:rgba(255,165,0,0.75);">Ver aspectos de</span>
@@ -20695,6 +21117,112 @@ function closeAspHint(e) {
 window._transitosActivos = false;
 window._transitosPlanets = null;
 
+// ── Fecha personalizada para Tránsitos Planetarios ──
+window._transitosFecha = null;   // null = momento actual
+window._transitosPrevio = null;  // último tránsito personalizado (para "Tránsito anterior")
+window._trReaplicando = false;
+window._trCalculos = 0;         // cálculos hechos con los botones del bloque desde que se activó el tránsito
+(function() {
+  let _val = false;
+  Object.defineProperty(window, '_transitosActivos', {
+    configurable: true,
+    get: function() { return _val; },
+    set: function(v) {
+      _val = !!v;
+      if (!_val) {
+        window._transitosFecha = null;
+        if (!window._trReaplicando) { window._transitosPrevio = null; window._trCalculos = 0; }
+      }
+      if (typeof _syncTransitosFechaBox === 'function') _syncTransitosFechaBox();
+    }
+  });
+})();
+function _trLeerCampos() {
+  const v = function(id) { const el = document.getElementById(id); return el && el.value !== '' ? parseInt(el.value, 10) : NaN; };
+  return { dia: v('trDia'), mes: v('trMes'), anio: v('trAnio'), hora: v('trHora'), min: v('trMin') };
+}
+function _actualizarBotonesTransitos() {
+  const bAhora = document.getElementById('trBtnAhora');
+  const bAnt = document.getElementById('trBtnAnterior');
+  const fila = document.getElementById('trBtnsFila');
+  const sep = document.getElementById('trSep');
+  if (!bAhora || !bAnt || !fila || !sep) return;
+  const enPersonalizado = window._transitosFecha != null;   // el tránsito mostrado no es el momento actual
+  const segundaCarta = (window._trCalculos || 0) >= 2;      // ya se calculó una segunda carta de tránsito
+  const hayAnterior = segundaCarta && window._transitosPrevio != null;
+  const verAhora = enPersonalizado || segundaCarta;
+  fila.style.display = (verAhora || hayAnterior) ? 'flex' : 'none';
+  sep.style.display = (verAhora || hayAnterior) ? 'block' : 'none';
+  bAhora.style.display = verAhora ? 'inline-block' : 'none';
+  bAnt.style.display = hayAnterior ? 'inline-block' : 'none';   // no existe hasta la segunda carta
+  bAhora.disabled = !enPersonalizado;   // "Ahora" solo activo si el tránsito mostrado no es el actual
+  bAnt.disabled = false;
+}
+function _syncTransitosFechaBox() {
+  const box = document.getElementById('transitosFechaBox');
+  if (!box) return;
+  if (window._transitosActivos) {
+    const d = window._transitosFecha ? new Date(window._transitosFecha.getTime())
+            : (window._transitosUtc ? new Date(window._transitosUtc.getTime()) : new Date());
+    const set = function(id, v, n) { const el = document.getElementById(id); if (el) el.value = String(v).padStart(n, '0'); };
+    set('trDia', d.getDate(), 2); set('trMes', d.getMonth() + 1, 2); set('trAnio', d.getFullYear(), 4);
+    set('trHora', d.getHours(), 2); set('trMin', d.getMinutes(), 2);
+    const msg = document.getElementById('trFechaMsg'); if (msg) msg.textContent = '';
+    box.style.display = 'flex';
+    _actualizarBotonesTransitos();
+  } else {
+    box.style.display = 'none';
+  }
+}
+async function aplicarFechaTransitos(modo) {
+  const msg = document.getElementById('trFechaMsg');
+  if (!window._transitosActivos) return;
+  const mismoMinuto = function(x, y) {
+    return x.getFullYear() === y.getFullYear() && x.getMonth() === y.getMonth() && x.getDate() === y.getDate()
+        && x.getHours() === y.getHours() && x.getMinutes() === y.getMinutes();
+  };
+  // Instante del tránsito que se está viendo ahora (el que se deja atrás al cambiar)
+  const actual = window._transitosFecha ? new Date(window._transitosFecha.getTime())
+               : (window._transitosUtc ? new Date(window._transitosUtc.getTime()) : new Date());
+  let fecha = null, previo = window._transitosPrevio;
+  if (modo === 'calcular') {
+    const c = _trLeerCampos();
+    if ([c.dia, c.mes, c.anio, c.hora, c.min].some(function(x) { return isNaN(x); })) {
+      if (msg) msg.textContent = 'Completa día, mes, año, hora y minuto.'; return;
+    }
+    if (c.mes < 1 || c.mes > 12 || c.hora > 23 || c.min > 59 || c.anio < 1) {
+      if (msg) msg.textContent = 'Revisa los valores: mes 1-12, hora 0-23, minuto 0-59.'; return;
+    }
+    fecha = new Date(2000, 0, 1, c.hora, c.min, 0);
+    fecha.setFullYear(c.anio, c.mes - 1, c.dia);
+    if (fecha.getDate() !== c.dia || fecha.getMonth() !== c.mes - 1) {
+      if (msg) msg.textContent = 'Esa fecha no existe en el calendario.'; return;
+    }
+    if (mismoMinuto(fecha, new Date())) fecha = null;     // coincide con el momento actual: es el "ahora"
+    if ((window._trCalculos || 0) >= 1) previo = actual;   // desde la segunda carta se guarda la anterior
+  } else if (modo === 'ahora') {
+    previo = actual;
+    fecha = null;
+  } else if (modo === 'anterior') {
+    if (!previo) return;
+    fecha = new Date(previo.getTime());
+    previo = actual;
+  }
+  const _n = (window._trCalculos || 0) + 1;
+  window._trReaplicando = true;
+  try {
+    await toggleTransitos();           // desactiva (vuelve a la natal)
+    window._transitosFecha = fecha;    // null = ahora
+    window._transitosPrevio = previo;
+    window._trCalculos = _n;
+    await toggleTransitos();           // activa con la fecha elegida
+  } finally {
+    window._trReaplicando = false;
+  }
+  _syncTransitosFechaBox();
+}
+window.aplicarFechaTransitos = aplicarFechaTransitos;
+
 async function toggleTransitos() {
   var btn = document.getElementById('btnTransitos');
   if (window._transitosActivos) {
@@ -20748,7 +21276,8 @@ async function toggleTransitos() {
   }
 
   try {
-    var nowUtc = new Date();
+    var nowUtc = window._transitosFecha ? new Date(window._transitosFecha.getTime()) : new Date();
+    window._transitosUtc = nowUtc;
     var transitPlanets;
     try {
       var sweInst = await loadSwephWasm();
@@ -20781,7 +21310,7 @@ async function toggleTransitos() {
     if (tEl) {
       var diasSem = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
       var mesesN  = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-      var now2 = new Date();
+      var now2 = window._transitosFecha ? new Date(window._transitosFecha.getTime()) : new Date();
       var dia2 = diasSem[now2.getDay()];
       var d2   = now2.getDate();
       var mes2 = mesesN[now2.getMonth()];
@@ -31317,6 +31846,7 @@ window.libreOnGroupChange = function(val){
       <div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;">
         <div class="chart-wrap" style="border-color:rgba(244,114,182,0.25);">
           <div style="text-align:center;padding:8px 0 4px;font-size:13px;letter-spacing:.18em;color:#f472b6;text-transform:uppercase;" id="sinTituloChart"></div>
+          <div id="sinVerOfiucoWrap" style="display:none;text-align:center;margin:6px 0 10px;"><button type="button" onclick="oProyectarSinastriaOfiuco()" style="background:rgba(72,200,120,0.1);border:1px solid #48c878;color:#48c878;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:10px 22px;cursor:pointer;" onmouseover="this.style.boxShadow='0 0 18px rgba(72,200,120,.3)'" onmouseout="this.style.boxShadow=''">⛎︎ Ver en Ofiuco (13 signos)</button></div>
           <canvas id="sinChart" width="780" height="780" style="width:100%;height:auto;display:block;"></canvas>
           <!-- ── Selector de vista sinastría ── -->
           <div style="display:flex;justify-content:center;margin:10px 0 4px;">
@@ -31591,6 +32121,7 @@ window.libreOnGroupChange = function(val){
       <div style="display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;">
         <div class="chart-wrap" style="border-color:rgba(167,139,250,0.25);">
           <div style="text-align:center;padding:8px 0 4px;font-size:13px;letter-spacing:.18em;color:#a78bfa;text-transform:uppercase;" id="compTituloChart"></div>
+          <div id="compVerOfiucoWrap" style="display:none;text-align:center;margin:6px 0 10px;"><button type="button" onclick="oProyectarCompuestaOfiuco()" style="background:rgba(72,200,120,0.1);border:1px solid #48c878;color:#48c878;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:10px 22px;cursor:pointer;" onmouseover="this.style.boxShadow='0 0 18px rgba(72,200,120,.3)'" onmouseout="this.style.boxShadow=''">⛎︎ Ver en Ofiuco (13 signos)</button></div>
           <canvas id="compChart" width="780" height="780" style="width:100%;height:auto;display:block;"></canvas>
           <div style="margin-top:14px;padding:12px 16px;background:rgba(0,8,20,0.7);border:1px solid rgba(167,139,250,0.2);font-size:13px;line-height:1.8;letter-spacing:.04em;color:rgba(255,255,255,0.7);">
             Carta generada por el método de <strong style="color:#a78bfa;">puntos medios</strong> (mid-point): cada planeta se ubica en el punto medio de arco entre los planetas homólogos de ambas cartas.
@@ -33019,6 +33550,7 @@ window.libreOnGroupChange = function(val){
         mcMid = _norm(resA.mc + (diffMc <= 180 ? diffMc/2 : diffMc/2+180));
       }
 
+      window._compResA = resA; window._compResB = resB; window._compPlanetsMid = compPlanets_midp; window._compAscMid = ascMid;
       var titulo = document.getElementById('compTituloChart');
       if (titulo) titulo.textContent = 'Compuesta · ' + (dA.nombre||'Carta Principal') + ' & ' + (dB.nombre||'Segunda Persona');
 
@@ -33734,6 +34266,7 @@ window.libreOnGroupChange = function(val){
   //  RENDER PRINCIPAL
   // ════════════════════════════════════════════════════════════════════
   function renderOfiucoChart() {
+    try { if (typeof window._oActualizarLabelsVista === 'function') window._oActualizarLabelsVista(); } catch(e) {}
     // Usar datos activos del retorno Ofiuco si están disponibles, si no natal
     const planets = window._ofiucoRetornoPlanets || window._cartaOriginalPlanets;
     const asc     = (window._ofiucoRetornoAsc != null && !isNaN(window._ofiucoRetornoAsc))
@@ -34180,31 +34713,8 @@ window.oRRetornoAnioEditar = function() {
   dots.forEach(function(d){ d.classList.remove('filled','ready'); });
 }
 
-// Otras Cartas: dropdown con estado persistente para Tránsitos
-function otraCartaOnChange(sel) {
-  var v = sel.value;
-  if (v === 'sinastria') { abrirSinastriaView(); sel.value=''; return; }
-  if (v === 'compuesta') { abrirCompuestaView(); sel.value=''; return; }
-  if (v === 'transitos') {
-    // Si hay un retorno activo, volver primero a la carta natal antes de activar tránsitos
-    if (window._retornoTipoActivo) {
-      volverOfiucoNatal();
-    }
-    toggleTransitos();
-    // El dropdown queda visible con "Tránsitos Planetarios" seleccionado
-    return;
-  }
-}
-// otraCartaEditar: mantenida por compatibilidad (ya no hay chip)
-function otraCartaEditar() {
-  var sel=_rEl('otraCartaSel'); if(sel) sel.value='';
-  if(window._transitosActivos) toggleTransitos();
-}
-
-// Alias para compatibilidad con código existente que llama onRetornoTipoChange()
-
-
   window.volverOfiucoNatal = function () {
+    window._oOvStash = null; window._oVistaNatalSolo = false;
     // Limpiar datos de retorno Ofiuco
     window._ofiucoRetornoPlanets = null;
     window._ofiucoRetornoAsc     = null;
@@ -34244,6 +34754,218 @@ function otraCartaEditar() {
     }, 800);
   };
 
+
+  // ════════════════════════════════════════════════════════════════════
+  //  OTRAS CARTAS OFIUCO — Tránsitos · Sinastría · Compuesta
+  //  Reutiliza la rueda doble de los Retornos Ofiuco (natal dentro, carta
+  //  externa en _ofiucoRetornoPlanets) y el mismo botón "Volver".
+  // ════════════════════════════════════════════════════════════════════
+  window._oOtraCarta = null;          // 'transitos' | 'sinastria' | 'compuesta' | null
+  window._oEntradaOtraCarta = null;   // desde qué opción se abrió la vista de sin/comp
+  window._oTrFecha = null; window._oTrPrevio = null; window._oTrCalculos = 0; window._oTrUtc = null;
+
+  const _oE = id => document.getElementById(id);
+  function _oNatalAsc() {
+    return (window._cartaOriginalAsc != null && !isNaN(window._cartaOriginalAsc)) ? window._cartaOriginalAsc
+         : (window._savedAsc != null && !isNaN(window._savedAsc) ? window._savedAsc : 0);
+  }
+  function _oBanner(txt) {
+    const el = _oE('oOtraCartaTitulo'); if (!el) return;
+    el.textContent = txt || ''; el.style.display = txt ? '' : 'none';
+  }
+  function _oLimpiarRetornoUI() {
+    ['oRStep2Mes','oRStep3Anio','oRStep3AnioResumen','oRStep4LunarResumen'].forEach(id => { const e=_oE(id); if(e) e.style.display='none'; });
+    const sel=_oE('oRetornoTipo'); if (sel) sel.value='';
+    const st=_oE('oRetornoStatus'); if (st) st.textContent='';
+  }
+  function _oOtraResetUI() {
+    window._oOvStash = null; window._oVistaNatalSolo = false;
+    window._oOtraCarta = null; window._oTrFecha = null; window._oTrPrevio = null; window._oTrCalculos = 0; window._oTrUtc = null;
+    const sel=_oE('oOtraCartaSel'); if (sel) sel.value='';
+    const box=_oE('oTransitosFechaBox'); if (box) box.style.display='none';
+    _oBanner('');
+  }
+  function _oAplicarOverlay(planets, asc, utc, tipoInfo, lineas) {
+    window._oOvStash = null; window._oVistaNatalSolo = false;
+    window._ofiucoRetornoPlanets = planets;
+    window._ofiucoRetornoAsc = asc;
+    window._ofiucoRetornoUtc = utc;
+    window._ofiucoRetornoTipoActivo = tipoInfo;
+    window._lineasOfiucoActivas = false;
+    window._oCrossAspects = [];
+    try { renderOfiucoChart(); } catch(e) { console.error('Ofiuco otra carta:', e); }
+    const bv=_oE('oRetornoBtnVolverTop'); if (bv) bv.style.display='flex';
+    if (lineas && typeof window.toggleLineasOfiuco === 'function') window.toggleLineasOfiuco();
+    else if (typeof window._restaurarAspectosNatalesOfiucoEnPanel === 'function') window._restaurarAspectosNatalesOfiucoEnPanel();
+  }
+  function _oAsegurarOfiucoActivo() {
+    const sec=_oE('ofiucoSection');
+    if (sec && sec.style.display === 'none' && typeof window.toggleOfiuco === 'function') window.toggleOfiuco();
+  }
+
+  // ── Tránsitos ──
+  function _oActualizarBotonesTransitos() {
+    const bA=_oE('oTrBtnAhora'), bP=_oE('oTrBtnAnterior'), fila=_oE('oTrBtnsFila'), sep=_oE('oTrSep');
+    if (!bA||!bP||!fila||!sep) return;
+    const enPers = window._oTrFecha != null;
+    const segunda = (window._oTrCalculos||0) >= 2;
+    const hayAnt = segunda && window._oTrPrevio != null;
+    const verAhora = enPers || segunda;
+    fila.style.display = (verAhora||hayAnt) ? 'flex' : 'none';
+    sep.style.display  = (verAhora||hayAnt) ? 'block' : 'none';
+    bA.style.display = verAhora ? 'inline-block' : 'none';
+    bP.style.display = hayAnt ? 'inline-block' : 'none';
+    bA.disabled = !enPers; bP.disabled = false;
+  }
+  window._oActualizarBotonesTransitos = _oActualizarBotonesTransitos;
+  function _oSyncTransitosBox() {
+    const box=_oE('oTransitosFechaBox'); if (!box) return;
+    if (window._oOtraCarta === 'transitos') {
+      const d = window._oTrFecha ? new Date(window._oTrFecha.getTime()) : (window._oTrUtc ? new Date(window._oTrUtc.getTime()) : new Date());
+      const set=(id,v,n)=>{ const el=_oE(id); if(el) el.value=String(v).padStart(n,'0'); };
+      set('oTrDia',d.getDate(),2); set('oTrMes',d.getMonth()+1,2); set('oTrAnio',d.getFullYear(),4);
+      set('oTrHora',d.getHours(),2); set('oTrMin',d.getMinutes(),2);
+      const m=_oE('oTrFechaMsg'); if (m) m.textContent='';
+      box.style.display='flex'; _oActualizarBotonesTransitos();
+    } else box.style.display='none';
+  }
+  async function _oActivarTransitos(fecha) {
+    const msg=_oE('oTrFechaMsg');
+    const natal = window._cartaOriginalPlanets;
+    if (!natal || !natal.length) { if (msg) msg.textContent='Primero calcula la carta natal.'; return false; }
+    const utc = fecha ? new Date(fecha.getTime()) : new Date();
+    const asc = _oNatalAsc(), lat = window._savedLat, lon = window._savedLon;
+    let tp = null;
+    try {
+      const swe = (typeof loadSwephWasm === 'function') ? await loadSwephWasm() : null;
+      tp = (swe && typeof swe.swe_calc_ut === 'function' && typeof compPlanetsSweph === 'function')
+        ? await compPlanetsSweph(utc, asc, lat, lon) : compPlanets(utc, asc, lat, lon);
+    } catch(e) { try { tp = compPlanets(utc, asc, lat, lon); } catch(e2) {} }
+    if (!tp) { if (msg) msg.textContent='No se pudieron calcular los tránsitos.'; return false; }
+    window._oTrFecha = fecha ? new Date(fecha.getTime()) : null;
+    window._oTrUtc = utc;
+    _oLimpiarRetornoUI();
+    _oAplicarOverlay(tp, asc, utc, { tipo:'transitos', icono:'✦', aspLabel:'✦ Aspectos de Tránsitos' }, true);
+    const dias=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    const mes=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    const p2=n=>String(n).padStart(2,'0');
+    _oBanner('Tránsitos del '+dias[utc.getDay()]+', '+utc.getDate()+' de '+mes[utc.getMonth()]+' de '+utc.getFullYear()+' · '+p2(utc.getHours())+':'+p2(utc.getMinutes()));
+    return true;
+  }
+  window.oAplicarFechaTransitos = async function(modo) {
+    if (window._oOtraCarta !== 'transitos') return;
+    const msg=_oE('oTrFechaMsg');
+    const actual = window._oTrFecha ? new Date(window._oTrFecha.getTime()) : (window._oTrUtc ? new Date(window._oTrUtc.getTime()) : new Date());
+    let fecha=null, previo=window._oTrPrevio;
+    if (modo==='calcular') {
+      const v=id=>{ const el=_oE(id); return el && el.value!=='' ? parseInt(el.value,10) : NaN; };
+      const c={dia:v('oTrDia'),mes:v('oTrMes'),anio:v('oTrAnio'),hora:v('oTrHora'),min:v('oTrMin')};
+      if ([c.dia,c.mes,c.anio,c.hora,c.min].some(isNaN)) { if(msg) msg.textContent='Completa día, mes, año, hora y minuto.'; return; }
+      if (c.mes<1||c.mes>12||c.hora>23||c.min>59||c.anio<1) { if(msg) msg.textContent='Revisa los valores: mes 1-12, hora 0-23, minuto 0-59.'; return; }
+      fecha=new Date(2000,0,1,c.hora,c.min,0); fecha.setFullYear(c.anio,c.mes-1,c.dia);
+      if (fecha.getDate()!==c.dia||fecha.getMonth()!==c.mes-1) { if(msg) msg.textContent='Esa fecha no existe en el calendario.'; return; }
+      const n=new Date();
+      if (fecha.getFullYear()===n.getFullYear()&&fecha.getMonth()===n.getMonth()&&fecha.getDate()===n.getDate()&&fecha.getHours()===n.getHours()&&fecha.getMinutes()===n.getMinutes()) fecha=null;
+      if ((window._oTrCalculos||0)>=1) previo=actual;
+    } else if (modo==='ahora') { previo=actual; fecha=null; }
+    else if (modo==='anterior') { if(!previo) return; fecha=new Date(previo.getTime()); previo=actual; }
+    const ok = await _oActivarTransitos(fecha);
+    if (ok) { window._oTrPrevio=previo; window._oTrCalculos=(window._oTrCalculos||0)+1; }
+    _oSyncTransitosBox();
+  };
+
+  // ── Selector ──
+  window.oOtraCartaOnChange = function(sel) {
+    const v = sel.value;
+    if (v==='sinastria') { window._oEntradaOtraCarta='sinastria'; sel.value=''; if (typeof abrirSinastriaView==='function') abrirSinastriaView(); return; }
+    if (v==='compuesta') { window._oEntradaOtraCarta='compuesta'; sel.value=''; if (typeof abrirCompuestaView==='function') abrirCompuestaView(); return; }
+    if (v==='transitos') {
+      window._oOtraCarta='transitos'; window._oTrFecha=null; window._oTrPrevio=null; window._oTrCalculos=0;
+      _oActivarTransitos(null).then(ok => {
+        if (!ok) { window._oOtraCarta=null; sel.value=''; }
+        _oSyncTransitosBox();
+      });
+    }
+  };
+
+  // ── Sinastría / Compuesta proyectadas en la rueda de 13 signos ──
+  window.oProyectarSinastriaOfiuco = function() {
+    const rA=window._sinResA, rB=window._sinResB; if (!rA||!rB) return;
+    const asc=(rA.asc!=null && !isNaN(rA.asc)) ? rA.asc : _oNatalAsc();
+    const nombres=window._sinNombresAB||['Carta A','Carta B'];
+    if (typeof volverCartaOriginal==='function') volverCartaOriginal();
+    _oAsegurarOfiucoActivo();
+    _oLimpiarRetornoUI();
+    window._oOtraCarta='sinastria';
+    _oAplicarOverlay(rB.planets, asc, rB.utc, { tipo:'sinastria', icono:'♡', aspLabel:'♡ Aspectos de Sinastría' }, true);
+    _oBanner('Sinastría · '+nombres[0]+' ♡ '+nombres[1]);
+  };
+  window.oProyectarCompuestaOfiuco = function() {
+    const pl=window._compPlanetsMid; if (!pl||!pl.length) return;
+    const asc=(window._compAscMid!=null && !isNaN(window._compAscMid)) ? window._compAscMid : _oNatalAsc();
+    const utc=(window._compResA && window._compResA.utc) || window._cartaOriginalUtc;
+    if (typeof volverCartaOriginal==='function') volverCartaOriginal();
+    _oAsegurarOfiucoActivo();
+    _oLimpiarRetornoUI();
+    window._oOtraCarta='compuesta';
+    _oAplicarOverlay(pl, asc, utc, { tipo:'compuesta', icono:'✦', aspLabel:'✦ Aspectos de Compuesta' }, false);
+    _oBanner('Carta Compuesta · punto medio');
+  };
+  (function _oWrapSinComp() {
+    const wrap=(name,wrapId,kind)=>{
+      const f=window[name]; if (typeof f!=='function' || f._oWrapped) return;
+      const w=async function(){
+        const r=await f.apply(this,arguments);
+        const el=_oE(wrapId);
+        if (el) el.style.display = (window._oEntradaOtraCarta===kind) ? 'block' : 'none';
+        return r;
+      };
+      w._oWrapped=true; window[name]=w;
+    };
+    const run=()=>{ wrap('calcularSinastriaChart','sinVerOfiucoWrap','sinastria'); wrap('calcularCompuestaChart','compVerOfiucoWrap','compuesta'); };
+    run(); window.addEventListener('load', run);
+  })();
+
+
+  // ── Botón "Activar/Desactivar Líneas" en la carta natal (igual al de Ofiuco) ──
+  (function _wrapBtnLineasNatal() {
+    function upd() {
+      const btn = document.getElementById('btnActivarLineasNatal');
+      if (!btn) return;
+      const esTr = !!window._transitosActivos;
+      const act = esTr ? !!window._lineasTransitosActivas : !!window._lineasRetornoActivas;
+      window._btnLineasNatalActivo = act;
+      btn.textContent = '⟳ ' + (act ? 'Desactivar' : 'Activar') + ' Líneas de ' + (esTr ? 'Tránsitos' : 'Retornos');
+      btn.style.background  = act ? 'rgba(255,165,0,0.15)' : 'transparent';
+      btn.style.borderColor = act ? 'rgba(255,165,0,0.9)'  : 'rgba(255,165,0,0.5)';
+      btn.style.color       = act ? '#ffd166'              : 'rgba(255,165,0,0.85)';
+      btn.style.boxShadow   = act ? '0 0 18px rgba(255,165,0,.28)' : '';
+    }
+    window._actualizarBtnLineasNatal = upd;
+    ['toggleLineasRetorno','toggleLineasTransitos','cambiarVistaRetorno','_actualizarLabelsVistaRetorno','volverCartaNatal'].forEach(function(n) {
+      const f = window[n];
+      if (typeof f !== 'function' || f._wBtnL) return;
+      const w = function() {
+        const r = f.apply(this, arguments);
+        if (r && typeof r.then === 'function') r.then(upd, upd); else upd();
+        return r;
+      };
+      w._wBtnL = true; window[n] = w;
+    });
+    upd();
+  })();
+
+  // ── Integración con Volver y Retornos ──
+  (function(){
+    const v=window.volverOfiucoNatal;
+    window.volverOfiucoNatal=function(){ _oOtraResetUI(); window._oEntradaOtraCarta=null;
+      ['sinVerOfiucoWrap','compVerOfiucoWrap'].forEach(id=>{const e=_oE(id); if(e) e.style.display='none';});
+      return v.apply(this,arguments); };
+    const r=window.calcularOfiucoRetorno;
+    if (typeof r==='function') window.calcularOfiucoRetorno=async function(){ _oOtraResetUI(); return r.apply(this,arguments); };
+  })();
+
+
   // ════════════════════════════════════════════════════════════════════
   //  PARTES ARÁBIGAS Y ASTEROIDES — propias de Ofiuco
   // ════════════════════════════════════════════════════════════════════
@@ -34275,30 +34997,21 @@ function otraCartaEditar() {
   window.closeOPartesModal     = () => _oCerrarModal('oPartesModal');
   window.closeOAsteroidesModal = () => _oCerrarModal('oAsteroidesModal');
 
-  window.oSelectAllPartes = function() {
-    document.querySelectorAll('#oPartesCheckboxes button[data-key]').forEach(btn => {
-      window._oActivatedPartesOfiuco.add(btn.dataset.key);
-      btn.style.background = 'rgba(240,165,0,0.22)'; btn.style.border = '1px solid #f0a500';
-      btn.style.color = '#f0a500'; btn.querySelector('span:last-child').style.fontWeight = '700';
+  // ── Listas visibles (mismo filtrado que la carta natal: sin alias duplicados y según género) ──
+  function _oPartesVisibles() {
+    const TODAS = (typeof TODAS_LAS_PARTES !== 'undefined') ? TODAS_LAS_PARTES : [];
+    const gender = (document.getElementById('selGender') || {}).value || 'M';
+    return TODAS.filter(p => {
+      if (typeof _esAliasParte === 'function' && typeof _resolverClaveParte === 'function' &&
+          _esAliasParte(p.key) && TODAS.some(q => q.key === _resolverClaveParte(p.key))) return false;
+      if (p.genderH && gender !== 'M') return false;
+      if (p.genderF && gender !== 'F') return false;
+      return true;
     });
-  };
-  window.oClearAllPartes = function() {
-    document.querySelectorAll('#oPartesCheckboxes button[data-key]').forEach(btn => {
-      window._oActivatedPartesOfiuco.delete(btn.dataset.key);
-      btn.style.background = 'rgba(240,165,0,0.05)'; btn.style.border = '1px solid rgba(240,165,0,0.25)';
-      btn.style.color = '#ffffff'; btn.querySelector('span:last-child').style.fontWeight = '400';
-    });
-  };
-  window.oApplyPartes = function() {
-    // Leer selecciones del modal propio de Ofiuco
-    document.querySelectorAll('#oPartesCheckboxes button[data-key]').forEach(btn => {
-      const key = btn.dataset.key;
-      const isActive = btn.style.background.includes('0.22') || (btn.style.border.includes('#f0a500') && !btn.style.border.includes('rgba'));
-      if (isActive) window._oActivatedPartesOfiuco.add(key);
-      else window._oActivatedPartesOfiuco.delete(key);
-    });
-    _oCerrarModal('oPartesModal');
-    renderOfiucoPartesPanel();
+  }
+  function _oAplicarExtrasComun(setRef, modalId, renderFn, tab) {
+    _oCerrarModal(modalId);
+    renderFn();
     redrawOfiucoWithFilter();
     refreshOAspLineAstroExtras();
     // ── Actualizar panel de aspectos Ofiuco según estado activo ──
@@ -34309,125 +35022,74 @@ function otraCartaEditar() {
     } else if (typeof window.renderOfiucoAspectos === 'function') {
       window.renderOfiucoAspectos(window._ofiucoPlanets13);
     }
-    if (window._oActivatedPartesOfiuco.size > 0) switchOfiucoTab('partes');
+    if (setRef.size > 0) switchOfiucoTab(tab);
+  }
+
+  window.oSelectAllPartes = function() {
+    _oPartesVisibles().forEach(p => window._oActivatedPartesOfiuco.add(p.key));
+    window.openOfiucoPartesModal(); // refresca acordeones y badges (igual que la natal)
+  };
+  window.oClearAllPartes = function() {
+    window._oActivatedPartesOfiuco.clear();
+    window.openOfiucoPartesModal();
+  };
+  window.oApplyPartes = function() {
+    // Los toggles del acordeón ya actualizan _oActivatedPartesOfiuco en vivo
+    _oAplicarExtrasComun(window._oActivatedPartesOfiuco, 'oPartesModal', renderOfiucoPartesPanel, 'partes');
   };
 
   window.oSelectAllAsteroides = function() {
-    document.querySelectorAll('#oAsteroidesCheckboxes button[data-key]').forEach(btn => {
-      window._oActivatedAsteroidesOfiuco.add(btn.dataset.key);
-      btn.style.background = 'rgba(192,132,252,0.22)'; btn.style.border = '1px solid #c084fc';
-      btn.style.color = '#c084fc'; btn.querySelector('span:last-child').style.fontWeight = '700';
-    });
+    const TODOS = (typeof TODOS_LOS_ASTEROIDES !== 'undefined') ? TODOS_LOS_ASTEROIDES : [];
+    TODOS.forEach(a => window._oActivatedAsteroidesOfiuco.add(a.key));
+    window.openOfiucoAsteroidesModal();
   };
   window.oClearAllAsteroides = function() {
-    document.querySelectorAll('#oAsteroidesCheckboxes button[data-key]').forEach(btn => {
-      window._oActivatedAsteroidesOfiuco.delete(btn.dataset.key);
-      btn.style.background = 'rgba(192,132,252,0.05)'; btn.style.border = '1px solid rgba(192,132,252,0.25)';
-      btn.style.color = '#ffffff'; btn.querySelector('span:last-child').style.fontWeight = '400';
-    });
+    window._oActivatedAsteroidesOfiuco.clear();
+    window.openOfiucoAsteroidesModal();
   };
   window.oApplyAsteroides = function() {
-    document.querySelectorAll('#oAsteroidesCheckboxes button[data-key]').forEach(btn => {
-      const key = btn.dataset.key;
-      const isActive = btn.style.background.includes('0.22') || (btn.style.border.includes('#c084fc') && !btn.style.border.includes('rgba'));
-      if (isActive) window._oActivatedAsteroidesOfiuco.add(key);
-      else window._oActivatedAsteroidesOfiuco.delete(key);
-    });
-    _oCerrarModal('oAsteroidesModal');
-    renderOfiucoAsteroidesPanel();
-    redrawOfiucoWithFilter();
-    refreshOAspLineAstroExtras();
-    // ── Actualizar panel de aspectos Ofiuco según estado activo ──
-    if (window._lineasOfiucoActivas) {
-      if (typeof window._mostrarAspectosRetornoOfiucoEnPanel === 'function') {
-        window._mostrarAspectosRetornoOfiucoEnPanel();
-      }
-    } else if (typeof window.renderOfiucoAspectos === 'function') {
-      window.renderOfiucoAspectos(window._ofiucoPlanets13);
-    }
-    if (window._oActivatedAsteroidesOfiuco.size > 0) switchOfiucoTab('asteroides');
+    _oAplicarExtrasComun(window._oActivatedAsteroidesOfiuco, 'oAsteroidesModal', renderOfiucoAsteroidesPanel, 'asteroides');
   };
 
   window.openOfiucoPartesModal = function () {
     const cont = document.getElementById('oPartesCheckboxes');
     if (!cont) return;
-    cont.innerHTML = '';
-    const TODAS = (typeof TODAS_LAS_PARTES !== 'undefined') ? TODAS_LAS_PARTES : [];
-    TODAS.forEach(p => {
-      const active = window._oActivatedPartesOfiuco.has(p.key);
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.dataset.key = p.key;
-      const glyphHtml = p.g ? `<span style="font-size:22px;">${p.g}</span>` : '';
-      btn.style.cssText = `display:flex;align-items:center;gap:10px;padding:10px 14px;
-        background:${active ? 'rgba(240,165,0,0.22)' : 'rgba(240,165,0,0.05)'};
-        border:1px solid ${active ? '#f0a500' : 'rgba(240,165,0,0.25)'};
-        color:${active ? '#f0a500' : '#ffffff'};
-        cursor:pointer;transition:all .18s;border-radius:2px;text-align:left;width:100%;`;
-      btn.innerHTML = `${glyphHtml}<span style="font-size:14px;font-weight:${active ? '700' : '400'};">${p.short}</span>`;
-      btn.onclick = () => {
-        const isNow = window._oActivatedPartesOfiuco.has(p.key);
-        if (isNow) {
-          window._oActivatedPartesOfiuco.delete(p.key);
-          btn.style.background = 'rgba(240,165,0,0.05)'; btn.style.border = '1px solid rgba(240,165,0,0.25)';
-          btn.style.color = '#ffffff'; btn.querySelector('span:last-child').style.fontWeight = '400';
-        } else {
-          window._oActivatedPartesOfiuco.add(p.key);
-          btn.style.background = 'rgba(240,165,0,0.22)'; btn.style.border = '1px solid #f0a500';
-          btn.style.color = '#f0a500'; btn.querySelector('span:last-child').style.fontWeight = '700';
-        }
-      };
-      cont.appendChild(btn);
-    });
+    _buildAccordionModal(cont, _oPartesVisibles(), window._oActivatedPartesOfiuco, '#f0a500', '240,165,0', null);
     _oMostrarModal('oPartesModal');
   };
 
   window.openOfiucoAsteroidesModal = function () {
     const cont = document.getElementById('oAsteroidesCheckboxes');
     if (!cont) return;
-    cont.innerHTML = '';
     const TODOS = (typeof TODOS_LOS_ASTEROIDES !== 'undefined') ? TODOS_LOS_ASTEROIDES : [];
-    TODOS.forEach(a => {
-      const active = window._oActivatedAsteroidesOfiuco.has(a.key);
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.dataset.key = a.key;
-      btn.style.cssText = `display:flex;align-items:center;gap:10px;padding:10px 14px;
-        background:${active ? 'rgba(192,132,252,0.22)' : 'rgba(192,132,252,0.05)'};
-        border:1px solid ${active ? '#c084fc' : 'rgba(192,132,252,0.25)'};
-        color:${active ? '#c084fc' : '#ffffff'};
-        cursor:pointer;transition:all .18s;border-radius:2px;text-align:left;width:100%;`;
-      btn.innerHTML = `<span style="font-size:22px;">${a.g}</span><span style="font-size:14px;font-weight:${active ? '700' : '400'};">${a.name}</span>`;
-      btn.onclick = () => {
-        const isNow = window._oActivatedAsteroidesOfiuco.has(a.key);
-        if (isNow) {
-          window._oActivatedAsteroidesOfiuco.delete(a.key);
-          btn.style.background = 'rgba(192,132,252,0.05)'; btn.style.border = '1px solid rgba(192,132,252,0.25)';
-          btn.style.color = '#ffffff'; btn.querySelector('span:last-child').style.fontWeight = '400';
-        } else {
-          window._oActivatedAsteroidesOfiuco.add(a.key);
-          btn.style.background = 'rgba(192,132,252,0.22)'; btn.style.border = '1px solid #c084fc';
-          btn.style.color = '#c084fc'; btn.querySelector('span:last-child').style.fontWeight = '700';
-        }
-      };
-      cont.appendChild(btn);
-    });
+    _buildAccordionModal(cont, TODOS, window._oActivatedAsteroidesOfiuco, '#c084fc', '192,132,252', null);
     _oMostrarModal('oAsteroidesModal');
   };
 
   // ════════════════════════════════════════════════════════════════════
   //  PANEL PLANETAS
   // ════════════════════════════════════════════════════════════════════
+  // Dignidades sobre los 13 signos: cada constelación equivale a su signo tradicional
+  // (Ofiuco no tiene dignidad tradicional; Quirón es su regente → domicilio en Ofiuco)
+  const _O_TRAD_IDX = [0,1,2,3,4,5,6,7,null,8,9,10,11];
+  function digOfiuco(p, sInfo) {
+    if (p.key === 'Chiron') return sInfo.idx === 8 ? 'dom' : 'pe';
+    const t = _O_TRAD_IDX[sInfo.idx];
+    if (t == null || typeof dignidad !== 'function') return 'pe';
+    return dignidad(p.key, t);
+  }
+
   function renderOfiucoPlanetsPanel(planets, houses13) {
     const grid = document.getElementById('oPbGrid');
     if (!grid) return;
     grid.innerHTML = '';
 
+    // Hint de interpretación (mismo texto y formato que la natal)
     const hint = document.createElement('div');
     hint.style.cssText = 'padding:8px 6px 12px;font-size:13px;color:rgba(72,200,120,0.55);' +
       'letter-spacing:.1em;text-transform:uppercase;text-align:center;' +
       'border-bottom:1px solid rgba(72,200,120,0.15);margin-bottom:8px;';
-    hint.textContent = '⛎︎ Toca cualquier planeta para ver su interpretación';
+    hint.textContent = '✦ Toca cualquier objeto para ver su interpretación';
     grid.appendChild(hint);
 
     const listView = document.createElement('div');
@@ -34447,8 +35109,14 @@ function otraCartaEditar() {
       return null;
     };
 
+    // Planetas principales (Quirón va justo después de Plutón) y puntos adicionales
     const normal   = planets.filter(p => !p.special && !p.isOfiuco);
-    const specials = planets.filter(p =>  p.special ||  p.isOfiuco);
+    const chiron   = planets.find(p => p.key === 'Chiron' && p.isOfiuco) || planets.find(p => p.key === 'Chiron');
+    const specials = planets.filter(p => p.special && !(chiron && p === chiron));
+    if (chiron) {
+      const iPl = normal.findIndex(p => p.key === 'Pluto');
+      normal.splice(iPl >= 0 ? iPl + 1 : normal.length, 0, chiron);
+    }
 
     const mkRow = (p, color) => {
       const el  = document.createElement('div');
@@ -34458,15 +35126,18 @@ function otraCartaEditar() {
       const sInfo = getSign13Info(p.lon);
       const hNum  = getHouse13(p.lon);
       const hStr  = hNum ? RNUMS13[hNum - 1] : '';
+      const isRetro = p.retro === true;
+      const dg = (p.special && !p.isOfiuco) ? '' : digOfiuco(p, sInfo);
       el.innerHTML = `
         <div style="display:flex;align-items:center;justify-content:center;gap:5px;">
           <span class="pb-g" style="color:${col}">${p.g}</span>
           <span class="pb-name" style="color:${col}">${p.name}</span>
-          ${p.retro ? '<span style="color:#f87171;font-size:18px;font-weight:700;margin-left:2px;">℞</span>' : ''}
+          ${isRetro ? '<span style="color:#f87171;font-size:20px;font-weight:700;margin-left:2px;vertical-align:middle;">℞</span>' : ''}
         </div>
-        <div class="pb-pos" style="font-size:14px;">${sInfo.glyph} ${sInfo.name} ${sInfo.deg}°${String(sInfo.min).padStart(2,'0')}'</div>
+        <div class="pb-pos">${sInfo.glyph} ${sInfo.name} ${sInfo.deg}°${String(sInfo.min).padStart(2,'0')}</div>
         <div class="pb-dig" style="display:flex;flex-direction:column;align-items:center;gap:1px;">
-          ${hStr ? `<span style="font-size:12px;color:rgba(72,200,120,0.8);letter-spacing:.06em;">Casa ${hStr}</span>` : ''}
+          ${dg ? `<span>${DIGS[dg]}</span>` : ''}
+          ${hStr ? `<span style="font-size:12px;color:rgba(72,200,120,0.75);letter-spacing:.06em;">Casa ${hStr}</span>` : ''}
         </div>`;
       el.onclick = () => {
         const hNum2  = getHouse13(p.lon);
@@ -34476,15 +35147,14 @@ function otraCartaEditar() {
       listView.appendChild(el);
     };
 
-    normal.forEach(p => mkRow(p, null));
+    normal.forEach(p => mkRow(p, p === chiron ? '#48c878' : null));
     if (specials.length) {
       const sep = document.createElement('div');
-      sep.style.cssText = 'padding:10px 4px 4px;font-size:13px;letter-spacing:.16em;' +
-        'color:rgba(72,200,120,.8);text-transform:uppercase;' +
-        'border-top:1px solid rgba(72,200,120,.2);margin-top:6px;';
-      sep.textContent = 'Quirón & puntos especiales';
+      sep.style.cssText = 'padding:10px 4px 4px;font-size:17px;letter-spacing:.16em;color:rgba(192,132,252,.7);' +
+        'text-transform:uppercase;border-top:1px solid rgba(192,132,252,.2);margin-top:6px;';
+      sep.textContent = 'puntos adicionales';
       listView.appendChild(sep);
-      specials.forEach(p => mkRow(p, p.isOfiuco ? '#48c878' : '#c084fc'));
+      specials.forEach(p => mkRow(p, '#c084fc'));
     }
   }
 
@@ -34879,11 +35549,13 @@ function otraCartaEditar() {
 
   window.onOSignosFiltroChange = function(val) {
     _oSignosFiltro    = val;
+    if (window._accState) delete window._accState.osignos;
     _oSignosSubFiltro = null;
     renderOfiucoSignosPanel(window._ofiucoPlanets13);
   };
   window.onOSignosSubFiltroChange = function(val) {
     _oSignosSubFiltro = val === '' ? null : parseInt(val, 10);
+    if (window._accState) delete window._accState.osignos;
     renderOfiucoSignosPanel(window._ofiucoPlanets13);
   };
 
@@ -35004,8 +35676,8 @@ function otraCartaEditar() {
         const isOph = s.name === 'Ofiuco';
         const col   = isOph ? '#48c878' : s.color;
         const dim   = group.length === 0 ? 'opacity:0.3;' : '';
-        const borderC = group.length ? 'rgba(251,146,60,0.15)' : 'rgba(255,255,255,0.05)';
-        bodyHTML += `<div style="margin-bottom:11px;${dim}">
+        const borderC = group.length ? 'rgba(251,146,60,0.15)' : '#ffffff';
+        bodyHTML += `<div class="acc-item" style="margin-bottom:11px;${dim}">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
             <span style="font-size:21px;font-family:'Noto Sans Symbols 2','Segoe UI Symbol',sans-serif;color:${col};">${s.glyph}</span>
             <span style="font-size:13px;font-weight:700;color:${col};letter-spacing:.07em;min-width:90px;">${s.name}${isOph ? ' ⛎' : ''}</span>
@@ -35030,17 +35702,17 @@ function otraCartaEditar() {
           const col   = isOph ? '#48c878' : s.color;
           return `<span style="font-size:13px;font-family:'Noto Sans Symbols 2','Segoe UI Symbol',sans-serif;color:${col};">${s.glyph}</span><span style="font-size:11px;color:#ffffff;"> ${s.name}</span>`;
         }).join('<span style="color:#ffffff;margin:0 5px;">·</span>');
-        bodyHTML += `<div style="margin-bottom:20px;">
+        bodyHTML += `<div class="acc-item" style="margin-bottom:20px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <span style="font-size:19px;">${el.glyph}</span>
-            <span style="font-size:22px;font-weight:700;color:${el.col};letter-spacing:.08em;min-width:56px;">${el.name}</span>
+            <span style="font-size:24px;font-weight:700;color:${el.col};letter-spacing:.08em;min-width:56px;">${el.name}</span>
             <span style="font-size:12px;color:#ffffff;margin-left:auto;">${group.length} astro${group.length !== 1 ? 's' : ''}</span>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:7px;">${signRow}</div>
           <div style="height:3px;background:rgba(255,255,255,0.07);border-radius:2px;margin-bottom:8px;">
             <div style="height:100%;width:${pct}%;background:${el.col};border-radius:2px;transition:width .4s;"></div>
           </div>
-          <div style="display:flex;flex-wrap:wrap;gap:5px;min-height:38px;padding:5px 6px;background:rgba(255,255,255,0.03);border-radius:4px;border:1px solid ${group.length ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)'};">
+          <div style="display:flex;flex-wrap:wrap;gap:5px;min-height:38px;padding:5px 6px;background:rgba(255,255,255,0.03);border-radius:4px;border:1px solid ${group.length ? 'rgba(255,255,255,0.08)' : '#ffffff'};">
             ${group.length ? group.map(chip).join('') : '<span style="color:#ffffff;font-size:12px;align-self:center;padding:0 4px;">—</span>'}
           </div>
         </div>`;
@@ -35050,7 +35722,8 @@ function otraCartaEditar() {
     const total = allAstros.length;
     container.innerHTML = filterHTML +
       `<div style="font-size:11px;color:#ffffff;letter-spacing:.07em;margin-bottom:12px;text-align:right;">${total} punto${total !== 1 ? 's' : ''} · zodíaco 13 signos · pasa el cursor</div>` +
-      bodyHTML;
+      '<div id="accToolbar-osignos"></div>' + bodyHTML;
+    _accordionize(container, 'osignos', '#fb923c', '251,146,60');
 
     const sel = document.getElementById('oSignosFiltroSel');
     if (sel) sel.value = _oSignosFiltro;
@@ -35065,6 +35738,7 @@ function otraCartaEditar() {
   let _oCualModo = 'planetas'; // 'planetas' | 'casas'
   window.onOCualModoChange = function(val) {
     _oCualModo = val;
+    if (window._accState) delete window._accState.ocual;
     renderOfiucoCualidadesPanel(window._ofiucoPlanets13);
   };
 
@@ -35100,7 +35774,7 @@ function otraCartaEditar() {
       const borderCol = isRetro ? 'rgba(248,113,113,0.5)' : '#ffffff';
       const textCol   = isRetro ? '#f87171' : 'inherit';
       const sName     = OPH_SIGNS_13[sign13Idx] ? OPH_SIGNS_13[sign13Idx].name : '';
-      return `<span title="${name} en ${sName}${isRetro?' · Retrógrado':''}" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid ${borderCol};font-size:16px;cursor:default;color:${textCol};font-family:'Noto Sans Symbols 2','Segoe UI Symbol',sans-serif;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">${label}${retroSup}</span>`;
+      return `<span title="${name} en ${sName}${isRetro?' · Retrógrado':''}" style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid ${borderCol};font-size:16px;cursor:default;transition:transform .15s;color:${textCol};font-family:'Noto Sans Symbols 2','Segoe UI Symbol',sans-serif;" onmouseover="this.style.transform='scale(1.25)'" onmouseout="this.style.transform='scale(1)'">${label}${retroSup}</span>`;
     }
 
     function buildSection(title, groups, names, colors, glyphs) {
@@ -35111,14 +35785,14 @@ function otraCartaEditar() {
       groups.forEach((group, i) => {
         const pct  = total > 0 ? Math.round(group.length / total * 100) : 0;
         const barW = Math.round(group.length / maxCount * 100);
-        html += `<div style="margin-bottom:14px;">
+        html += `<div class="acc-item" style="margin-bottom:14px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <span style="font-size:18px;width:24px;text-align:center;">${glyphs[i]}</span>
             <span style="font-size:14px;font-weight:700;color:${colors[i]};letter-spacing:.06em;min-width:72px;">${names[i]}</span>
             <span style="font-size:13px;color:#fff;margin-left:auto;">${group.length} · ${pct}%</span>
           </div>
           <div style="height:4px;background:rgba(255,255,255,0.07);border-radius:2px;margin-bottom:8px;">
-            <div style="height:100%;width:${barW}%;background:${colors[i]};border-radius:2px;"></div>
+            <div style="height:100%;width:${barW}%;background:${colors[i]};border-radius:2px;transition:width .4s;"></div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:5px;min-height:34px;padding:4px 2px;background:rgba(255,255,255,0.03);border-radius:4px;border:1px solid rgba(255,255,255,0.06);">
             ${group.length ? group.map(e => buildChip(e.label, e.name, e.sign, e.retro)).join('') : '<span style="color:#fff;font-size:13px;align-self:center;padding:0 6px;">—</span>'}
@@ -35179,12 +35853,26 @@ function otraCartaEditar() {
       qualGroups[QUAL_MAP13[e.sign]].push(e);
     });
 
+    if (_oCualModo === 'casas' && !entries.length) {
+      container.innerHTML = dropdownHTML + '<p style="color:rgba(74,222,128,0.4);font-size:15px;padding:10px 0;">No hay datos de casas disponibles.</p>';
+      const selC = document.getElementById('oCualModoSel');
+      if (selC) selC.value = 'casas';
+      return;
+    }
+
+    const totalPts = entries.length;
+    const infoTxt = (_oCualModo === 'casas')
+      ? '13 casas · zodíaco 13 signos · pasa el cursor para ver'
+      : totalPts + ' punto' + (totalPts !== 1 ? 's' : '') + ' · zodíaco 13 signos · pasa el cursor para ver';
     container.innerHTML = dropdownHTML +
+      '<div style="font-size:11px;color:#ffffff;letter-spacing:.08em;margin-bottom:14px;text-align:right;">' + infoTxt + '</div>' +
+      '<div id="accToolbar-ocual"></div>' +
       buildSection('Elementos',  elemGroups, ELEM_NAMES, ELEM_COLORS, ELEM_GLYPHS) +
       buildSection('Cualidades', qualGroups, QUAL_NAMES, QUAL_COLORS, QUAL_GLYPHS);
 
     const sel = document.getElementById('oCualModoSel');
     if (sel) sel.value = _oCualModo;
+    _accordionize(container, 'ocual', '#4ade80', '74,222,128');
   }
 
   // ════════════════════════════════════════════════════════════════════
@@ -35216,9 +35904,9 @@ function otraCartaEditar() {
       const isAngular = axisLabel !== '';
 
       const row = document.createElement('div');
-      row.style.cssText = `display:grid;grid-template-columns:36px 1fr 36px 1fr 46px;align-items:center;padding:9px 4px;border-bottom:1px solid rgba(240,165,0,0.12);cursor:pointer;transition:background .2s;${isAngular ? 'background:rgba(240,165,0,0.06);' : ''}`;
-      row.onmouseover = () => row.style.background = 'rgba(240,165,0,0.1)';
-      row.onmouseout  = () => row.style.background = isAngular ? 'rgba(240,165,0,0.06)' : '';
+      row.style.cssText = `display:grid;grid-template-columns:36px 1fr 36px 1fr 46px;align-items:center;padding:9px 4px;border-bottom:1px solid rgba(240,165,0,0.12);cursor:pointer;transition:background .2s;`;
+      row.onmouseover = null;
+      row.onmouseout = null;
       row.onclick = () => showOfiucoInterpParte(p, lon, si13, s13, grid);
 
       const colGlifo = document.createElement('span');
@@ -35460,7 +36148,15 @@ function otraCartaEditar() {
   // ════════════════════════════════════════════════════════════════════
   //  SWITCH TABS OFIUCO (7 paneles)
   // ════════════════════════════════════════════════════════════════════
+  // Cierra cualquier vista de interpretación abierta y devuelve la lista (modelo natal)
+  function _oResetInterpViews() {
+    ['backToOfiucoPlanets','backToOfiucoPartes','backToOfiucoAsteroides','backToOfiucoAspects','backToOfiucoHouses']
+      .forEach(fn => { try { if (typeof window[fn] === 'function') window[fn](); } catch(e) {} });
+  }
+  window._oResetInterpViews = _oResetInterpViews;
+
   window.switchOfiucoTab = function (tab) {
+    _oResetInterpViews();
     const TAB_IDS = {
       planetas:   'oTabPlanetas',
       casas:      'oTabCasas',
@@ -35581,7 +36277,9 @@ function otraCartaEditar() {
       const layerTag = isNatal
         ? '<span class="tt-layer" style="color:rgba(0,200,255,0.65);">' + (isOph ? 'Natal · ⛎︎ Ofiuco' : 'Natal · ⛎︎ 13 signos') + '</span>'
         : _oRTipo
-          ? '<span class="tt-layer" style="color:' + (_oColors[_oRTipo.tipo] || 'rgba(255,165,0,0.85)') + ';">Retorno ' + (_oIcons[_oRTipo.tipo] || '⟳') + ' · ⛎︎ 13 signos</span>'
+          ? ({transitos:['#48c878','Tránsito ✦'],sinastria:['#f472b6','Sinastría ♡'],compuesta:['#a78bfa','Compuesta ✦']}[_oRTipo.tipo]
+              ? '<span class="tt-layer" style="color:' + ({transitos:'#48c878',sinastria:'#f472b6',compuesta:'#a78bfa'})[_oRTipo.tipo] + ';">' + ({transitos:'Tránsito ✦',sinastria:'Sinastría ♡',compuesta:'Compuesta ✦'})[_oRTipo.tipo] + ' · ⛎︎ 13 signos</span>'
+              : '<span class="tt-layer" style="color:' + (_oColors[_oRTipo.tipo] || 'rgba(255,165,0,0.85)') + ';">Retorno ' + (_oIcons[_oRTipo.tipo] || '⟳') + ' · ⛎︎ 13 signos</span>')
           : '<span class="tt-layer" style="color:#48c878;">⛎︎ 13 signos</span>';
 
       tip.innerHTML =
@@ -35651,113 +36349,126 @@ function otraCartaEditar() {
   // ════════════════════════════════════════════════════════════════════
   function showOfiucoInterpPlanetaEnCasa(p, houseNum, signInfo, container) {
     const RNUMS13 = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII'];
-    const hStr   = houseNum ? RNUMS13[houseNum - 1] : '?';
+    const hStr   = houseNum ? RNUMS13[houseNum - 1] : '';
     const interp = getOfiucoInterpPlanetaEnCasa(p.key, houseNum, signInfo.idx);
-    const prev = container.querySelector(`.oInterp-planet-${p.key}`);
-    if (prev) prev.remove();
-    const box = document.createElement('div');
-    box.className = `oInterp-planet-${p.key}`;
-    box.style.cssText = 'padding:16px 12px;background:rgba(0,20,10,0.85);' +
-      'border:1px solid rgba(72,200,120,0.3);margin:10px 0;';
-    box.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-        <span style="font-size:26px;">${p.g}</span>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:#48c878;letter-spacing:.08em;">${p.name} en Casa ${hStr}</div>
-          <div style="font-size:12px;color:rgba(72,200,120,0.6);letter-spacing:.06em;">${signInfo.glyph} ${signInfo.name}</div>
-        </div>
-        <button onclick="this.parentElement.parentElement.remove()"
-          style="margin-left:auto;background:transparent;border:none;color:rgba(72,200,120,0.5);font-size:18px;cursor:pointer;">✕</button>
-      </div>
-      <div style="font-size:15px;line-height:1.8;color:#ffffff;">${interp}</div>`;
-    container.insertBefore(box, container.firstChild);
+    const color  = '#48c878';
+    const isRetro = p.retro === true;
+
+    const gEl = document.getElementById('opl-glyph');
+    gEl.textContent = p.g;
+    gEl.style.fontSize = '48px';
+    gEl.style.color = isRetro ? '#f87171' : color;
+
+    const tEl = document.getElementById('opl-title');
+    tEl.innerHTML = p.name + ' en ' + signInfo.glyph + ' ' + signInfo.name +
+      (isRetro ? ' &nbsp;<span style="font-size:14px;font-weight:700;color:#f87171;background:rgba(248,113,113,0.12);border:1px solid rgba(248,113,113,0.35);border-radius:4px;padding:2px 7px;vertical-align:middle;">℞ Retrógrado</span>' : '');
+    tEl.style.color = color;
+
+    const dg = (p.special && !p.isOfiuco) ? '' : digOfiuco(p, signInfo);
+    const dEl = document.getElementById('opl-dig');
+    dEl.textContent = [dg ? 'Dignidad: ' + DIGS[dg] : '', hStr ? 'Casa ' + hStr : ''].filter(Boolean).join('  ·  ');
+    dEl.style.color = 'rgba(72,200,120,0.7)';
+
+    let html = buildInterpHTML(interp);
+    if (isRetro && typeof RETRO_INTERP !== 'undefined' && RETRO_INTERP[p.key]) {
+      html += `<div style="margin-top:18px;padding:14px 16px;background:rgba(248,113,113,0.07);border-left:3px solid #f87171;border-radius:2px;">
+        <div style="font-size:11px;letter-spacing:.18em;color:#f87171;text-transform:uppercase;margin-bottom:8px;">℞ Influencia Retrógrada</div>
+        <div style="font-size:17px;line-height:1.9;color:rgba(255,200,200,0.9);">${RETRO_INTERP[p.key]}</div>
+      </div>`;
+    }
+    document.getElementById('opl-interp').innerHTML = html;
+
+    document.getElementById('oPbGrid').style.display = 'none';
+    document.getElementById('oPlanetInterpView').style.display = '';
   }
 
   function showOfiucoInterpCasa(houseNum, sign, rowEl) {
+    if (!document.getElementById('oh-title')) return; // las casas usan su vista propia dentro del panel
     const RNUMS13 = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII'];
     const hStr   = RNUMS13[houseNum - 1];
     const interp = getOfiucoInterpCasa(houseNum, sign.name);
-    const con    = document.getElementById('oHousesListView');
-    if (!con) return;
-    const existing = con.querySelector('.oInterp');
-    if (existing) existing.remove();
-    const box = document.createElement('div');
-    box.className = 'oInterp';
-    box.style.cssText = 'padding:16px 12px;background:rgba(0,20,10,0.85);' +
-      'border:1px solid rgba(72,200,120,0.3);margin:10px 0;';
-    box.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-        <span style="font-size:22px;color:#48c878;">Casa ${hStr}</span>
-        <span style="font-size:20px;">${sign.glyph}</span>
-        <span style="font-size:15px;color:${sign.color};">${sign.name}</span>
-        <button onclick="this.parentElement.parentElement.remove()"
-          style="margin-left:auto;background:transparent;border:none;color:rgba(72,200,120,0.5);font-size:18px;cursor:pointer;">✕</button>
-      </div>
-      <div style="font-size:15px;line-height:1.8;color:#ffffff;">${interp}</div>`;
-    con.insertBefore(box, rowEl.nextSibling);
+    const color = '#48c878';
+    
+    document.getElementById('oh-title').innerHTML = 'Casa ' + hStr + ' en ' + sign.glyph + ' ' + sign.name;
+    document.getElementById('oh-title').style.color = color;
+    document.getElementById('oh-title').style.fontSize = '22px';
+    document.getElementById('oh-title').style.fontWeight = '700';
+    
+    document.getElementById('oh-interp').innerHTML = buildInterpHTML(interp);
+    
+    document.getElementById('oHousesListView').style.display = 'none';
+    document.getElementById('oHouseInterpView').style.display = '';
   }
 
   function showOfiucoInterpAspecto(pair, rowEl) {
     const interp = getOfiucoInterpAspecto(pair.a.key, pair.b.key, pair.asp.id);
-    const con    = document.getElementById('oAspList');
-    if (!con) return;
-    const existing = con.querySelector('.oInterpAsp');
-    if (existing) existing.remove();
-    const box = document.createElement('div');
-    box.className = 'oInterpAsp';
-    box.style.cssText = 'padding:16px 12px;background:rgba(0,20,10,0.85);' +
-      'border:1px solid rgba(72,200,120,0.3);margin:8px 0;';
-    box.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-        <span style="font-size:20px;">${pair.a.g}</span>
-        <span style="font-size:18px;color:${pair.asp.col};">${pair.asp.glyph}</span>
-        <span style="font-size:20px;">${pair.b.g}</span>
-        <span style="font-size:13px;color:rgba(255,255,255,0.5);">${pair.a.name} ${pair.asp.label} ${pair.b.name}</span>
-        <button onclick="this.parentElement.parentElement.remove()"
-          style="margin-left:auto;background:transparent;border:none;color:rgba(72,200,120,0.5);font-size:18px;cursor:pointer;">✕</button>
-      </div>
-      <div style="font-size:15px;line-height:1.8;color:#ffffff;">${interp}</div>`;
-    con.insertBefore(box, rowEl.nextSibling);
+    const color = '#48c878';
+    
+    document.getElementById('oasp-glyph-a').textContent = pair.a.g;
+    document.getElementById('oasp-glyph-a').style.fontSize = '40px';
+    
+    document.getElementById('oasp-glyph-asp').textContent = pair.asp.glyph;
+    document.getElementById('oasp-glyph-asp').style.color = pair.asp.col;
+    document.getElementById('oasp-glyph-asp').style.fontSize = '36px';
+    
+    document.getElementById('oasp-glyph-b').textContent = pair.b.g;
+    document.getElementById('oasp-glyph-b').style.fontSize = '40px';
+    
+    document.getElementById('oasp-title').innerHTML = pair.a.name + ' ' + pair.asp.label + ' ' + pair.b.name;
+    document.getElementById('oasp-title').style.color = color;
+    document.getElementById('oasp-title').style.fontSize = '22px';
+    document.getElementById('oasp-title').style.fontWeight = '700';
+    
+    document.getElementById('oasp-interp').innerHTML = buildInterpHTML(interp);
+    
+    document.getElementById('oAspList').style.display = 'none';
+    document.getElementById('oAspInterpView').style.display = '';
   }
 
   function showOfiucoInterpParte(p, lon, si13, s13, grid) {
     const interp = getOfiucoInterpParte(p.key, si13);
-    const prev   = grid.querySelector('.oInterpParte');
-    if (prev) prev.remove();
-    const box = document.createElement('div');
-    box.className = 'oInterpParte';
-    box.style.cssText = 'padding:16px 12px;background:rgba(20,10,0,0.85);' +
-      'border:1px solid rgba(240,165,0,0.3);margin:8px 0;';
-    box.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-        <span style="font-size:22px;color:#f0a500;">${p.g || '⬡'}</span>
-        <span style="font-size:14px;font-weight:700;color:#f0a500;">Parte de ${p.short || p.name}</span>
-        <span style="font-size:13px;color:rgba(255,255,255,0.5);margin-left:6px;">${s13.glyph} ${s13.name}</span>
-        <button onclick="this.parentElement.parentElement.remove()"
-          style="margin-left:auto;background:transparent;border:none;color:rgba(240,165,0,0.5);font-size:18px;cursor:pointer;">✕</button>
-      </div>
-      <div style="font-size:15px;line-height:1.8;color:#ffffff;">${interp}</div>`;
-    grid.insertBefore(box, grid.firstChild);
+    const color = '#f0a500';
+    
+    document.getElementById('opt-glyph').textContent = p.g || '⬡';
+    document.getElementById('opt-glyph').style.fontSize = '48px';
+    document.getElementById('opt-glyph').style.color = color;
+    
+    document.getElementById('opt-title').innerHTML = 'Parte de ' + (p.short || p.name);
+    document.getElementById('opt-title').style.color = color;
+    document.getElementById('opt-title').style.fontSize = '22px';
+    document.getElementById('opt-title').style.fontWeight = '700';
+    
+    document.getElementById('opt-dig').textContent = s13.glyph + ' ' + s13.name;
+    document.getElementById('opt-dig').style.color = 'rgba(240,165,0,0.7)';
+    document.getElementById('opt-dig').style.fontSize = '14px';
+    
+    document.getElementById('opt-interp').innerHTML = buildInterpHTML(interp);
+    
+    document.getElementById('oPartesGrid').style.display = 'none';
+    document.getElementById('oParteInterpView').style.display = '';
   }
 
   function showOfiucoInterpAsteroide(a, lon, si13, s13, grid) {
     const interp = getOfiucoInterpAsteroide(a.key, si13);
-    const prev   = grid.querySelector('.oInterpAste');
-    if (prev) prev.remove();
-    const box = document.createElement('div');
-    box.className = 'oInterpAste';
-    box.style.cssText = 'padding:16px 12px;background:rgba(15,0,25,0.85);' +
-      'border:1px solid rgba(192,132,252,0.3);margin:8px 0;';
-    box.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-        <span style="font-size:22px;color:#c084fc;">${a.g || '✦'}</span>
-        <span style="font-size:14px;font-weight:700;color:#c084fc;">${a.name}</span>
-        <span style="font-size:13px;color:rgba(255,255,255,0.5);margin-left:6px;">${s13.glyph} ${s13.name}</span>
-        <button onclick="this.parentElement.parentElement.remove()"
-          style="margin-left:auto;background:transparent;border:none;color:rgba(192,132,252,0.5);font-size:18px;cursor:pointer;">✕</button>
-      </div>
-      <div style="font-size:15px;line-height:1.8;color:#ffffff;">${interp}</div>`;
-    grid.insertBefore(box, grid.firstChild);
+    const color = '#c084fc';
+    
+    document.getElementById('oast-glyph').textContent = a.g || '✦';
+    document.getElementById('oast-glyph').style.fontSize = '48px';
+    document.getElementById('oast-glyph').style.color = color;
+    
+    document.getElementById('oast-title').innerHTML = a.name;
+    document.getElementById('oast-title').style.color = color;
+    document.getElementById('oast-title').style.fontSize = '22px';
+    document.getElementById('oast-title').style.fontWeight = '700';
+    
+    document.getElementById('oast-dig').textContent = s13.glyph + ' ' + s13.name;
+    document.getElementById('oast-dig').style.color = 'rgba(192,132,252,0.7)';
+    document.getElementById('oast-dig').style.fontSize = '14px';
+    
+    document.getElementById('oast-interp').innerHTML = buildInterpHTML(interp);
+    
+    document.getElementById('oAsteroidesGrid').style.display = 'none';
+    document.getElementById('oAsteroidInterpView').style.display = '';
   }
 
   // ════════════════════════════════════════════════════════════════════
