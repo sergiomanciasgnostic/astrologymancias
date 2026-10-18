@@ -113,6 +113,37 @@
     .asp2-right{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:10px 24px;border-left:1px solid rgba(0,200,255,0.15);min-width:120px;text-align:center;}
     .asp2-asp-g{line-height:1;display:block;text-align:center;}
     .asp2-asp-name{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-align:center;white-space:nowrap;}
+
+    /* ── Pestaña dual (Natal | Retorno · Tránsito): Aspectos con el formato de la carta natal, a escala de media columna ── */
+    .dual-asp2{cursor:default;border-bottom-width:2px;margin-bottom:3px;}
+    .dual-asp2:hover{background:transparent;}
+    .dual-asp2 .asp2-left{padding:5px 6px;min-width:0;}
+    .dual-asp2 .asp2-planet{font-size:13px;gap:3px;flex-wrap:wrap;}
+    .dual-asp2 .asp2-planet-g{font-size:18px;}
+    .dual-asp2 .asp2-planet-name{font-size:13px;}
+    .dual-asp2 .asp2-planet-casa{font-size:11px;margin-left:0;}
+    .dual-asp2 .asp2-planet-deg{font-size:12px;margin-left:0;white-space:nowrap;}
+    .dual-asp2 .asp2-retro{font-size:11px;margin-left:1px;}
+    .dual-asp2 .asp2-sep{margin:3px 0;}
+    .dual-asp2 .asp2-right{min-width:0;padding:4px 6px;gap:2px;}
+    .dual-asp2 .asp2-asp-g{font-size:22px !important;}
+    .dual-asp2 .asp2-asp-name{font-size:8px;letter-spacing:.04em;}
+    .dual-asp2-full{cursor:default;}
+    .dual-asp2-full .asp2-right{min-width:96px;padding:8px 14px;}
+    .dual-asp2-full .asp2-asp-g{font-size:26px !important;}
+    .dual-asp2-full .asp2-planet,.dual-asp2-full .asp2-planet-name,.dual-asp2-full .asp2-planet-casa,.dual-asp2-full .asp2-planet-deg{font-size:16px;}
+    .dual-asp2-full .asp2-planet-g{font-size:22px;}
+    /* ── Pestaña dual: acordeones de Signos y Elem.+Cual. más compactos ── */
+    .dual-acc .acc-item > div:first-child{padding:5px 7px !important;gap:5px !important;flex-wrap:nowrap !important;}
+    .dual-acc .acc-item > div:first-child > span:nth-child(1){font-size:14px !important;width:auto !important;flex:none;}
+    .dual-acc .acc-item > div:first-child > span:nth-child(2){font-size:12px !important;min-width:0 !important;letter-spacing:.04em !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .dual-acc .acc-item > div:first-child > span:nth-child(3){font-size:10px !important;white-space:nowrap;flex:none;}
+    .dual-acc .acc-item > div:first-child > span:nth-child(4){font-size:8px !important;margin-left:4px !important;flex:none;}
+    .dual-acc .acc-item{margin-bottom:6px !important;}
+    .dual-acc .acc-item .sg-chip{transform:none;}
+    .dual-acc .acc-item span.sg-chip{width:24px !important;height:24px !important;min-width:24px !important;font-size:13px !important;}
+    .dual-acc .acc-item span[title]{font-size:13px !important;}
+    .dual-acc .acc-item span[title][style*="width:30px"]{width:24px !important;height:24px !important;}
     .asp-row:hover{background:rgba(0,200,255,0.04);}
     .asp-col-a{display:flex;align-items:center;gap:7px;justify-content:flex-end;font-size:17px;font-weight:600;color:#fff;min-width:0;}
     .asp-col-b{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 18px;}
@@ -6044,7 +6075,7 @@
         <div class="placidus-label">Sistema de Casas:</div>
         <div class="placidus-name">Placidus</div>
         <div class="glyphs-row planets">☉ ☽ ☿ ♀ ♂ ♃ ♄ ♅ ♆ ♇</div>
-        <div class="glyphs-row signs">♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓</div>
+        <div class="glyphs-row signs">♈︎ ♉︎ ♊︎ ♋︎ ♌︎ ♍︎ ♎︎ ♏︎ ♐︎ ♑︎ ♒︎ ♓︎</div>
         <button class="btn-back" id="btnBack" style="margin-top:12px;font-size:19px;padding:10px 22px;letter-spacing:.12em;">✎ Editar información</button>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
@@ -6485,10 +6516,14 @@
           <button id="tabAspectos" onclick="switchTab('aspectos')" style="flex:1;min-width:70px;padding:7px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--acc);border:1px solid var(--acc);cursor:pointer;">Aspectos</button>
           <button id="tabSignos" onclick="switchTab('signos')" style="flex:1;min-width:70px;padding:7px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:#fb923c;border:1px solid #fb923c;cursor:pointer;">Signos</button>
           <button id="tabCualidades" onclick="switchTab('cualidades')" style="flex:1;min-width:80px;padding:7px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:#4ade80;border:1px solid #4ade80;cursor:pointer;">Elem. + Cual.</button>
+        <button id="tabDual" onclick="switchTab('dual')" style="display:none;flex:1;min-width:80px;padding:7px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:#ffa500;border:1px solid #ffa500;cursor:pointer;">⟳ Retorno</button>
         </div>
         <!-- Panel Cualidades y Elementos -->
         <div id="panelCualidades" style="display:none;">
           <div id="cualidadesContent"></div>
+        </div>
+        <div id="panelDual" style="display:none;">
+          <div id="dualContent"></div>
         </div>
         <!-- Panel Planetas -->
         <div id="panelPlanetas">
@@ -6940,6 +6975,7 @@
             <button id="oTabAspectos"   onclick="switchOfiucoTab('aspectos')"   style="flex:1;min-width:70px;padding:7px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--acc);border:1px solid var(--acc);cursor:pointer;">Aspectos</button>
             <button id="oTabSignos"     onclick="switchOfiucoTab('signos')"     style="flex:1;min-width:70px;padding:7px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:#fb923c;border:1px solid #fb923c;cursor:pointer;">Signos</button>
             <button id="oTabCualidades" onclick="switchOfiucoTab('cualidades')" style="flex:1;min-width:80px;padding:7px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:#4ade80;border:1px solid #4ade80;cursor:pointer;">Elem. + Cual.</button>
+          <button id="oTabDual" onclick="switchOfiucoTab('dual')" style="display:none;flex:1;min-width:80px;padding:7px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:#ffa500;border:1px solid #ffa500;cursor:pointer;">⟳ Retorno</button>
           </div>
 
           <!-- ── Panel Planetas Ofiuco ──
@@ -7070,6 +7106,9 @@
           <!-- ── Panel Cualidades y Elementos Ofiuco ── -->
           <div id="oPanelCualidades" style="display:none;">
             <div id="oCualidadesContent"></div>
+          </div>
+          <div id="oPanelDual" style="display:none;">
+            <div id="oDualContent"></div>
           </div>
 
         </div><!-- fin panel lateral -->
@@ -12240,7 +12279,7 @@ function drawBiwheel(natalPlanets, natalAsc, natalMc, natalUnknown, minor, natal
   const ascOff  = natalUnknown ? 0 : (h0_n % 30);
 
   // ── Constantes de signos (usadas en ambos aros) ──
-  const SGLYPH2 = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+  const SGLYPH2 = ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎'];
   const SIGN_COLORS = [
     '#ff6b6b','#7be87b','#ffe066','#6bd4f5',
     '#ff6b6b','#7be87b','#ffe066','#6bd4f5',
@@ -13292,17 +13331,7 @@ function renderFilteredAspectsCross(rawKey) {
     }
     const sorted = [...onFly].sort((a,b) => (ORD_C.indexOf(a.asp.id)||99) - (ORD_C.indexOf(b.asp.id)||99));
     _crossCurrentFiltered = sorted;
-    result.innerHTML = sorted.map((asp, idx) => `
-      <div class="asp-row" onclick="handleCrossAspClick(${idx})">
-        <div class="asp-col-a"><div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;word-break:break-word;overflow-wrap:anywhere;"><span style="font-size:20px;">${asp.a.name||asp.a.key}</span><div style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}</div></div><span style="font-size:32px;flex-shrink:0;">${asp.a.g||'?'}</span></div>
-        <div class="asp-col-b">
-          <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-          <div style="color:${asp.asp.col};font-size:${asp.asp.id==='sex'?'60':'36'}px;">${asp.asp.glyph}</div>
-          <div style="color:${asp.asp.col};font-size:20px;font-weight:700;letter-spacing:.08em;white-space:nowrap;">${asp.asp.label}</div>
-          <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-        </div>
-        <div class="asp-col-c"><span style="font-size:32px;flex-shrink:0;">${asp.b.g||'?'}</span><div style="display:flex;flex-direction:column;align-items:flex-start;min-width:0;word-break:break-word;overflow-wrap:anywhere;"><span style="font-size:20px;">${asp.b.name||asp.b.key}</span><div style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Natal</div></div></div>
-      </div>`).join('');
+    result.innerHTML = sorted.map((asp, idx) => _mkAsp2Row(asp, idx, 'handleCrossAspClick', { tagA: `Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}`, tagB: `Natal`, noCasaA: true })).join('');
     return;
   }
 
@@ -13347,17 +13376,7 @@ function renderFilteredAspectsCross(rawKey) {
     }
     const sorted = [...onFly].sort((a,b) => (ORD_C.indexOf(a.asp.id)||99) - (ORD_C.indexOf(b.asp.id)||99));
     _crossCurrentFiltered = sorted;
-    result.innerHTML = sorted.map((asp, idx) => `
-      <div class="asp-row" onclick="handleCrossAspClick(${idx})">
-        <div class="asp-col-a"><div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;word-break:break-word;overflow-wrap:anywhere;"><span style="font-size:20px;">${asp.a.name||asp.a.key}</span><div style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}</div></div><span style="font-size:32px;flex-shrink:0;">${asp.a.g||'?'}</span></div>
-        <div class="asp-col-b">
-          <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-          <div style="color:${asp.asp.col};font-size:${asp.asp.id==='sex'?'60':'36'}px;">${asp.asp.glyph}</div>
-          <div style="color:${asp.asp.col};font-size:20px;font-weight:700;letter-spacing:.08em;white-space:nowrap;">${asp.asp.label}</div>
-          <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-        </div>
-        <div class="asp-col-c"><span style="font-size:32px;flex-shrink:0;">${asp.b.g||'?'}</span><div style="display:flex;flex-direction:column;align-items:flex-start;min-width:0;word-break:break-word;overflow-wrap:anywhere;"><span style="font-size:20px;">${asp.b.name||asp.b.key}</span><div style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Natal</div></div></div>
-      </div>`).join('');
+    result.innerHTML = sorted.map((asp, idx) => _mkAsp2Row(asp, idx, 'handleCrossAspClick', { tagA: `Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}`, tagB: `Natal`, noCasaA: true })).join('');
     return;
   }
 
@@ -13371,29 +13390,7 @@ function renderFilteredAspectsCross(rawKey) {
   const ORD = ['con','tri','sex','opo','cua','qui'];
   const sorted = [...filtered].sort((a,b) => (ORD.indexOf(a.asp.id)||99) - (ORD.indexOf(b.asp.id)||99));
   _crossCurrentFiltered = sorted;
-  result.innerHTML = sorted.map((asp, idx) => `
-    <div class="asp-row" onclick="handleCrossAspClick(${idx})">
-      <div class="asp-col-a" style="font-size:20px;">
-        <div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;word-break:break-word;overflow-wrap:anywhere;">
-          <span style="font-size:20px;">${asp.a.name||asp.a.key}</span>
-          <span style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}</span>
-        </div>
-        <span style="font-size:32px;flex-shrink:0;">${asp.a.g||'?'}</span>
-      </div>
-      <div class="asp-col-b">
-        <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-        <div style="color:${asp.asp.col};font-size:${asp.asp.id==='sex'?'60':'36'}px;">${asp.asp.glyph}</div>
-        <div style="color:${asp.asp.col};font-size:20px;font-weight:700;letter-spacing:.08em;white-space:nowrap;">${asp.asp.label}</div>
-        <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-      </div>
-      <div class="asp-col-c" style="font-size:20px;">
-        <span style="font-size:32px;flex-shrink:0;">${asp.b.g||'?'}</span>
-        <div style="display:flex;flex-direction:column;align-items:flex-start;min-width:0;word-break:break-word;overflow-wrap:anywhere;">
-          <span style="font-size:20px;">${asp.b.name||asp.b.key}</span>
-          <span style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Natal</span>
-        </div>
-      </div>
-    </div>`).join('');
+  result.innerHTML = sorted.map((asp, idx) => _mkAsp2Row(asp, idx, 'handleCrossAspClick', { tagA: `Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}`, tagB: `Natal`, noCasaA: true })).join('');
 }
 
 function handleCrossAspClick(idx) {
@@ -13434,12 +13431,22 @@ function volverDesdeCrossInterp() {
 }
 
 // ── Helper: construye fila asp2 (2 columnas: planetas | aspecto) ──
-function _mkAsp2Row(asp, idx, handlerName) {
+function _mkAsp2Row(asp, idx, handlerName, opts) {
+  opts = opts || {};
+  const _isO = /^(window\.)?_o/.test(handlerName || '');
   const HROM = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
-  function _pInfo(p) {
+  function _pInfo(p, noCasa) {
+    if (_isO && typeof window._oSign13Info === 'function') {
+      // Ofiuco: grados dentro de los 13 signos y casas de 13
+      const si = window._oSign13Info(p.lon);
+      const hn = typeof window._oHouseOf13 === 'function' ? window._oHouseOf13(p.lon) : null;
+      const R13 = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII'];
+      return { casa: (hn && !noCasa) ? 'Casa ' + R13[hn - 1] : '', degStr: si.deg + '°' + String(si.min).padStart(2,'0') + "'",
+               retro: p.retro ? '<span class="asp2-retro">℞</span>' : '', fromRet: '' };
+    }
     const hNum = (typeof getHouseForPlanet === 'function' && _savedHouses)
       ? getHouseForPlanet({ lon: p.lon }, _savedHouses) : null;
-    const casa = hNum ? 'Casa ' + HROM[hNum - 1] : '';
+    const casa = (hNum && !noCasa) ? 'Casa ' + HROM[hNum - 1] : '';
     // grados dentro del signo
     const totalMin = Math.round((p.lon % 30) * 60);
     const deg = Math.floor(totalMin / 60);
@@ -13449,14 +13456,15 @@ function _mkAsp2Row(asp, idx, handlerName) {
     const fromRet = asp.asp && asp.asp._fromRet ? '<span style="color:#fbbf24;font-size:11px;margin-left:4px;">⟳ Ret.</span>' : '';
     return { casa, degStr, retro, fromRet };
   }
-  const ia = _pInfo(asp.a);
-  const ib = _pInfo(asp.b);
+  const ia = _pInfo(asp.a, opts.noCasaA);
+  const ib = _pInfo(asp.b, opts.noCasaB);
   const aspFontSize = '30px';
-  return `<div class="asp2-row" onclick="${handlerName}(${idx})">
+  const _tag = t => t ? `<span style="font-size:12px;color:${asp.asp.col};opacity:.9;margin-left:4px;font-weight:400;">${t}</span>` : '';
+  return `<div class="asp2-row"${handlerName ? ` onclick="${handlerName}(${idx})"` : ' style="cursor:default;"'}>
     <div class="asp2-left">
       <div class="asp2-planet">
         <span class="asp2-planet-g">${asp.a.g || '?'}</span>
-        <span class="asp2-planet-name">${asp.a.name || asp.a.key}</span>
+        <span class="asp2-planet-name">${asp.a.name || asp.a.key}</span>${_tag(opts.tagA)}
         ${ia.casa ? `<span class="asp2-planet-casa">${ia.casa}</span>` : ''}
         <span class="asp2-planet-deg">${ia.degStr}</span>
         ${ia.retro}${ia.fromRet}
@@ -13464,7 +13472,7 @@ function _mkAsp2Row(asp, idx, handlerName) {
       <div class="asp2-sep"></div>
       <div class="asp2-planet">
         <span class="asp2-planet-g">${asp.b.g || '?'}</span>
-        <span class="asp2-planet-name">${asp.b.name || asp.b.key}</span>
+        <span class="asp2-planet-name">${asp.b.name || asp.b.key}</span>${_tag(opts.tagB)}
         ${ib.casa ? `<span class="asp2-planet-casa">${ib.casa}</span>` : ''}
         <span class="asp2-planet-deg">${ib.degStr}</span>
         ${ib.retro}${ib.fromRet}
@@ -13878,7 +13886,7 @@ const SIGN_RULER = {
   11: { key:'Neptune', g:'♆' },   // Piscis   → Neptuno
 };
 const SIGN_NAMES  = ['Aries','Tauro','Géminis','Cáncer','Leo','Virgo','Libra','Escorpio','Sagitario','Capricornio','Acuario','Piscis'];
-const SIGN_GLYPHS = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const SIGN_GLYPHS = ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎'];
 const ANGULAR_LABEL = { 0:'ASC', 3:'IC', 6:'DSC', 9:'MC' };
 const ORDINALS = ['','1ª','2ª','3ª','4ª','5ª','6ª','7ª','8ª','9ª','10ª','11ª','12ª'];
 function getPlanetName(p) {
@@ -14005,12 +14013,13 @@ function initChartTooltip() {
 initChartTooltip();
 
 function switchTab(tab) {
+  window._dualTabNatalActivo = (tab === 'dual');
   const COLORS = {
     planetas: 'var(--acc)', casas: 'var(--acc)', aspectos: 'var(--acc)',
-    partes: '#f0a500', asteroides: '#c084fc', cualidades: '#4ade80', signos: '#fb923c'
+    partes: '#f0a500', asteroides: '#c084fc', cualidades: '#4ade80', signos: '#fb923c', dual: '#ffa500'
   };
-  const tabs = { planetas:'tabPlanetas', casas:'tabCasas', aspectos:'tabAspectos', signos:'tabSignos', partes:'tabPartes', asteroides:'tabAsteroides', cualidades:'tabCualidades' };
-  const panels = { planetas:'panelPlanetas', casas:'panelCasas', aspectos:'panelAspectos', signos:'panelSignos', partes:'panelPartes', asteroides:'panelAsteroides', cualidades:'panelCualidades' };
+  const tabs = { planetas:'tabPlanetas', casas:'tabCasas', aspectos:'tabAspectos', signos:'tabSignos', partes:'tabPartes', asteroides:'tabAsteroides', cualidades:'tabCualidades', dual:'tabDual' };
+  const panels = { planetas:'panelPlanetas', casas:'panelCasas', aspectos:'panelAspectos', signos:'panelSignos', partes:'panelPartes', asteroides:'panelAsteroides', cualidades:'panelCualidades', dual:'panelDual' };
   Object.keys(tabs).forEach(t => {
     const btn = document.getElementById(tabs[t]);
     if (!btn) return;
@@ -14032,6 +14041,7 @@ function switchTab(tab) {
   if (tab === 'asteroides') renderAsteroidesPanel();
   if (tab === 'cualidades') renderCualidadesPanel();
   if (tab === 'signos') renderSignosPanel();
+  if (tab === 'dual' && typeof window.renderDualTabNatal === 'function') window.renderDualTabNatal();
 }
 
 function showHouseInterpretation(houseNum, signIdx, signGlyph, degInSign, minInSign) {
@@ -16645,6 +16655,7 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc, soloEx
   const rGlyph = rt.icono || '⟳';
   const rColor = rt.color || '#00c8ff';
   const rLabel = rt.label || 'Retorno';
+  soloExtras = true; // Planetas y Casas originales quedan intactos (el dual vive en su propia pestaña)
 
   // Helper: convierte longitud a "♊ 5°40'"
   function fmtLon(lon) {
@@ -16653,7 +16664,7 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc, soloEx
     const s = Math.floor(totalMin / (30*60)) % 12;
     const rem = totalMin % (30*60);
     const d = Math.floor(rem / 60), m = rem % 60;
-    const gl = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'][s];
+    const gl = ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎'][s];
     return `${gl} ${d}°${String(m).padStart(2,'0')}'`;
   }
 
@@ -16667,7 +16678,7 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc, soloEx
   }
 
   const ROMS   = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
-  const SGLYS  = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+  const SGLYS  = ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎'];
   const AXIS   = { 0:'ASC', 3:'IC', 6:'DC', 9:'MC' };
 
   // ── CSS compartido ─────────────────────────────────
@@ -16889,7 +16900,7 @@ window._renderPanelDualAmbas = function(nPl, nHouses, rPl, rHouses, rAsc, soloEx
   // 5. PANEL ASPECTOS (doble)
   // ═══════════════════════════════
   const aspCont = document.getElementById('aspList');
-  if (aspCont) {
+  if (aspCont && !window._DUAL_ASP_EN_TAB) {
     // Aspectos natales ya calculados
     const nAspects = window._allAspects || [];
     // Aspectos del retorno
@@ -17221,29 +17232,7 @@ window._mostrarAspectosTransitosEnPanel = function(crossList) {
     if (!filtered.length) { result.innerHTML = '<p style="color:#fff;font-size:15px;padding:8px 0">Sin aspectos para este astro.</p>'; return; }
     const ORD = ['con','tri','sex','opo','cua','qui'];
     filtered.sort((a,b) => (ORD.indexOf(a.asp.id)||99) - (ORD.indexOf(b.asp.id)||99));
-    result.innerHTML = filtered.map(asp => `
-      <div class="asp-row">
-        <div class="asp-col-a">
-          <div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;word-break:break-word;overflow-wrap:anywhere;">
-            <span style="font-size:20px;">${asp.a.name||asp.a.key}</span>
-            <span style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Tránsito</span>
-          </div>
-          <span style="font-size:32px;">${asp.a.g||'?'}</span>
-        </div>
-        <div class="asp-col-b">
-          <div style="width:1px;height:22px;background:rgba(0,200,255,0.25);"></div>
-          <div style="color:${asp.asp.col};font-size:${asp.asp.id==='sex'?'60':'36'}px;">${asp.asp.glyph}</div>
-          <div style="color:${asp.asp.col};font-size:20px;font-weight:700;letter-spacing:.08em;white-space:nowrap;">${asp.asp.label}</div>
-          <div style="width:1px;height:22px;background:rgba(0,200,255,0.25);"></div>
-        </div>
-        <div class="asp-col-c">
-          <span style="font-size:32px;flex-shrink:0;">${asp.b.g||'?'}</span>
-          <div style="display:flex;flex-direction:column;align-items:flex-start;min-width:0;word-break:break-word;overflow-wrap:anywhere;">
-            <span style="font-size:20px;">${asp.b.name||asp.b.key}</span>
-            <span style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Natal</span>
-          </div>
-        </div>
-      </div>`).join('');
+    result.innerHTML = filtered.map((asp, idx) => _mkAsp2Row(asp, idx, null, { tagA: `Tránsito`, tagB: `Natal`, noCasaA: true })).join('');
   });
 };
 
@@ -17508,17 +17497,7 @@ window.renderFilteredAspectsCross_inline = function(rawKey) {
     if (!onFly.length) { result.innerHTML = '<p style="color:#fff;font-size:15px;padding:8px 0">Sin aspectos cruzados para este punto.</p>'; return; }
     const sorted = [...onFly].sort((a,b) => (ORD_R.indexOf(a.asp.id)||99) - (ORD_R.indexOf(b.asp.id)||99));
     window._retCurrentFiltered = sorted;
-    result.innerHTML = sorted.map((asp, idx) => `
-      <div class="asp-row" onclick="handleRetAspClick(${idx})">
-        <div class="asp-col-a"><div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;word-break:break-word;overflow-wrap:anywhere;"><span style="font-size:20px;">${asp.a.name||asp.a.key}</span><div style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}</div></div><span style="font-size:32px;flex-shrink:0;">${asp.a.g||'?'}</span></div>
-        <div class="asp-col-b">
-          <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-          <div style="color:${asp.asp.col};font-size:${asp.asp.id==='sex'?'60':'36'}px;">${asp.asp.glyph}</div>
-          <div style="color:${asp.asp.col};font-size:20px;font-weight:700;letter-spacing:.08em;white-space:nowrap;">${asp.asp.label}</div>
-          <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-        </div>
-        <div class="asp-col-c"><span style="font-size:32px;flex-shrink:0;">${asp.b.g||'?'}</span><div style="display:flex;flex-direction:column;align-items:flex-start;min-width:0;word-break:break-word;overflow-wrap:anywhere;"><span style="font-size:20px;">${asp.b.name||asp.b.key}</span><div style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Natal</div></div></div>
-      </div>`).join('');
+    result.innerHTML = sorted.map((asp, idx) => _mkAsp2Row(asp, idx, 'handleRetAspClick', { tagA: `Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}`, tagB: `Natal`, noCasaA: true })).join('');
     return;
   }
 
@@ -17555,17 +17534,7 @@ window.renderFilteredAspectsCross_inline = function(rawKey) {
     if (!onFly.length) { result.innerHTML = '<p style="color:#fff;font-size:15px;padding:8px 0">Sin aspectos cruzados para este punto.</p>'; return; }
     const sorted = [...onFly].sort((a,b) => (ORD_R.indexOf(a.asp.id)||99) - (ORD_R.indexOf(b.asp.id)||99));
     window._retCurrentFiltered = sorted;
-    result.innerHTML = sorted.map((asp, idx) => `
-      <div class="asp-row" onclick="handleRetAspClick(${idx})">
-        <div class="asp-col-a"><div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;word-break:break-word;overflow-wrap:anywhere;"><span style="font-size:20px;">${asp.a.name||asp.a.key}</span><div style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}</div></div><span style="font-size:32px;flex-shrink:0;">${asp.a.g||'?'}</span></div>
-        <div class="asp-col-b">
-          <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-          <div style="color:${asp.asp.col};font-size:${asp.asp.id==='sex'?'60':'36'}px;">${asp.asp.glyph}</div>
-          <div style="color:${asp.asp.col};font-size:20px;font-weight:700;letter-spacing:.08em;white-space:nowrap;">${asp.asp.label}</div>
-          <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-        </div>
-        <div class="asp-col-c"><span style="font-size:32px;flex-shrink:0;">${asp.b.g||'?'}</span><div style="display:flex;flex-direction:column;align-items:flex-start;min-width:0;word-break:break-word;overflow-wrap:anywhere;"><span style="font-size:20px;">${asp.b.name||asp.b.key}</span><div style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Natal</div></div></div>
-      </div>`).join('');
+    result.innerHTML = sorted.map((asp, idx) => _mkAsp2Row(asp, idx, 'handleRetAspClick', { tagA: `Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}`, tagB: `Natal`, noCasaA: true })).join('');
     return;
   }
 
@@ -17575,29 +17544,7 @@ window.renderFilteredAspectsCross_inline = function(rawKey) {
   if (!filtered.length) { result.innerHTML = '<p style="color:#fff;font-size:15px;padding:8px 0">Sin aspectos para este planeta.</p>'; return; }
   const sorted = [...filtered].sort((a,b) => (ORD_R.indexOf(a.asp.id)||99) - (ORD_R.indexOf(b.asp.id)||99));
   window._retCurrentFiltered = sorted;
-  result.innerHTML = sorted.map((asp, idx) => `
-    <div class="asp-row" onclick="handleRetAspClick(${idx})">
-      <div class="asp-col-a">
-        <div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;word-break:break-word;overflow-wrap:anywhere;">
-          <span style="font-size:20px;">${asp.a.name||asp.a.key}</span>
-          <span style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}</span>
-        </div>
-        <span style="font-size:32px;flex-shrink:0;">${asp.a.g||'?'}</span>
-      </div>
-      <div class="asp-col-b">
-        <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-        <div style="color:${asp.asp.col};font-size:${asp.asp.id==='sex'?'60':'36'}px;">${asp.asp.glyph}</div>
-        <div style="color:${asp.asp.col};font-size:20px;font-weight:700;letter-spacing:.08em;white-space:nowrap;">${asp.asp.label}</div>
-        <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-      </div>
-      <div class="asp-col-c">
-        <span style="font-size:32px;flex-shrink:0;">${asp.b.g||'?'}</span>
-        <div style="display:flex;flex-direction:column;align-items:flex-start;min-width:0;word-break:break-word;overflow-wrap:anywhere;">
-          <span style="font-size:20px;">${asp.b.name||asp.b.key}</span>
-          <span style="font-size:16px;color:${asp.asp.col};font-weight:400;margin-top:1px;">Natal</span>
-        </div>
-      </div>
-    </div>`).join('');
+  result.innerHTML = sorted.map((asp, idx) => _mkAsp2Row(asp, idx, 'handleRetAspClick', { tagA: `Retorno ${(window._retornoTipoActivo&&window._retornoTipoActivo.icono)||'⟳'}`, tagB: `Natal`, noCasaA: true })).join('');
 };
 
 // ── Restaura los aspectos natales normales en el panel de Aspectos ──
@@ -17650,6 +17597,7 @@ window._oActualizarLabelsVista = function() {
     sel.value = window._oVistaNatalSolo ? 'natal' : (window._lineasOfiucoActivas ? 'ambas' : 'retorno');
   }
   window._oEstiloBtnLineas(!!window._lineasOfiucoActivas);
+  try { if (typeof window._oActualizarTabDual === 'function') window._oActualizarTabDual(); } catch(e) {}
 };
 // Restaura la carta externa si estaba oculta por la vista "solo natal"
 window._oRestoreOverlay = function() {
@@ -17855,29 +17803,7 @@ window._renderOfiucoRetAspFiltrados = function(planetKey) {
   }).sort((a,b) => (ORD.indexOf(a.asp.id)||99) - (ORD.indexOf(b.asp.id)||99));
   window._oRetCurrentFiltered = sorted;
 
-  result.innerHTML = sorted.map((asp, idx) => `
-    <div class="o-asp-row" onclick="window._oRetAspClick(${idx})">
-      <div class="o-asp-col-a">
-        <div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;word-break:break-word;overflow-wrap:anywhere;">
-          <span style="font-size:20px;">${asp.a.name||asp.a.key}</span>
-          <span style="font-size:13px;color:${asp.asp.col};font-weight:400;margin-top:2px;">Retorno ${icono}</span>
-        </div>
-        <span style="font-size:32px;font-family:'Noto Sans Symbols 2','Segoe UI Symbol',sans-serif;flex-shrink:0;">${asp.a.g||'?'}</span>
-      </div>
-      <div class="o-asp-col-b">
-        <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-        <div style="color:${asp.asp.col};font-size:${asp.asp.id==='sex'?'60':'36'}px;line-height:1;">${asp.asp.glyph||'?'}</div>
-        <div style="color:${asp.asp.col};font-size:13px;font-weight:700;letter-spacing:.08em;white-space:nowrap;">${asp.asp.label||asp.asp.id}</div>
-        <div style="width:1px;height:22px;background:rgba(255,165,0,0.2);"></div>
-      </div>
-      <div class="o-asp-col-c">
-        <span style="font-size:32px;font-family:'Noto Sans Symbols 2','Segoe UI Symbol',sans-serif;flex-shrink:0;">${asp.b.g||'?'}</span>
-        <div style="display:flex;flex-direction:column;align-items:flex-start;min-width:0;word-break:break-word;overflow-wrap:anywhere;">
-          <span style="font-size:20px;">${asp.b.name||asp.b.key}</span>
-          <span style="font-size:13px;color:${asp.asp.col};font-weight:400;margin-top:2px;">Natal</span>
-        </div>
-      </div>
-    </div>`).join('');
+  result.innerHTML = sorted.map((asp, idx) => _mkAsp2Row(asp, idx, 'window._oRetAspClick', { tagA: `Retorno ${icono}`, tagB: `Natal`, noCasaA: true })).join('');
 };
 
 window._oRetAspClick = function(idx) {
@@ -18063,18 +17989,18 @@ const ELEM_COLORS = {
 };
 
 const HOME_SIGNS = [
-  { g:'♈', name:'Aries',       key:'aries' },
-  { g:'♉', name:'Tauro',       key:'tauro' },
-  { g:'♊', name:'Géminis',     key:'geminis' },
-  { g:'♋', name:'Cáncer',      key:'cancer' },
-  { g:'♌', name:'Leo',         key:'leo' },
-  { g:'♍', name:'Virgo',       key:'virgo' },
-  { g:'♎', name:'Libra',       key:'libra' },
-  { g:'♏', name:'Escorpio',    key:'escorpio' },
-  { g:'♐', name:'Sagitario',   key:'sagitario' },
-  { g:'♑', name:'Capricornio', key:'capricornio' },
-  { g:'♒', name:'Acuario',     key:'acuario' },
-  { g:'♓', name:'Piscis',      key:'piscis' },
+  { g:'♈︎', name:'Aries',       key:'aries' },
+  { g:'♉︎', name:'Tauro',       key:'tauro' },
+  { g:'♊︎', name:'Géminis',     key:'geminis' },
+  { g:'♋︎', name:'Cáncer',      key:'cancer' },
+  { g:'♌︎', name:'Leo',         key:'leo' },
+  { g:'♍︎', name:'Virgo',       key:'virgo' },
+  { g:'♎︎', name:'Libra',       key:'libra' },
+  { g:'♏︎', name:'Escorpio',    key:'escorpio' },
+  { g:'♐︎', name:'Sagitario',   key:'sagitario' },
+  { g:'♑︎', name:'Capricornio', key:'capricornio' },
+  { g:'♒︎', name:'Acuario',     key:'acuario' },
+  { g:'♓︎', name:'Piscis',      key:'piscis' },
 ];
 
 // ── Reset de datos del usuario (llamado al entrar en cualquier módulo desde tarjeta) ──
@@ -33096,7 +33022,7 @@ window.libreOnGroupChange = function(val){
     return aspectos;
   }
 
-  var _ASP_SGLYPH = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+  var _ASP_SGLYPH = ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎'];
   var _ASP_RNUMS  = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
 
   function _aspPlanetaInfo(p, houses) {
@@ -33235,7 +33161,7 @@ window.libreOnGroupChange = function(val){
     }
 
     // ── Glifos de signos (aro carta A) ──
-    var SGLYPH2 = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+    var SGLYPH2 = ['♈︎','♉︎','♊︎','♋︎','♌︎','♍︎','♎︎','♏︎','♐︎','♑︎','♒︎','♓︎'];
     var SIGN_COLORS = ['#ff6b6b','#7be87b','#ffe066','#6bd4f5','#ff6b6b','#7be87b','#ffe066','#6bd4f5','#ff6b6b','#7be87b','#ffe066','#6bd4f5'];
     ctx.font = '400 24px "Noto Sans Symbols 2","Segoe UI Symbol",sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -34715,6 +34641,7 @@ window.oRRetornoAnioEditar = function() {
 
   window.volverOfiucoNatal = function () {
     window._oOvStash = null; window._oVistaNatalSolo = false;
+    setTimeout(function(){ try { window._oActualizarTabDual(); } catch(e) {} }, 1000);
     // Limpiar datos de retorno Ofiuco
     window._ofiucoRetornoPlanets = null;
     window._ofiucoRetornoAsc     = null;
@@ -34940,6 +34867,7 @@ window.oRRetornoAnioEditar = function() {
       btn.style.borderColor = act ? 'rgba(255,165,0,0.9)'  : 'rgba(255,165,0,0.5)';
       btn.style.color       = act ? '#ffd166'              : 'rgba(255,165,0,0.85)';
       btn.style.boxShadow   = act ? '0 0 18px rgba(255,165,0,.28)' : '';
+      try { _actualizarTabDualNatal(); } catch(e) {}
     }
     window._actualizarBtnLineasNatal = upd;
     ['toggleLineasRetorno','toggleLineasTransitos','cambiarVistaRetorno','_actualizarLabelsVistaRetorno','volverCartaNatal'].forEach(function(n) {
@@ -34953,6 +34881,418 @@ window.oRRetornoAnioEditar = function() {
       w._wBtnL = true; window[n] = w;
     });
     upd();
+  })();
+
+  // ══════════════════════════════════════════════════════════════════
+  //  PESTAÑA DUAL — Natal | Retorno · Tránsito (carta natal y Ofiuco)
+  //  Aparece solo cuando hay un retorno o tránsito activo. Las demás
+  //  pestañas quedan intactas.
+  // ══════════════════════════════════════════════════════════════════
+  window._DUAL_ASP_EN_TAB = true;
+  const _RET_META = {
+    solar:['\u2609\uFE0E','#f0a500','Retorno Solar'], lunar:['\u263D\uFE0E','#a8d8ff','Retorno Lunar'],
+    mercury:['\u263F\uFE0E','#9de8b0','Retorno de Mercurio'], venus:['\u2640\uFE0E','#ffb3d9','Retorno de Venus'],
+    mars:['\u2642\uFE0E','#ff6655','Retorno de Marte'], jupiter:['\u2643\uFE0E','#c8a86b','Retorno de J\u00fapiter'],
+    saturn:['\u2644\uFE0E','#b0b8d0','Retorno de Saturno']
+  };
+  const _D_ORDER = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn','Uranus','Neptune','Pluto'];
+  const _D_ROM = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII'];
+
+  function _dualTipoNatal() {
+    if (window._transitosActivos) return { icono:'\u2726', color:'#00c8ff', label:'Tr\u00e1nsito' };
+    const rt = window._retornoTipoActivo || {};
+    const t = (document.getElementById('retornoTipo') || {}).value || rt.tipo || '';
+    const m = _RET_META[t];
+    // Glifo, color y nombre tal como los define el selector de retornos original
+    return { icono: rt.icono || (m ? m[0] : '\u27F3'), color: rt.color || (m ? m[1] : '#ffa500'), label: rt.label || (m ? m[2] : 'Retorno') };
+  }
+  function _dualTipoOfiuco() {
+    const a = window._ofiucoRetornoTipoActivo || {};
+    const t = a.tipo;
+    if (t === 'transitos') return { icono:'✦', color:'#48c878', label:'Tránsito' };
+    if (t === 'sinastria') return { icono:'♡', color:'#f472b6', label:'Sinastría' };
+    if (t === 'compuesta') return { icono:'✦', color:'#a78bfa', label:'Carta Compuesta' };
+    const m = _RET_META[t];
+    return { icono: a.icono || (m ? m[0] : '\u27F3'), color: m ? m[1] : '#ffa500', label: m ? m[2] : 'Retorno' };
+  }
+
+  function _dualCtxNatal() {
+    let rPl = null, rAsc = null, rH = null, rUtc = null;
+    if (window._transitosActivos) {
+      rPl = window._transitosPlanets; rAsc = _savedAsc; rH = _savedHouses; rUtc = window._transitosUtc;
+    } else {
+      const t = (document.getElementById('retornoTipo') || {}).value || '';
+      if (t === 'solar')        { rPl = _savedPlanetsSun;     rAsc = _savedAscSun;     rH = _savedHousesSun; }
+      else if (t === 'lunar')   { rPl = _savedPlanetsMoon;    rAsc = _savedAscMoon;    rH = _savedHousesMoon; }
+      else if (t === 'mercury') { rPl = _savedPlanetsMercury; rAsc = _savedAscMercury; rH = _savedHousesMercury; }
+      else if (t === 'venus')   { rPl = _savedPlanetsVenus;   rAsc = _savedAscVenus;   rH = _savedHousesVenus; }
+      else if (t === 'mars')    { rPl = _savedPlanetsMars;    rAsc = _savedAscMars;    rH = _savedHousesMars; }
+      else if (t === 'jupiter') { rPl = _savedPlanetsJupiter; rAsc = _savedAscJupiter; rH = _savedHousesJupiter; }
+      else if (t === 'saturn')  { rPl = _savedPlanetsSaturn;  rAsc = _savedAscSaturn;  rH = _savedHousesSaturn; }
+      rUtc = window._retornoUtcActivo;
+    }
+    const nPl = _natalPlanets || _savedPlanets;
+    if (!rPl || !rPl.length || !nPl || !nPl.length) return null;
+    const G = SGLYPH, N = SNAMES;   // glifos y nombres predeterminados de la natal
+    const nH = _natalHouses || _savedHouses;
+    return {
+      sys:12, acc:'#00c8ff', rgb:'0,200,255', tipo:_dualTipoNatal(),
+      nPl, rPl, nPlRaw:nPl, rPlRaw:rPl, nH, rH, pnH:nH, prH:rH,
+      nAsc:_savedAsc, rAsc, nUtc:_savedUtc, rUtc,
+      signG:G, signN:N, nSigns:12,
+      sInfo: lon => {
+        const l = ((lon % 360) + 360) % 360, idx = Math.floor(l / 30), w = l - idx * 30;
+        const deg = Math.floor(w), min = Math.floor((w - deg) * 60);
+        return { idx, glyph:G[idx], name:N[idx], deg, min };
+      },
+      houseOf: (lon, h) => (h && h.length && typeof getHouseForPlanet === 'function') ? getHouseForPlanet({ lon }, h) : null,
+      axis:{0:'ASC',3:'IC',6:'DC',9:'MC'},
+      elemOf: i => i % 4, qualOf: i => i % 3,
+      partesSet: (typeof _activatedPartes !== 'undefined') ? _activatedPartes : null,
+      astSet: (typeof _activatedAsteroides !== 'undefined') ? _activatedAsteroides : null,
+      aspFilter: p => true, store:'dualN'
+    };
+  }
+  function _dualCtxOfiuco() {
+    const ov = (window._ofiucoRetornoPlanets && window._ofiucoRetornoPlanets.length)
+      ? { planets:window._ofiucoRetornoPlanets, asc:window._ofiucoRetornoAsc, utc:window._ofiucoRetornoUtc, houses:window._ofiucoRetornoHouses }
+      : (window._oOvStash ? { planets:window._oOvStash.planets, asc:window._oOvStash.asc, utc:window._oOvStash.utc, houses:window._oOvStash.houses } : null);
+    const base = window._cartaOriginalPlanets || [];
+    if (!ov || !base.length || typeof buildOfiucoPlanets !== 'function') return null;
+    const jdOf = u => (u && typeof jdUTC === 'function') ? jdUTC(u instanceof Date ? u : new Date(u)) : 2451545.0;
+    const nUtc = window._cartaOriginalUtc, rUtc = ov.utc || nUtc;
+    const noCh = a => a.filter(p => p.key !== 'Chiron');
+    const nPl = buildOfiucoPlanets(noCh(base), jdOf(nUtc));
+    const rPl = buildOfiucoPlanets(noCh(ov.planets), jdOf(rUtc));
+    const nAsc = window._cartaOriginalAsc ?? 0, rAsc = (ov.asc != null) ? ov.asc : nAsc;
+    const nH = compute13Houses(nAsc), rH = compute13Houses(rAsc);
+    const houseOf = (lon, h) => {
+      if (!h || h.length < 13) return null;
+      const l = ((lon % 360) + 360) % 360;
+      for (let i = 0; i < 13; i++) {
+        const c1 = ((h[i].lon % 360) + 360) % 360, c2 = ((h[(i + 1) % 13].lon % 360) + 360) % 360;
+        if (c1 <= c2 ? (l >= c1 && l < c2) : (l >= c1 || l < c2)) return i + 1;
+      }
+      return null;
+    };
+    const SG = (typeof OPH_SIGNS_13 !== 'undefined') ? OPH_SIGNS_13 : [];
+    const E13 = [0,1,2,3,0,1,2,3,3,0,1,2,3], Q13 = [0,1,2,0,1,2,0,1,2,2,0,1,2];
+    return {
+      sys:13, acc:'#48c878', rgb:'72,200,120', tipo:_dualTipoOfiuco(),
+      nPl, rPl, nPlRaw:base, rPlRaw:ov.planets, nH, rH,
+      pnH: window._cartaOriginalHouses, prH: ov.houses || window._cartaOriginalHouses,
+      nAsc, rAsc, nUtc, rUtc,
+      signG: SG.map(s => s.glyph || s.g || '?'), signN: SG.map(s => s.name || s.n || '?'), nSigns:13,
+      sInfo: getSign13Info, houseOf,
+      axis:{0:'ASC'}, elemOf: i => E13[i], qualOf: i => Q13[i],
+      partesSet: window._oActivatedPartesOfiuco, astSet: window._oActivatedAsteroidesOfiuco,
+      aspFilter: p => !p.special || p.isOfiuco, store:'dualO'
+    };
+  }
+
+
+  // Renderiza el panel ORIGINAL (natal u Ofiuco) con los datos de un lado y devuelve su contenido
+  function _dualOriginal(sys, kind, d, side) {
+    const host = document.createElement('div');
+    const target = (sys === 12
+      ? { planetas:'pbGrid', casas:'housesListView', signos:'cNatalSignosContent', elemcual:'cualidadesContent' }
+      : { planetas:'oPbGrid', casas:'oHousesListView', signos:'oNatalSignosContent', elemcual:'oCualidadesContent' })[kind];
+    const origGet = document.getElementById.bind(document);
+    document.getElementById = function(id) {
+      if (id === target) return host;
+      const inner = host.querySelector('#' + id);
+      return inner || origGet(id);
+    };
+    const origTriple = window.updateTripleSignos;
+    const sv = {};
+    try {
+      if (sys === 12) {
+        sv.ap = _activePlanets; sv.ah = _activeHouses; sv.sp = _savedPlanets; sv.sh = _savedHouses; sv.sa = _savedAsc; sv.su = _savedUtc;
+        _activePlanets = d.pl; _activeHouses = d.h; _savedPlanets = d.pl; _savedHouses = d.h; _savedAsc = d.asc; _savedUtc = d.utc;
+        window.updateTripleSignos = function() {};
+        if (kind === 'planetas') renderPlanets(d.pl, null, d.asc);
+        else if (kind === 'casas') renderHousesPanel(d.h, d.pl);
+        else if (kind === 'signos') renderSignosPanel();
+        else renderCualidadesPanel();
+      } else {
+        if (kind === 'planetas') renderOfiucoPlanetsPanel(d.pl, d.h);
+        else if (kind === 'casas') renderOfiucoHousesPanel(d.h, d.pl);
+        else if (kind === 'signos') renderOfiucoSignosPanel(d.pl);
+        else renderOfiucoCualidadesPanel(d.pl);
+      }
+    } catch (e) {
+      host.innerHTML = '<p style="color:rgba(255,255,255,0.45);padding:12px;font-size:13px;">No se pudo mostrar este panel.</p>';
+      console.error('Dual original ' + kind + ':', e);
+    } finally {
+      delete document.getElementById;   // vuelve al método nativo
+      if (sys === 12) {
+        _activePlanets = sv.ap; _activeHouses = sv.ah; _savedPlanets = sv.sp; _savedHouses = sv.sh; _savedAsc = sv.sa; _savedUtc = sv.su;
+        window.updateTripleSignos = origTriple;
+      }
+    }
+    if (kind === 'signos' || kind === 'elemcual') host.classList.add('dual-acc');
+    // Planetas y Casas: solo lectura (sus clics abren vistas del panel real)
+    if (kind === 'planetas' || kind === 'casas') {
+      host.querySelectorAll('[id$="InterpView"]').forEach(function(e) { e.remove(); });
+      host.querySelectorAll('*').forEach(function(e) { e.onclick = null; e.removeAttribute('onclick'); });
+      host.style.pointerEvents = 'none';
+    }
+    // Los filtros se manejan desde la columna natal; la columna externa los oculta
+    if (side === 'r') host.querySelectorAll('select').forEach(function(s) {
+      const p = s.parentElement; (p && p !== host ? p : s).style.display = 'none';
+    });
+    const _tb = host.querySelector('[id^="accToolbar-"]');
+    if (_tb) _tb.setAttribute('data-dual-toolbar', '1');
+    host.querySelectorAll('[id]').forEach(function(e) { e.removeAttribute('id'); });
+    return host;
+  }
+
+  function _dualRender(ctx, host, getSec, setSec) {
+    const rgb = ctx.rgb, T = ctx.tipo, sec = getSec();
+    host.innerHTML = '';
+    const SECS = [['planetas','Planetas'],['casas','Casas'],['partes','Partes Arábigas'],['asteroides','Asteroides'],['aspectos','Aspectos'],['signos','Signos'],['elemcual','Elem. + Cual.']];
+    const mut = '<span style="color:rgba(255,255,255,0.3);">—</span>';
+    const pad = n => String(n).padStart(2, '0');
+    const pos = lon => { if (lon == null) return '—'; const s = ctx.sInfo(lon); return s.glyph + ' ' + s.deg + '°' + pad(s.min) + "'"; };
+    const hs = (lon, H) => { const n = ctx.houseOf(lon, H); return n ? _D_ROM[n - 1] : ''; };
+    const HDR = 'display:grid;grid-template-columns:1fr 1fr;background:rgba('+rgb+',0.07);border-bottom:1px solid rgba('+rgb+',0.25);padding:6px 4px;margin-bottom:4px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:'+ctx.acc+';';
+    const ROW = 'display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7px 4px;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px;';
+    const CELL = 'padding:0 4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;';
+    const mkHdr = () => { const h = document.createElement('div'); h.style.cssText = HDR;
+      h.innerHTML = '<span style="padding:0 4px;">Natal</span><span style="padding:0 4px;border-left:1px solid rgba('+rgb+',0.3);color:'+T.color+';">'+T.icono+' '+T.label+'</span>'; return h; };
+    const mkRow = (l, r, ang) => { const d = document.createElement('div');
+      d.style.cssText = ROW + (ang ? 'background:rgba('+rgb+',0.05);' : '');
+      d.innerHTML = '<span style="'+CELL+'">'+l+'</span><span style="'+CELL+'border-left:1px solid rgba('+rgb+',0.2);">'+r+'</span>'; return d; };
+    const msg = t => { const p = document.createElement('p'); p.style.cssText = 'color:rgba(255,255,255,0.45);font-size:14px;padding:14px;text-align:center;'; p.textContent = t; return p; };
+
+    // ── selector de sección ──
+    const bar = document.createElement('div');
+    bar.className = 'asp-filter-row';
+    bar.style.cssText = 'margin-bottom:10px;border-color:rgba('+rgb+',0.25);';
+    bar.innerHTML = '<span class="asp-filter-label">Natal | '+T.icono+' '+T.label+'</span>' +
+      '<select class="asp-filter-sel" style="border-color:rgba('+rgb+',0.5);">' +
+      SECS.map(s => '<option value="'+s[0]+'"'+(s[0]===sec?' selected':'')+' style="background:#000d20;color:#fff;">'+s[1]+'</option>').join('') + '</select>';
+    bar.querySelector('select').onchange = function() { setSec(this.value); };
+    host.appendChild(bar);
+
+    const body = document.createElement('div');
+    host.appendChild(body);
+
+    if (sec === 'planetas' || sec === 'casas' || sec === 'signos' || sec === 'elemcual') {
+      const L = _dualOriginal(ctx.sys, sec, { pl:ctx.nPl, h:ctx.nH, asc:ctx.nAsc, utc:ctx.nUtc }, 'l');
+      const R = _dualOriginal(ctx.sys, sec, { pl:ctx.rPl, h:ctx.rH, asc:ctx.rAsc, utc:ctx.rUtc }, 'r');
+      let top = null;
+      if (sec === 'signos' || sec === 'elemcual') {
+        // "Ver por…", resumen y "Expandir todos" van a ancho completo, justo bajo el selector principal
+        top = document.createElement('div');
+        top.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:6px;margin:0 0 10px;padding:0 4px;';
+        const takeHead = function(h, keep) {
+          const tb = h.querySelector('[data-dual-toolbar]');
+          if (!tb) return null;
+          let node = tb; while (node.parentElement && node.parentElement !== h) node = node.parentElement;
+          const kids = Array.prototype.slice.call(h.children), idx = kids.indexOf(node);
+          kids.slice(0, idx + 1).forEach(function(k) { if (keep && k !== node) top.appendChild(k); else k.remove(); });
+          return tb;
+        };
+        takeHead(L, true); takeHead(R, false);
+        // Un único "Expandir todos" que gobierna las dos columnas
+        const accent = sec === 'signos' ? '#fb923c' : '#4ade80';
+        const items = Array.prototype.slice.call(L.querySelectorAll('.acc-item')).concat(Array.prototype.slice.call(R.querySelectorAll('.acc-item')));
+        if (items.length) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.style.cssText = 'background:transparent;border:1px solid '+accent+';color:'+accent+';font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:8px 16px;border-radius:2px;';
+          const upd = function() { btn.textContent = items.every(function(it) { return it._abierto; }) ? 'Contraer todos' : 'Expandir todos'; };
+          btn.onclick = function() {
+            const abrir = !items.every(function(it) { return it._abierto; });
+            items.forEach(function(it) { if (!!it._abierto !== abrir && it._head) it._head.click(); });
+            upd();
+          };
+          items.forEach(function(it) { if (it._head) it._head.addEventListener('click', upd); });
+          upd();
+          top.appendChild(btn);
+        }
+        body.appendChild(top);
+      }
+      body.appendChild(mkHdr());
+      const grid = document.createElement('div');
+      grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:0;';
+      L.style.cssText += 'min-width:0;padding:0 4px;overflow:hidden;';
+      R.style.cssText += 'min-width:0;padding:0 4px;overflow:hidden;border-left:1px solid rgba('+rgb+',0.25);';
+      grid.appendChild(L); grid.appendChild(R);
+      body.appendChild(grid);
+    }
+    else if (sec === 'partes' || sec === 'asteroides') {
+      const isP = sec === 'partes', set = isP ? ctx.partesSet : ctx.astSet;
+      const LIST = isP ? (typeof TODAS_LAS_PARTES !== 'undefined' ? TODAS_LAS_PARTES : []) : (typeof TODOS_LOS_ASTEROIDES !== 'undefined' ? TODOS_LOS_ASTEROIDES : []);
+      (function() {
+        const src = document.getElementById(ctx.sys === 12 ? (isP ? 'panelPartes' : 'panelAsteroides') : (isP ? 'oPanelPartes' : 'oPanelAsteroides'));
+        const blk = src && src.firstElementChild;
+        if (blk) { const cl = blk.cloneNode(true); cl.querySelectorAll('[id]').forEach(function(e) { e.removeAttribute('id'); }); body.appendChild(cl); }
+      })();
+      if (!set || !set.size) { body.appendChild(msg(isP ? 'No hay Partes Arábigas activas. Actívalas en el botón "Partes Arábigas".' : 'No hay Asteroides activos. Actívalos en el botón "Asteroides".')); }
+      else {
+        const col = isP ? '#f0a500' : '#c084fc';
+        const jd = u => (u && typeof jdUTC === 'function') ? jdUTC(u instanceof Date ? u : new Date(u)) : null;
+        const jdN = jd(ctx.nUtc), jdR = jd(ctx.rUtc);
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'display:flex;flex-direction:column;gap:1px;';
+        wrap.appendChild(mkHdr());
+        const ent = [];
+        LIST.filter(x => set.has(x.key)).sort(_ordenAlfa).forEach(x => {
+          let nLon = null, rLon = null;
+          if (isP) {
+            nLon = calcularParteArabiga(x, ctx.nAsc ?? 0, ctx.nPlRaw, ctx.pnH || []);
+            rLon = (ctx.rAsc != null && ctx.rPlRaw && ctx.rPlRaw.length) ? calcularParteArabiga(x, ctx.rAsc, ctx.rPlRaw, ctx.prH || []) : null;
+          } else {
+            nLon = jdN ? calcularAsteroide(x.key, jdN) : null;
+            rLon = jdR ? calcularAsteroide(x.key, jdR) : null;
+          }
+          const cell = (lon, H, c) => {
+            if (lon == null) return mut;
+            const s = ctx.sInfo(lon), h = hs(lon, H);
+            const g = isP ? (typeof parteGlyphHtml === 'function' ? parteGlyphHtml(x, 16) : (x.g || '⬡')) : (x.g || '✦');
+            return '<span style="color:'+c+';font-size:16px;">'+g+'</span><span style="font-size:13px;color:'+c+';margin:0 2px;">'+(isP ? x.short : x.name)+'</span>'+
+              '<span style="color:rgba('+rgb+',0.9);font-size:15px;">'+s.glyph+'</span><span style="color:rgba('+rgb+',0.75);font-size:12px;">'+s.deg+'°'+pad(s.min)+"'"+'</span>'+
+              (h?'<span style="color:'+ctx.acc+';font-size:11px;"> '+h+'</span>':'');
+          };
+          ent.push({ cat: x.cat || 'oscuro', row: mkRow(cell(nLon, ctx.nH, col), cell(rLon, ctx.rH, T.color), false) });
+        });
+        wrap.appendChild(_buildPanelAcordeon(ent, ctx.store + (isP ? 'P' : 'A'), col, isP ? '240,165,0' : '192,132,252'));
+        body.appendChild(wrap);
+      }
+    }
+    else if (sec === 'aspectos') {
+      const nA = calcAsp(ctx.nPl.filter(ctx.aspFilter), false), rA = calcAsp(ctx.rPl.filter(ctx.aspFilter), false);
+      const gm = {}; [...ctx.nPl, ...ctx.rPl].forEach(p => { if (!gm[p.key]) gm[p.key] = p; });
+      const keys = [...new Set([...nA, ...rA].flatMap(a => [a.a.key, a.b.key]))];
+      const sorted = [..._D_ORDER.filter(k => keys.includes(k)), ...keys.filter(k => !_D_ORDER.includes(k))];
+      const fr = document.createElement('div');
+      fr.style.cssText = 'display:flex;justify-content:center;margin-bottom:8px;';
+      fr.innerHTML = '<select style="background:#001428;border:1px solid rgba('+rgb+',0.5);color:#fff;font-size:17px;padding:6px 10px;outline:none;cursor:pointer;min-width:120px;text-align:center;"><option value="">Todos</option>' +
+        sorted.map(k => '<option value="'+k+'" style="background:#000d20;">'+(gm[k] ? gm[k].g+' '+gm[k].name : k)+'</option>').join('') + '</select>';
+      body.appendChild(fr);
+      body.appendChild(mkHdr());
+      const list = document.createElement('div');
+      body.appendChild(list);
+      // Fila de aspecto con el mismo formato que "Aspectos" de la carta natal (asp2-row), sin orbes decimales
+      const aPl = (p, H, tint) => {
+        const s = ctx.sInfo(p.lon), n = ctx.houseOf(p.lon, H);
+        return '<div class="asp2-planet"><span class="asp2-planet-g"'+(tint?' style="color:'+tint+';"':'')+'>'+(p.g||'?')+'</span>' +
+          '<span class="asp2-planet-name"'+(tint?' style="color:'+tint+';"':'')+'>'+(p.name||p.key)+'</span>' +
+          (n ? '<span class="asp2-planet-casa" title="Casa '+_D_ROM[n-1]+'">'+_D_ROM[n-1]+'</span>' : '') +
+          '<span class="asp2-planet-deg">'+s.deg+'°'+pad(s.min)+"'"+'</span>' +
+          (p.retro ? '<span class="asp2-retro">℞</span>' : '') + '</div>';
+      };
+      const aRowHtml = (pa, Ha, pb, Hb, asp, cls, tintB) =>
+        '<div class="asp2-row '+cls+'"><div class="asp2-left">' + aPl(pa, Ha, null) + '<div class="asp2-sep"></div>' + aPl(pb, Hb, tintB) + '</div>' +
+        '<div class="asp2-right"><span class="asp2-asp-g" style="color:'+asp.col+';">'+asp.glyph+'</span>' +
+        '<span class="asp2-asp-name" style="color:'+asp.col+';">'+asp.label+'</span></div></div>';
+      const aCell = (a, H) => a ? aRowHtml(a.a, H, a.b, H, a.asp, 'dual-asp2', null) : mut;
+      const mkAspPair = (l, r) => { const d = document.createElement('div');
+        d.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;align-items:stretch;';
+        d.innerHTML = '<div style="min-width:0;padding:0 3px;display:flex;align-items:center;justify-content:center;">'+l+'</div>' +
+          '<div style="min-width:0;padding:0 3px;display:flex;align-items:center;justify-content:center;border-left:1px solid rgba('+rgb+',0.25);">'+r+'</div>';
+        d.querySelectorAll('.asp2-row').forEach(function(e) { e.style.width = '100%'; });
+        return d; };
+      const build = fk => {
+        list.innerHTML = '';
+        const pk = a => a.a.key < a.b.key ? a.a.key+'__'+a.b.key : a.b.key+'__'+a.a.key;
+        const flt = arr => fk ? arr.filter(a => a.a.key === fk || a.b.key === fk) : arr;
+        const map = {};
+        flt(nA).forEach(a => { (map[pk(a)] = map[pk(a)] || {}).n = a; });
+        flt(rA).forEach(a => { (map[pk(a)] = map[pk(a)] || {}).r = a; });
+        const rows = Object.values(map);
+        if (!rows.length) list.appendChild(msg('Sin aspectos para este astro.'));
+        rows.forEach(o => list.appendChild(mkAspPair(aCell(o.n, ctx.nH), aCell(o.r, ctx.rH))));
+        // cruzados natal ↔ carta externa
+        const cross = [];
+        ctx.nPl.filter(ctx.aspFilter).forEach(np => ctx.rPl.filter(ctx.aspFilter).forEach(rp => {
+          if (np.lon == null || rp.lon == null) return;
+          if (fk && np.key !== fk && rp.key !== fk) return;
+          const asp = aspByDeg(np.lon, rp.lon, false);
+          if (asp) cross.push({ np, rp, asp });
+        }));
+        if (cross.length) {
+          const t = document.createElement('div');
+          t.style.cssText = 'margin-top:14px;padding:8px 6px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:'+T.color+';border-top:1px solid rgba('+rgb+',0.25);';
+          t.textContent = T.icono + ' Cruzados · Natal ↔ ' + T.label + ' (' + cross.length + ')';
+          list.appendChild(t);
+          cross.forEach(x => {
+            const w = document.createElement('div');
+            w.style.cssText = 'padding:0 3px;';
+            w.innerHTML = aRowHtml(x.np, ctx.nH, x.rp, ctx.rH, x.asp, 'dual-asp2-full', T.color);
+            list.appendChild(w);
+          });
+        }
+      };
+      fr.querySelector('select').onchange = function() { build(this.value); };
+      build('');
+    }
+
+  }
+
+
+  window._dualRefresh = function() {
+    if (window._dualTabNatalActivo && typeof window.renderDualTabNatal === 'function') window.renderDualTabNatal();
+    if (window._dualTabOfiucoActivo && typeof window.renderDualTabOfiuco === 'function') window.renderDualTabOfiuco();
+  };
+  (function _wrapRefreshDual() {
+    const names = ['onSignosFiltroChange','onSignosSubFiltroChange','onCualModoChange','applyPartes','applyAsteroides',
+                   'onOSignosFiltroChange','onOSignosSubFiltroChange','onOCualModoChange','oApplyPartes','oApplyAsteroides'];
+    const run = function() {
+      names.forEach(function(n) {
+        const f = window[n];
+        if (typeof f !== 'function' || f._wDual) return;
+        const w = function() { const r = f.apply(this, arguments); setTimeout(window._dualRefresh, 0); return r; };
+        w._wDual = true; window[n] = w;
+      });
+    };
+    run(); window.addEventListener('load', run);
+  })();
+
+  window._dualSecN = 'planetas'; window._dualSecO = 'planetas';
+  window.renderDualTabNatal = function() {
+    const host = document.getElementById('dualContent'); if (!host) return;
+    const ctx = _dualCtxNatal();
+    if (!ctx) { host.innerHTML = '<p style="color:rgba(255,255,255,0.45);padding:14px;text-align:center;font-size:14px;">Activa un retorno o tránsito para comparar con la carta natal.</p>'; return; }
+    _dualRender(ctx, host, () => window._dualSecN, v => { window._dualSecN = v; window.renderDualTabNatal(); });
+  };
+  window.renderDualTabOfiuco = function() {
+    const host = document.getElementById('oDualContent'); if (!host) return;
+    const ctx = _dualCtxOfiuco();
+    if (!ctx) { host.innerHTML = '<p style="color:rgba(255,255,255,0.45);padding:14px;text-align:center;font-size:14px;">Activa un retorno o una carta externa para comparar con la natal.</p>'; return; }
+    _dualRender(ctx, host, () => window._dualSecO, v => { window._dualSecO = v; window.renderDualTabOfiuco(); });
+  };
+
+  // ── Visibilidad de la pestaña (solo con retorno / tránsito activo) ──
+  function _actualizarTabDualNatal() {
+    const btn = document.getElementById('tabDual'); if (!btn) return;
+    const bar = document.getElementById('btnVolverNatalTop');
+    const vis = !!(bar && bar.style.display === 'flex');
+    btn.style.display = vis ? '' : 'none';
+    if (vis) { const t = _dualTipoNatal(); btn.textContent = t.icono + ' ' + t.label; }
+    if (!vis && window._dualTabNatalActivo && typeof switchTab === 'function') switchTab('planetas');
+    if (vis && window._dualTabNatalActivo) window.renderDualTabNatal();
+  }
+  window._actualizarTabDualNatal = _actualizarTabDualNatal;
+  window._oActualizarTabDual = function() {
+    const btn = document.getElementById('oTabDual'); if (!btn) return;
+    const bar = document.getElementById('oRetornoBtnVolverTop');
+    const vis = !!(bar && bar.style.display === 'flex');
+    btn.style.display = vis ? '' : 'none';
+    if (vis) { const t = _dualTipoOfiuco(); btn.textContent = t.icono + ' ' + t.label; }
+    if (!vis && window._dualTabOfiucoActivo && typeof window.switchOfiucoTab === 'function') window.switchOfiucoTab('planetas');
+    if (vis && window._dualTabOfiucoActivo) window.renderDualTabOfiuco();
+  };
+  (function _obsTabsDual() {
+    const hook = (id, fn) => {
+      const el = document.getElementById(id); if (!el || el._dualObs) return;
+      el._dualObs = true;
+      new MutationObserver(() => { try { fn(); } catch(e) {} }).observe(el, { attributes:true, attributeFilter:['style'] });
+    };
+    hook('btnVolverNatalTop', _actualizarTabDualNatal);
+    hook('oRetornoBtnVolverTop', window._oActualizarTabDual);
   })();
 
   // ── Integración con Volver y Retornos ──
@@ -35309,6 +35649,17 @@ window.oRRetornoAnioEditar = function() {
   // ════════════════════════════════════════════════════════════════════
   // ── Aspectos Ofiuco — clases o-asp-* propias, no afectadas por media queries ──
   window._oAllAspects13 = [];
+  window._oSign13Info = getSign13Info;
+  window._oHouseOf13 = function (lon) {
+    const h = window._ofiucoHouses13;
+    if (!h || h.length < 13) return null;
+    const l = ((lon % 360) + 360) % 360;
+    for (let i = 0; i < 13; i++) {
+      const c1 = ((h[i].lon % 360) + 360) % 360, c2 = ((h[(i + 1) % 13].lon % 360) + 360) % 360;
+      if (c1 <= c2 ? (l >= c1 && l < c2) : (l >= c1 || l < c2)) return i + 1;
+    }
+    return null;
+  };
 
   window.renderOfiucoAspectos = function (planets) {
     const container = document.getElementById('oAspList');
@@ -35353,19 +35704,8 @@ window.oRRetornoAnioEditar = function() {
       });
     }
 
-    const pairs = [];
-    for (let i = 0; i < toUse.length - 1; i++) {
-      for (let j = i + 1; j < toUse.length; j++) {
-        const diff = Math.abs(((toUse[j].lon - toUse[i].lon) % 360 + 360) % 360);
-        const d    = Math.min(diff, 360 - diff);
-        for (const asp of ASP_DEF) {
-          if (Math.abs(d - asp.deg) <= asp.orb) {
-            pairs.push({ a:toUse[i], b:toUse[j], asp, orb: Math.abs(d - asp.deg).toFixed(1) });
-            break;
-          }
-        }
-      }
-    }
+    // Mismos aspectos, órbitas y colores que la carta natal
+    const pairs = calcAsp(toUse, false);
     window._oAllAspects13 = pairs;
     container.innerHTML = '';
 
@@ -36157,6 +36497,7 @@ window.oRRetornoAnioEditar = function() {
 
   window.switchOfiucoTab = function (tab) {
     _oResetInterpViews();
+    window._dualTabOfiucoActivo = (tab === 'dual');
     const TAB_IDS = {
       planetas:   'oTabPlanetas',
       casas:      'oTabCasas',
@@ -36165,6 +36506,7 @@ window.oRRetornoAnioEditar = function() {
       aspectos:   'oTabAspectos',
       signos:     'oTabSignos',
       cualidades: 'oTabCualidades',
+      dual:       'oTabDual',
     };
     const PANEL_IDS = {
       planetas:   'oPanelPlanetas',
@@ -36174,11 +36516,12 @@ window.oRRetornoAnioEditar = function() {
       aspectos:   'oPanelAspectos',
       signos:     'oPanelSignos',
       cualidades: 'oPanelCualidades',
+      dual:       'oPanelDual',
     };
     const COLOR_MAP = {
       planetas:   'var(--acc)', casas: 'var(--acc)', partes: '#f0a500',
       asteroides: '#c084fc', aspectos: 'var(--acc)', signos: '#fb923c',
-      cualidades: '#4ade80',
+      cualidades: '#4ade80', dual: '#ffa500',
     };
 
     Object.keys(TAB_IDS).forEach(k => {
@@ -36198,6 +36541,7 @@ window.oRRetornoAnioEditar = function() {
     const planets = window._ofiucoPlanets13;
     const houses  = window._ofiucoHouses13;
     if (!planets) return;
+    if (tab === 'dual' && typeof window.renderDualTabOfiuco === 'function') window.renderDualTabOfiuco();
     if (tab === 'partes')     renderOfiucoPartesPanel();
     if (tab === 'asteroides') renderOfiucoAsteroidesPanel();
     if (tab === 'signos')     renderOfiucoSignosPanel(planets);
