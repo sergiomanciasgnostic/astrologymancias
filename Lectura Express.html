@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lectura Express – Sergiomancias Gnostic</title>
+  <script
+    src="https://www.paypal.com/sdk/js?client-id=BAAXfpZyrabT8hm9nrISjAcvNnZyNMnbQv_R8aJZkP8Q84u8D61nvBk1z2y1bLzyUjoBobpFg3za5Pa_PY&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+  <style>
+    :root {
+      --bg: #c4baaa;
+      --red: #a93226;
+      --navy: #212f3d;
+      --text: #212f3d;
+      --on-dark: #c4baaa;
+      /* alias usados por estilos en línea del archivo */
+      --gold: #a93226;
+      --muted: #212f3d;
+      --border: rgba(33,47,61,0.35);
+      --arrow-white: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23c4baaa' d='M0 0h10L5 6z'/%3E%3C/svg%3E");
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: Arial, sans-serif;
+      min-height: 100vh; display: flex;
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    .container { width: 100%; max-width: 520px; text-align: center; }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(8px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    h1 {
+      font-size: clamp(22px,5vw,38px); font-weight: bold;
+      color: var(--navy); letter-spacing:.05em;
+      margin-bottom: 16px;
+    }
+
+    /* ── Imagen principal ── */
+    #bloqueImagen { position: relative; display: inline-block; margin-bottom: 20px; }
+    #imgPrincipal { display: block; width: 50%; height: auto; object-fit: contain; margin: 0 auto; }
+
+    .divider { width:80%; height:1px; background:var(--navy); opacity:.35; margin:0 auto 20px; }
+
+    /* ── Precio ── */
+    #precioBox { margin-bottom: 20px; }
+    .precio-label { font-size: clamp(13px,2vw,15px); color: var(--text); margin-bottom: 6px; }
+    .precio-valor { font-size: clamp(12px,5vw,24px); font-weight: bold; color: var(--red); }
+
+    /* ── Botones base: fondo rojo, texto blanco, hover azul oscuro ── */
+    .btn-continuar-main, .btn-como-pagar, .btn-cambiar-pagos-pp, .btn-acepta,
+    .btn-continuar-final, .btn-cambiar-pagos, .modal-cerrar, .btn-cerrar-modal {
+      background: var(--red); border: 1px solid var(--red);
+      color: var(--on-dark); font-family: Arial, sans-serif; cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-continuar-main:hover, .btn-como-pagar:hover, .btn-cambiar-pagos-pp:hover,
+    .btn-acepta:hover, .btn-continuar-final:hover, .btn-cambiar-pagos:hover,
+    .modal-cerrar:hover, .btn-cerrar-modal:hover {
+      background: var(--navy); border-color: var(--navy); color: var(--on-dark);
+    }
+
+    /* ── Dos botones principales ── */
+    #botonesIniciales {
+      display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; align-items: center;
+    }
+    .btn-continuar-main {
+      width: auto; padding: 6px 14px;
+      font-size: 15px; font-weight: bold; letter-spacing: .04em;
+    }
+
+    /* ── Panel de pago (oculto hasta pulsar Continuar) ── */
+    #panelPago { display: none; animation: fadeUp .35s forwards; }
+    #panelPago.visible { display: block; }
+
+    /* ── PayPal ── */
+    #paypalLogoWrap {
+      display: flex; justify-content: center; align-items: center;
+      gap: 12px; margin-bottom: 14px;
+    }
+    #paypalLogoWrap img { height: 44px; width: auto; max-width: 140px; object-fit: contain; }
+    .btn-como-pagar { padding: 5px 10px; font-size: 15px; white-space: nowrap; }
+
+    #paypalBtnWrap { display: flex; justify-content: center; margin-bottom: 12px; }
+    #paypalBtnWrap input[type="image"] { width: 180px; cursor: pointer; }
+
+    /* ── Forma de pago ── */
+    #tipoPagoBox {
+      background: var(--navy); border: 1px solid var(--navy);
+      padding: 14px 16px; margin-bottom: 16px;
+    }
+    .tpago-header { display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+    .tpago-label { font-size: 17px; color: var(--on-dark); font-weight: bold; }
+    .tpago-btns { display: flex; gap: 8px; }
+    .btn-tipo {
+      flex: 1; padding: 10px 0; background: var(--red); border: 1px solid var(--red);
+      color: var(--on-dark); font-family: Arial, sans-serif; font-size: 17px; font-weight: bold;
+      cursor: pointer; transition: all .2s;
+    }
+    .btn-tipo:hover { background: var(--bg); border-color: var(--bg); color: var(--navy); }
+    .btn-tipo.on { background: var(--bg); border-color: var(--bg); color: var(--navy); }
+
+    /* ── Zona PayPal + Cambiar pagos ── */
+    #paypalZona { display: none; }
+    #paypalZona.visible { display: block; animation: fadeUp .35s forwards; }
+    #paypalCambiarPagos { display: flex; justify-content: center; margin-bottom: 16px; }
+    .btn-cambiar-pagos-pp { padding: 5px 10px; font-size: 15px; white-space: nowrap; }
+
+    /* ── Transferencias ── */
+    #transferenciaBox { display: none; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 16px; }
+    #transferenciaBox.visible { display: flex !important; animation: fadeUp .4s forwards; position: relative; z-index: 20; }
+
+    .transf-pc  { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
+    .transf-mob { display: none; flex-direction: column; gap: 8px; width: 100%; }
+    .transf-mob-f1 { display: flex; align-items: center; gap: 8px; width: 100%; }
+    .transf-mob-f2 { display: flex; justify-content: center; min-height: 54px; align-items: center; }
+    @media(max-width:480px){
+      .transf-pc  { display: none !important; }
+      .transf-mob { display: flex !important; }
+    }
+    .transf-titulo { font-size: 17px; font-weight: bold; color: var(--text); white-space: nowrap; flex-shrink: 0; }
+    .tarjeta-logo {
+      display: none; height: 36px; width: auto; max-width: 120px;
+      object-fit: contain; flex-shrink: 0;
+      filter: drop-shadow(0 3px 5px rgba(33,47,61,.55));
+    }
+    .tarjeta-logo.visible { display: block; }
+    .acepta-bloque { display: none; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+    .acepta-bloque.visible { display: flex; animation: fadeUp .3s forwards; }
+    .acepta-txt { font-size: 17px; color: var(--text); text-align: center; }
+    .acepta-txt strong { color: var(--red); }
+    .acepta-btns { display: flex; gap: 5px; }
+    .btn-acepta { padding: 6px 18px; font-size: 17px; font-weight: bold; white-space: nowrap; }
+
+    /* ── Finalizar ── */
+    #finalizarBox {
+      display: none; flex-direction: row;
+      align-items: center; gap: 12px;
+      margin-bottom: 16px; justify-content: center;
+    }
+    #finalizarBox.visible { display: flex; animation: fadeUp .4s forwards; }
+    .final-titulo { font-size: 17px; color: var(--text); font-weight: normal; white-space: nowrap; }
+    .final-btns { display: flex; flex-direction: column; gap: 6px; }
+    .btn-continuar-final, .btn-cambiar-pagos {
+      padding: 5px 10px; font-size: 15px; white-space: nowrap; display: inline-block;
+    }
+
+    /* ══════════════════════════════════════
+       MODALES
+    ══════════════════════════════════════ */
+    #modalPaypal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(33,47,61,0.88);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    #modalPaypal.visible { display: flex; animation: fadeIn .3s ease; }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    .modal-inner {
+      width: 100%; max-width: 460px; max-height: 100%; overflow-y: auto;
+      background: var(--bg);
+      border: 1px solid var(--navy);
+      position: relative;
+      animation: slideUp .3s ease;
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    .modal-cerrar {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      font-size: 16px; width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-cerrar-modal { font-size: 14px; padding: 8px 24px; }
+
+    .modal-titulo {
+      text-align: center; padding: 18px 40px 0;
+      font-size: clamp(12px,2.5vw,15px);
+      font-weight: bold; color: var(--navy);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    .m-pasos { display: flex; justify-content: center; gap: 6px; padding: 12px 0 10px; }
+    .m-pip {
+      height: 3px; width: 28px; background: rgba(33,47,61,0.3);
+      transition: background 0.4s, width 0.4s; cursor: pointer;
+    }
+    .m-pip.active { background: var(--red); width: 44px; }
+
+    .modal-tarjeta {
+      background: var(--bg);
+      border-top: 1px solid var(--navy);
+      border-bottom: 1px solid var(--navy);
+      position: relative; overflow: hidden;
+    }
+    .modal-tarjeta::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+    .m-paso-num {
+      position: absolute; top: 12px; left: 16px;
+      font-size: 10px; font-weight: bold;
+      color: var(--red); letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .m-slide { display: none; padding: 36px 20px 20px; animation: mEntrar .35s ease; }
+    .m-slide.active { display: block; }
+    .m-slide.volviendo { animation: mVolver .35s ease; }
+    @keyframes mEntrar { from { opacity:0; transform:translateX(16px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes mVolver { from { opacity:0; transform:translateX(-16px); } to { opacity:1; transform:translateX(0); } }
+    .m-texto {
+      font-size: 17px; line-height: 1.8; color: var(--text);
+      margin-bottom: 14px; text-align: center;
+    }
+    .m-texto p { margin-bottom: 8px; }
+    .m-texto p:last-child { margin-bottom: 0; }
+    .m-img { display: block; max-width: 100%; width: 100%; margin: 0 auto 14px; }
+
+    .modal-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; }
+    .modal-nav-btn, .modal-nav-cerrar {
+      background: var(--red); color: var(--on-dark);
+      border: none;
+      font-family: Arial, sans-serif;
+      font-size: 12px; font-weight: bold;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 13px 10px; cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .modal-nav-btn:first-child { border-right: 1px solid var(--bg); }
+    .modal-nav-btn::before, .modal-nav-cerrar::before {
+      content: ''; position: absolute; inset: 0;
+      background: var(--navy); transform: translateY(100%);
+      transition: transform 0.3s ease; z-index: 0;
+    }
+    .modal-nav-btn.sig::before { transform: translateY(-100%); }
+    .modal-nav-btn:hover::before, .modal-nav-cerrar:hover::before { transform: translateY(0); }
+    .modal-nav-btn span, .modal-nav-cerrar span { position: relative; z-index: 1; }
+    .modal-nav-btn:disabled { visibility: hidden; pointer-events: none; }
+    .modal-nav-cerrar { display: none; width: 100%; padding: 13px; }
+    .modal-nav-cerrar.visible { display: block; }
+
+    /* ══════════════════════════════════════
+       DESPLEGABLE PROPIO (sustituye al nativo,
+       cuyo resaltado azul/celeste no se puede cambiar)
+    ══════════════════════════════════════ */
+    .cs { position: relative; text-align: left; }
+    .cs select { display: none !important; }
+    .cs-dur { display: block; width: fit-content; max-width: 100%; margin: 0 auto 12px; }
+    .cs-transf { flex: 0 0 150px; width: 150px; }
+    .cs-transf.cs-mob { flex: 1; width: auto; }
+    .cs.open { z-index: 60; }
+    .cs.oculto {
+      opacity: 0 !important; visibility: hidden !important;
+      flex: 0 0 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important;
+    }
+    .cs-btn {
+      display: block; width: 100%; text-align: left;
+      padding: 8px 36px 8px 12px;
+      background-color: var(--red); border: 1px solid var(--red);
+      color: var(--on-dark); font-family: Arial, sans-serif;
+      font-size: clamp(13px,2vw,15px); cursor: pointer; outline: none;
+      background-image: var(--arrow-white); background-repeat: no-repeat;
+      background-position: right 12px center;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: background-color .25s, border-color .25s;
+    }
+    .cs-transf .cs-btn { padding: 8px 28px 8px 8px; background-position: right 8px center; }
+    .cs-btn:hover { background-color: #8e2a20; border-color: #8e2a20; }
+    .cs.open .cs-btn, .cs.has-value .cs-btn {
+      background-color: var(--navy); border-color: var(--navy);
+    }
+    .cs-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+    .cs-list {
+      display: none; position: absolute; bottom: 100%; top: auto; left: 0; min-width: 100%;
+      margin-bottom: 2px; max-height: 240px; overflow-y: auto;
+      background: var(--red); border: 1px solid var(--navy);
+      list-style: none; z-index: 60; white-space: nowrap;
+    }
+    .cs.open .cs-list { display: block; animation: fadeUp .2s forwards; }
+    .cs-transf .cs-list { max-height: none; overflow-y: visible; }
+    .cs-opt { padding: 8px 12px; color: var(--on-dark); cursor: pointer; font-size: clamp(13px,2vw,15px); }
+    .cs-opt:hover, .cs-opt.active, .cs-opt.sel { background: var(--navy); color: var(--on-dark); }
+    .cs-group {
+      padding: 7px 12px 3px; font-size: 11px; font-weight: bold;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--bg); pointer-events: none;
+    }
+    .cs-group:not(:first-child) { border-top: 1px solid rgba(196,186,170,.4); margin-top: 4px; }
+    #transferenciaBox.visible { position: relative; z-index: 20; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Lectura Express</h1>
+
+  <div id="bloqueImagen">
+    <img id="imgPrincipal"
+      src="https://static.wixstatic.com/media/0bac9e_c186533528b24f348eb21319b821c511~mv2.png"
+      alt="Lectura Express"/>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Precio -->
+  <div id="precioBox">
+    <div class="precio-label">Duración</div>
+    <div class="precio-valor" style="margin-bottom:14px;">15 minutos</div>
+    <div class="precio-label">Precio</div>
+    <div class="precio-valor">10 U$S</div>
+  </div>
+
+  <!-- Botones principales -->
+  <div id="botonesIniciales">
+    <button class="btn-continuar-main" onclick="mostrarPago()" style="display:inline-block;width:auto;">Continuar</button>
+  </div>
+
+  <!-- Panel de pago -->
+  <div id="panelPago">
+
+    <!-- Selección tipo de pago -->
+    <div id="tipoPagoBox">
+      <div class="tpago-header"><span class="tpago-label">Forma de Pago</span></div>
+      <div class="tpago-btns" id="btnsPais">
+        <button class="btn-tipo" id="btnUruguay" onclick="elegirPais('uy')">Uruguay</button>
+        <button class="btn-tipo" id="btnOtroPais" onclick="elegirPais('otro')">Otro País</button>
+      </div>
+      <div class="tpago-btns" id="btnsPago" style="display:none">
+        <button class="btn-tipo" id="btnPaypal"        onclick="elegirPago('paypal')">PayPal</button>
+        <button class="btn-tipo" id="btnTransferencia" onclick="elegirPago('transferencia')">Transferencias</button>
+      </div>
+    </div>
+
+    <!-- Zona PayPal -->
+    <div id="paypalZona">
+      <div id="paypalLogoWrap">
+        <img src="https://static.wixstatic.com/media/0bac9e_34107a296fbc45eba17d7333d3d16456~mv2.png" alt="PayPal"/>
+        <button class="btn-como-pagar" onclick="abrirModalPaypal()">Cómo pagar en PayPal</button>
+      </div>
+      <div id="paypalBtnWrap">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+          <input type="hidden" name="cmd" value="_s-xclick" />
+          <input type="hidden" name="hosted_button_id" value="QGEAKF53GURKJ" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input type="image" src="https://www.paypalobjects.com/es_ES/i/btn/btn_buynow_SM.gif"
+            border="0" name="submit"
+            title="PayPal es una forma segura y fácil de pagar en línea."
+            alt="Comprar ahora" onclick="guardarLS('PayPal','')" />
+        </form>
+      </div>
+      <div id="paypalCambiarPagos">
+        <button class="btn-cambiar-pagos-pp" onclick="volverPagos()">Cambiar de Pagos</button>
+      </div>
+    </div>
+
+    <!-- Zona Transferencias -->
+    <div id="transferenciaBox">
+      <div class="transf-pc">
+        <div class="transf-titulo">Transferencias</div>
+        <select class="transf-select" id="selPC" onchange="onTarjeta('PC')">
+          <option value="">— Elige —</option>
+          <optgroup label="Internacional">
+            <option value="Visa">Visa</option>
+            <option value="Mastercard">Mastercard</option>
+            <option value="American Express">American Express</option>
+            <option value="Maestro">Maestro</option>
+          </optgroup>
+          <optgroup label="América Latina">
+            <option value="Prex">Prex</option>
+            <option value="Mercado Pago">Mercado Pago</option>
+            <option value="OCA">OCA</option>
+            <option value="Cabal">Cabal</option>
+            <option value="Naranja">Naranja</option>
+            <option value="Lider">Lider</option>
+          </optgroup>
+        </select>
+        <img class="tarjeta-logo" id="logoPC" src="" alt=""/>
+        <div class="acepta-bloque" id="aceptaPC">
+          <div class="acepta-txt">¿Aceptas pagar con<br><strong id="nombrePC"></strong>?</div>
+          <div class="acepta-btns">
+            <button class="btn-acepta" onclick="respAcepta('si','PC')">Sí</button>
+            <button class="btn-acepta" onclick="respAcepta('no','PC')">No</button>
+          </div>
+        </div>
+      </div>
+      <div class="transf-mob">
+        <div class="transf-mob-f1">
+          <div class="transf-titulo">Transferencias</div>
+          <select class="transf-select" id="selMob" onchange="onTarjeta('Mob')" style="flex:1;width:auto;">
+            <option value="">— Elige —</option>
+            <optgroup label="Internacional">
+              <option value="Visa">Visa</option>
+              <option value="Mastercard">Mastercard</option>
+              <option value="American Express">American Express</option>
+              <option value="Maestro">Maestro</option>
+            </optgroup>
+            <optgroup label="América Latina">
+              <option value="Prex">Prex</option>
+              <option value="Mercado Pago">Mercado Pago</option>
+              <option value="OCA">OCA</option>
+              <option value="Cabal">Cabal</option>
+              <option value="Naranja">Naranja</option>
+              <option value="Lider">Lider</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="transf-mob-f2">
+          <img class="tarjeta-logo" id="logoMob" src="" alt=""/>
+          <div class="acepta-bloque" id="aceptaMob">
+            <div class="acepta-txt">¿Aceptas pagar con<br><strong id="nombreMob"></strong>?</div>
+            <div class="acepta-btns">
+              <button class="btn-acepta" onclick="respAcepta('si','Mob')">Sí</button>
+              <button class="btn-acepta" onclick="respAcepta('no','Mob')">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Finalizar transferencia -->
+    <div id="finalizarBox">
+      <div class="final-titulo">Finalizar</div>
+      <div class="final-btns">
+        <button class="btn-cambiar-pagos" onclick="volverPagos()">Cambiar de Pagos</button>
+        <button class="btn-continuar-final" onclick="ejecutarFinal()">Continuar →</button>
+      </div>
+    </div>
+
+  </div><!-- /panelPago -->
+
+</div>
+
+<!-- ══ MODAL INSTRUCCIONES PAYPAL ══ -->
+<div id="modalPaypal">
+  <div class="modal-inner">
+    <button class="modal-cerrar" onclick="cerrarModalPaypal()">✕</button>
+    <div class="modal-titulo">Cómo pagar en PayPal</div>
+    <div class="m-pasos" id="mPasos"></div>
+    <div class="modal-tarjeta">
+      <div class="m-paso-num" id="mPasoNum"></div>
+      <div class="m-slide active">
+        <div class="m-texto">
+          <p>Al ingresar a Pagos de PayPal tienes dos opciones:<br>por cuenta de PayPal o por Pagos de Banco o Tarjeta.</p>
+          <p>Puedes ingresar a tu cuenta si deseas o das clic<br>en el botón que aparece en la parte inferior:</p>
+        </div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_e09594ba7530441eb1e0930fadc8fe21~mv2.png" alt="Pay with Bank or Card"/>
+      </div>
+
+      <div class="m-slide">
+        <div class="m-texto"><p>Rellenas la información que te pide PayPal<br>y cuando aparezca este botón:</p></div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_8ebd8af50fa04f85ad5d15926b187c97~mv2.png" alt="Save info enable"/>
+        <div class="m-texto" style="margin:12px 0 8px;"><p>Deshabilítalo:</p></div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_03d7248adf98433983a1fb60a3f53d8c~mv2.png" alt="Save info disable"/>
+      </div>
+
+      <div class="m-slide">
+        <div class="m-texto"><p>Y el paso de pagos:</p></div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_853b8374436340bbb7dfceda5d050a23~mv2.png" alt="Pay now as guest"/>
+      </div>
+
+      <div class="m-slide">
+        <div class="m-texto">
+          <p>Cuando des clic en el botón de pagos<br>aparecerán los datos y para terminar<br>cliqueas este botón:</p>
+        </div>
+        <img class="m-img" src="https://static.wixstatic.com/media/0bac9e_2188d9d33956488e8e8f37ed382d0f2d~mv2.png" alt="Return to Merchant"/>
+        <div class="m-texto" style="margin-top:14px;">
+          <p>Y te redireccionará a un formulario<br>para conectarte conmigo.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-nav">
+      <button class="modal-nav-btn" id="mBtnAnterior" onclick="mCambiar(-1)"><span>◄ Anterior</span></button>
+      <button class="modal-nav-btn sig" id="mBtnSiguiente" onclick="mCambiar(1)"><span>Siguiente ►</span></button>
+    </div>
+    <button class="modal-nav-cerrar" id="mBtnCerrar" onclick="cerrarModalPaypal()"><span>Cerrar ✕</span></button>
+  </div>
+</div>
+
+<script>
+  const LOGOS = {
+    'Visa':'https://static.wixstatic.com/media/0bac9e_988e4487f0a543019a09a61bbc3d3073~mv2.png',
+    'Mastercard':'https://static.wixstatic.com/media/0bac9e_95554542e97649ca8a2b94a1a55b41e6~mv2.png',
+    'American Express':'https://static.wixstatic.com/media/0bac9e_5cb7f0712e5f472494f65d82aeb878e0~mv2.png',
+    'Maestro':'https://static.wixstatic.com/media/0bac9e_f2f1bf2925de4fa7a0916166291892ae~mv2.png',
+    'Prex':'https://static.wixstatic.com/media/0bac9e_c2fefc3032b1412b94ce2015cd4953be~mv2.png',
+    'Mercado Pago':'https://static.wixstatic.com/media/0bac9e_26850efa98414f42afdefb949717a5da~mv2.png',
+    'OCA':'https://static.wixstatic.com/media/0bac9e_cac05cc26d87470499411e99a3a6860a~mv2.png',
+    'Cabal':'https://static.wixstatic.com/media/0bac9e_5b00b65aefeb4100ab26bcc1e7a0ac93~mv2.png',
+    'Naranja':'https://static.wixstatic.com/media/0bac9e_4e29bda615ed4d8ebc028cdd44ede5fe~mv2.png',
+    'Lider':'https://static.wixstatic.com/media/0bac9e_0cdf71c1aaad443198a6afe936dd24db~mv2.png',
+  };
+
+  let tipoPago = null, tarjeta = '', precioFinal = 0;
+
+  const el  = id => document.getElementById(id);
+  const add = (id,c) => el(id).classList.add(c);
+  const rem = (id,c) => el(id).classList.remove(c);
+  const tog = (id,c,on) => el(id).classList.toggle(c,on);
+  function show(id) { el(id).style.display=''; add(id,'visible'); }
+  function hide(id) { rem(id,'visible'); el(id).style.display='none'; }
+
+  /* ── Mostrar panel de pago ── */
+  function mostrarPago() {
+    precioFinal = 10.00;
+    el('botonesIniciales').style.display = 'none';
+    el('panelPago').classList.add('visible');
+  }
+
+  /* ── Elegir país ── */
+  let paisActual = '';
+  function elegirPais(pais) {
+    paisActual = pais;
+    el('btnsPais').style.display = 'none';
+    el('btnsPago').style.display = 'flex';
+    // Uruguay: PayPal + Transferencias | Otro País: solo PayPal
+    el('btnTransferencia').style.display = (pais === 'uy') ? '' : 'none';
+  }
+
+  /* ── Elegir tipo de pago ── */
+  function elegirPago(tipo) {
+    tipoPago = tipo;
+    tog('btnPaypal','on', tipo==='paypal');
+    tog('btnTransferencia','on', tipo==='transferencia');
+    hide('tipoPagoBox'); hide('finalizarBox');
+    if (tipo === 'paypal') {
+      hide('transferenciaBox');
+      // "Cambiar de Pagos" solo para Uruguay
+      el('paypalCambiarPagos').style.display = (paisActual === 'uy') ? '' : 'none';
+      show('paypalZona');
+    } else {
+      hide('paypalZona');
+      resetTransf();
+      show('transferenciaBox');
+    }
+  }
+
+  function volverPagos() {
+    tipoPago = null; tarjeta = '';
+    hide('paypalZona'); hide('transferenciaBox'); hide('finalizarBox');
+    rem('btnPaypal','on'); rem('btnTransferencia','on');
+    resetTransf();
+    show('tipoPagoBox');
+  }
+
+  function resetTransf() {
+    ['PC','Mob'].forEach(s => {
+      const sel = el('sel'+s); if (!sel) return;
+      sel.value = '';
+      sel.classList.remove('oculto');
+      rem('logo'+s,'visible'); rem('acepta'+s,'visible');
+    });
+    tarjeta = ''; hide('finalizarBox');
+  }
+
+  function onTarjeta(s) {
+    const v = el('sel'+s).value;
+    if (!v) { rem('acepta'+s,'visible'); hide('finalizarBox'); el('sel'+s).classList.remove('oculto'); rem('logo'+s,'visible'); return; }
+    el('nombre'+s).textContent = v;
+    add('acepta'+s,'visible'); hide('finalizarBox');
+    el('sel'+s).classList.add('oculto');
+    const logo = el('logo'+s); logo.src = LOGOS[v]||''; logo.alt = v;
+    add('logo'+s,'visible');
+  }
+
+  function respAcepta(op, s) {
+    const t = el('sel'+s).value;
+    if (op === 'si') {
+      tarjeta = t;
+      const logo = el('logo'+s); logo.src = LOGOS[t]||''; logo.alt = t;
+      add('logo'+s,'visible'); rem('acepta'+s,'visible');
+      show('finalizarBox');
+    } else {
+      rem('acepta'+s,'visible'); hide('finalizarBox'); tarjeta = '';
+      el('sel'+s).classList.remove('oculto');
+      rem('logo'+s,'visible');
+    }
+  }
+
+  function guardarLS(tp, tj) {
+    try {
+      localStorage.setItem('mancia',    'Lectura Express');
+      localStorage.setItem('manchaImg', 'https://static.wixstatic.com/media/0bac9e_c186533528b24f348eb21319b821c511~mv2.png');
+      localStorage.setItem('minutos',   '15');
+      localStorage.setItem('tipoPago',  tp);
+      localStorage.setItem('tarjeta',   tj);
+      localStorage.setItem('precioFinal', precioFinal.toFixed(2));
+      localStorage.setItem('precioOriginal', (10.00).toFixed(2));
+    } catch(e){}
+  }
+  function ejecutarFinal() {
+    guardarLS('Transferencia', tarjeta);
+    window.open('https://sergiomanciasgnostic.wixsite.com/sergiomanciasgnostic/postpago#postpago', '_blank');
+  }
+
+  /* ══ MODAL PAYPAL ══ */
+  const M_TOTAL = 4;
+  let mActual = 0, mVolviendo = false;
+
+  const mPasosEl = document.getElementById('mPasos');
+  for (let i = 0; i < M_TOTAL; i++) {
+    const p = document.createElement('div');
+    p.className = 'm-pip' + (i === 0 ? ' active' : '');
+    p.onclick = () => mIrA(i);
+    mPasosEl.appendChild(p);
+  }
+
+  function abrirModalPaypal() {
+    mActual = 0; mVolviendo = false;
+    mActualizar();
+    el('modalPaypal').classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+  function cerrarModalPaypal() {
+    el('modalPaypal').classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+  el('modalPaypal').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModalPaypal();
+  });
+
+  function mActualizar() {
+    document.querySelectorAll('#modalPaypal .m-slide').forEach((s,i) => {
+      s.classList.remove('active','volviendo');
+      if (i === mActual) { s.classList.add('active'); if (mVolviendo) s.classList.add('volviendo'); }
+    });
+    document.querySelectorAll('#mPasos .m-pip').forEach((p,i) => p.classList.toggle('active', i === mActual));
+    el('mPasoNum').textContent = `Paso ${mActual+1} de ${M_TOTAL}`;
+    el('mBtnAnterior').disabled = mActual === 0;
+    el('mBtnSiguiente').disabled = mActual === M_TOTAL - 1;
+    el('mBtnCerrar').classList.toggle('visible', mActual === M_TOTAL - 1);
+  }
+  function mCambiar(dir) { mVolviendo = dir < 0; mActual = Math.max(0, Math.min(M_TOTAL-1, mActual+dir)); mActualizar(); }
+  function mIrA(i) { mVolviendo = i < mActual; mActual = i; mActualizar(); }
+</script>
+<script>
+  /* ══ DESPLEGABLES PROPIOS (mantienen el <select> original sincronizado) ══ */
+  (function () {
+    const valDesc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+
+    function construir(sel) {
+      const wrap = document.createElement('div');
+      wrap.className = 'cs ' + (sel.id === 'duracion' ? 'cs-dur' : 'cs-transf');
+      if (sel.closest('.transf-mob')) wrap.classList.add('cs-mob');
+
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'cs-btn';
+      btn.setAttribute('aria-haspopup', 'listbox'); btn.setAttribute('aria-expanded', 'false');
+
+      const lista = document.createElement('ul');
+      lista.className = 'cs-list'; lista.setAttribute('role', 'listbox');
+
+      const placeholder = sel.options[0].textContent;
+      const items = [];
+      let activo = -1;
+
+      function agregarOpcion(o) {
+        const li = document.createElement('li');
+        li.className = 'cs-opt'; li.setAttribute('role', 'option');
+        li.dataset.value = o.value; li.textContent = o.textContent;
+        li.addEventListener('click', () => elegir(o.value));
+        lista.appendChild(li); items.push(li);
+      }
+      Array.from(sel.children).forEach(ch => {
+        if (ch.tagName === 'OPTGROUP') {
+          const g = document.createElement('li');
+          g.className = 'cs-group'; g.textContent = ch.label; g.setAttribute('role', 'presentation');
+          lista.appendChild(g);
+          Array.from(ch.children).forEach(agregarOpcion);
+        } else if (ch.value !== '') {
+          agregarOpcion(ch);
+        }
+      });
+
+      sel.parentNode.insertBefore(wrap, sel);
+      wrap.append(btn, lista, sel);
+      sel.tabIndex = -1;
+
+      function sincronizar() {
+        const tiene = valDesc.get.call(sel) !== '';
+        btn.textContent = tiene ? sel.options[sel.selectedIndex].textContent : placeholder;
+        wrap.classList.toggle('has-value', tiene);
+        wrap.classList.toggle('oculto', sel.classList.contains('oculto'));
+        items.forEach(li => {
+          const on = li.dataset.value === valDesc.get.call(sel);
+          li.classList.toggle('sel', on); li.setAttribute('aria-selected', on);
+        });
+      }
+      function marcar(i) {
+        items.forEach(li => li.classList.remove('active'));
+        activo = i;
+        if (items[i]) { items[i].classList.add('active'); items[i].scrollIntoView({ block: 'nearest' }); }
+      }
+      function abrir() {
+        document.querySelectorAll('.cs.open').forEach(c => c.classList.remove('open'));
+        wrap.classList.add('open'); btn.setAttribute('aria-expanded', 'true');
+        marcar(Math.max(0, items.findIndex(li => li.classList.contains('sel'))));
+      }
+      function cerrar() {
+        wrap.classList.remove('open'); btn.setAttribute('aria-expanded', 'false');
+        items.forEach(li => li.classList.remove('active')); activo = -1;
+      }
+      function elegir(v) {
+        valDesc.set.call(sel, v);
+        sincronizar(); cerrar(); btn.focus();
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+
+      btn.addEventListener('click', () => wrap.classList.contains('open') ? cerrar() : abrir());
+      btn.addEventListener('keydown', e => {
+        const abierto = wrap.classList.contains('open');
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (!abierto) { abrir(); return; }
+          marcar((activo + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (!abierto) abrir(); else if (items[activo]) elegir(items[activo].dataset.value); else cerrar();
+        } else if (e.key === 'Escape' || e.key === 'Tab') {
+          if (abierto) cerrar();
+        }
+      });
+      document.addEventListener('click', e => { if (!wrap.contains(e.target)) cerrar(); });
+
+      // Si el código existente cambia el valor o la clase "oculto", se refleja aquí
+      Object.defineProperty(sel, 'value', {
+        configurable: true,
+        get() { return valDesc.get.call(sel); },
+        set(v) { valDesc.set.call(sel, v); sincronizar(); }
+      });
+      new MutationObserver(sincronizar).observe(sel, { attributes: true, attributeFilter: ['class'] });
+      sincronizar();
+    }
+
+    ['duracion', 'selPC', 'selMob'].map(id => document.getElementById(id)).filter(Boolean).forEach(construir);
+  })();
+</script>
+</body>
+</html>
