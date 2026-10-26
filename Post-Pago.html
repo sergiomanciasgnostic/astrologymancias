@@ -830,8 +830,9 @@
         mensajeAstro = `\n*Datos de Astrología*\nLugar: ${ciudad}, ${provincia}, ${pais}\nHora de nacimiento: ${hora}\n`;
       }
 
+      const estadoPago = (tipoPago === 'PayPal') ? '¡Pago confirmado!' : 'Pago pendiente';
       const mensaje = encodeURIComponent(
-        `Hola, Sergiomancias Gnostic.\n¡Pago confirmado!\nAquí están mis datos:\n\n` +
+        `Hola, Sergiomancias Gnostic.\n${estadoPago}\nAquí están mis datos:\n\n` +
         `*Datos personales*\n_${nombre} ${apellido}_\n` +
         `Nací el ${diaVal} de ${nombreMes} de ${anioVal}\n` +
         `Mi numerología es ${numero}\n` + mensajeZodiaco +
